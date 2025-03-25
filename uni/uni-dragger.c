@@ -24,63 +24,30 @@
 #include "uni-image-view.h"
 #include <math.h>
 
+static void uni_dragger_class_init(UniDraggerClass *klass);
+static void uni_dragger_init(UniDragger *tool);
+static void uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event);
+static void uni_dragger_get_drag_delta(UniDragger *tool, int *x, int *y);
+static void uni_dragger_finalize(GObject *object);
+static void uni_dragger_set_property(GObject *object,
+                         guint prop_id,
+                         const GValue *value, GParamSpec *pspec);
+
 #define NEW_FUNCS
 
-G_DEFINE_TYPE(UniDragger, uni_dragger, G_TYPE_OBJECT)
-
-static GtkTargetEntry target_table[] = {
+static GtkTargetEntry target_table[] =
+{
     {"text/uri-list", 0, 0},
 };
 
-// Static stuff ---------------------------------------------------------------
+G_DEFINE_TYPE(UniDragger, uni_dragger, G_TYPE_OBJECT)
 
-static void uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event)
+UniDragger* uni_dragger_new(GtkWidget *view)
 {
-    if (event->button != 1)
-        return;
+    g_return_val_if_fail(view != NULL, NULL);
 
-#ifdef NEW_FUNCS
-
-    GdkSeat *seat = gdk_display_get_default_seat(gdk_display_get_default());
-
-    GdkGrabStatus ret = gdk_seat_grab(seat,
-                  event->window,
-                  GDK_SEAT_CAPABILITY_POINTER
-                  | GDK_SEAT_CAPABILITY_KEYBOARD,
-                  FALSE,
-                  tool->grab_cursor,
-                  NULL,
-                  NULL,
-                  NULL);
-
-    if (ret != GDK_GRAB_SUCCESS)
-        gdk_seat_ungrab(seat);
-
-#else
-    int mask = (GDK_POINTER_MOTION_MASK
-                | GDK_POINTER_MOTION_HINT_MASK
-                | GDK_BUTTON_RELEASE_MASK);
-
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gdk_pointer_grab(event->window,
-                     FALSE,
-                     mask,
-                     NULL,
-                     tool->grab_cursor,
-                     event->time);
-    G_GNUC_END_IGNORE_DEPRECATIONS
-#endif
-
-    printf("grab\n");
+    return UNI_DRAGGER(g_object_new(UNI_TYPE_DRAGGER, "view", view, NULL));
 }
-
-static void uni_dragger_get_drag_delta(UniDragger *tool, int *x, int *y)
-{
-    *x = tool->drag_base_x - tool->drag_ofs_x;
-    *y = tool->drag_base_y - tool->drag_ofs_y;
-}
-
-// Actions --------------------------------------------------------------------
 
 gboolean uni_dragger_button_press(UniDragger *tool, GdkEventButton *event)
 {
@@ -187,6 +154,55 @@ void uni_dragger_paint_image(UniDragger *tool,
     uni_pixbuf_draw_cache_draw(tool->cache, opts, cr);
 }
 
+
+// Static stuff ---------------------------------------------------------------
+
+static void uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event)
+{
+    if (event->button != 1)
+        return;
+
+#ifdef NEW_FUNCS
+
+    GdkSeat *seat = gdk_display_get_default_seat(gdk_display_get_default());
+
+    GdkGrabStatus ret = gdk_seat_grab(seat,
+                  event->window,
+                  GDK_SEAT_CAPABILITY_POINTER
+                  | GDK_SEAT_CAPABILITY_KEYBOARD,
+                  FALSE,
+                  tool->grab_cursor,
+                  NULL,
+                  NULL,
+                  NULL);
+
+    if (ret != GDK_GRAB_SUCCESS)
+        gdk_seat_ungrab(seat);
+
+#else
+    int mask = (GDK_POINTER_MOTION_MASK
+                | GDK_POINTER_MOTION_HINT_MASK
+                | GDK_BUTTON_RELEASE_MASK);
+
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    gdk_pointer_grab(event->window,
+                     FALSE,
+                     mask,
+                     NULL,
+                     tool->grab_cursor,
+                     event->time);
+    G_GNUC_END_IGNORE_DEPRECATIONS
+#endif
+
+    printf("grab\n");
+}
+
+static void uni_dragger_get_drag_delta(UniDragger *tool, int *x, int *y)
+{
+    *x = tool->drag_base_x - tool->drag_ofs_x;
+    *y = tool->drag_base_y - tool->drag_ofs_y;
+}
+
 // ----------------------------------------------------------------------------
 
 static void uni_dragger_finalize(GObject *object)
@@ -245,20 +261,6 @@ static void uni_dragger_init(UniDragger *tool)
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     tool->grab_cursor = gdk_cursor_new(GDK_FLEUR);
     G_GNUC_END_IGNORE_DEPRECATIONS
-}
-
-/**
- * uni_dragger_new:
- * @view: a #UniImageView
- * @returns: a new #UniDragger
- *
- * Creates and returns a new dragger tool.
- **/
-UniDragger* uni_dragger_new(GtkWidget *view)
-{
-    g_return_val_if_fail(view != NULL, NULL);
-
-    return UNI_DRAGGER(g_object_new(UNI_TYPE_DRAGGER, "view", view, NULL));
 }
 
 

@@ -28,18 +28,27 @@
 #include "uni-cache.h"
 
 G_BEGIN_DECLS
+
 #define UNI_TYPE_DRAGGER (uni_dragger_get_type())
-#define UNI_DRAGGER(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), UNI_TYPE_DRAGGER, UniDragger))
-#define UNI_DRAGGER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), UNI_TYPE_DRAGGER, UniDraggerClass))
-#define UNI_IS_DRAGGER(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), UNI_TYPE_DRAGGER))
-#define UNI_IS_DRAGGER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), UNI_TYPE_DRAGGER))
-#define UNI_DRAGGER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), UNI_TYPE_DRAGGER, UniDraggerClass))
+
+#define UNI_DRAGGER(obj) \
+    (G_TYPE_CHECK_INSTANCE_CAST((obj), UNI_TYPE_DRAGGER, UniDragger))
+#define UNI_DRAGGER_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_CAST((klass), UNI_TYPE_DRAGGER, UniDraggerClass))
+#define UNI_IS_DRAGGER(obj) \
+    (G_TYPE_CHECK_INSTANCE_TYPE((obj), UNI_TYPE_DRAGGER))
+#define UNI_IS_DRAGGER_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_TYPE((klass), UNI_TYPE_DRAGGER))
+#define UNI_DRAGGER_GET_CLASS(obj) \
+    (G_TYPE_INSTANCE_GET_CLASS((obj), UNI_TYPE_DRAGGER, UniDraggerClass))
+
 typedef struct _UniDragger UniDragger;
 typedef struct _UniDraggerClass UniDraggerClass;
 
 struct _UniDragger
 {
     GObject parent;
+
     GtkWidget *view;
     UniPixbufDrawCache *cache;
 
@@ -87,4 +96,7 @@ void uni_dragger_paint_image(UniDragger *tool,
                              cairo_t *cr);
 
 G_END_DECLS
+
 #endif /* __UNI_TOOL_DRAGGER_H__ */
+
+
