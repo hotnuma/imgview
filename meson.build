@@ -48,6 +48,7 @@ configure_file(
 )
 
 app_includes = [
+    'dlg',
     'uni',
     'vnr',
 ]
@@ -56,6 +57,10 @@ subdir('po')
 subdir('data')
 
 app_sources = [
+    'dlg/dialog.c',
+    'dlg/vnr-crop.c',
+    'dlg/vnr-properties-dialog.c',
+    'dlg/xfce-filename-input.c',
     'uni/uni-anim-view.c',
     'uni/uni-cache.c',
     'uni/uni-dragger.c',
@@ -64,12 +69,8 @@ app_sources = [
     'uni/uni-nav.c',
     'uni/uni-scroll-win.c',
     'uni/uni-utils.c',
-    'vnr/vnr-crop.c',
     'vnr/vnr-message-area.c',
-    'vnr/vnr-properties-dialog.c',
     'vnr/vnr-tools.c',
-    'vnr/xfce-filename-input.c',
-    'dialog.c',
     'file.c',
     'list.c',
     'main.c',

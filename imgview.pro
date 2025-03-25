@@ -14,6 +14,10 @@ PKGCONFIG += tinyui
 PKGCONFIG += shared-mime-info
 
 HEADERS = \
+    dlg/dialog.h \
+    dlg/vnr-crop.h \
+    dlg/vnr-properties-dialog.h \
+    dlg/xfce-filename-input.h \
     uni/uni-anim-view.h \
     uni/uni-cache.h \
     uni/uni-dragger.h \
@@ -23,19 +27,19 @@ HEADERS = \
     uni/uni-scroll-win.h \
     uni/uni-utils.h \
     uni/uni-zoom.h \
-    vnr/vnr-crop.h \
     vnr/vnr-message-area.h \
-    vnr/vnr-properties-dialog.h \
     vnr/vnr-tools.h \
-    vnr/xfce-filename-input.h \
     config.h.in \
-    dialog.h \
     file.h \
     list.h \
     preferences.h \
     window.h \
 
 SOURCES = \
+    dlg/dialog.c \
+    dlg/vnr-crop.c \
+    dlg/vnr-properties-dialog.c \
+    dlg/xfce-filename-input.c \
     uni/uni-anim-view.c \
     uni/uni-cache.c \
     uni/uni-dragger.c \
@@ -44,13 +48,9 @@ SOURCES = \
     uni/uni-nav.c \
     uni/uni-scroll-win.c \
     uni/uni-utils.c \
-    vnr/vnr-crop.c \
     vnr/vnr-message-area.c \
-    vnr/vnr-properties-dialog.c \
     vnr/vnr-tools.c \
-    vnr/xfce-filename-input.c \
     0temp.c \
-    dialog.c \
     file.c \
     list.c \
     main.c \
