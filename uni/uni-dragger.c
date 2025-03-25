@@ -20,74 +20,110 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <math.h>
-#include <stdlib.h>
 #include "uni-dragger.h"
 #include "uni-image-view.h"
+#include <math.h>
+
+#define NEW_FUNCS
 
 G_DEFINE_TYPE(UniDragger, uni_dragger, G_TYPE_OBJECT)
 
-/* Drag 'n Drop */
 static GtkTargetEntry target_table[] = {
     {"text/uri-list", 0, 0},
 };
 
-/*************************************************************/
-/***** Static stuff ******************************************/
-/*************************************************************/
+// Static stuff ---------------------------------------------------------------
 
-static void
-uni_dragger_grab_pointer(UniDragger *tool,
-                         GdkWindow *window, guint32 time)
+static void uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event)
 {
-    int mask = (GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_RELEASE_MASK);
+    if (event->button != 1)
+        return;
+
+#ifdef NEW_FUNCS
+
+    GdkSeat *seat = gdk_display_get_default_seat(gdk_display_get_default());
+
+    GdkGrabStatus ret = gdk_seat_grab(seat,
+                  event->window,
+                  GDK_SEAT_CAPABILITY_POINTER
+                  | GDK_SEAT_CAPABILITY_KEYBOARD,
+                  FALSE,
+                  tool->grab_cursor,
+                  NULL,
+                  NULL,
+                  NULL);
+
+    if (ret != GDK_GRAB_SUCCESS)
+        gdk_seat_ungrab(seat);
+
+#else
+    int mask = (GDK_POINTER_MOTION_MASK
+                | GDK_POINTER_MOTION_HINT_MASK
+                | GDK_BUTTON_RELEASE_MASK);
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gdk_pointer_grab(window, FALSE, mask, NULL, tool->grab_cursor, time);
+    gdk_pointer_grab(event->window,
+                     FALSE,
+                     mask,
+                     NULL,
+                     tool->grab_cursor,
+                     event->time);
     G_GNUC_END_IGNORE_DEPRECATIONS
+#endif
+
+    printf("grab\n");
 }
 
-static void
-uni_dragger_get_drag_delta(UniDragger *tool, int *x, int *y)
+static void uni_dragger_get_drag_delta(UniDragger *tool, int *x, int *y)
 {
     *x = tool->drag_base_x - tool->drag_ofs_x;
     *y = tool->drag_base_y - tool->drag_ofs_y;
 }
 
-/*************************************************************/
-/***** Actions ***********************************************/
-/*************************************************************/
+// Actions --------------------------------------------------------------------
 
-gboolean
-uni_dragger_button_press(UniDragger *tool, GdkEventButton *ev)
+gboolean uni_dragger_button_press(UniDragger *tool, GdkEventButton *event)
 {
-    uni_dragger_grab_pointer(tool, ev->window, ev->time);
+    uni_dragger_grab_pointer(tool, event);
+
     tool->pressed = TRUE;
-    tool->drag_base_x = ev->x;
-    tool->drag_base_y = ev->y;
-    tool->drag_ofs_x = ev->x;
-    tool->drag_ofs_y = ev->y;
+    tool->drag_base_x = event->x;
+    tool->drag_base_y = event->y;
+    tool->drag_ofs_x = event->x;
+    tool->drag_ofs_y = event->y;
 
     return TRUE;
 }
 
-gboolean
-uni_dragger_button_release(UniDragger *tool, GdkEventButton *ev)
+gboolean uni_dragger_button_release(UniDragger *tool, GdkEventButton *event)
 {
-    if (ev->button != 1)
+    printf("enter ungrab\n");
+
+#ifdef NEW_FUNCS
+
+    GdkSeat *seat = gdk_display_get_default_seat(gdk_display_get_default());
+    gdk_seat_ungrab(seat);
+
+#else
+
+    if (event->button != 1)
         return FALSE;
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gdk_pointer_ungrab(ev->time);
+    gdk_pointer_ungrab(event->time);
     G_GNUC_END_IGNORE_DEPRECATIONS
+
+#endif
+
+    printf("ungrab\n");
 
     tool->pressed = FALSE;
     tool->dragging = FALSE;
+
     return TRUE;
 }
 
-gboolean
-uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *ev)
+gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *ev)
 {
     GtkAdjustment *vadj;
     GtkAdjustment *hadj;
@@ -139,8 +175,8 @@ uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *ev)
     return TRUE;
 }
 
-void uni_dragger_pixbuf_changed(UniDragger *tool,
-                                gboolean reset_fit, GdkRectangle *rect)
+void uni_dragger_pixbuf_changed(UniDragger *tool, gboolean reset_fit,
+                                GdkRectangle *rect)
 {
     uni_pixbuf_draw_cache_invalidate(tool->cache);
 }
@@ -151,12 +187,9 @@ void uni_dragger_paint_image(UniDragger *tool,
     uni_pixbuf_draw_cache_draw(tool->cache, opts, cr);
 }
 
-/*************************************************************/
-/***** Stuff that deals with the type ************************/
-/*************************************************************/
+// ----------------------------------------------------------------------------
 
-static void
-uni_dragger_finalize(GObject *object)
+static void uni_dragger_finalize(GObject *object)
 {
     UniDragger *dragger = UNI_DRAGGER(object);
     uni_pixbuf_draw_cache_free(dragger->cache);
@@ -170,20 +203,19 @@ enum
     PROP_IMAGE_VIEW = 1
 };
 
-static void
-uni_dragger_set_property(GObject *object,
+static void uni_dragger_set_property(GObject *object,
                          guint prop_id,
                          const GValue *value, GParamSpec *pspec)
 {
     UniDragger *dragger = UNI_DRAGGER(object);
+
     if (prop_id == PROP_IMAGE_VIEW)
         dragger->view = g_value_get_object(value);
     else
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 }
 
-static void
-uni_dragger_class_init(UniDraggerClass *klass)
+static void uni_dragger_class_init(UniDraggerClass *klass)
 {
     GObjectClass *object_class = (GObjectClass *)klass;
     object_class->finalize = uni_dragger_finalize;
@@ -222,15 +254,11 @@ static void uni_dragger_init(UniDragger *tool)
  *
  * Creates and returns a new dragger tool.
  **/
-UniDragger *
-uni_dragger_new(GtkWidget *view)
+UniDragger* uni_dragger_new(GtkWidget *view)
 {
     g_return_val_if_fail(view != NULL, NULL);
-    UniDragger *data;
 
-    data = UNI_DRAGGER(g_object_new(UNI_TYPE_DRAGGER, "view", view, NULL));
-
-    return data;
+    return UNI_DRAGGER(g_object_new(UNI_TYPE_DRAGGER, "view", view, NULL));
 }
 
 
