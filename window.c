@@ -365,7 +365,7 @@ static void window_init(VnrWindow *window)
     window->can_slideshow = TRUE;
 
     gtk_window_set_title((GtkWindow*) window, "ImgView");
-    gtk_window_set_default_icon_name("imgview");
+    gtk_window_set_default_icon_name("viewnior");
 
     window->layout_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
