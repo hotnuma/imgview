@@ -1,0 +1,5 @@
+**/autre/
+**/build/
+**/.cache/
+*.pro.user
+*.html
