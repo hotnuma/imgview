@@ -48,26 +48,27 @@ configure_file(
 )
 
 app_includes = [
-    'src',
+    'uni',
+    'vnr',
 ]
 
 subdir('po')
 subdir('data')
 
 app_sources = [
-    'src/uni-anim-view.c',
-    'src/uni-cache.c',
-    'src/uni-dragger.c',
-    'src/uni-exiv2.cpp',
-    'src/uni-image-view.c',
-    'src/uni-nav.c',
-    'src/uni-scroll-win.c',
-    'src/uni-utils.c',
-    'src/vnr-crop.c',
-    'src/vnr-message-area.c',
-    'src/vnr-properties-dialog.c',
-    'src/vnr-tools.c',
-    'src/xfce-filename-input.c',
+    'uni/uni-anim-view.c',
+    'uni/uni-cache.c',
+    'uni/uni-dragger.c',
+    'uni/uni-exiv2.cpp',
+    'uni/uni-image-view.c',
+    'uni/uni-nav.c',
+    'uni/uni-scroll-win.c',
+    'uni/uni-utils.c',
+    'vnr/vnr-crop.c',
+    'vnr/vnr-message-area.c',
+    'vnr/vnr-properties-dialog.c',
+    'vnr/vnr-tools.c',
+    'vnr/xfce-filename-input.c',
     'dialog.c',
     'file.c',
     'list.c',
@@ -76,11 +77,9 @@ app_sources = [
     'window.c',
 ]
 
-marshal = 'uni-marshal'
-
 app_sources += gnome.genmarshal(
-    marshal,
-    sources: 'src/' + marshal + '.list',
+    'uni-marshal',
+    sources: 'uni/uni-marshal.list',
     prefix: 'uni_marshal',
     internal: true
 )
