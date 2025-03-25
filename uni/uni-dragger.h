@@ -74,25 +74,15 @@ struct _UniDraggerClass
 
 GType uni_dragger_get_type(void) G_GNUC_CONST;
 
-// Constructors
 UniDragger *uni_dragger_new(GtkWidget *view);
 
-// Actions
-gboolean uni_dragger_button_press(UniDragger *tool,
-                                  GdkEventButton *ev);
+gboolean uni_dragger_button_press(UniDragger *tool, GdkEventButton *event);
+gboolean uni_dragger_button_release(UniDragger *tool, GdkEventButton *event);
+gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *event);
 
-gboolean uni_dragger_button_release(UniDragger *tool,
-                                    GdkEventButton *ev);
-
-gboolean uni_dragger_motion_notify(UniDragger *tool,
-                                   GdkEventMotion *ev);
-
-void uni_dragger_pixbuf_changed(UniDragger *tool,
-                                gboolean reset_fit,
+void uni_dragger_pixbuf_changed(UniDragger *tool, gboolean reset_fit,
                                 GdkRectangle *rect);
-
-void uni_dragger_paint_image(UniDragger *tool,
-                             UniPixbufDrawOpts *opts,
+void uni_dragger_paint_image(UniDragger *tool, UniPixbufDrawOpts *opts,
                              cairo_t *cr);
 
 G_END_DECLS

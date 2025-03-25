@@ -193,7 +193,7 @@ gboolean uni_dragger_button_release(UniDragger *tool, GdkEventButton *event)
     return TRUE;
 }
 
-gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *ev)
+gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *event)
 {
     GtkAdjustment *vadj;
     GtkAdjustment *hadj;
@@ -203,8 +203,8 @@ gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *ev)
     else
         return FALSE;
 
-    tool->drag_ofs_x = ev->x;
-    tool->drag_ofs_y = ev->y;
+    tool->drag_ofs_x = event->x;
+    tool->drag_ofs_y = event->y;
 
     int dx;
     int dy;
@@ -223,7 +223,7 @@ gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *ev)
         && gtk_adjustment_get_upper(hadj)
             <= gtk_adjustment_get_page_size(hadj))
     {
-        uni_dragger_button_release(tool, (GdkEventButton *)ev);
+        uni_dragger_button_release(tool, (GdkEventButton *)event);
 
         G_GNUC_BEGIN_IGNORE_DEPRECATIONS
         gtk_drag_begin(GTK_WIDGET(tool->view),
@@ -231,7 +231,7 @@ gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *ev)
                        G_N_ELEMENTS(target_table)),
                        GDK_ACTION_COPY,
                        1,
-                       (GdkEvent *)ev);
+                       (GdkEvent*) event);
         G_GNUC_END_IGNORE_DEPRECATIONS
 
         return TRUE;
