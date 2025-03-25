@@ -55,15 +55,15 @@ struct _UniDragger
     gboolean pressed;
     gboolean dragging;
 
-    /* Position where the mouse was pressed. */
+    // Position where the mouse was pressed.
     int drag_base_x;
     int drag_base_y;
 
-    /* Current position of the mouse. */
+    // Current position of the mouse.
     int drag_ofs_x;
     int drag_ofs_y;
 
-    /* Cursor to use when grabbing. */
+    // Cursor to use when grabbing.
     GdkCursor *grab_cursor;
 };
 
@@ -74,10 +74,10 @@ struct _UniDraggerClass
 
 GType uni_dragger_get_type(void) G_GNUC_CONST;
 
-/* Constructors */
+// Constructors
 UniDragger *uni_dragger_new(GtkWidget *view);
 
-/* Actions */
+// Actions
 gboolean uni_dragger_button_press(UniDragger *tool,
                                   GdkEventButton *ev);
 
@@ -97,6 +97,6 @@ void uni_dragger_paint_image(UniDragger *tool,
 
 G_END_DECLS
 
-#endif /* __UNI_TOOL_DRAGGER_H__ */
+#endif // __UNI_TOOL_DRAGGER_H__
 
 
