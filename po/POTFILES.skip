@@ -1,0 +1,4 @@
+# List of source files that should *not* be translated.
+# Please keep this file sorted alphabetically.
+data/imgview.desktop.in
+sub/data/imgview.desktop.in
