@@ -1,3 +1,15 @@
+cgrep -l G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
+window.c
+vnr/vnr-message-area.c
+uni/uni-anim-view.h
+uni/uni-scroll-win.c
+uni/uni-anim-view.c
+uni/uni-image-view.c
+uni/uni-nav.c
+dlg/vnr-properties-dialog.c
+dlg/vnr-crop.c
+
 cgrep -A 5 G_GNUC_BEGIN_IGNORE_DEPRECATIONS > deprecations.txt
 
 window.c:590:        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -104,34 +116,6 @@ src/uni-anim-view.c-264-    G_GNUC_END_IGNORE_DEPRECATIONS
 src/uni-anim-view.c-265-
 src/uni-anim-view.c-266-    aview->iter = gdk_pixbuf_animation_get_iter(aview->anim, &aview->time);
 src/uni-anim-view.c-267-
---
-src/uni-dragger.c:45:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-src/uni-dragger.c-46-    gdk_pointer_grab(window, FALSE, mask, NULL, tool->grab_cursor, time);
-src/uni-dragger.c-47-    G_GNUC_END_IGNORE_DEPRECATIONS
-src/uni-dragger.c-48-}
-src/uni-dragger.c-49-
-src/uni-dragger.c-50-static void
---
-src/uni-dragger.c:80:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-src/uni-dragger.c-81-    gdk_pointer_ungrab(ev->time);
-src/uni-dragger.c-82-    G_GNUC_END_IGNORE_DEPRECATIONS
-src/uni-dragger.c-83-
-src/uni-dragger.c-84-    tool->pressed = FALSE;
-src/uni-dragger.c-85-    tool->dragging = FALSE;
---
-src/uni-dragger.c:116:        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-src/uni-dragger.c-117-        gtk_drag_begin(GTK_WIDGET(tool->view),
-src/uni-dragger.c-118-                       gtk_target_list_new(target_table, G_N_ELEMENTS(target_table)),
-src/uni-dragger.c-119-                       GDK_ACTION_COPY,
-src/uni-dragger.c-120-                       1,
-src/uni-dragger.c-121-                       (GdkEvent *)ev);
---
-src/uni-dragger.c:213:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-src/uni-dragger.c-214-    tool->grab_cursor = gdk_cursor_new(GDK_FLEUR);
-src/uni-dragger.c-215-    G_GNUC_END_IGNORE_DEPRECATIONS
-src/uni-dragger.c-216-}
-src/uni-dragger.c-217-
-src/uni-dragger.c-218-/**
 --
 src/uni-image-view.c:163:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 src/uni-image-view.c-164-    gtk_adjustment_changed(view->priv->hadjustment);
