@@ -19,12 +19,26 @@ window.c-627-                                         color);
 window.c-628-    G_GNUC_END_IGNORE_DEPRECATIONS
 window.c-629-}
 --
-vnr/vnr-message-area.c:41:G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-vnr/vnr-message-area.c-42-
-vnr/vnr-message-area.c-43-static void
-vnr/vnr-message-area.c-44-vnr_message_area_initialize(VnrMessageArea *msg_area)
-vnr/vnr-message-area.c-45-{
-vnr/vnr-message-area.c-46-    msg_area->with_button = FALSE;
+vnr/vnr-message-area.c:70:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+vnr/vnr-message-area.c-71-    msg_area->cancel_button = gtk_button_new_from_stock("gtk-cancel");
+vnr/vnr-message-area.c-72-    G_GNUC_END_IGNORE_DEPRECATIONS
+vnr/vnr-message-area.c-73-
+vnr/vnr-message-area.c-74-    g_signal_connect(msg_area->cancel_button, "clicked",
+vnr/vnr-message-area.c-75-                     G_CALLBACK(cancel_button_cb), msg_area);
+--
+vnr/vnr-message-area.c:115:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+vnr/vnr-message-area.c-116-    if (critical)
+vnr/vnr-message-area.c-117-        gtk_image_set_from_stock(GTK_IMAGE(msg_area->image),
+vnr/vnr-message-area.c-118-                                 "gtk-dialog-error",
+vnr/vnr-message-area.c-119-                                 GTK_ICON_SIZE_DIALOG);
+vnr/vnr-message-area.c-120-    else
+--
+vnr/vnr-message-area.c:166:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+vnr/vnr-message-area.c-167-    gtk_button_set_use_stock(GTK_BUTTON(msg_area->user_button), TRUE);
+vnr/vnr-message-area.c-168-    G_GNUC_END_IGNORE_DEPRECATIONS
+vnr/vnr-message-area.c-169-
+vnr/vnr-message-area.c-170-    gtk_button_set_label(GTK_BUTTON(msg_area->user_button), button_stock_id);
+vnr/vnr-message-area.c-171-
 --
 uni/uni-anim-view.h:59:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 uni/uni-anim-view.h-60-    GTimeVal time;
