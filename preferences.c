@@ -161,58 +161,58 @@ static GtkWidget* _prefs_build(VnrPrefs *prefs)
 
     window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
 
-    /* Close button */
+    // Close button
     close_button = gtk_builder_get_object(builder, "close_button");
     g_signal_connect_swapped(close_button, "clicked",
                              G_CALLBACK(gtk_widget_hide_on_delete), window);
 
-    /* Show hidden files checkbox */
+    // Show hidden files checkbox
     show_hidden = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "show_hidden"));
     gtk_toggle_button_set_active(show_hidden, prefs->show_hidden);
     g_signal_connect(G_OBJECT(show_hidden), "toggled", G_CALLBACK(toggle_show_hidden_cb), prefs);
 
-    /* Show dark background checkbox */
+    // Show dark background checkbox
     dark_background = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "dark_background"));
     gtk_toggle_button_set_active(dark_background, prefs->dark_background);
     g_signal_connect(G_OBJECT(dark_background), "toggled", G_CALLBACK(toggle_dark_background_cb), prefs);
 
-    /* Fit on fullscreen checkbox */
+    // Fit on fullscreen checkbox
     fit_on_fullscreen = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "fit_on_fullscreen"));
     gtk_toggle_button_set_active(fit_on_fullscreen, prefs->fit_on_fullscreen);
     g_signal_connect(G_OBJECT(fit_on_fullscreen), "toggled", G_CALLBACK(toggle_fit_on_fullscreen_cb), prefs);
 
-    /* Smooth images checkbox */
+    // Smooth images checkbox
     smooth_images = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "smooth_images"));
     gtk_toggle_button_set_active(smooth_images, prefs->smooth_images);
     g_signal_connect(G_OBJECT(smooth_images), "toggled", G_CALLBACK(toggle_smooth_images_cb), prefs);
 
-    /* Confirm delete checkbox */
+    // Confirm delete checkbox
     confirm_delete = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "confirm_delete"));
     gtk_toggle_button_set_active(confirm_delete, prefs->confirm_delete);
     g_signal_connect(G_OBJECT(confirm_delete), "toggled", G_CALLBACK(toggle_confirm_delete_cb), prefs);
 
-    /* Reload image after save checkbox */
+    // Reload image after save checkbox
     reload_on_save = GTK_TOGGLE_BUTTON(gtk_builder_get_object(builder, "reload"));
     gtk_toggle_button_set_active(reload_on_save, prefs->reload_on_save);
     g_signal_connect(G_OBJECT(reload_on_save), "toggled", G_CALLBACK(toggle_reload_on_save_cb), prefs);
 
-    /* Slideshow timeout spin button */
+    // Slideshow timeout spin button
     slideshow_timeout = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "slideshow_timeout"));
     gtk_spin_button_set_value(slideshow_timeout, (gdouble)prefs->slideshow_timeout);
     prefs->slideshow_timeout_widget = slideshow_timeout;
     g_signal_connect(G_OBJECT(slideshow_timeout), "value-changed", G_CALLBACK(change_spin_value_cb), prefs);
 
-    /* JPEG quality scale */
+    // JPEG quality scale
     jpeg_scale = GTK_RANGE(gtk_builder_get_object(builder, "jpeg_scale"));
     gtk_range_set_value(jpeg_scale, (gdouble)prefs->jpeg_quality);
     g_signal_connect(G_OBJECT(jpeg_scale), "value-changed", G_CALLBACK(change_jpeg_quality_cb), prefs);
 
-    /* PNG compression scale */
+    // PNG compression scale
     png_scale = GTK_RANGE(gtk_builder_get_object(builder, "png_scale"));
     gtk_range_set_value(png_scale, (gdouble)prefs->png_compression);
     g_signal_connect(G_OBJECT(png_scale), "value-changed", G_CALLBACK(change_png_compression_cb), prefs);
 
-    /* Zoom mode combo box */
+    // Zoom mode combo box
     zoom_mode_box = GTK_BOX(gtk_builder_get_object(builder, "zoom_mode_box"));
 
     zoom_mode = (GtkComboBoxText *)gtk_combo_box_text_new();
@@ -227,7 +227,7 @@ static GtkWidget* _prefs_build(VnrPrefs *prefs)
 
     g_signal_connect(G_OBJECT(zoom_mode), "changed", G_CALLBACK(change_zoom_mode_cb), prefs);
 
-    /* Desktop combo box */
+    // Desktop combo box
     desktop_box = GTK_BOX(gtk_builder_get_object(builder, "desktop_box"));
 
     desktop_env = (GtkComboBoxText*) gtk_combo_box_text_new();

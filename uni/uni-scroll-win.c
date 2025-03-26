@@ -115,7 +115,7 @@ static void uni_scroll_win_init(UniScrollWin *window)
     //window->vscroll = NULL;
     //window->nav_box = NULL;
     //window->nav = NULL;
-    //window->show_scrollbar = FALSE;
+    window->show_scrollbar = TRUE;
 
     // Setup the navigator button.
     window->nav_button = gdk_pixbuf_new_from_xpm_data(nav_button);
@@ -299,14 +299,14 @@ gboolean uni_scroll_win_image_fits(UniScrollWin *window)
            && gtk_adjustment_get_upper(vadj) <= allocation.height;
 }
 
-void uni_scroll_win_set_show_scrollbar(UniScrollWin *window, gboolean show)
-{
-    window->show_scrollbar = show;
+//void uni_scroll_win_set_show_scrollbar(UniScrollWin *window, gboolean show)
+//{
+//    window->show_scrollbar = show;
 
-    _uni_scroll_win_show_scrollbar(window,
-                                  window->show_scrollbar
-                                  && !uni_scroll_win_image_fits(window));
-}
+//    _uni_scroll_win_show_scrollbar(window,
+//                                  window->show_scrollbar
+//                                  && !uni_scroll_win_image_fits(window));
+//}
 
 static void _uni_scroll_win_show_scrollbar(UniScrollWin *window, gboolean show)
 {
