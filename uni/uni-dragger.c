@@ -29,8 +29,8 @@ static void uni_dragger_set_property(GObject *object,
                                      guint prop_id,
                                      const GValue *value,
                                      GParamSpec *pspec);
-static void _uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event);
-static void _uni_dragger_get_drag_delta(UniDragger *tool, int *x, int *y);
+static void _uni_dragger_grab_pointer(UniDragger *dragger, GdkEventButton *event);
+static void _uni_dragger_get_drag_delta(UniDragger *dragger, int *x, int *y);
 
 #define NEW_FUNCS
 
@@ -53,7 +53,8 @@ UniDragger* uni_dragger_new(GtkWidget *view)
 {
     g_return_val_if_fail(view != NULL, NULL);
 
-    return UNI_DRAGGER(g_object_new(UNI_TYPE_DRAGGER, "view", view, NULL));
+    return UNI_DRAGGER(g_object_new(UNI_TYPE_DRAGGER,
+                                    "view", view, NULL));
 }
 
 static void uni_dragger_class_init(UniDraggerClass *klass)
@@ -66,27 +67,20 @@ static void uni_dragger_class_init(UniDraggerClass *klass)
                                             "Image View",
                                             "Image View to navigate",
                                             UNI_TYPE_IMAGE_VIEW,
-                                            G_PARAM_CONSTRUCT_ONLY |
-                                                G_PARAM_WRITABLE);
+                                            G_PARAM_CONSTRUCT_ONLY
+                                            | G_PARAM_WRITABLE);
 
     g_object_class_install_property(object_class, PROP_IMAGE_VIEW, pspec);
 }
 
-static void uni_dragger_init(UniDragger *tool)
+static void uni_dragger_init(UniDragger *dragger)
 {
-    tool->view = NULL;
-    tool->cache = uni_pixbuf_draw_cache_new();
+    dragger->cache = uni_pixbuf_draw_cache_new();
 
-    tool->pressed = FALSE;
-    tool->dragging = FALSE;
-    tool->drag_base_x = 0;
-    tool->drag_base_y = 0;
-    tool->drag_ofs_x = 0;
-    tool->drag_ofs_y = 0;
+    //tool->grab_cursor = gdk_cursor_new(GDK_FLEUR);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    tool->grab_cursor = gdk_cursor_new(GDK_FLEUR);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    dragger->grab_cursor = gdk_cursor_new_for_display(
+                                gdk_display_get_default(), GDK_FLEUR);
 }
 
 static void uni_dragger_set_property(GObject *object, guint prop_id,
@@ -105,6 +99,12 @@ static void uni_dragger_finalize(GObject *object)
     UniDragger *dragger = UNI_DRAGGER(object);
     uni_pixbuf_draw_cache_free(dragger->cache);
 
+    if (dragger->grab_cursor)
+    {
+        g_object_unref(dragger->grab_cursor);
+        dragger->grab_cursor = NULL;
+    }
+
     // Chain up
     G_OBJECT_CLASS(uni_dragger_parent_class)->finalize(object);
 }
@@ -112,20 +112,20 @@ static void uni_dragger_finalize(GObject *object)
 
 // public ---------------------------------------------------------------------
 
-gboolean uni_dragger_button_press(UniDragger *tool, GdkEventButton *event)
+gboolean uni_dragger_button_press(UniDragger *dragger, GdkEventButton *event)
 {
-    _uni_dragger_grab_pointer(tool, event);
+    _uni_dragger_grab_pointer(dragger, event);
 
-    tool->pressed = TRUE;
-    tool->drag_base_x = event->x;
-    tool->drag_base_y = event->y;
-    tool->drag_ofs_x = event->x;
-    tool->drag_ofs_y = event->y;
+    dragger->pressed = TRUE;
+    dragger->drag_base_x = event->x;
+    dragger->drag_base_y = event->y;
+    dragger->drag_ofs_x = event->x;
+    dragger->drag_ofs_y = event->y;
 
     return TRUE;
 }
 
-static void _uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event)
+static void _uni_dragger_grab_pointer(UniDragger *dragger, GdkEventButton *event)
 {
     if (event->button != 1)
         return;
@@ -139,7 +139,7 @@ static void _uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event)
                   GDK_SEAT_CAPABILITY_POINTER
                   | GDK_SEAT_CAPABILITY_KEYBOARD,
                   FALSE,
-                  tool->grab_cursor,
+                  dragger->grab_cursor,
                   NULL,
                   NULL,
                   NULL);
@@ -152,22 +152,20 @@ static void _uni_dragger_grab_pointer(UniDragger *tool, GdkEventButton *event)
                 | GDK_POINTER_MOTION_HINT_MASK
                 | GDK_BUTTON_RELEASE_MASK);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gdk_pointer_grab(event->window,
                      FALSE,
                      mask,
                      NULL,
                      tool->grab_cursor,
                      event->time);
-    G_GNUC_END_IGNORE_DEPRECATIONS
 #endif
 
-    printf("grab\n");
+    //printf("grab\n");
 }
 
-gboolean uni_dragger_button_release(UniDragger *tool, GdkEventButton *event)
+gboolean uni_dragger_button_release(UniDragger *dragger, GdkEventButton *event)
 {
-    printf("enter ungrab\n");
+    //printf("enter ungrab\n");
 
 #ifdef NEW_FUNCS
 
@@ -179,99 +177,107 @@ gboolean uni_dragger_button_release(UniDragger *tool, GdkEventButton *event)
     if (event->button != 1)
         return FALSE;
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gdk_pointer_ungrab(event->time);
-    G_GNUC_END_IGNORE_DEPRECATIONS
 
 #endif
 
-    printf("ungrab\n");
+    //printf("ungrab\n");
 
-    tool->pressed = FALSE;
-    tool->dragging = FALSE;
+    dragger->pressed = FALSE;
+    dragger->dragging = FALSE;
 
     return TRUE;
 }
 
-gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *event)
+gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
 {
     GtkAdjustment *vadj;
     GtkAdjustment *hadj;
 
-    if (tool->pressed)
-        tool->dragging = TRUE;
+    if (dragger->pressed)
+        dragger->dragging = TRUE;
     else
         return FALSE;
 
-    tool->drag_ofs_x = event->x;
-    tool->drag_ofs_y = event->y;
+    dragger->drag_ofs_x = event->x;
+    dragger->drag_ofs_y = event->y;
 
     int dx;
     int dy;
-    _uni_dragger_get_drag_delta(tool, &dx, &dy);
+    _uni_dragger_get_drag_delta(dragger, &dx, &dy);
 
     if (abs(dx) < 1 && abs(dy) < 1)
         return FALSE;
 
-    vadj = uni_image_view_get_vadjustment(UNI_IMAGE_VIEW(tool->view));
-    hadj = uni_image_view_get_hadjustment(UNI_IMAGE_VIEW(tool->view));
+    vadj = uni_image_view_get_vadjustment(UNI_IMAGE_VIEW(dragger->view));
+    hadj = uni_image_view_get_hadjustment(UNI_IMAGE_VIEW(dragger->view));
 
     if (pow(dx, 2) + pow(dy, 2) > 7
-        && UNI_IMAGE_VIEW(tool->view)->pixbuf != NULL
+        && UNI_IMAGE_VIEW(dragger->view)->pixbuf != NULL
         && gtk_adjustment_get_upper(vadj)
             <= gtk_adjustment_get_page_size(vadj)
         && gtk_adjustment_get_upper(hadj)
             <= gtk_adjustment_get_page_size(hadj))
     {
-        uni_dragger_button_release(tool, (GdkEventButton *)event);
+        uni_dragger_button_release(dragger, (GdkEventButton *)event);
 
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-        gtk_drag_begin(GTK_WIDGET(tool->view),
-                       gtk_target_list_new(target_table,
-                       G_N_ELEMENTS(target_table)),
-                       GDK_ACTION_COPY,
-                       1,
-                       (GdkEvent*) event);
-        G_GNUC_END_IGNORE_DEPRECATIONS
+        //gtk_drag_begin(GTK_WIDGET(dragger->view),
+        //               gtk_target_list_new(target_table,
+        //                                   G_N_ELEMENTS(target_table)),
+        //               GDK_ACTION_COPY,
+        //               1,
+        //               (GdkEvent*) event);
+
+        // mem leak in gtk_target_list_new ?
+
+        gtk_drag_begin_with_coordinates(
+                            GTK_WIDGET(dragger->view),
+                            gtk_target_list_new(target_table,
+                                                G_N_ELEMENTS(target_table)),
+                            GDK_ACTION_COPY,
+                            1,
+                            (GdkEvent*) event,
+                            -1,
+                            -1);
 
         return TRUE;
     }
 
     GdkRectangle viewport;
 
-    uni_image_view_get_viewport(UNI_IMAGE_VIEW(tool->view), &viewport);
+    uni_image_view_get_viewport(UNI_IMAGE_VIEW(dragger->view), &viewport);
 
     int offset_x = viewport.x + dx;
     int offset_y = viewport.y + dy;
 
-    uni_image_view_set_offset(UNI_IMAGE_VIEW(tool->view), offset_x,
+    uni_image_view_set_offset(UNI_IMAGE_VIEW(dragger->view), offset_x,
                               offset_y, FALSE);
 
-    tool->drag_base_x = tool->drag_ofs_x;
-    tool->drag_base_y = tool->drag_ofs_y;
+    dragger->drag_base_x = dragger->drag_ofs_x;
+    dragger->drag_base_y = dragger->drag_ofs_y;
 
     return TRUE;
 }
 
-static void _uni_dragger_get_drag_delta(UniDragger *tool, int *x, int *y)
+static void _uni_dragger_get_drag_delta(UniDragger *dragger, int *x, int *y)
 {
-    *x = tool->drag_base_x - tool->drag_ofs_x;
-    *y = tool->drag_base_y - tool->drag_ofs_y;
+    *x = dragger->drag_base_x - dragger->drag_ofs_x;
+    *y = dragger->drag_base_y - dragger->drag_ofs_y;
 }
 
 
 // ----------------------------------------------------------------------------
 
-void uni_dragger_pixbuf_changed(UniDragger *tool, gboolean reset_fit,
+void uni_dragger_pixbuf_changed(UniDragger *dragger, gboolean reset_fit,
                                 GdkRectangle *rect)
 {
-    uni_pixbuf_draw_cache_invalidate(tool->cache);
+    uni_pixbuf_draw_cache_invalidate(dragger->cache);
 }
 
-void uni_dragger_paint_image(UniDragger *tool, UniPixbufDrawOpts *opts,
+void uni_dragger_paint_image(UniDragger *dragger, UniPixbufDrawOpts *opts,
                              cairo_t *cr)
 {
-    uni_pixbuf_draw_cache_draw(tool->cache, opts, cr);
+    uni_pixbuf_draw_cache_draw(dragger->cache, opts, cr);
 }
 
 

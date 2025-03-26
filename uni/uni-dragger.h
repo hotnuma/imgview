@@ -72,17 +72,17 @@ struct _UniDraggerClass
     GObjectClass parent;
 };
 
-GType uni_dragger_get_type(void) G_GNUC_CONST;
+GType uni_dragger_get_type() G_GNUC_CONST;
 
 UniDragger *uni_dragger_new(GtkWidget *view);
 
-gboolean uni_dragger_button_press(UniDragger *tool, GdkEventButton *event);
-gboolean uni_dragger_button_release(UniDragger *tool, GdkEventButton *event);
-gboolean uni_dragger_motion_notify(UniDragger *tool, GdkEventMotion *event);
+gboolean uni_dragger_button_press(UniDragger *dragger, GdkEventButton *event);
+gboolean uni_dragger_button_release(UniDragger *dragger, GdkEventButton *event);
+gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event);
 
-void uni_dragger_pixbuf_changed(UniDragger *tool, gboolean reset_fit,
+void uni_dragger_pixbuf_changed(UniDragger *dragger, gboolean reset_fit,
                                 GdkRectangle *rect);
-void uni_dragger_paint_image(UniDragger *tool, UniPixbufDrawOpts *opts,
+void uni_dragger_paint_image(UniDragger *dragger, UniPixbufDrawOpts *opts,
                              cairo_t *cr);
 
 G_END_DECLS
