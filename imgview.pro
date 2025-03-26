@@ -58,7 +58,6 @@ SOURCES = \
     window.c \
 
 DISTFILES = \
-    Notes.md \
     Readme.md \
     deprecations.txt \
     install.sh \
