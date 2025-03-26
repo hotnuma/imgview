@@ -22,29 +22,27 @@
 
 G_DEFINE_TYPE(VnrMessageArea, vnr_message_area, GTK_TYPE_EVENT_BOX)
 
-
-static void
-vnr_message_area_class_init(VnrMessageAreaClass *klass) {}
-
-GtkWidget *
-vnr_message_area_new()
+static void vnr_message_area_class_init(VnrMessageAreaClass *klass)
 {
-    return (GtkWidget *)g_object_new(VNR_TYPE_MESSAGE_AREA, NULL);
 }
 
-static void
-cancel_button_cb(GtkWidget *widget, VnrMessageArea *msg_area)
+GtkWidget* vnr_message_area_new()
+{
+    return (GtkWidget*) g_object_new(VNR_TYPE_MESSAGE_AREA, NULL);
+}
+
+static void cancel_button_cb(GtkWidget *widget, VnrMessageArea *msg_area)
 {
     vnr_message_area_hide(msg_area);
 }
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-
-static void
-vnr_message_area_initialize(VnrMessageArea *msg_area)
+static void vnr_message_area_initialize(VnrMessageArea *msg_area)
 {
     msg_area->with_button = FALSE;
-    msg_area->hbox = gtk_hbox_new(FALSE, 7);
+
+    //msg_area->hbox = gtk_hbox_new(FALSE, 7);
+    msg_area->hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 7);
+
     gtk_container_add(GTK_CONTAINER(msg_area), msg_area->hbox);
     gtk_container_set_border_width(GTK_CONTAINER(msg_area->hbox), 7);
 
@@ -58,7 +56,9 @@ vnr_message_area_initialize(VnrMessageArea *msg_area)
     gtk_box_pack_start(GTK_BOX(msg_area->hbox), msg_area->message,
                        FALSE, FALSE, 0);
 
-    msg_area->button_box = gtk_vbutton_box_new();
+    //msg_area->button_box = gtk_vbutton_box_new();
+    msg_area->button_box = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
+
     gtk_box_pack_end(GTK_BOX(msg_area->hbox), msg_area->button_box,
                      FALSE, FALSE, 0);
 
@@ -66,15 +66,27 @@ vnr_message_area_initialize(VnrMessageArea *msg_area)
     gtk_container_add(GTK_CONTAINER(msg_area->button_box),
                       msg_area->user_button);
 
+
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     msg_area->cancel_button = gtk_button_new_from_stock("gtk-cancel");
+    G_GNUC_END_IGNORE_DEPRECATIONS
+
     g_signal_connect(msg_area->cancel_button, "clicked",
                      G_CALLBACK(cancel_button_cb), msg_area);
     gtk_container_add(GTK_CONTAINER(msg_area->button_box),
                       msg_area->cancel_button);
 
     gtk_widget_hide(msg_area->hbox);
-    gtk_widget_set_state(GTK_WIDGET(msg_area), GTK_STATE_SELECTED);
-    gtk_widget_set_state(msg_area->button_box, GTK_STATE_NORMAL);
+
+    //gtk_widget_set_state(GTK_WIDGET(msg_area), GTK_STATE_SELECTED);
+    //gtk_widget_set_state(msg_area->button_box, GTK_STATE_NORMAL);
+    gtk_widget_set_state_flags(GTK_WIDGET(msg_area),
+                               GTK_STATE_FLAG_SELECTED,
+                               TRUE);
+    gtk_widget_set_state_flags(msg_area->button_box,
+                               GTK_STATE_FLAG_NORMAL,
+                               TRUE);
+
     msg_area->initialized = TRUE;
 }
 
@@ -100,6 +112,7 @@ static void vnr_message_area_show_basic(VnrMessageArea *msg_area,
 
     msg_area->is_critical = critical;
 
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     if (critical)
         gtk_image_set_from_stock(GTK_IMAGE(msg_area->image),
                                  "gtk-dialog-error",
@@ -108,6 +121,7 @@ static void vnr_message_area_show_basic(VnrMessageArea *msg_area,
         gtk_image_set_from_stock(GTK_IMAGE(msg_area->image),
                                  "gtk-dialog-info",
                                  GTK_ICON_SIZE_DIALOG);
+    G_GNUC_END_IGNORE_DEPRECATIONS
 
     msg_area->is_critical = critical;
 
@@ -149,7 +163,10 @@ void vnr_message_area_show_with_button(VnrMessageArea *msg_area,
 {
     vnr_message_area_show_basic(msg_area, critical, message, close_image);
 
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_button_set_use_stock(GTK_BUTTON(msg_area->user_button), TRUE);
+    G_GNUC_END_IGNORE_DEPRECATIONS
+
     gtk_button_set_label(GTK_BUTTON(msg_area->user_button), button_stock_id);
 
     if (msg_area->with_button)
@@ -166,8 +183,6 @@ void vnr_message_area_show_with_button(VnrMessageArea *msg_area,
     gtk_widget_show_all(GTK_WIDGET(msg_area));
 }
 
-G_GNUC_END_IGNORE_DEPRECATIONS
-
 void vnr_message_area_hide(VnrMessageArea *msg_area)
 {
     gtk_widget_hide(GTK_WIDGET(msg_area));
@@ -180,8 +195,7 @@ void vnr_message_area_hide(VnrMessageArea *msg_area)
     }
 }
 
-gboolean
-vnr_message_area_is_visible(VnrMessageArea *msg_area)
+gboolean vnr_message_area_is_visible(VnrMessageArea *msg_area)
 {
     if (msg_area->initialized && gtk_widget_get_visible(GTK_WIDGET(msg_area)))
         return TRUE;
@@ -189,11 +203,11 @@ vnr_message_area_is_visible(VnrMessageArea *msg_area)
         return FALSE;
 }
 
-gboolean
-vnr_message_area_is_critical(VnrMessageArea *msg_area)
+gboolean vnr_message_area_is_critical(VnrMessageArea *msg_area)
 {
-    if (msg_area->initialized && gtk_widget_get_visible(GTK_WIDGET(msg_area)) &&
-        msg_area->is_critical)
+    if (msg_area->initialized
+        && gtk_widget_get_visible(GTK_WIDGET(msg_area))
+        && msg_area->is_critical)
         return TRUE;
     else
         return FALSE;
