@@ -367,12 +367,27 @@ static void window_init(VnrWindow *window)
     gtk_window_set_title((GtkWindow*) window, "ImgView");
     gtk_window_set_default_icon_name("viewnior");
 
+    // content
     window->layout_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
     gtk_container_add(GTK_CONTAINER(window), window->layout_box);
     gtk_widget_show(window->layout_box);
 
-    // create popup menu.
+    window->msg_area = vnr_message_area_new();
+    VNR_MESSAGE_AREA(window->msg_area)->vnr_win = window;
+    gtk_box_pack_start(GTK_BOX(window->layout_box),
+                       window->msg_area, FALSE, FALSE, 0);
+    gtk_widget_show(GTK_WIDGET(window->msg_area));
+
+    window->view = uni_anim_view_new();
+    gtk_widget_set_can_focus(window->view, TRUE);
+
+    window->scroll_view = uni_scroll_win_new(UNI_IMAGE_VIEW(window->view));
+    gtk_box_pack_end(GTK_BOX(window->layout_box),
+                     window->scroll_view, TRUE, TRUE, 0);
+    gtk_widget_show_all(GTK_WIDGET(window->scroll_view));
+
+    // popup menu
     GtkWidget *menu = gtk_menu_new();
     GtkWidget *item = NULL;
 
@@ -474,23 +489,6 @@ static void window_init(VnrWindow *window)
     //if (window->prefs->auto_resize)
     //    gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
 
-    window->msg_area = vnr_message_area_new();
-    VNR_MESSAGE_AREA(window->msg_area)->vnr_win = window;
-    gtk_box_pack_start(GTK_BOX(window->layout_box),
-                       window->msg_area, FALSE, FALSE, 0);
-    gtk_widget_show(GTK_WIDGET(window->msg_area));
-
-    window->view = uni_anim_view_new();
-    gtk_widget_set_can_focus(window->view, TRUE);
-
-    // scroll view
-    window->scroll_view = uni_scroll_win_new(UNI_IMAGE_VIEW(window->view));
-    gtk_box_pack_end(GTK_BOX(window->layout_box),
-                     window->scroll_view, TRUE, TRUE, 0);
-    gtk_widget_show_all(GTK_WIDGET(window->scroll_view));
-
-    gtk_widget_grab_focus(window->view);
-
     // Initialize slideshow timeout
     window->sl_timeout = window->prefs->slideshow_timeout;
 
@@ -499,6 +497,7 @@ static void window_init(VnrWindow *window)
 
     window_preferences_apply(window);
 
+    gtk_widget_grab_focus(window->view);
     _window_set_drag(window);
 
     g_signal_connect_swapped(G_OBJECT(window), "delete-event",
