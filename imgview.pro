@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = imgview
 CONFIG = c99 link_pkgconfig
 DEFINES = _GNU_SOURCE
-INCLUDEPATH = . src
+INCLUDEPATH = dlg uni vnr
 PKGCONFIG =
 
 PKGCONFIG += gtk+-3.0

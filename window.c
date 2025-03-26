@@ -46,6 +46,8 @@ G_DEFINE_TYPE(VnrWindow, window, GTK_TYPE_WINDOW)
 static void window_class_init(VnrWindowClass *klass);
 static void window_init(VnrWindow *window);
 static void _window_on_realize(VnrWindow *window, gpointer user_data);
+static void _window_override_background_color(VnrWindow *window,
+                                              GdkRGBA *color);
 static void _window_load_accel_map();
 
 // dnd ------------------------------------------------------------------------
@@ -582,17 +584,9 @@ void window_preferences_apply(VnrWindow *window)
 {
     if (window->prefs->dark_background)
     {
-        // https://stackoverflow.com/questions/36520637/
         GdkRGBA color;
         gdk_rgba_parse(&color, DARK_BACKGROUND_COLOR);
-
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-
-        gtk_widget_override_background_color(window->view,
-                                             GTK_STATE_FLAG_NORMAL,
-                                             &color);
-
-        G_GNUC_END_IGNORE_DEPRECATIONS
+        _window_override_background_color(window, &color);
     }
 
     if (window->prefs->smooth_images
@@ -620,6 +614,18 @@ void window_preferences_apply(VnrWindow *window)
                         (gdouble) window->prefs->slideshow_timeout);
         }
     }
+}
+
+static void _window_override_background_color(VnrWindow *window,
+                                              GdkRGBA *color)
+{
+    // https://stackoverflow.com/questions/36520637/
+
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    gtk_widget_override_background_color(window->view,
+                                         GTK_STATE_FLAG_NORMAL,
+                                         color);
+    G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static void _window_load_accel_map()
@@ -2582,17 +2588,9 @@ static void _window_action_set_wallpaper(VnrWindow *window, GtkWidget *widget)
             break;
 
         case VNR_PREFS_DESKTOP_XFCE:
-
-            G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-            tmp = g_strdup_printf(
-                "/backdrop/screen%d/monitor0/workspace0/last-image",
-                gdk_screen_get_number(
-                    gtk_widget_get_screen(GTK_WIDGET(window))));
-            G_GNUC_END_IGNORE_DEPRECATIONS
-
             execlp("xfconf-query", "xfconf-query",
                    "-c", "xfce4-desktop",
-                   "-p", tmp,
+                   "-p", "/backdrop/screen0/monitor0/workspace0/last-image",
                    "--type", "string",
                    "--set",
                    current->path,
@@ -2752,12 +2750,7 @@ static void _window_fullscreen(VnrWindow *window)
 
     GdkRGBA color;
     gdk_rgba_parse(&color, "black");
-
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_widget_override_background_color(window->view,
-                                         GTK_STATE_FLAG_NORMAL,
-                                         &color);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    _window_override_background_color(window, &color);
 
     if (window->prefs->fit_on_fullscreen)
         uni_image_view_set_zoom_mode(UNI_IMAGE_VIEW(window->view),
@@ -2804,19 +2797,11 @@ static void _window_unfullscreen(VnrWindow *window)
     {
         GdkRGBA color;
         gdk_rgba_parse(&color, DARK_BACKGROUND_COLOR);
-
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-        gtk_widget_override_background_color(window->view,
-                                             GTK_STATE_FLAG_NORMAL,
-                                             &color);
-        G_GNUC_END_IGNORE_DEPRECATIONS
+        _window_override_background_color(window, &color);
     }
     else
     {
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-        gtk_widget_override_background_color(window->view,
-                                             GTK_STATE_FLAG_NORMAL, NULL);
-        G_GNUC_END_IGNORE_DEPRECATIONS
+        _window_override_background_color(window, NULL);
     }
 
     if (window->prefs->fit_on_fullscreen)
@@ -2919,9 +2904,7 @@ static GtkWidget* _window_get_fs_toolitem(VnrWindow *window)
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_container_add(GTK_CONTAINER(item), box);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     GtkWidget *widget = gtk_button_new_from_stock("gtk-leave-fullscreen");
-    G_GNUC_END_IGNORE_DEPRECATIONS
 
     g_signal_connect(widget, "clicked",
                      G_CALLBACK(_on_fullscreen_leave), window);
