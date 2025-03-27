@@ -29,7 +29,8 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
-#include "uni-nav.h"
+//#include "uni-nav.h"
+#include "uni-image-view.h"
 
 G_BEGIN_DECLS
 
@@ -63,7 +64,7 @@ struct _UniScrollWin
     GtkWidget *hscroll;
     GtkWidget *vscroll;
     GtkWidget *nav_box;
-    GtkWidget *nav;
+    //GtkWidget *nav;
 
     // The GtkImage that shows the nav_button icon.
     GtkWidget *nav_image;

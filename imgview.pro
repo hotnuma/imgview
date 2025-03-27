@@ -23,7 +23,6 @@ HEADERS = \
     uni/uni-dragger.h \
     uni/uni-exiv2.hpp \
     uni/uni-image-view.h \
-    uni/uni-nav.h \
     uni/uni-scroll-win.h \
     uni/uni-utils.h \
     uni/uni-zoom.h \
@@ -45,7 +44,6 @@ SOURCES = \
     uni/uni-dragger.c \
     uni/uni-exiv2.cpp \
     uni/uni-image-view.c \
-    uni/uni-nav.c \
     uni/uni-scroll-win.c \
     uni/uni-utils.c \
     vnr/vnr-message-area.c \

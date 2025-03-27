@@ -127,6 +127,7 @@ static GtkWidget* vnr_crop_build_dialog(VnrCrop *crop)
 
     GtkBuilder *builder;
     builder = gtk_builder_new();
+
     gtk_builder_add_from_file(builder, CROP_UI_PATH, &error);
 
     if (error != NULL)
@@ -230,21 +231,23 @@ static GtkWidget* vnr_crop_build_dialog(VnrCrop *crop)
 
 static void vnr_crop_draw_rectangle(VnrCrop *crop)
 {
-    cairo_t *cr;
+    if (!crop->do_redraw)
+        return;
 
-    if (crop->do_redraw)
-    {
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-        cr = gdk_cairo_create(gtk_widget_get_window(crop->image));
-        G_GNUC_END_IGNORE_DEPRECATIONS
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(crop->image));
+    G_GNUC_END_IGNORE_DEPRECATIONS
 
-        cairo_set_operator(cr, CAIRO_OPERATOR_DIFFERENCE);
-        cairo_set_line_width(cr, 3);
-        cairo_rectangle(cr, (int)crop->sub_x + 0.5, (int)crop->sub_y + 0.5, (int)crop->sub_width, (int)crop->sub_height);
-        cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
-        cairo_stroke(cr);
-        cairo_destroy(cr);
-    }
+    cairo_set_operator(cr, CAIRO_OPERATOR_DIFFERENCE);
+    cairo_set_line_width(cr, 3);
+    cairo_rectangle(cr,
+                    (int) crop->sub_x + 0.5,
+                    (int) crop->sub_y + 0.5,
+                    (int) crop->sub_width,
+                    (int) crop->sub_height);
+    cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
+    cairo_stroke(cr);
+    cairo_destroy(cr);
 }
 
 static inline void vnr_crop_clear_rectangle(VnrCrop *crop)

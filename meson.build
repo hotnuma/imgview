@@ -66,7 +66,6 @@ app_sources = [
     'uni/uni-dragger.c',
     'uni/uni-exiv2.cpp',
     'uni/uni-image-view.c',
-    'uni/uni-nav.c',
     'uni/uni-scroll-win.c',
     'uni/uni-utils.c',
     'vnr/vnr-message-area.c',

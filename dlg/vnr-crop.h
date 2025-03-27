@@ -30,13 +30,6 @@ typedef struct _VnrCrop VnrCrop;
 #define VNR_TYPE_CROP (vnr_crop_get_type())
 G_DECLARE_FINAL_TYPE(VnrCrop, vnr_crop, VNR, CROP, GObject)
 
-//typedef struct _VnrCropClass VnrCropClass;
-//#define VNR_CROP(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), VNR_TYPE_CROP, VnrCrop))
-//#define VNR_CROP_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), VNR_TYPE_CROP, VnrCropClass))
-//#define VNR_IS_CROP(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), VNR_TYPE_CROP))
-//#define VNR_IS_CROP_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), VNR_TYPE_CROP))
-//#define VNR_CROP_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), VNR_TYPE_CROP, VnrCropClass))
-
 struct _VnrCrop
 {
     GObject __parent__;

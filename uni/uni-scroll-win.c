@@ -22,7 +22,7 @@
 
 #include "uni-scroll-win.h"
 #include "uni-image-view.h"
-#include "uni-nav.h"
+//#include "uni-nav.h"
 
 static void uni_scroll_win_finalize(GObject *object);
 static void uni_scroll_win_set_property(GObject *object,
@@ -145,7 +145,7 @@ static void uni_scroll_win_init(UniScrollWin *window)
 static void _uni_scroll_win_nav_btn_clicked(UniScrollWin *window,
                                            GdkEventButton *ev)
 {
-    uni_nav_show_and_grab(UNI_NAV(window->nav), ev->x_root, ev->y_root);
+    //uni_nav_show_and_grab(UNI_NAV(window->nav), ev->x_root, ev->y_root);
 }
 
 static void uni_scroll_win_set_property(GObject *object,
@@ -208,7 +208,7 @@ static void _uni_scroll_win_set_view(UniScrollWin *window,
 #endif
 
     // Create the UniNav popup.
-    window->nav = uni_nav_new(view);
+    //window->nav = uni_nav_new(view);
 }
 
 static void _uni_scroll_win_adjustment_changed(GtkAdjustment *adj,
@@ -271,10 +271,7 @@ static void uni_scroll_win_finalize(GObject *object)
     UniScrollWin *window = UNI_SCROLL_WIN(object);
     g_object_unref(window->nav_button);
 
-    // Maybe window->nav should be unreferenced here.. But uh I don't
-    // know how.
-
-    gtk_widget_destroy(window->nav);
+    //gtk_widget_destroy(window->nav);
 
     // Chain up.
     G_OBJECT_CLASS(uni_scroll_win_parent_class)->finalize(object);

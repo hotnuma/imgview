@@ -110,55 +110,6 @@ uni/uni-image-view.c-1134-}
 uni/uni-image-view.c-1135-
 uni/uni-image-view.c-1136-/**
 --
-uni/uni-nav.c:141:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-nav.c-142-    x = CLAMP(x, 0, gdk_screen_width() - pw.width);
-uni/uni-nav.c-143-    y = CLAMP(y, 0, gdk_screen_height() - pw.height);
-uni/uni-nav.c-144-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-nav.c-145-
-uni/uni-nav.c-146-    gtk_window_move(GTK_WINDOW(nav), x, y);
---
-uni/uni-nav.c:211:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-nav.c-212-    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(nav->preview));
-uni/uni-nav.c-213-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-nav.c-214-
-uni/uni-nav.c-215-    uni_nav_draw_rectangle(nav, cr, TRUE);
-uni/uni-nav.c-216-    cairo_destroy(cr);
---
-uni/uni-nav.c:226:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-nav.c-227-    gdk_window_get_pointer(gtk_widget_get_window(widget), &mx, &my, NULL);
-uni/uni-nav.c-228-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-nav.c-229-
-uni/uni-nav.c-230-    /* Make coordinates relative to window. */
-uni/uni-nav.c-231-    mx -= 4;
---
-uni/uni-nav.c:253:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-nav.c-254-    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(nav->preview));
-uni/uni-nav.c-255-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-nav.c-256-
-uni/uni-nav.c-257-    uni_nav_draw_rectangle(nav, cr, TRUE);
-uni/uni-nav.c-258-    cairo_destroy(cr);
---
-uni/uni-nav.c:295:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-nav.c-296-    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(nav->preview));
-uni/uni-nav.c-297-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-nav.c-298-
-uni/uni-nav.c-299-    uni_nav_draw_rectangle(nav, cr, TRUE);
-uni/uni-nav.c-300-    cairo_destroy(cr);
---
-uni/uni-nav.c:431:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-nav.c-432-
-uni/uni-nav.c-433-    GdkCursor *cursor = gdk_cursor_new(GDK_FLEUR);
-uni/uni-nav.c-434-    int mask = (GDK_POINTER_MOTION_MASK
-uni/uni-nav.c-435-                | GDK_POINTER_MOTION_HINT_MASK
-uni/uni-nav.c-436-                | GDK_BUTTON_RELEASE_MASK);
---
-uni/uni-nav.c:452:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-nav.c-453-
-uni/uni-nav.c-454-    gdk_pointer_ungrab(GDK_CURRENT_TIME);
-uni/uni-nav.c-455-
-uni/uni-nav.c-456-    // Release keyboard focus
-uni/uni-nav.c-457-    gdk_keyboard_ungrab(GDK_CURRENT_TIME);
---
 dlg/vnr-properties-dialog.c:65:G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 dlg/vnr-properties-dialog.c-66-
 dlg/vnr-properties-dialog.c-67-static void set_new_pixbuf(VnrPropertiesDialog *dialog, GdkPixbuf *original)
