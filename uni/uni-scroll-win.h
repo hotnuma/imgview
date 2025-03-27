@@ -33,6 +33,8 @@
 
 G_BEGIN_DECLS
 
+#define WITH_GRID
+
 #define UNI_TYPE_SCROLL_WIN (uni_scroll_win_get_type())
 
 #define UNI_SCROLL_WIN(obj) \
@@ -52,7 +54,11 @@ typedef struct _UniScrollWinClass UniScrollWinClass;
 
 struct _UniScrollWin
 {
-    GtkTable parent;
+#ifdef WITH_GRID
+    GtkGrid __parent__;
+#else
+    GtkTable __parent__;
+#endif
 
     GtkWidget *hscroll;
     GtkWidget *vscroll;
@@ -70,10 +76,14 @@ struct _UniScrollWin
 
 struct _UniScrollWinClass
 {
-    GtkTableClass parent_class;
+#ifdef WITH_GRID
+    GtkGridClass __parent_class__;
+#else
+    GtkTableClass __parent_class__;
+#endif
 };
 
-GType uni_scroll_win_get_type(void) G_GNUC_CONST;
+GType uni_scroll_win_get_type() G_GNUC_CONST;
 
 // Constructors
 GtkWidget* uni_scroll_win_new(UniImageView *view);
