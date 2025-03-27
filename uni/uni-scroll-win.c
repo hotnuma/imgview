@@ -22,7 +22,6 @@
 
 #include "uni-scroll-win.h"
 #include "uni-image-view.h"
-//#include "uni-nav.h"
 
 static void uni_scroll_win_finalize(GObject *object);
 static void uni_scroll_win_set_property(GObject *object,
@@ -68,11 +67,7 @@ static const char *nav_button[] =
 
 // creation / destruction -----------------------------------------------------
 
-#ifdef WITH_GRID
 G_DEFINE_TYPE(UniScrollWin, uni_scroll_win, GTK_TYPE_GRID)
-#else
-G_DEFINE_TYPE(UniScrollWin, uni_scroll_win, GTK_TYPE_TABLE)
-#endif
 
 enum
 {
@@ -81,22 +76,9 @@ enum
 
 GtkWidget* uni_scroll_win_new(UniImageView *view)
 {
-#ifdef WITH_GRID
     gpointer data = g_object_new(UNI_TYPE_SCROLL_WIN,
-//                                 "hexpand", TRUE,
-//                                 "vexpand", TRUE,
-//                                 "visible", TRUE,
-//                                 "can-focus", FALSE,
                                  "view", view,
                                  NULL);
-#else
-    gpointer data = g_object_new(UNI_TYPE_SCROLL_WIN,
-                                 "n-columns", 2,
-                                 "n-rows", 2,
-                                 "homogeneous", FALSE,
-                                 "view", view,
-                                 NULL);
-#endif
     return GTK_WIDGET(data);
 }
 
@@ -171,9 +153,6 @@ static void _uni_scroll_win_set_view(UniScrollWin *window,
     GtkAdjustment *vadj = (GtkAdjustment*) g_object_new(GTK_TYPE_ADJUSTMENT,
                                                         NULL);
 
-    //window->hscroll = gtk_hscrollbar_new(hadj);
-    //window->vscroll = gtk_vscrollbar_new(vadj);
-
     window->hscroll = gtk_scrollbar_new(GTK_ORIENTATION_HORIZONTAL, hadj);
     window->vscroll = gtk_scrollbar_new(GTK_ORIENTATION_VERTICAL, vadj);
 
@@ -187,28 +166,12 @@ static void _uni_scroll_win_set_view(UniScrollWin *window,
     gtk_scrollable_set_hadjustment(GTK_SCROLLABLE(view), hadj);
     gtk_scrollable_set_vadjustment(GTK_SCROLLABLE(view), vadj);
 
-#ifdef WITH_GRID
     gtk_grid_attach(GTK_GRID(window), GTK_WIDGET(view), 0, 0, 1, 1);
     gtk_widget_set_hexpand(GTK_WIDGET(view), TRUE);
     gtk_widget_set_vexpand(GTK_WIDGET(view), TRUE);
     gtk_grid_attach(GTK_GRID(window), window->vscroll, 1, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(window), window->hscroll, 0, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(window), window->nav_box, 1, 1, 1, 1);
-#else
-    gtk_widget_push_composite_child();
-    gtk_table_attach(GTK_TABLE(window), GTK_WIDGET(view), 0, 1, 0, 1,
-                     GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
-    gtk_table_attach(GTK_TABLE(window), window->vscroll, 1, 2, 0, 1,
-                     GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
-    gtk_table_attach(GTK_TABLE(window), window->hscroll, 0, 1, 1, 2,
-                     GTK_EXPAND | GTK_FILL, GTK_FILL, 0, 0);
-    gtk_table_attach(GTK_TABLE(window), window->nav_box, 1, 2, 1, 2,
-                     GTK_SHRINK, GTK_SHRINK, 0, 0);
-    gtk_widget_pop_composite_child();
-#endif
-
-    // Create the UniNav popup.
-    //window->nav = uni_nav_new(view);
 }
 
 static void _uni_scroll_win_adjustment_changed(GtkAdjustment *adj,

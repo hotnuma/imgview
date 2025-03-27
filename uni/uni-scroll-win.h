@@ -29,12 +29,9 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
-//#include "uni-nav.h"
 #include "uni-image-view.h"
 
 G_BEGIN_DECLS
-
-#define WITH_GRID
 
 #define UNI_TYPE_SCROLL_WIN (uni_scroll_win_get_type())
 
@@ -55,21 +52,13 @@ typedef struct _UniScrollWinClass UniScrollWinClass;
 
 struct _UniScrollWin
 {
-#ifdef WITH_GRID
     GtkGrid __parent__;
-#else
-    GtkTable __parent__;
-#endif
 
     GtkWidget *hscroll;
     GtkWidget *vscroll;
     GtkWidget *nav_box;
-    //GtkWidget *nav;
 
-    // The GtkImage that shows the nav_button icon.
     GtkWidget *nav_image;
-
-    // The normal and the highlighted nav_button pixbuf.
     GdkPixbuf *nav_button;
 
     gboolean show_scrollbar;
@@ -77,16 +66,11 @@ struct _UniScrollWin
 
 struct _UniScrollWinClass
 {
-#ifdef WITH_GRID
     GtkGridClass __parent_class__;
-#else
-    GtkTableClass __parent_class__;
-#endif
 };
 
 GType uni_scroll_win_get_type() G_GNUC_CONST;
 
-// Constructors
 GtkWidget* uni_scroll_win_new(UniImageView *view);
 
 gboolean uni_scroll_win_image_fits(UniScrollWin *window);
