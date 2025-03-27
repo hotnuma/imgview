@@ -4,7 +4,6 @@ po_dir = join_paths(meson.source_root(), 'po')
 
 install_data(
     'vnr-preferences-dialog.ui',
-    'vnr-crop-dialog.ui',
     install_dir: join_paths(datadir, 'imgview')
 )
 

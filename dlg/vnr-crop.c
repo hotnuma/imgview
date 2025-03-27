@@ -94,14 +94,14 @@ static void vnr_crop_dispose(GObject *gobject)
 
 gboolean vnr_crop_run(VnrCrop *crop)
 {
-    GtkWidget *dialog;
-    gint crop_dialog_response;
 
+    GtkWidget *dialog;
     dialog = vnr_crop_build_dialog(crop);
 
     if (dialog == NULL)
         return FALSE;
 
+    gint crop_dialog_response;
     crop_dialog_response = gtk_dialog_run(GTK_DIALOG(dialog));
 
     crop->area.x = gtk_spin_button_get_value_as_int(crop->spin_x);
@@ -123,85 +123,136 @@ gboolean vnr_crop_run(VnrCrop *crop)
 
 static GtkWidget* vnr_crop_build_dialog(VnrCrop *crop)
 {
-    GError *error = NULL;
+    GtkWidget *dialog = g_object_new(GTK_TYPE_DIALOG,
+                                     "border-width", 5,
+                                     "title", "Crop Image",
+                                     "resizable", false,
+                                     "modal", true,
+                                     NULL);
 
-    GtkBuilder *builder;
-    builder = gtk_builder_new();
+    GtkWidget *widget = NULL;
 
-    gtk_builder_add_from_file(builder, CROP_UI_PATH, &error);
+    GtkWidget *dialog_vbox1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
 
-    if (error != NULL)
-    {
-        g_warning("%s\n", error->message);
-        g_object_unref(builder);
-        return NULL;
-    }
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    GtkWidget *vbox = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
+    G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_box_pack_start(GTK_BOX(vbox), dialog_vbox1, true, true, 0);
 
-    GtkWidget *window;
-    window = GTK_WIDGET(gtk_builder_get_object(builder, "crop-dialog"));
-    gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(crop->window));
+    GtkWidget *vbox1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+    gtk_box_pack_start(GTK_BOX(dialog_vbox1), vbox1, true, true, 0);
 
-    GdkPixbuf *original;
-    original = uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(crop->window->view));
+    // hbox
+    GtkWidget *hbox1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_pack_start(GTK_BOX(vbox1), hbox1, true, true, 0);
 
-    gdouble width, height;
-    gint max_width, max_height;
+    //widget = gtk_label_new("");
+    //gtk_box_pack_end(GTK_BOX(hbox1), widget, true, true, 0);
 
-    width = crop->window->current_image_width;
-    height = crop->window->current_image_height;
+    // ------------------------------------------------------------------------
 
-    {
+    GdkPixbuf *original = uni_image_view_get_pixbuf(
+                                UNI_IMAGE_VIEW(crop->window->view));
 
-        GdkScreen *screen = gtk_window_get_screen(GTK_WINDOW(crop->window));
-        GdkRectangle geometry;
-        GdkDisplay *display = gdk_screen_get_display(screen);
-        GdkMonitor *monitor = gdk_display_get_monitor_at_window(
-                            display,
-                            gtk_widget_get_window(GTK_WIDGET(crop->window)));
+    GdkScreen *screen = gtk_window_get_screen(GTK_WINDOW(crop->window));
+    GdkDisplay *display = gdk_screen_get_display(screen);
+    GdkMonitor *monitor = gdk_display_get_monitor_at_window(
+                        display,
+                        gtk_widget_get_window(GTK_WIDGET(crop->window)));
 
-        gdk_monitor_get_geometry(monitor, &geometry);
+    GdkRectangle geometry;
+    gdk_monitor_get_geometry(monitor, &geometry);
 
-        max_width = geometry.width * 0.9 - 100;
-        max_height = geometry.height * 0.9 - 200;
-    }
+    gint max_width = geometry.width * 0.9 - 100;
+    gint max_height = geometry.height * 0.9 - 200;
 
+    gdouble width = crop->window->current_image_width;
+    gdouble height = crop->window->current_image_height;
     vnr_tools_fit_to_size_double(&width, &height, max_width, max_height);
+
     crop->width = width;
     crop->height = height;
-    crop->zoom = (width / crop->window->current_image_width + height / crop->window->current_image_height) / 2;
 
-    GdkPixbuf *preview;
-    preview = gdk_pixbuf_new(gdk_pixbuf_get_colorspace(original),
-                             gdk_pixbuf_get_has_alpha(original),
-                             gdk_pixbuf_get_bits_per_sample(original),
-                             width, height);
+    crop->zoom = (width / crop->window->current_image_width
+                  + height / crop->window->current_image_height) / 2;
+
+    GdkPixbuf *preview = gdk_pixbuf_new(
+                                gdk_pixbuf_get_colorspace(original),
+                                gdk_pixbuf_get_has_alpha(original),
+                                gdk_pixbuf_get_bits_per_sample(original),
+                                width,
+                                height);
 
     uni_pixbuf_scale_blend(original, preview, 0, 0, width, height, 0, 0,
                            crop->zoom, GDK_INTERP_BILINEAR, 0, 0);
     crop->preview_pixbuf = preview;
 
-    crop->image = GTK_WIDGET(gtk_builder_get_object(builder, "main-image"));
+    crop->image = gtk_drawing_area_new();
+    gtk_box_pack_end(GTK_BOX(hbox1), crop->image, false, false, 0);
     gtk_widget_set_size_request(crop->image, width, height);
 
-    crop->spin_x = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "spin-x"));
-    gtk_spin_button_set_range(crop->spin_x, 0, crop->window->current_image_width - 1);
+    // ------------------------------------------------------------------------
+
+    //widget = gtk_label_new("");
+    //gtk_box_pack_end(GTK_BOX(hbox1), widget, true, true, 0);
+
+    // bottom grid
+    GtkWidget *grid1 = gtk_grid_new();
+    gtk_box_pack_end(GTK_BOX(vbox1), grid1, true, true, 0);
+
+    widget = gtk_label_new("X: ");
+    gtk_grid_attach(GTK_GRID(grid1), widget, 0, 0, 1, 1);
+
+    crop->spin_x = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                    0,
+                                    crop->window->current_image_width - 1,
+                                    1));
     gtk_spin_button_set_increments(crop->spin_x, 1, 10);
+    gtk_grid_attach(GTK_GRID(grid1), GTK_WIDGET(crop->spin_x), 1, 0, 1, 1);
 
-    crop->spin_y = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "spin-y"));
-    gtk_spin_button_set_range(crop->spin_y, 0, crop->window->current_image_height - 1);
-    gtk_spin_button_set_increments(crop->spin_y, 1, 10);
+    widget = gtk_label_new("Width: ");
+    gtk_grid_attach(GTK_GRID(grid1), widget, 2, 0, 1, 1);
 
-    crop->spin_width = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "spin-width"));
-    gtk_spin_button_set_range(crop->spin_width, 1, crop->window->current_image_width);
+    crop->spin_width = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                        1,
+                                        crop->window->current_image_width,
+                                        1));
     gtk_spin_button_set_increments(crop->spin_width, 1, 10);
-    gtk_spin_button_set_value(crop->spin_width, crop->window->current_image_width);
+    gtk_spin_button_set_value(crop->spin_width,
+                              crop->window->current_image_width);
+    gtk_grid_attach(GTK_GRID(grid1), GTK_WIDGET(crop->spin_width), 3, 0, 1, 1);
 
-    crop->spin_height = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "spin-height"));
-    gtk_spin_button_set_range(crop->spin_height, 1, crop->window->current_image_height);
+    widget = gtk_label_new("Y: ");
+    gtk_grid_attach(GTK_GRID(grid1), widget, 0, 1, 1, 1);
+
+    crop->spin_y = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                        0,
+                                        crop->window->current_image_height - 1,
+                                        1));
+    gtk_spin_button_set_increments(crop->spin_y, 1, 10);
+    gtk_grid_attach(GTK_GRID(grid1), GTK_WIDGET(crop->spin_y), 1, 1, 1, 1);
+
+    widget = gtk_label_new("Height: ");
+    gtk_grid_attach(GTK_GRID(grid1), widget, 2, 1, 1, 1);
+
+    crop->spin_height = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                        1,
+                                        crop->window->current_image_height,
+                                        1));
     gtk_spin_button_set_increments(crop->spin_height, 1, 10);
-    gtk_spin_button_set_value(crop->spin_height, crop->window->current_image_height);
+    gtk_spin_button_set_value(crop->spin_height,
+                              crop->window->current_image_height);
+    gtk_grid_attach(GTK_GRID(grid1), GTK_WIDGET(crop->spin_height), 3, 1, 1, 1);
 
-    gtk_widget_set_events(crop->image, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK);
+    gtk_dialog_add_button(GTK_DIALOG(dialog), "Cancel", GTK_RESPONSE_CANCEL);
+    gtk_dialog_add_button(GTK_DIALOG(dialog), "Crop", GTK_RESPONSE_ACCEPT);
+
+    gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(crop->window));
+
+    gtk_widget_set_events(crop->image,
+                          GDK_BUTTON_PRESS_MASK
+                          | GDK_BUTTON_RELEASE_MASK
+                          | GDK_BUTTON_MOTION_MASK);
 
     g_signal_connect(crop->image, "draw",
                      G_CALLBACK(drawable_expose_cb), crop);
@@ -212,18 +263,18 @@ static GtkWidget* vnr_crop_build_dialog(VnrCrop *crop)
     g_signal_connect(crop->image, "motion-notify-event",
                      G_CALLBACK(drawable_motion_cb), crop);
 
-    g_signal_connect(crop->spin_width, "value-changed",
-                     G_CALLBACK(spin_width_cb), crop);
     g_signal_connect(crop->spin_x, "value-changed",
                      G_CALLBACK(spin_x_cb), crop);
-    g_signal_connect(crop->spin_height, "value-changed",
-                     G_CALLBACK(spin_height_cb), crop);
+    g_signal_connect(crop->spin_width, "value-changed",
+                     G_CALLBACK(spin_width_cb), crop);
     g_signal_connect(crop->spin_y, "value-changed",
                      G_CALLBACK(spin_y_cb), crop);
+    g_signal_connect(crop->spin_height, "value-changed",
+                     G_CALLBACK(spin_height_cb), crop);
 
-    g_object_unref(builder);
+    gtk_widget_show_all(dialog);
 
-    return window;
+    return dialog;
 }
 
 
