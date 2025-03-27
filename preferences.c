@@ -117,7 +117,7 @@ static void vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->jpeg_quality = 90;
     prefs->png_compression = 9;
     prefs->reload_on_save = FALSE;
-    prefs->show_scrollbar = TRUE;
+    prefs->show_scrollbar = false;
     prefs->start_slideshow = FALSE;
     prefs->start_fullscreen = FALSE;
     prefs->auto_resize = FALSE;

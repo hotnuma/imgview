@@ -71,9 +71,7 @@ static const char *nav_button[] =
 #ifdef WITH_GRID
 G_DEFINE_TYPE(UniScrollWin, uni_scroll_win, GTK_TYPE_GRID)
 #else
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_DEFINE_TYPE(UniScrollWin, uni_scroll_win, GTK_TYPE_TABLE)
-G_GNUC_END_IGNORE_DEPRECATIONS
 #endif
 
 enum
@@ -123,7 +121,7 @@ static void uni_scroll_win_class_init(UniScrollWinClass *klass)
 
 static void uni_scroll_win_init(UniScrollWin *window)
 {
-    window->show_scrollbar = TRUE;
+    //window->show_scrollbar = TRUE;
 
     // Setup the navigator button.
     window->nav_button = gdk_pixbuf_new_from_xpm_data(nav_button);
@@ -197,7 +195,6 @@ static void _uni_scroll_win_set_view(UniScrollWin *window,
     gtk_grid_attach(GTK_GRID(window), window->hscroll, 0, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(window), window->nav_box, 1, 1, 1, 1);
 #else
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_widget_push_composite_child();
     gtk_table_attach(GTK_TABLE(window), GTK_WIDGET(view), 0, 1, 0, 1,
                      GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
@@ -208,7 +205,6 @@ static void _uni_scroll_win_set_view(UniScrollWin *window,
     gtk_table_attach(GTK_TABLE(window), window->nav_box, 1, 2, 1, 2,
                      GTK_SHRINK, GTK_SHRINK, 0, 0);
     gtk_widget_pop_composite_child();
-    G_GNUC_END_IGNORE_DEPRECATIONS
 #endif
 
     // Create the UniNav popup.
@@ -311,14 +307,14 @@ gboolean uni_scroll_win_image_fits(UniScrollWin *window)
            && gtk_adjustment_get_upper(vadj) <= allocation.height;
 }
 
-//void uni_scroll_win_set_show_scrollbar(UniScrollWin *window, gboolean show)
-//{
-//    window->show_scrollbar = show;
+void uni_scroll_win_set_show_scrollbar(UniScrollWin *window, gboolean show)
+{
+    window->show_scrollbar = show;
 
-//    _uni_scroll_win_show_scrollbar(window,
-//                                  window->show_scrollbar
-//                                  && !uni_scroll_win_image_fits(window));
-//}
+    _uni_scroll_win_show_scrollbar(window,
+                                  window->show_scrollbar
+                                  && !uni_scroll_win_image_fits(window));
+}
 
 static void _uni_scroll_win_show_scrollbar(UniScrollWin *window, gboolean show)
 {

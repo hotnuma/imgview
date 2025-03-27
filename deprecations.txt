@@ -12,12 +12,12 @@ window.c
 
 cgrep -A 5 G_GNUC_BEGIN_IGNORE_DEPRECATIONS >> deprecations.txt
 
-window.c:624:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-window.c-625-    gtk_widget_override_background_color(window->view,
-window.c-626-                                         GTK_STATE_FLAG_NORMAL,
-window.c-627-                                         color);
-window.c-628-    G_GNUC_END_IGNORE_DEPRECATIONS
-window.c-629-}
+window.c:627:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+window.c-628-    gtk_widget_override_background_color(window->view,
+window.c-629-                                         GTK_STATE_FLAG_NORMAL,
+window.c-630-                                         color);
+window.c-631-    G_GNUC_END_IGNORE_DEPRECATIONS
+window.c-632-}
 --
 vnr/vnr-message-area.c:70:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 vnr/vnr-message-area.c-71-    msg_area->cancel_button = gtk_button_new_from_stock("gtk-cancel");
@@ -46,34 +46,6 @@ uni/uni-anim-view.h-61-    G_GNUC_END_IGNORE_DEPRECATIONS
 uni/uni-anim-view.h-62-
 uni/uni-anim-view.h-63-    int delay;
 uni/uni-anim-view.h-64-};
---
-uni/uni-scroll-win.c:53:G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-scroll-win.c-54-G_DEFINE_TYPE(UniScrollWin, uni_scroll_win, GTK_TYPE_TABLE)
-uni/uni-scroll-win.c-55-G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-scroll-win.c-56-
-uni/uni-scroll-win.c-57-/*************************************************************/
-uni/uni-scroll-win.c-58-/***** Static stuff ******************************************/
---
-uni/uni-scroll-win.c:96:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-scroll-win.c-97-    window->hscroll = gtk_hscrollbar_new(hadj);
-uni/uni-scroll-win.c-98-    window->vscroll = gtk_vscrollbar_new(vadj);
-uni/uni-scroll-win.c-99-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-scroll-win.c-100-
-uni/uni-scroll-win.c-101-    // We want to be notified when the adjustments change.
---
-uni/uni-scroll-win.c:112:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-scroll-win.c-113-    gtk_widget_push_composite_child();
-uni/uni-scroll-win.c-114-    gtk_table_attach(GTK_TABLE(window), GTK_WIDGET(view), 0, 1, 0, 1,
-uni/uni-scroll-win.c-115-                     GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
-uni/uni-scroll-win.c-116-    gtk_table_attach(GTK_TABLE(window), window->vscroll, 1, 2, 0, 1,
-uni/uni-scroll-win.c-117-                     GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
---
-uni/uni-scroll-win.c:202:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-scroll-win.c-203-    gtk_container_set_resize_mode(GTK_CONTAINER(window), GTK_RESIZE_IMMEDIATE);
-uni/uni-scroll-win.c-204-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-scroll-win.c-205-}
-uni/uni-scroll-win.c-206-
-uni/uni-scroll-win.c-207-static void
 --
 uni/uni-anim-view.c:62:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 uni/uni-anim-view.c-63-    g_time_val_add(&aview->time, delay_us);

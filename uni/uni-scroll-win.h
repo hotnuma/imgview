@@ -89,7 +89,7 @@ GType uni_scroll_win_get_type() G_GNUC_CONST;
 GtkWidget* uni_scroll_win_new(UniImageView *view);
 
 gboolean uni_scroll_win_image_fits(UniScrollWin *window);
-//void uni_scroll_win_set_show_scrollbar(UniScrollWin *window, gboolean show);
+void uni_scroll_win_set_show_scrollbar(UniScrollWin *window, gboolean show);
 
 G_END_DECLS
 

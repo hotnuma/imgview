@@ -361,6 +361,7 @@ static void window_init(VnrWindow *window)
     window->mode = WINDOW_MODE_NORMAL;
     window->accel_group = etk_actions_init(GTK_WINDOW(window),
                                            _window_actions);
+
     window->prefs = (VnrPrefs*) vnr_prefs_new(GTK_WIDGET(window));
 
     window->sl_timeout = 5;
@@ -498,6 +499,8 @@ static void window_init(VnrWindow *window)
     window->props_dlg = vnr_properties_dialog_new(window);
 
     window_preferences_apply(window);
+    uni_scroll_win_set_show_scrollbar(UNI_SCROLL_WIN(window->scroll_view),
+                                      window->prefs->show_scrollbar);
 
     gtk_widget_grab_focus(window->view);
     _window_set_drag(window);
