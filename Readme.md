@@ -60,8 +60,8 @@ This package requires the following modules to be installed:
 GTK+, glib, gio, exiv2, shared-mime-info.
 
 ```
-sudo apt install build-essential git meson ninja-build \
-shared-mime-info libgtk-3-dev libgdk-pixbuf-2.0-dev libexiv2-dev
+sudo apt install build-essential gettext git meson ninja-build \
+libgtk-3-dev libexiv2-dev
 ```
 
 ```
