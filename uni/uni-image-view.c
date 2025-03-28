@@ -579,7 +579,7 @@ uni_image_view_expose(GtkWidget *widget, cairo_t *cr)
     return uni_image_view_repaint_area(UNI_IMAGE_VIEW(widget), &allocation, cr);
 }
 
-static int uni_image_view_button_press(GtkWidget *widget, GdkEventButton *ev)
+static int uni_image_view_button_press(GtkWidget *widget, GdkEventButton *event)
 {
     gtk_widget_grab_focus(widget);
 
@@ -587,56 +587,55 @@ static int uni_image_view_button_press(GtkWidget *widget, GdkEventButton *ev)
     VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
     g_assert(gtk_widget_is_toplevel(GTK_WIDGET(vnr_win)));
 
-    if (ev->type == GDK_2BUTTON_PRESS && ev->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
+    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
     {
         window_fullscreen_toggle(vnr_win);
         return 1;
     }
-    else if (ev->type == GDK_2BUTTON_PRESS && ev->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
+    else if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
     {
         int width = gdk_window_get_width(gtk_widget_get_window(widget));
 
-        if (ev->x / width < 0.5)
+        if (event->x / width < 0.5)
             window_prev(vnr_win);
         else
             window_next(vnr_win, TRUE);
 
         return 1;
     }
-    else if (ev->type == GDK_BUTTON_PRESS && ev->button == 1)
+    else if (event->type == GDK_BUTTON_PRESS && event->button == 1)
     {
-        return uni_dragger_button_press(UNI_DRAGGER(view->tool), ev);
+        return uni_dragger_button_press(UNI_DRAGGER(view->tool), event);
     }
-    else if (ev->type == GDK_2BUTTON_PRESS && ev->button == 1)
+    else if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
     {
         if (view->fitting == UNI_FITTING_FULL ||
             (view->fitting == UNI_FITTING_NORMAL && view->zoom != 1.0))
-            uni_image_view_set_zoom_with_center(view, 1., ev->x, ev->y,
+            uni_image_view_set_zoom_with_center(view, 1., event->x, event->y,
                                                 FALSE);
         else
             uni_image_view_set_fitting(view, UNI_FITTING_FULL);
         return 1;
     }
-    else if (ev->type == GDK_BUTTON_PRESS && ev->button == 3)
+    else if (event->type == GDK_BUTTON_PRESS && event->button == 3)
     {
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+        //gtk_menu_popup(
+        //    GTK_MENU(VNR_WINDOW(gtk_widget_get_toplevel(widget))->popup_menu),
+        //    NULL,
+        //    NULL,
+        //    NULL,
+        //    NULL,
+        //    event->button,
+        //    gtk_get_current_event_time());
 
-        gtk_menu_popup(
-            GTK_MENU(VNR_WINDOW(gtk_widget_get_toplevel(widget))->popup_menu),
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            ev->button,
-            gtk_get_current_event_time());
-
-        G_GNUC_END_IGNORE_DEPRECATIONS
+        gtk_menu_popup_at_pointer(GTK_MENU(vnr_win->popup_menu),
+                                  (const GdkEvent*) event);
     }
-    else if (ev->type == GDK_BUTTON_PRESS && ev->button == 8)
+    else if (event->type == GDK_BUTTON_PRESS && event->button == 8)
     {
         window_prev(vnr_win);
     }
-    else if (ev->type == GDK_BUTTON_PRESS && ev->button == 9)
+    else if (event->type == GDK_BUTTON_PRESS && event->button == 9)
     {
         window_next(vnr_win, TRUE);
     }
