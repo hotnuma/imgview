@@ -31,11 +31,16 @@ typedef struct _VnrMessageArea VnrMessageArea;
 typedef struct _VnrMessageAreaClass VnrMessageAreaClass;
 
 #define VNR_TYPE_MESSAGE_AREA (vnr_message_area_get_type())
-#define VNR_MESSAGE_AREA(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), VNR_TYPE_MESSAGE_AREA, VnrMessageArea))
-#define VNR_MESSAGE_AREA_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), VNR_TYPE_MESSAGE_AREA, VnrMessageAreaClass))
-#define VNR_IS_MESSAGE_AREA(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), VNR_TYPE_MESSAGE_AREA))
-#define VNR_IS_MESSAGE_AREA_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), VNR_TYPE_MESSAGE_AREA))
-#define VNR_MESSAGE_AREA_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), VNR_TYPE_MESSAGE_AREA, VnrMessageAreaClass))
+#define VNR_MESSAGE_AREA(obj) \
+    (G_TYPE_CHECK_INSTANCE_CAST((obj), VNR_TYPE_MESSAGE_AREA, VnrMessageArea))
+#define VNR_MESSAGE_AREA_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_CAST((klass), VNR_TYPE_MESSAGE_AREA, VnrMessageAreaClass))
+#define VNR_IS_MESSAGE_AREA(obj) \
+    (G_TYPE_CHECK_INSTANCE_TYPE((obj), VNR_TYPE_MESSAGE_AREA))
+#define VNR_IS_MESSAGE_AREA_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_TYPE((klass), VNR_TYPE_MESSAGE_AREA))
+#define VNR_MESSAGE_AREA_GET_CLASS(obj) \
+    (G_TYPE_INSTANCE_GET_CLASS((obj), VNR_TYPE_MESSAGE_AREA, VnrMessageAreaClass))
 
 struct _VnrMessageArea
 {
@@ -62,9 +67,9 @@ struct _VnrMessageAreaClass
     GtkEventBoxClass parent_class;
 };
 
-GType vnr_message_area_get_type(void) G_GNUC_CONST;
+GType vnr_message_area_get_type() G_GNUC_CONST;
 
-GtkWidget *vnr_message_area_new(void);
+GtkWidget *vnr_message_area_new();
 
 void vnr_message_area_show(VnrMessageArea *msg_area,
                            gboolean critical,
@@ -84,4 +89,7 @@ gboolean vnr_message_area_is_critical(VnrMessageArea *msg_area);
 gboolean vnr_message_area_is_visible(VnrMessageArea *msg_area);
 
 G_END_DECLS
-#endif /* __VNR_MESSAGE_AREA_H__ */
+
+#endif // __VNR_MESSAGE_AREA_H__
+
+

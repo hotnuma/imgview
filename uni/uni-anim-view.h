@@ -27,37 +27,43 @@
 #include "uni-image-view.h"
 
 G_BEGIN_DECLS
+
 #define UNI_TYPE_ANIM_VIEW (uni_anim_view_get_type())
-#define UNI_ANIM_VIEW(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), UNI_TYPE_ANIM_VIEW, UniAnimView))
-#define UNI_ANIM_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), UNI_TYPE_ANIM_VIEW, UniAnimViewClass))
-#define UNI_IS_ANIM_VIEW(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), UNI_TYPE_ANIM_VIEW))
-#define UNI_IS_ANIM_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), UNI_TYPE_ANIM_VIEW))
-#define UNI_ANIM_VIEW_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), UNI_TYPE_ANIM_VIEW, UniAnimViewClass))
+#define UNI_ANIM_VIEW(obj) \
+    (G_TYPE_CHECK_INSTANCE_CAST((obj), UNI_TYPE_ANIM_VIEW, UniAnimView))
+#define UNI_ANIM_VIEW_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_CAST((klass), UNI_TYPE_ANIM_VIEW, UniAnimViewClass))
+#define UNI_IS_ANIM_VIEW(obj) \
+    (G_TYPE_CHECK_INSTANCE_TYPE((obj), UNI_TYPE_ANIM_VIEW))
+#define UNI_IS_ANIM_VIEW_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_TYPE((klass), UNI_TYPE_ANIM_VIEW))
+#define UNI_ANIM_VIEW_GET_CLASS(obj) \
+    (G_TYPE_INSTANCE_GET_CLASS((obj), UNI_TYPE_ANIM_VIEW, UniAnimViewClass))
+
 typedef struct _UniAnimView UniAnimView;
 typedef struct _UniAnimViewClass UniAnimViewClass;
 
-/**
- * UniAnimView:
- *
- * UniAnimView is a subclass of #UniImageView that provies facilities
- * for displaying and controlling an animation.
- **/
 struct _UniAnimView
 {
-    UniImageView parent;
+    // UniAnimView is a subclass of #UniImageView that provies facilities
+    // for displaying and controlling an animation.
 
-    /* The current animation. */
+    UniImageView __parent__;
+
+    // The current animation.
     GdkPixbufAnimation *anim;
 
-    /* The iterator of the current animation. */
+    // The iterator of the current animation.
     GdkPixbufAnimationIter *iter;
 
-    /* ID of the currently running animation timer. */
+    // ID of the currently running animation timer.
     int timer_id;
 
-    /* Timer used to get the right frame. */
+    // Timer used to get the right frame.
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
     GTimeVal time;
+
     G_GNUC_END_IGNORE_DEPRECATIONS
 
     int delay;
@@ -65,27 +71,25 @@ struct _UniAnimView
 
 struct _UniAnimViewClass
 {
-    UniImageViewClass parent_class;
+    UniImageViewClass __parent__;
 
-    /* Keybinding signals. */
-    void (*toggle_running)(UniAnimView *aview);
-    void (*step)(UniAnimView *aview);
+    // Keybinding signals.
+    void (*toggle_running) (UniAnimView *aview);
+    void (*step) (UniAnimView *aview);
 };
 
-GType uni_anim_view_get_type(void) G_GNUC_CONST;
+GType uni_anim_view_get_type() G_GNUC_CONST;
 
-/* Constructors */
-GtkWidget *uni_anim_view_new(void);
-
-/* Read-write properties */
+GtkWidget* uni_anim_view_new();
 gboolean uni_anim_view_set_anim(UniAnimView *aview,
                                 GdkPixbufAnimation *anim);
-
 void uni_anim_view_set_static(UniAnimView *aview,
                               GdkPixbuf *anim);
-
 void uni_anim_view_set_is_playing(UniAnimView *aview,
                                   gboolean playing);
 
 G_END_DECLS
-#endif /* __UNI_ANIM_VIEW_H__ */
+
+#endif // __UNI_ANIM_VIEW_H__
+
+
