@@ -114,13 +114,17 @@ static void vnr_message_area_show_basic(VnrMessageArea *msg_area,
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     if (critical)
+    {
         gtk_image_set_from_stock(GTK_IMAGE(msg_area->image),
                                  "gtk-dialog-error",
                                  GTK_ICON_SIZE_DIALOG);
+    }
     else
+    {
         gtk_image_set_from_stock(GTK_IMAGE(msg_area->image),
                                  "gtk-dialog-info",
                                  GTK_ICON_SIZE_DIALOG);
+    }
     G_GNUC_END_IGNORE_DEPRECATIONS
 
     msg_area->is_critical = critical;

@@ -17,19 +17,19 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "window.h"
 #include "config.h"
+#include "window.h"
 
+#include "list.h"
+#include "message-area.h"
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
-#include "vnr-tools.h"
-#include "message-area.h"
-#include "vnr-properties-dialog.h"
-#include "vnr-crop.h"
-#include "uni-exiv2.hpp"
 #include "uni-utils.h"
+#include "vnr-tools.h"
+#include "uni-exiv2.hpp"
+#include "vnr-crop.h"
+#include "vnr-properties-dialog.h"
 #include "dialog.h"
-#include "list.h"
 
 #include <etkaction.h>
 #include <sys/stat.h>
@@ -41,14 +41,18 @@
 
 G_DEFINE_TYPE(VnrWindow, window, GTK_TYPE_WINDOW)
 
-// window creation ------------------------------------------------------------
+// creation / destruction -----------------------------------------------------
 
-static void window_class_init(VnrWindowClass *klass);
-static void window_init(VnrWindow *window);
 static void _window_on_realize(VnrWindow *window, gpointer user_data);
+static gboolean _window_on_delete(VnrWindow *window, GdkEvent *event,
+                                  gpointer data);
+static void window_dispose(GObject *object);
+static void window_finalize(GObject *object);
+
+// ----------------------------------------------------------------------------
+
 static void _window_override_background_color(VnrWindow *window,
                                               GdkRGBA *color);
-static void _window_load_accel_map();
 
 // dnd ------------------------------------------------------------------------
 
@@ -64,14 +68,6 @@ static void _window_drag_data_received(GtkWidget *widget,
                                        gint x, gint y,
                                        GtkSelectionData *selection_data,
                                        guint info, guint time);
-
-// window destruction ---------------------------------------------------------
-
-static gboolean _window_on_delete(VnrWindow *window, GdkEvent *event,
-                                  gpointer data);
-static void _window_save_accel_map();
-static void window_dispose(GObject *object);
-static void window_finalize(GObject *object);
 
 // window ---------------------------------------------------------------------
 
@@ -336,7 +332,7 @@ static EtkActionEntry _window_actions[] =
 };
 
 
-// window creation ------------------------------------------------------------
+// creation / destruction -----------------------------------------------------
 
 VnrWindow* window_new()
 {
@@ -477,21 +473,6 @@ static void window_init(VnrWindow *window)
 
     etk_widget_list_set_sensitive(window->list_image, false);
 
-    //gtk_action_group_set_sensitive(window->action_wallpaper, FALSE);
-    //gtk_action_group_set_sensitive(window->actions_collection, FALSE);
-    //gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
-    //gtk_action_group_set_sensitive(window->action_save, FALSE);
-    //gtk_action_group_set_sensitive(window->actions_bars, TRUE);
-
-    //gtk_widget_hide(_window_get_fs_toolitem(window));
-
-    // Apply auto-resize preference
-    //action = gtk_action_group_get_action(window->actions_image,
-    //                                     "ViewResizeWindow");
-
-    //if (window->prefs->auto_resize)
-    //    gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
-
     // Initialize slideshow timeout
     window->sl_timeout = window->prefs->slideshow_timeout;
 
@@ -519,8 +500,6 @@ static void window_init(VnrWindow *window)
 
     g_signal_connect(G_OBJECT(window->view), "drag-data-get",
                      G_CALLBACK(_view_on_drag_begin), window);
-
-    _window_load_accel_map();
 }
 
 static void _window_on_realize(VnrWindow *window, gpointer user_data)
@@ -548,12 +527,12 @@ static void _window_on_realize(VnrWindow *window, gpointer user_data)
     else
     {
         GdkScreen *screen = gtk_window_get_screen(GTK_WINDOW(window));
-        GdkRectangle geometry;
         GdkDisplay *display = gdk_screen_get_display(screen);
         GdkMonitor *monitor = gdk_display_get_monitor_at_window(
                                         display,
                                         gtk_widget_get_window(widget));
 
+        GdkRectangle geometry;
         gdk_monitor_get_geometry(monitor, &geometry);
 
         window->max_width = geometry.width * 0.9 - 100;
@@ -561,7 +540,9 @@ static void _window_on_realize(VnrWindow *window, gpointer user_data)
 
         //printf("w = %d, h = %d\n", geometry.width, geometry.height);
 
-        if (window_load_file(window, false)) // don't fit to screen
+        gboolean fit_to_screen = false;
+
+        if (window_load_file(window, fit_to_screen))
             _window_set_monitor(window, window->filelist);
     }
 
@@ -582,6 +563,63 @@ static void _window_on_realize(VnrWindow *window, gpointer user_data)
         _window_slideshow_start(window);
     }
 }
+
+static gboolean _window_on_delete(VnrWindow *window, GdkEvent *event,
+                                  gpointer user_data)
+{
+    (void) event;
+    (void) user_data;
+    GtkWidget *widget = GTK_WIDGET(window);
+    VnrPrefs *prefs = window->prefs;
+
+    if (gtk_widget_get_visible(widget))
+    {
+        GdkWindowState state = gdk_window_get_state(
+                                    gtk_widget_get_window(widget));
+
+        prefs->start_maximized =
+            ((state & (GDK_WINDOW_STATE_MAXIMIZED
+                       | GDK_WINDOW_STATE_FULLSCREEN)) != 0);
+
+        if (!prefs->start_maximized)
+        {
+            gtk_window_get_size(GTK_WINDOW(window),
+                                &prefs->window_width,
+                                &prefs->window_height);
+        }
+    }
+
+    vnr_prefs_save(window->prefs);
+
+    gtk_main_quit();
+
+    return false;
+}
+
+static void window_dispose(GObject *object)
+{
+    VnrWindow *window = VNR_WINDOW(object);
+
+    _window_set_monitor(window, NULL);
+    window->accel_group = etk_actions_dispose(GTK_WINDOW(window),
+                                              window->accel_group);
+    window->list_image = etk_widget_list_free(window->list_image);
+
+    G_OBJECT_CLASS(window_parent_class)->dispose(object);
+}
+
+static void window_finalize(GObject *object)
+{
+    VnrWindow *window = VNR_WINDOW(object);
+
+    g_free(window->destdir);
+    vnr_list_free(window->filelist);
+    window_list_set_current(window, NULL);
+
+    G_OBJECT_CLASS(window_parent_class)->finalize(object);
+}
+
+// ----------------------------------------------------------------------------
 
 void window_preferences_apply(VnrWindow *window)
 {
@@ -629,16 +667,6 @@ static void _window_override_background_color(VnrWindow *window,
                                          GTK_STATE_FLAG_NORMAL,
                                          color);
     G_GNUC_END_IGNORE_DEPRECATIONS
-}
-
-static void _window_load_accel_map()
-{
-    //gchar *accelfile = g_build_filename(g_get_user_config_dir(), PACKAGE,
-    //                                    "accel_map", NULL);
-
-    //gtk_accel_map_load(accelfile);
-
-    //g_free(accelfile);
 }
 
 
@@ -723,76 +751,6 @@ static void _window_drag_data_received(GtkWidget *widget,
 
         window_open_list(VNR_WINDOW(widget), uri_list);
     }
-}
-
-
-// window destruction ---------------------------------------------------------
-
-static gboolean _window_on_delete(VnrWindow *window, GdkEvent *event,
-                                  gpointer user_data)
-{
-    (void) event;
-    (void) user_data;
-    GtkWidget *widget = GTK_WIDGET(window);
-    VnrPrefs *prefs = window->prefs;
-
-    if (gtk_widget_get_visible(widget))
-    {
-        GdkWindowState state = gdk_window_get_state(
-                                    gtk_widget_get_window(widget));
-
-        prefs->start_maximized =
-            ((state & (GDK_WINDOW_STATE_MAXIMIZED
-                       | GDK_WINDOW_STATE_FULLSCREEN)) != 0);
-
-        if (!prefs->start_maximized)
-        {
-            gtk_window_get_size(GTK_WINDOW(window),
-                                &prefs->window_width,
-                                &prefs->window_height);
-        }
-    }
-
-    _window_save_accel_map();
-    vnr_prefs_save(window->prefs);
-
-    gtk_main_quit();
-
-    return false;
-}
-
-static void _window_save_accel_map()
-{
-    //gchar *accelfile = g_build_filename(g_get_user_config_dir(), PACKAGE,
-    //                                    "accel_map", NULL);
-    //gtk_accel_map_save(accelfile);
-
-    //g_free(accelfile);
-}
-
-static void window_dispose(GObject *object)
-{
-    // do something
-
-    VnrWindow *window = VNR_WINDOW(object);
-
-    _window_set_monitor(window, NULL);
-    window->accel_group = etk_actions_dispose(GTK_WINDOW(window),
-                                              window->accel_group);
-    window->list_image = etk_widget_list_free(window->list_image);
-
-    G_OBJECT_CLASS(window_parent_class)->dispose(object);
-}
-
-static void window_finalize(GObject *object)
-{
-    VnrWindow *window = VNR_WINDOW(object);
-
-    g_free(window->destdir);
-    vnr_list_free(window->filelist);
-    window_list_set_current(window, NULL);
-
-    G_OBJECT_CLASS(window_parent_class)->finalize(object);
 }
 
 

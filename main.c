@@ -17,29 +17,26 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <config.h>
-#include <gtk/gtk.h>
 #include "config.h"
 #include "window.h"
 #include "message-area.h"
-#include "file.h"
 #include "list.h"
 #include "vnr-tools.h"
 
 #define PIXMAP_DIR PACKAGE_DATA_DIR "/imgview/pixmaps/"
 
-static gchar **files = NULL; // array of files specified to be opened
-static gboolean version = FALSE;
-static gboolean slideshow = FALSE;
-static gboolean fullscreen = FALSE;
+static gchar **opt_files;
+static gboolean opt_version;
+static gboolean opt_slideshow;
+static gboolean opt_fullscreen;
 
-// List of option entries The only option is for specifying file to be opened.
 static GOptionEntry opt_entries[] =
 {
-    {G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &files, NULL, "[FILE]"},
-    {"version", 0, 0, G_OPTION_ARG_NONE, &version, NULL, NULL},
-    {"slideshow", 0, 0, G_OPTION_ARG_NONE, &slideshow, NULL, NULL},
-    {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, NULL, NULL},
+    {G_OPTION_REMAINING, 0, 0,
+     G_OPTION_ARG_FILENAME_ARRAY, &opt_files, NULL, "[FILE]"},
+    {"version", 0, 0, G_OPTION_ARG_NONE, &opt_version, NULL, NULL},
+    {"slideshow", 0, 0, G_OPTION_ARG_NONE, &opt_slideshow, NULL, NULL},
+    {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &opt_fullscreen, NULL, NULL},
     {NULL}
 };
 
@@ -51,33 +48,40 @@ int main(int argc, char **argv)
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 
-    GError *error = NULL;
-    GOptionContext *opt_context = g_option_context_new("- Elegant Image Viewer");
+    GOptionContext *opt_context =
+            g_option_context_new("- Elegant Image Viewer");
     g_option_context_add_main_entries(opt_context, opt_entries, NULL);
     g_option_context_add_group(opt_context, gtk_get_option_group(TRUE));
+
+    GError *error = NULL;
     g_option_context_parse(opt_context, &argc, &argv, &error);
 
-    if (error != NULL)
+    if (error)
     {
-        printf("%s\nRun 'imgview --help' to see a full list of available command line options.\n",
-               error->message);
+        printf("%s\nRun 'imgview --help' to see a full list of available"
+               " command line options.\n", error->message);
+
+        g_error_free(error);
+
         return 1;
     }
-    else if (version)
+
+    if (opt_version)
     {
         printf("%s\n", PACKAGE_STRING);
+
         return 0;
     }
 
-    gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PIXMAP_DIR);
+    gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(),
+                                      PIXMAP_DIR);
 
     VnrWindow *window = window_new();
     GtkWindow *gtkwindow = GTK_WINDOW(window);
 
     gtk_window_set_default_size(gtkwindow, 480, 300);
-    //gtk_window_set_position(window, GTK_WIN_POS_CENTER);
 
-    GSList *uri_list = vnr_tools_get_list_from_array(files);
+    GSList *uri_list = vnr_tools_get_list_from_array(opt_files);
 
     GList *file_list = NULL;
 
@@ -114,21 +118,20 @@ int main(int argc, char **argv)
                                       TRUE);
             }
 
-            // free error
+            g_error_free(error);
         }
     }
 
     window_list_set(window, file_list);
-
-    window->prefs->start_slideshow = slideshow;
-    window->prefs->start_fullscreen = fullscreen;
+    window->prefs->start_slideshow = opt_slideshow;
+    window->prefs->start_fullscreen = opt_fullscreen;
 
     if (window->prefs->start_maximized)
     {
         gtk_window_maximize(gtkwindow);
     }
 
-    gtk_widget_show(GTK_WIDGET(gtkwindow));
+    gtk_widget_show(GTK_WIDGET(window));
 
     gtk_main();
 
