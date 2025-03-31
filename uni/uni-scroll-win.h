@@ -23,9 +23,6 @@
 #ifndef __UNI_SCROLL_WIN_H__
 #define __UNI_SCROLL_WIN_H__
 
-// UniScrollWin is a class that implements a type of
-// GtkScrolledWindow which is more integrated with UniImageView.
-
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
@@ -57,9 +54,6 @@ struct _UniScrollWin
     GtkWidget *hscroll;
     GtkWidget *vscroll;
     GtkWidget *nav_box;
-
-    GtkWidget *nav_image;
-    GdkPixbuf *nav_button;
 
     gboolean show_scrollbar;
 };
