@@ -1002,8 +1002,6 @@ static void _window_set_monitor(VnrWindow *window, GList *current)
     g_signal_connect_swapped(monitor, "changed",
                              G_CALLBACK(_window_monitor_on_change), window);
 
-    //g_file_monitor_set_rate_limit(monitor, 2000);
-
     g_object_unref(gfile);
 }
 
