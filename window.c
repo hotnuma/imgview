@@ -23,7 +23,7 @@
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
 #include "vnr-tools.h"
-#include "vnr-message-area.h"
+#include "message-area.h"
 #include "vnr-properties-dialog.h"
 #include "vnr-crop.h"
 #include "uni-exiv2.hpp"

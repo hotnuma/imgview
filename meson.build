@@ -50,7 +50,6 @@ configure_file(
 app_includes = [
     'dlg',
     'uni',
-    'vnr',
 ]
 
 subdir('po')
@@ -68,12 +67,12 @@ app_sources = [
     'uni/uni-image-view.c',
     'uni/uni-scroll-win.c',
     'uni/uni-utils.c',
-    'vnr/vnr-message-area.c',
-    'vnr/vnr-tools.c',
     'file.c',
     'list.c',
     'main.c',
+    'message-area.c',
     'preferences.c',
+    'vnr-tools.c',
     'window.c',
 ]
 

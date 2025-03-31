@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include "config.h"
 #include "window.h"
-#include "vnr-message-area.h"
+#include "message-area.h"
 #include "file.h"
 #include "list.h"
 #include "vnr-tools.h"

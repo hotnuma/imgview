@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = imgview
 CONFIG = c99 link_pkgconfig
 DEFINES = _GNU_SOURCE
-INCLUDEPATH = dlg uni vnr
+INCLUDEPATH = dlg uni
 PKGCONFIG =
 
 PKGCONFIG += gtk+-3.0
@@ -26,12 +26,12 @@ HEADERS = \
     uni/uni-scroll-win.h \
     uni/uni-utils.h \
     uni/uni-zoom.h \
-    vnr/vnr-message-area.h \
-    vnr/vnr-tools.h \
     config.h.in \
     file.h \
     list.h \
+    message-area.h \
     preferences.h \
+    vnr-tools.h \
     window.h \
 
 SOURCES = \
@@ -46,13 +46,13 @@ SOURCES = \
     uni/uni-image-view.c \
     uni/uni-scroll-win.c \
     uni/uni-utils.c \
-    vnr/vnr-message-area.c \
-    vnr/vnr-tools.c \
     0temp.c \
     file.c \
     list.c \
     main.c \
+    message-area.c \
     preferences.c \
+    vnr-tools.c \
     window.c \
 
 DISTFILES = \

@@ -22,7 +22,8 @@
 
 #include <gtk/gtk.h>
 
-void vnr_tools_set_cursor(GtkWidget *widget, GdkCursorType type, gboolean flush);
+void vnr_tools_set_cursor(GtkWidget *widget,
+                          GdkCursorType type, gboolean flush);
 void vnr_tools_fit_to_size(gint *w, gint *h, gint mw, gint mh);
 void vnr_tools_fit_to_size_double(gdouble *w, gdouble *h, gint mw, gint mh);
 

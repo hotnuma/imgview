@@ -18,7 +18,7 @@
  */
 
 #include <gtk/gtk.h>
-#include "vnr-message-area.h"
+#include "message-area.h"
 
 G_DEFINE_TYPE(VnrMessageArea, vnr_message_area, GTK_TYPE_EVENT_BOX)
 
