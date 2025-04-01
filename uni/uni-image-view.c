@@ -572,12 +572,16 @@ static void uni_image_view_fast_scroll(UniImageView *view,
         dest_y = 0;
     }
 
-    Size alloc = uni_image_view_get_allocated_size(view);
     GdkWindow *window = gtk_widget_get_window(GTK_WIDGET(view));
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    cairo_t *cr = gdk_cairo_create(window);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    //cairo_t *cr = gdk_cairo_create(window);
+
+    cairo_region_t *region = cairo_region_create();
+    GdkDrawingContext * context;
+    context = gdk_window_begin_draw_frame(window,region);
+    cairo_t *cr = gdk_drawing_context_get_cairo_context(context);
+
+    Size alloc = uni_image_view_get_allocated_size(view);
 
     GdkPixbuf *win = gdk_pixbuf_get_from_window(window,
                                                 src_x,
@@ -589,8 +593,9 @@ static void uni_image_view_fast_scroll(UniImageView *view,
     cairo_paint(cr);
     g_object_unref(win);
 
-    // If we moved in both the x and y directions, two "strips" of the image
+    // if we moved in both the x and y directions, two "strips" of the image
     // becomes visible. One horizontal strip and one vertical strip.
+
     GdkRectangle horiz_strip = {
         0,
         (delta_y < 0) ? 0 : alloc.height - abs(delta_y),
@@ -606,7 +611,11 @@ static void uni_image_view_fast_scroll(UniImageView *view,
         alloc.height};
 
     uni_image_view_repaint_area(view, &vert_strip, cr);
-    cairo_destroy(cr);
+
+    gdk_window_end_draw_frame(window, context);
+    cairo_region_destroy(region);
+
+    //cairo_destroy(cr); ???
 }
 
 /**

@@ -508,9 +508,14 @@ static void _vnr_crop_draw_rectangle(VnrCrop *crop)
     if (!crop->do_redraw)
         return;
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(crop->image));
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    GdkWindow *window = gtk_widget_get_window(crop->image);
+
+    //cairo_t *cr = gdk_cairo_create(window);
+
+    cairo_region_t *region = cairo_region_create();
+    GdkDrawingContext *context;
+    context = gdk_window_begin_draw_frame(window,region);
+    cairo_t *cr = gdk_drawing_context_get_cairo_context(context);
 
     cairo_set_operator(cr, CAIRO_OPERATOR_DIFFERENCE);
     cairo_set_line_width(cr, 3);
@@ -522,7 +527,10 @@ static void _vnr_crop_draw_rectangle(VnrCrop *crop)
     cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
     cairo_stroke(cr);
 
-    cairo_destroy(cr);
+    //cairo_destroy(cr);
+
+    gdk_window_end_draw_frame(window, context);
+    cairo_region_destroy(region);
 }
 
 static inline void vnr_crop_clear_rectangle(VnrCrop *crop)
