@@ -293,17 +293,7 @@ static void uni_image_view_class_init(UniImageViewClass *klass)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+// ----------------------------------------------------------------------------
 
 static Size uni_image_view_get_pixbuf_size(UniImageView *view)
 {
@@ -461,6 +451,7 @@ static void uni_image_view_draw_background(UniImageView *view,
     GtkStateFlags state = gtk_widget_get_state_flags(widget);
 
     GdkRGBA rgba;
+
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_style_context_get_background_color(context, state, &rgba);
     G_GNUC_END_IGNORE_DEPRECATIONS
@@ -588,19 +579,24 @@ static void uni_image_view_fast_scroll(UniImageView *view,
     cairo_t *cr = gdk_cairo_create(window);
     G_GNUC_END_IGNORE_DEPRECATIONS
 
-    GdkPixbuf *win = gdk_pixbuf_get_from_window(window, src_x, src_y, alloc.width - abs(delta_x), alloc.height - abs(delta_y));
+    GdkPixbuf *win = gdk_pixbuf_get_from_window(window,
+                                                src_x,
+                                                src_y,
+                                                alloc.width - abs(delta_x),
+                                                alloc.height - abs(delta_y));
+
     gdk_cairo_set_source_pixbuf(cr, win, dest_x, dest_y);
     cairo_paint(cr);
     g_object_unref(win);
 
-    /* If we moved in both the x and y directions, two "strips" of the
-       image becomes visible. One horizontal strip and one vertical
-       strip. */
+    // If we moved in both the x and y directions, two "strips" of the image
+    // becomes visible. One horizontal strip and one vertical strip.
     GdkRectangle horiz_strip = {
         0,
         (delta_y < 0) ? 0 : alloc.height - abs(delta_y),
         alloc.width,
         abs(delta_y)};
+
     uni_image_view_repaint_area(view, &horiz_strip, cr);
 
     GdkRectangle vert_strip = {
@@ -608,6 +604,7 @@ static void uni_image_view_fast_scroll(UniImageView *view,
         0,
         abs(delta_x),
         alloc.height};
+
     uni_image_view_repaint_area(view, &vert_strip, cr);
     cairo_destroy(cr);
 }
@@ -631,33 +628,35 @@ static void uni_image_view_scroll_to(UniImageView *view,
                                      gboolean set_adjustments,
                                      gboolean invalidate)
 {
-    GdkWindow *window;
-    int delta_x, delta_y;
-
     uni_image_view_clamp_offset(view, &offset_x, &offset_y);
 
-    /* Round avoids floating point to integer conversion errors. See
-     */
-    delta_x = floor(offset_x - view->offset_x + 0.5);
-    delta_y = floor(offset_y - view->offset_y + 0.5);
+    // Round avoids floating point to integer conversion errors.
+    int delta_x = floor(offset_x - view->offset_x + 0.5);
+    int delta_y = floor(offset_y - view->offset_y + 0.5);
 
-    /* Exit early if the scroll was smaller than one (zoom space)
-       pixel. */
+    // Exit early if the scroll was smaller than one (zoom space) pixel.
     if (delta_x == 0 && delta_y == 0)
         return;
 
     view->offset_x = offset_x;
     view->offset_y = offset_y;
 
-    window = gtk_widget_get_window(GTK_WIDGET(view));
+    GdkWindow *window = gtk_widget_get_window(GTK_WIDGET(view));
+
     if (set_adjustments)
     {
-        g_signal_handlers_block_by_data(G_OBJECT(view->priv->hadjustment), view);
-        g_signal_handlers_block_by_data(G_OBJECT(view->priv->vadjustment), view);
+        g_signal_handlers_block_by_data(
+                    G_OBJECT(view->priv->hadjustment), view);
+        g_signal_handlers_block_by_data(
+                    G_OBJECT(view->priv->vadjustment), view);
+
         gtk_adjustment_set_value(view->priv->hadjustment, view->offset_x);
         gtk_adjustment_set_value(view->priv->vadjustment, view->offset_y);
-        g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->hadjustment), view);
-        g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->vadjustment), view);
+
+        g_signal_handlers_unblock_by_data(
+                    G_OBJECT(view->priv->hadjustment), view);
+        g_signal_handlers_unblock_by_data(
+                    G_OBJECT(view->priv->vadjustment), view);
     }
 
     if (window)
@@ -785,6 +784,7 @@ static int uni_image_view_expose(GtkWidget *widget, cairo_t *cr)
     gtk_widget_get_allocation(GTK_WIDGET(VNR_WINDOW(gtk_widget_get_toplevel(widget))->scroll_view), &allocation);
     allocation.x = 0;
     allocation.y = 0;
+
     return uni_image_view_repaint_area(UNI_IMAGE_VIEW(widget), &allocation, cr);
 }
 
@@ -797,12 +797,16 @@ static int uni_image_view_button_press(GtkWidget *widget,
     VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
     g_assert(gtk_widget_is_toplevel(GTK_WIDGET(vnr_win)));
 
-    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
+    if (event->type == GDK_2BUTTON_PRESS
+            && event->button == 1
+            && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
     {
         window_fullscreen_toggle(vnr_win);
         return 1;
     }
-    else if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
+    else if (event->type == GDK_2BUTTON_PRESS
+             && event->button == 1
+             && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
     {
         int width = gdk_window_get_width(gtk_widget_get_window(widget));
 
@@ -819,12 +823,14 @@ static int uni_image_view_button_press(GtkWidget *widget,
     }
     else if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
     {
-        if (view->fitting == UNI_FITTING_FULL ||
-            (view->fitting == UNI_FITTING_NORMAL && view->zoom != 1.0))
-            uni_image_view_set_zoom_with_center(view, 1., event->x, event->y,
+        if (view->fitting == UNI_FITTING_FULL
+            || (view->fitting == UNI_FITTING_NORMAL && view->zoom != 1.0))
+            uni_image_view_set_zoom_with_center(view, 1.,
+                                                event->x, event->y,
                                                 FALSE);
         else
             uni_image_view_set_fitting(view, UNI_FITTING_FULL);
+
         return 1;
     }
     else if (event->type == GDK_BUTTON_PRESS && event->button == 3)
@@ -847,30 +853,35 @@ static int uni_image_view_button_press(GtkWidget *widget,
 static int uni_image_view_button_release(GtkWidget *widget, GdkEventButton *ev)
 {
     UniImageView *view = UNI_IMAGE_VIEW(widget);
+
     return uni_dragger_button_release(UNI_DRAGGER(view->tool), ev);
 }
 
 static int uni_image_view_motion_notify(GtkWidget *widget, GdkEventMotion *ev)
 {
     UniImageView *view = UNI_IMAGE_VIEW(widget);
+
     if (view->is_rendering)
         return FALSE;
+
     return uni_dragger_motion_notify(UNI_DRAGGER(view->tool), ev);
 }
 
 static gboolean uni_image_view_hadj_changed_cb(GtkAdjustment *adj, UniImageView *view)
 {
-    int offset_x;
-    offset_x = gtk_adjustment_get_value(adj);
+    int offset_x = gtk_adjustment_get_value(adj);
+
     uni_image_view_scroll_to(view, offset_x, view->offset_y, FALSE, FALSE);
+
     return FALSE;
 }
 
 static gboolean uni_image_view_vadj_changed_cb(GtkAdjustment *adj, UniImageView *view)
 {
-    int offset_y;
-    offset_y = gtk_adjustment_get_value(adj);
+    int offset_y = gtk_adjustment_get_value(adj);
+
     uni_image_view_scroll_to(view, view->offset_x, offset_y, FALSE, FALSE);
+
     return FALSE;
 }
 
@@ -885,7 +896,8 @@ static int uni_image_view_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
      * like scroll down. No idea if that is correct -- I have no input
      * device that can do horizontal scrolls. */
 
-    if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
+    if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM
+            || (ev->state & GDK_CONTROL_MASK) != 0)
     {
         switch (ev->direction)
         {

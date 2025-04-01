@@ -24,8 +24,7 @@
 #include "uni-utils.h"
 #include <string.h>
 
-static gboolean
-uni_rectangle_contains_rect(GdkRectangle r1, GdkRectangle r2)
+static gboolean uni_rectangle_contains_rect(GdkRectangle r1, GdkRectangle r2)
 {
     return r1.x <= r2.x &&
            r1.y <= r2.y &&
@@ -33,13 +32,14 @@ uni_rectangle_contains_rect(GdkRectangle r1, GdkRectangle r2)
            (r2.y + r2.height) <= (r1.y + r1.height);
 }
 
-static void
-uni_pixbuf_copy_area_intact(GdkPixbuf *src,
+static void uni_pixbuf_copy_area_intact(GdkPixbuf *src,
                             int src_x,
                             int src_y,
                             int width,
                             int height,
-                            GdkPixbuf *dst, int dst_x, int dst_y)
+                            GdkPixbuf *dst,
+int dst_x,
+int dst_y)
 {
     int y;
     if (src_x == dst_x && src_y == dst_y && src == dst)
@@ -88,8 +88,7 @@ uni_pixbuf_copy_area_intact(GdkPixbuf *src,
  * @last_opts is assumed to be the last #PixbufDrawOpts used and
  * @new_opts is the one to use this time.
  **/
-UniPixbufDrawMethod
-uni_pixbuf_draw_cache_get_method(UniPixbufDrawOpts *old,
+UniPixbufDrawMethod uni_pixbuf_draw_cache_get_method(UniPixbufDrawOpts *old,
                                  UniPixbufDrawOpts *new_)
 {
     if (new_->zoom != old->zoom ||
@@ -113,12 +112,12 @@ uni_pixbuf_draw_cache_get_method(UniPixbufDrawOpts *old,
  *
  * Creates a new pixbuf draw cache.
  **/
-UniPixbufDrawCache *
-uni_pixbuf_draw_cache_new()
+UniPixbufDrawCache* uni_pixbuf_draw_cache_new()
 {
     UniPixbufDrawCache *cache = g_new0(UniPixbufDrawCache, 1);
     cache->last_pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, FALSE, 8, 1, 1);
     cache->check_size = 16;
+
     cache->old = (UniPixbufDrawOpts){
         0,
         {0, 0, 0, 0},
@@ -126,6 +125,7 @@ uni_pixbuf_draw_cache_new()
         0,
         GDK_INTERP_NEAREST,
         cache->last_pixbuf};
+
     return cache;
 }
 
@@ -163,21 +163,22 @@ void uni_pixbuf_draw_cache_invalidate(UniPixbufDrawCache *cache)
     cache->old.zoom = -1234.0;
 }
 
-static GdkPixbuf *
-uni_pixbuf_draw_cache_scroll_intersection(GdkPixbuf *pixbuf,
+static GdkPixbuf* uni_pixbuf_draw_cache_scroll_intersection(GdkPixbuf *pixbuf,
                                           int new_width,
                                           int new_height,
                                           int src_x,
                                           int src_y,
                                           int inter_width,
                                           int inter_height,
-                                          int dst_x, int dst_y)
+                                          int dst_x,
+int dst_y)
 {
     int last_width = gdk_pixbuf_get_width(pixbuf);
     int last_height = gdk_pixbuf_get_height(pixbuf);
 
     int width = MAX(last_width, new_width);
     int height = MAX(last_height, new_height);
+
     if (width > last_width || height > last_height)
     {
         GdkColorspace cs = gdk_pixbuf_get_colorspace(pixbuf);
@@ -190,8 +191,10 @@ uni_pixbuf_draw_cache_scroll_intersection(GdkPixbuf *pixbuf,
                                     inter_width, inter_height,
                                     tmp, dst_x, dst_y);
         g_object_unref(pixbuf);
+
         return tmp;
     }
+
     uni_pixbuf_copy_area_intact(pixbuf,
                                 src_x, src_y,
                                 inter_width, inter_height,
@@ -206,8 +209,7 @@ uni_pixbuf_draw_cache_scroll_intersection(GdkPixbuf *pixbuf,
  * cache. Then the newly exposed areas in the cache is sampled from
  * the pixbuf.
  **/
-static void
-uni_pixbuf_draw_cache_intersect_draw(UniPixbufDrawCache *cache,
+static void uni_pixbuf_draw_cache_intersect_draw(UniPixbufDrawCache *cache,
                                      UniPixbufDrawOpts *opts)
 {
     GdkRectangle this = opts->zoom_rect;
@@ -240,6 +242,7 @@ uni_pixbuf_draw_cache_intersect_draw(UniPixbufDrawCache *cache,
     {
         if (!around[n].width || !around[n].height)
             continue;
+
         uni_pixbuf_scale_blend(opts->pixbuf,
                                cache->last_pixbuf,
                                around[n].x - this.x,
@@ -319,3 +322,5 @@ void uni_pixbuf_draw_cache_draw(UniPixbufDrawCache *cache,
     if (method != UNI_PIXBUF_DRAW_METHOD_CONTAINS)
         cache->old = *opts;
 }
+
+

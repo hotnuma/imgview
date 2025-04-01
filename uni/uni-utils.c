@@ -77,36 +77,46 @@ void uni_draw_rect(cairo_t *cr, gboolean filled, GdkRectangle *rect)
 }
 
 void uni_rectangle_get_rects_around(GdkRectangle *outer,
-                                    GdkRectangle *inner, GdkRectangle around[4])
+                                    GdkRectangle *inner,
+                                    GdkRectangle around[4])
 {
-    /* Top */
-    around[0] = (GdkRectangle){
-        outer->x, outer->y, outer->width, inner->y - outer->y};
-    /* Left */
-    around[1] = (GdkRectangle){
-        outer->x, inner->y, inner->x - outer->x, inner->height};
-    /* Right */
-    around[2] = (GdkRectangle){
-        inner->x + inner->width,
-        inner->y,
-        (outer->x + outer->width) - (inner->x + inner->width),
-        inner->height};
-    /* Bottom */
-    around[3] = (GdkRectangle){
-        outer->x,
-        inner->y + inner->height,
-        outer->width,
-        (outer->y + outer->height) - (inner->y + inner->height)};
+    // top
+    around[0].x = outer->x;
+    around[0].y = outer->y;
+    around[0].width = outer->width;
+    around[0].height = inner->y - outer->y;
+
+    // left
+    around[1].x = outer->x;
+    around[1].y = inner->y;
+    around[1].width = inner->x - outer->x;
+    around[1].height = inner->height;
+
+    // right
+    around[2].x = inner->x + inner->width;
+    around[2].y = inner->y;
+    around[2].width = (outer->x + outer->width) - (inner->x + inner->width);
+    around[2].height = inner->height;
+
+    // bottom
+    around[3].x = outer->x;
+    around[3].y = inner->y + inner->height;
+    around[3].width = outer->width;
+    around[3].height = (outer->y + outer->height) - (inner->y + inner->height);
 }
 
 VnrPrefsDesktop uni_detect_desktop_environment()
 {
     VnrPrefsDesktop environment = VNR_PREFS_DESKTOP_GNOME3;
 
-    gchar *xdg_current_desktop = g_ascii_strup(g_getenv("XDG_CURRENT_DESKTOP"), -1);
-    gchar *xdg_session_desktop = g_ascii_strup(g_getenv("XDG_SESSION_DESKTOP"), -1);
-    gchar *desktop_session = g_ascii_strdown(g_getenv("DESKTOP_SESSION"), -1);
-    gchar *gdmsession = g_ascii_strdown(g_getenv("GDMSESSION"), -1);
+    gchar *xdg_current_desktop = g_ascii_strup(
+                g_getenv("XDG_CURRENT_DESKTOP"), -1);
+    gchar *xdg_session_desktop = g_ascii_strup(
+                g_getenv("XDG_SESSION_DESKTOP"), -1);
+    gchar *desktop_session = g_ascii_strdown(
+                g_getenv("DESKTOP_SESSION"), -1);
+    gchar *gdmsession = g_ascii_strdown(
+                g_getenv("GDMSESSION"), -1);
 
     if (!g_strcmp0(xdg_current_desktop, "GNOME")
         || !g_strcmp0(xdg_session_desktop, "GNOME"))
@@ -142,7 +152,8 @@ VnrPrefsDesktop uni_detect_desktop_environment()
     }
     else
     {
-        g_warning("Cannot detect desktop environment. Defaulting to GNOME 3.\n");
+        g_warning("Cannot detect desktop environment."
+                  " Defaulting to GNOME 3.\n");
     }
 
     g_free(xdg_current_desktop);
