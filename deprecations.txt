@@ -12,27 +12,6 @@ window.c
 
 cgrep -A 5 G_GNUC_BEGIN_IGNORE_DEPRECATIONS >> deprecations.txt
 
-uni/uni-anim-view.h:59:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-anim-view.h-60-    GTimeVal time;
-uni/uni-anim-view.h-61-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-anim-view.h-62-
-uni/uni-anim-view.h-63-    int delay;
-uni/uni-anim-view.h-64-};
---
-uni/uni-anim-view.c:62:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-anim-view.c-63-    g_time_val_add(&aview->time, delay_us);
-uni/uni-anim-view.c-64-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-anim-view.c-65-
-uni/uni-anim-view.c-66-    gboolean next = gdk_pixbuf_animation_iter_advance(aview->iter,
-uni/uni-anim-view.c-67-                                                      &aview->time);
---
-uni/uni-anim-view.c:262:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-anim-view.c-263-    g_get_current_time(&aview->time);
-uni/uni-anim-view.c-264-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-anim-view.c-265-
-uni/uni-anim-view.c-266-    aview->iter = gdk_pixbuf_animation_get_iter(aview->anim, &aview->time);
-uni/uni-anim-view.c-267-
---
 uni/uni-image-view.c:163:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 uni/uni-image-view.c-164-    gtk_adjustment_changed(view->priv->hadjustment);
 uni/uni-image-view.c-165-    gtk_adjustment_changed(view->priv->vadjustment);
@@ -54,13 +33,6 @@ uni/uni-image-view.c-528-    G_GNUC_END_IGNORE_DEPRECATIONS
 uni/uni-image-view.c-529-}
 uni/uni-image-view.c-530-
 --
-uni/uni-image-view.c:536:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-image-view.c-537-    gdk_cursor_unref(view->void_cursor);
-uni/uni-image-view.c-538-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-image-view.c-539-
-uni/uni-image-view.c-540-    GTK_WIDGET_CLASS(uni_image_view_parent_class)->unrealize(widget);
-uni/uni-image-view.c-541-}
---
 uni/uni-image-view.c:1130:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 uni/uni-image-view.c-1131-    g_type_class_add_private(object_class, sizeof(UniImageViewPrivate));
 uni/uni-image-view.c-1132-    G_GNUC_END_IGNORE_DEPRECATIONS
@@ -74,13 +46,6 @@ dlg/vnr-properties-dialog.c-67-static void set_new_pixbuf(VnrPropertiesDialog *d
 dlg/vnr-properties-dialog.c-68-{
 dlg/vnr-properties-dialog.c-69-    if (dialog->thumbnail != NULL)
 dlg/vnr-properties-dialog.c-70-    {
---
-dlg/vnr-crop.c:140:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-dlg/vnr-crop.c-141-    GtkWidget *vbox0 = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-dlg/vnr-crop.c-142-    G_GNUC_END_IGNORE_DEPRECATIONS
-dlg/vnr-crop.c-143-
-dlg/vnr-crop.c-144-    GtkWidget *vbox1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
-dlg/vnr-crop.c-145-    gtk_container_add(GTK_CONTAINER(vbox0), vbox1);
 --
 dlg/vnr-crop.c:511:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 dlg/vnr-crop.c-512-    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(crop->image));

@@ -742,9 +742,7 @@ static void uni_image_view_unrealize(GtkWidget *widget)
 {
     UniImageView *view = UNI_IMAGE_VIEW(widget);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gdk_cursor_unref(view->void_cursor);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    g_object_unref(view->void_cursor);
 
     GTK_WIDGET_CLASS(uni_image_view_parent_class)->unrealize(widget);
 }
@@ -1252,6 +1250,7 @@ gboolean uni_image_view_get_draw_rect(UniImageView *view, GdkRectangle *rect)
 {
     if (!view->pixbuf)
         return FALSE;
+
     Size alloc = uni_image_view_get_allocated_size(view);
     Size zoomed = uni_image_view_get_zoomed_size(view);
 
@@ -1261,6 +1260,7 @@ gboolean uni_image_view_get_draw_rect(UniImageView *view, GdkRectangle *rect)
     rect->y = MAX(rect->y, 0);
     rect->width = MIN(zoomed.width, alloc.width);
     rect->height = MIN(zoomed.height, alloc.height);
+
     return TRUE;
 }
 
