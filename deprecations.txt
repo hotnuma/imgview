@@ -19,13 +19,6 @@ uni/uni-image-view.c-166-    G_GNUC_END_IGNORE_DEPRECATIONS
 uni/uni-image-view.c-167-
 uni/uni-image-view.c-168-    g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->hadjustment), view);
 --
-uni/uni-image-view.c:372:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-image-view.c-373-    cairo_t *cr = gdk_cairo_create(window);
-uni/uni-image-view.c-374-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-image-view.c-375-
-uni/uni-image-view.c-376-    GdkPixbuf *win = gdk_pixbuf_get_from_window(window, src_x, src_y, alloc.width - abs(delta_x), alloc.height - abs(delta_y));
-uni/uni-image-view.c-377-    gdk_cairo_set_source_pixbuf(cr, win, dest_x, dest_y);
---
 uni/uni-image-view.c:525:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 uni/uni-image-view.c-526-    gtk_style_context_set_background(context, window);
 uni/uni-image-view.c-527-    view->void_cursor = gdk_cursor_new(GDK_ARROW);
@@ -46,10 +39,3 @@ dlg/vnr-properties-dialog.c-67-static void set_new_pixbuf(VnrPropertiesDialog *d
 dlg/vnr-properties-dialog.c-68-{
 dlg/vnr-properties-dialog.c-69-    if (dialog->thumbnail != NULL)
 dlg/vnr-properties-dialog.c-70-    {
---
-dlg/vnr-crop.c:511:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-dlg/vnr-crop.c-512-    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(crop->image));
-dlg/vnr-crop.c-513-    G_GNUC_END_IGNORE_DEPRECATIONS
-dlg/vnr-crop.c-514-
-dlg/vnr-crop.c-515-    cairo_set_operator(cr, CAIRO_OPERATOR_DIFFERENCE);
-dlg/vnr-crop.c-516-    cairo_set_line_width(cr, 3);
