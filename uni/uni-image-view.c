@@ -515,8 +515,7 @@ static void uni_image_view_finalize(GObject *object)
 
 // ----------------------------------------------------------------------------
 
-static void widget_size_allocate(GtkWidget *widget,
-                                         GtkAllocation *alloc)
+static void widget_size_allocate(GtkWidget *widget, GtkAllocation *alloc)
 {
     UniImageView *view = UNI_IMAGE_VIEW(widget);
     if (gtk_widget_get_realized(widget))
@@ -544,8 +543,52 @@ static void widget_size_allocate(GtkWidget *widget,
                                alloc->width, alloc->height);
 }
 
+static void _uni_image_view_clamp_offset(UniImageView *view, gdouble *x, gdouble *y)
+{
+    Size alloc = _uni_image_view_get_allocated_size(view);
+    Size zoomed = _uni_image_view_get_zoomed_size(view);
+
+    *x = MIN(*x, zoomed.width - alloc.width);
+    *y = MIN(*y, zoomed.height - alloc.height);
+    *x = MAX(*x, 0);
+    *y = MAX(*y, 0);
+}
+
+static void _uni_image_view_update_adjustments(UniImageView *view)
+{
+    Size zoomed = _uni_image_view_get_zoomed_size(view);
+    Size alloc = _uni_image_view_get_allocated_size(view);
+
+    gtk_adjustment_configure(view->priv->hadjustment,
+                             view->offset_x,
+                             0.0,
+                             zoomed.width,
+                             20.0,
+                             alloc.width / 2,
+                             alloc.width);
+
+    gtk_adjustment_configure(view->priv->vadjustment,
+                             view->offset_y,
+                             0.0,
+                             zoomed.height,
+                             20.0,
+                             alloc.height / 2,
+                             alloc.height);
+
+    g_signal_handlers_block_by_data(G_OBJECT(view->priv->hadjustment), view);
+    g_signal_handlers_block_by_data(G_OBJECT(view->priv->vadjustment), view);
+
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    gtk_adjustment_changed(view->priv->hadjustment);
+    gtk_adjustment_changed(view->priv->vadjustment);
+    G_GNUC_END_IGNORE_DEPRECATIONS
+
+    g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->hadjustment), view);
+    g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->vadjustment), view);
+}
+
 static void _uni_image_view_zoom_to_fit(UniImageView *view,
-                                       gboolean is_allocating)
+                                        gboolean is_allocating)
 {
     Size img = _uni_image_view_get_pixbuf_size(view);
     GtkAllocation alloc;
@@ -563,6 +606,17 @@ static void _uni_image_view_zoom_to_fit(UniImageView *view,
         zoom = CLAMP(zoom, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
 
     _uni_image_view_set_zoom_no_center(view, zoom, is_allocating);
+}
+
+static Size _uni_image_view_get_pixbuf_size(UniImageView *view)
+{
+    Size s = {0, 0};
+    if (!view->pixbuf)
+        return s;
+
+    s.width = gdk_pixbuf_get_width(view->pixbuf);
+    s.height = gdk_pixbuf_get_height(view->pixbuf);
+    return s;
 }
 
 static void _uni_image_view_set_zoom_no_center(UniImageView *view,
@@ -980,370 +1034,6 @@ static gboolean _uni_image_view_vadj_changed_cb(GtkAdjustment *adj, UniImageView
     return FALSE;
 }
 
-
-// ----------------------------------------------------------------------------
-
-/**
- * uni_image_view_set_zoom:
- * @view: a #UniImageView
- * @zoom: the new zoom factor
- *
- * Sets the zoom of the view.
- *
- * Fitting is always disabled after this method has run. The
- * ::zoom-changed signal is unconditionally emitted.
- **/
-void uni_image_view_set_zoom(UniImageView *view, gdouble zoom)
-{
-    g_return_if_fail(UNI_IS_IMAGE_VIEW(view));
-    zoom = CLAMP(zoom, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-    _uni_image_view_set_zoom_no_center(view, zoom, FALSE);
-}
-
-/**
- * uni_image_view_zoom_in:
- * @view: a #UniImageView
- *
- * Zoom in the view one step. Calling this method causes the widget to
- * immediately repaint itself.
- **/
-void uni_image_view_zoom_in(UniImageView *view)
-{
-    gdouble zoom;
-    zoom = CLAMP(view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-    uni_image_view_set_zoom(view, zoom);
-}
-
-/**
- * uni_image_view_zoom_out:
- * @view: a #UniImageView
- *
- * Zoom out the view one step. Calling this method causes the widget to
- * immediately repaint itself.
- **/
-void uni_image_view_zoom_out(UniImageView *view)
-{
-    gdouble zoom = CLAMP(view->zoom / UNI_ZOOM_STEP,
-                         UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-    uni_image_view_set_zoom(view, zoom);
-}
-
-void uni_image_view_set_fitting(UniImageView *view, UniFittingMode fitting)
-{
-    g_return_if_fail(UNI_IS_IMAGE_VIEW(view));
-
-    view->fitting = fitting;
-
-    gtk_widget_queue_resize(GTK_WIDGET(view));
-}
-
-static void uni_image_view_scroll(UniImageView *view,
-                                  GtkScrollType xscroll,
-                                  GtkScrollType yscroll)
-{
-    GtkAdjustment *hadj = view->priv->hadjustment;
-    GtkAdjustment *vadj = view->priv->vadjustment;
-
-    gdouble h_step = gtk_adjustment_get_step_increment(hadj);
-    gdouble v_step = gtk_adjustment_get_step_increment(vadj);
-    gdouble h_page = gtk_adjustment_get_page_increment(hadj);
-    gdouble v_page = gtk_adjustment_get_page_increment(vadj);
-
-    int xstep = 0;
-    if (xscroll == GTK_SCROLL_STEP_LEFT)
-        xstep = -h_step;
-    else if (xscroll == GTK_SCROLL_STEP_RIGHT)
-        xstep = h_step;
-    else if (xscroll == GTK_SCROLL_PAGE_LEFT)
-        xstep = -h_page;
-    else if (xscroll == GTK_SCROLL_PAGE_RIGHT)
-        xstep = h_page;
-
-    int ystep = 0;
-    if (yscroll == GTK_SCROLL_STEP_UP)
-        ystep = -v_step;
-    else if (yscroll == GTK_SCROLL_STEP_DOWN)
-        ystep = v_step;
-    else if (yscroll == GTK_SCROLL_PAGE_UP)
-        ystep = -v_page;
-    else if (yscroll == GTK_SCROLL_PAGE_DOWN)
-        ystep = v_page;
-
-    _uni_image_view_scroll_to(view,
-                              view->offset_x + xstep,
-                              view->offset_y + ystep, TRUE, FALSE);
-}
-
-
-// ----------------------------------------------------------------------------
-
-/**
- * uni_image_view_get_viewport:
- * @view: a #UniImageView
- * @rect: a #GdkRectangle to fill in with the current viewport or
- *   %NULL.
- * @returns: %TRUE if a #GdkPixbuf is shown, %FALSE otherwise.
- *
- * Fills in the rectangle with the current viewport. If pixbuf is
- * %NULL, there is no viewport, @rect is left untouched and %FALSE is
- * returned.
- *
- * The current viewport is defined as the rectangle, in zoomspace
- * coordinates as the area of the loaded pixbuf the #UniImageView is
- * currently showing.
- **/
-gboolean uni_image_view_get_viewport(UniImageView *view, GdkRectangle *rect)
-{
-    gboolean ret_val = (view->pixbuf != NULL);
-    if (!rect || !ret_val)
-        return ret_val;
-
-    Size alloc = _uni_image_view_get_allocated_size(view);
-    Size zoomed = _uni_image_view_get_zoomed_size(view);
-    rect->x = view->offset_x;
-    rect->y = view->offset_y;
-    rect->width = MIN(alloc.width, zoomed.width);
-    rect->height = MIN(alloc.height, zoomed.height);
-    return TRUE;
-}
-
-/**
- * uni_image_view_get_draw_rect:
- * @view: a #UniImageView
- * @rect: a #GdkRectangle to fill in with the area of the widget in
- *   which the pixbuf is drawn.
- * @returns: %TRUE if the view is allocated and has a pixbuf, %FALSE
- *   otherwise.
- *
- * Get the rectangle in the widget where the pixbuf is painted.
- *
- * For example, if the widgets allocated size is 100, 100 and the
- * pixbufs size is 50, 50 and the zoom factor is 1.0, then the pixbuf
- * will be drawn centered on the widget. @rect will then be
- * (25,25)-[50,50].
- *
- * This method is useful when converting from widget to image or zoom
- * space coordinates.
- **/
-gboolean uni_image_view_get_draw_rect(UniImageView *view, GdkRectangle *rect)
-{
-    if (!view->pixbuf)
-        return FALSE;
-
-    Size alloc = _uni_image_view_get_allocated_size(view);
-    Size zoomed = _uni_image_view_get_zoomed_size(view);
-
-    rect->x = (alloc.width - zoomed.width) / 2;
-    rect->y = (alloc.height - zoomed.height) / 2;
-    rect->x = MAX(rect->x, 0);
-    rect->y = MAX(rect->y, 0);
-    rect->width = MIN(zoomed.width, alloc.width);
-    rect->height = MIN(zoomed.height, alloc.height);
-
-    return TRUE;
-}
-
-/**
- * uni_image_view_set_offset:
- * @view: A #UniImageView.
- * @x: X-component of the offset in zoom space coordinates.
- * @y: Y-component of the offset in zoom space coordinates.
- * @invalidate: whether to invalidate the view or redraw immediately.
- *
- * Sets the offset of where in the image the #UniImageView should
- * begin displaying image data.
- *
- * The offset is clamped so that it will never cause the #UniImageView
- * to display pixels outside the pixbuf. Setting this attribute causes
- * the widget to repaint itself if it is realized.
- *
- * If @invalidate is %TRUE, the views entire area will be invalidated
- * instead of redrawn immediately. The view is then queued for redraw,
- * which means that additional operations can be performed on it
- * before it is redrawn.
- *
- * The difference can sometimes be important like when you are
- * overlaying data and get flicker or artifacts when setting the
- * offset. If that happens, setting @invalidate to %TRUE could fix the
- * problem. See the source code to #GtkImageToolSelector for an
- * example.
- *
- * Normally, @invalidate should always be %FALSE because it is much
- * faster to repaint immedately than invalidating.
- **/
-void uni_image_view_set_offset(UniImageView *view,
-                               gdouble offset_x,
-                               gdouble offset_y, gboolean invalidate)
-{
-    _uni_image_view_scroll_to(view, offset_x, offset_y, TRUE, invalidate);
-}
-
-void uni_image_view_set_vadjustment(UniImageView *view, GtkAdjustment *vadj)
-{
-    uni_image_view_set_scroll_adjustments(view, NULL, vadj);
-}
-
-void uni_image_view_set_hadjustment(UniImageView *view, GtkAdjustment *hadj)
-{
-    uni_image_view_set_scroll_adjustments(view, hadj, NULL);
-}
-
-GtkAdjustment* uni_image_view_get_vadjustment(UniImageView *view)
-{
-    return view->priv->vadjustment;
-}
-
-GtkAdjustment* uni_image_view_get_hadjustment(UniImageView *view)
-{
-    return view->priv->hadjustment;
-}
-
-/**
- * uni_image_view_get_pixbuf:
- * @view: A #UniImageView.
- * @returns: The pixbuf this view shows.
- *
- * Returns the pixbuf this view shows.
- **/
-GdkPixbuf* uni_image_view_get_pixbuf(UniImageView *view)
-{
-    g_return_val_if_fail(UNI_IS_IMAGE_VIEW(view), NULL);
-    return view->pixbuf;
-}
-
-/**
- * uni_image_view_set_pixbuf:
- * @view: A #UniImageView.
- * @pixbuf: The pixbuf to display.
- * @reset_fit: Whether to reset fitting or not.
- *
- * Sets the @pixbuf to display, or %NULL to not display any pixbuf.
- * Normally, @reset_fit should be %TRUE which enables fitting. Which
- * means that, initially, the whole pixbuf will be shown.
- *
- * Sometimes, the fit mode should not be reset. For example, if
- * UniImageView is showing an animation, it would be bad to reset the
- * fit mode for each new frame. The parameter should then be %FALSE
- * which leaves the fit mode of the view untouched.
- *
- * This method should not be used if merely the contents of the pixbuf
- * has changed. See uni_image_view_damage_pixels() for that.
- *
- * If @reset_fit is %TRUE, the ::zoom-changed signal is emitted,
- * otherwise not. The ::pixbuf-changed signal is also emitted.
- *
- * The default pixbuf is %NULL.
- **/
-void uni_image_view_set_pixbuf(UniImageView *view,
-                               GdkPixbuf *pixbuf, gboolean reset_fit)
-{
-    if (view->pixbuf != pixbuf)
-    {
-        if (view->pixbuf)
-            g_object_unref(view->pixbuf);
-        view->pixbuf = pixbuf;
-        if (view->pixbuf)
-            g_object_ref(pixbuf);
-    }
-
-    if (reset_fit)
-        uni_image_view_set_fitting(view, UNI_FITTING_NORMAL);
-    else
-    {
-        /*
-           If the size of the pixbuf changes, the offset might point to
-           pixels outside it so we use uni_image_view_scroll_to() to
-           make it valid again. And if the size is different, naturally
-           we must also update the adjustments.
-         */
-        _uni_image_view_scroll_to(view, view->offset_x, view->offset_y,
-                                 FALSE, FALSE);
-        _uni_image_view_update_adjustments(view);
-        gtk_widget_queue_draw(GTK_WIDGET(view));
-    }
-
-    g_signal_emit(G_OBJECT(view),
-                  uni_image_view_signals[PIXBUF_CHANGED], 0);
-    uni_dragger_pixbuf_changed(UNI_DRAGGER(view->tool), reset_fit, NULL);
-}
-
-void uni_image_view_set_zoom_mode(UniImageView *view, VnrPrefsZoom mode)
-{
-    switch (mode)
-    {
-    case VNR_PREFS_ZOOM_NORMAL:
-        uni_image_view_set_fitting(view, UNI_FITTING_NONE);
-        // view->zoom = 1.0;
-        uni_image_view_set_zoom(view, 1.0);
-        break;
-    case VNR_PREFS_ZOOM_FIT:
-        uni_image_view_set_fitting(view, UNI_FITTING_FULL);
-        break;
-    case VNR_PREFS_ZOOM_SMART:
-        uni_image_view_set_fitting(view, UNI_FITTING_NORMAL);
-        break;
-    default:
-        break;
-    }
-}
-
-// ----------------------------------------------------------------------------
-
-static Size _uni_image_view_get_pixbuf_size(UniImageView *view)
-{
-    Size s = {0, 0};
-    if (!view->pixbuf)
-        return s;
-
-    s.width = gdk_pixbuf_get_width(view->pixbuf);
-    s.height = gdk_pixbuf_get_height(view->pixbuf);
-    return s;
-}
-
-static void _uni_image_view_clamp_offset(UniImageView *view, gdouble *x, gdouble *y)
-{
-    Size alloc = _uni_image_view_get_allocated_size(view);
-    Size zoomed = _uni_image_view_get_zoomed_size(view);
-
-    *x = MIN(*x, zoomed.width - alloc.width);
-    *y = MIN(*y, zoomed.height - alloc.height);
-    *x = MAX(*x, 0);
-    *y = MAX(*y, 0);
-}
-
-static void _uni_image_view_update_adjustments(UniImageView *view)
-{
-    Size zoomed = _uni_image_view_get_zoomed_size(view);
-    Size alloc = _uni_image_view_get_allocated_size(view);
-
-    gtk_adjustment_configure(view->priv->hadjustment,
-                             view->offset_x,
-                             0.0,
-                             zoomed.width,
-                             20.0,
-                             alloc.width / 2,
-                             alloc.width);
-
-    gtk_adjustment_configure(view->priv->vadjustment,
-                             view->offset_y,
-                             0.0,
-                             zoomed.height,
-                             20.0,
-                             alloc.height / 2,
-                             alloc.height);
-
-    g_signal_handlers_block_by_data(G_OBJECT(view->priv->hadjustment), view);
-    g_signal_handlers_block_by_data(G_OBJECT(view->priv->vadjustment), view);
-
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_adjustment_changed(view->priv->hadjustment);
-    gtk_adjustment_changed(view->priv->vadjustment);
-    G_GNUC_END_IGNORE_DEPRECATIONS
-
-    g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->hadjustment), view);
-    g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->vadjustment), view);
-}
-
 /**
  * uni_image_view_scroll_to:
  * @offset_x: X part of the offset in zoom space coordinates.
@@ -1480,6 +1170,314 @@ static void _uni_image_view_fast_scroll(UniImageView *view,
     cairo_region_destroy(region);
 
     //cairo_destroy(cr); ???
+}
+
+
+// public class members -------------------------------------------------------
+
+/**
+ * uni_image_view_set_zoom:
+ * @view: a #UniImageView
+ * @zoom: the new zoom factor
+ *
+ * Sets the zoom of the view.
+ *
+ * Fitting is always disabled after this method has run. The
+ * ::zoom-changed signal is unconditionally emitted.
+ **/
+void uni_image_view_set_zoom(UniImageView *view, gdouble zoom)
+{
+    g_return_if_fail(UNI_IS_IMAGE_VIEW(view));
+    zoom = CLAMP(zoom, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+    _uni_image_view_set_zoom_no_center(view, zoom, FALSE);
+}
+
+/**
+ * uni_image_view_zoom_in:
+ * @view: a #UniImageView
+ *
+ * Zoom in the view one step. Calling this method causes the widget to
+ * immediately repaint itself.
+ **/
+void uni_image_view_zoom_in(UniImageView *view)
+{
+    gdouble zoom;
+    zoom = CLAMP(view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+    uni_image_view_set_zoom(view, zoom);
+}
+
+/**
+ * uni_image_view_zoom_out:
+ * @view: a #UniImageView
+ *
+ * Zoom out the view one step. Calling this method causes the widget to
+ * immediately repaint itself.
+ **/
+void uni_image_view_zoom_out(UniImageView *view)
+{
+    gdouble zoom = CLAMP(view->zoom / UNI_ZOOM_STEP,
+                         UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+    uni_image_view_set_zoom(view, zoom);
+}
+
+void uni_image_view_set_fitting(UniImageView *view, UniFittingMode fitting)
+{
+    g_return_if_fail(UNI_IS_IMAGE_VIEW(view));
+
+    view->fitting = fitting;
+
+    gtk_widget_queue_resize(GTK_WIDGET(view));
+}
+
+static void uni_image_view_scroll(UniImageView *view,
+                                  GtkScrollType xscroll,
+                                  GtkScrollType yscroll)
+{
+    GtkAdjustment *hadj = view->priv->hadjustment;
+    GtkAdjustment *vadj = view->priv->vadjustment;
+
+    gdouble h_step = gtk_adjustment_get_step_increment(hadj);
+    gdouble v_step = gtk_adjustment_get_step_increment(vadj);
+    gdouble h_page = gtk_adjustment_get_page_increment(hadj);
+    gdouble v_page = gtk_adjustment_get_page_increment(vadj);
+
+    int xstep = 0;
+    if (xscroll == GTK_SCROLL_STEP_LEFT)
+        xstep = -h_step;
+    else if (xscroll == GTK_SCROLL_STEP_RIGHT)
+        xstep = h_step;
+    else if (xscroll == GTK_SCROLL_PAGE_LEFT)
+        xstep = -h_page;
+    else if (xscroll == GTK_SCROLL_PAGE_RIGHT)
+        xstep = h_page;
+
+    int ystep = 0;
+    if (yscroll == GTK_SCROLL_STEP_UP)
+        ystep = -v_step;
+    else if (yscroll == GTK_SCROLL_STEP_DOWN)
+        ystep = v_step;
+    else if (yscroll == GTK_SCROLL_PAGE_UP)
+        ystep = -v_page;
+    else if (yscroll == GTK_SCROLL_PAGE_DOWN)
+        ystep = v_page;
+
+    _uni_image_view_scroll_to(view,
+                              view->offset_x + xstep,
+                              view->offset_y + ystep, TRUE, FALSE);
+}
+
+
+// public ---------------------------------------------------------------------
+
+/**
+ * uni_image_view_get_viewport:
+ * @view: a #UniImageView
+ * @rect: a #GdkRectangle to fill in with the current viewport or
+ *   %NULL.
+ * @returns: %TRUE if a #GdkPixbuf is shown, %FALSE otherwise.
+ *
+ * Fills in the rectangle with the current viewport. If pixbuf is
+ * %NULL, there is no viewport, @rect is left untouched and %FALSE is
+ * returned.
+ *
+ * The current viewport is defined as the rectangle, in zoomspace
+ * coordinates as the area of the loaded pixbuf the #UniImageView is
+ * currently showing.
+ **/
+gboolean uni_image_view_get_viewport(UniImageView *view, GdkRectangle *rect)
+{
+    gboolean ret_val = (view->pixbuf != NULL);
+    if (!rect || !ret_val)
+        return ret_val;
+
+    Size alloc = _uni_image_view_get_allocated_size(view);
+    Size zoomed = _uni_image_view_get_zoomed_size(view);
+    rect->x = view->offset_x;
+    rect->y = view->offset_y;
+    rect->width = MIN(alloc.width, zoomed.width);
+    rect->height = MIN(alloc.height, zoomed.height);
+    return TRUE;
+}
+
+/**
+ * uni_image_view_get_draw_rect:
+ * @view: a #UniImageView
+ * @rect: a #GdkRectangle to fill in with the area of the widget in
+ *   which the pixbuf is drawn.
+ * @returns: %TRUE if the view is allocated and has a pixbuf, %FALSE
+ *   otherwise.
+ *
+ * Get the rectangle in the widget where the pixbuf is painted.
+ *
+ * For example, if the widgets allocated size is 100, 100 and the
+ * pixbufs size is 50, 50 and the zoom factor is 1.0, then the pixbuf
+ * will be drawn centered on the widget. @rect will then be
+ * (25,25)-[50,50].
+ *
+ * This method is useful when converting from widget to image or zoom
+ * space coordinates.
+ **/
+gboolean uni_image_view_get_draw_rect(UniImageView *view, GdkRectangle *rect)
+{
+    if (!view->pixbuf)
+        return FALSE;
+
+    Size alloc = _uni_image_view_get_allocated_size(view);
+    Size zoomed = _uni_image_view_get_zoomed_size(view);
+
+    rect->x = (alloc.width - zoomed.width) / 2;
+    rect->y = (alloc.height - zoomed.height) / 2;
+    rect->x = MAX(rect->x, 0);
+    rect->y = MAX(rect->y, 0);
+    rect->width = MIN(zoomed.width, alloc.width);
+    rect->height = MIN(zoomed.height, alloc.height);
+
+    return TRUE;
+}
+
+/**
+ * uni_image_view_set_offset:
+ * @view: A #UniImageView.
+ * @x: X-component of the offset in zoom space coordinates.
+ * @y: Y-component of the offset in zoom space coordinates.
+ * @invalidate: whether to invalidate the view or redraw immediately.
+ *
+ * Sets the offset of where in the image the #UniImageView should
+ * begin displaying image data.
+ *
+ * The offset is clamped so that it will never cause the #UniImageView
+ * to display pixels outside the pixbuf. Setting this attribute causes
+ * the widget to repaint itself if it is realized.
+ *
+ * If @invalidate is %TRUE, the views entire area will be invalidated
+ * instead of redrawn immediately. The view is then queued for redraw,
+ * which means that additional operations can be performed on it
+ * before it is redrawn.
+ *
+ * The difference can sometimes be important like when you are
+ * overlaying data and get flicker or artifacts when setting the
+ * offset. If that happens, setting @invalidate to %TRUE could fix the
+ * problem. See the source code to #GtkImageToolSelector for an
+ * example.
+ *
+ * Normally, @invalidate should always be %FALSE because it is much
+ * faster to repaint immedately than invalidating.
+ **/
+void uni_image_view_set_offset(UniImageView *view,
+                               gdouble offset_x,
+                               gdouble offset_y, gboolean invalidate)
+{
+    _uni_image_view_scroll_to(view, offset_x, offset_y, TRUE, invalidate);
+}
+
+GtkAdjustment* uni_image_view_get_hadjustment(UniImageView *view)
+{
+    return view->priv->hadjustment;
+}
+
+GtkAdjustment* uni_image_view_get_vadjustment(UniImageView *view)
+{
+    return view->priv->vadjustment;
+}
+
+void uni_image_view_set_hadjustment(UniImageView *view, GtkAdjustment *hadj)
+{
+    uni_image_view_set_scroll_adjustments(view, hadj, NULL);
+}
+
+void uni_image_view_set_vadjustment(UniImageView *view, GtkAdjustment *vadj)
+{
+    uni_image_view_set_scroll_adjustments(view, NULL, vadj);
+}
+
+/**
+ * uni_image_view_get_pixbuf:
+ * @view: A #UniImageView.
+ * @returns: The pixbuf this view shows.
+ *
+ * Returns the pixbuf this view shows.
+ **/
+GdkPixbuf* uni_image_view_get_pixbuf(UniImageView *view)
+{
+    g_return_val_if_fail(UNI_IS_IMAGE_VIEW(view), NULL);
+
+    return view->pixbuf;
+}
+
+/**
+ * uni_image_view_set_pixbuf:
+ * @view: A #UniImageView.
+ * @pixbuf: The pixbuf to display.
+ * @reset_fit: Whether to reset fitting or not.
+ *
+ * Sets the @pixbuf to display, or %NULL to not display any pixbuf.
+ * Normally, @reset_fit should be %TRUE which enables fitting. Which
+ * means that, initially, the whole pixbuf will be shown.
+ *
+ * Sometimes, the fit mode should not be reset. For example, if
+ * UniImageView is showing an animation, it would be bad to reset the
+ * fit mode for each new frame. The parameter should then be %FALSE
+ * which leaves the fit mode of the view untouched.
+ *
+ * This method should not be used if merely the contents of the pixbuf
+ * has changed. See uni_image_view_damage_pixels() for that.
+ *
+ * If @reset_fit is %TRUE, the ::zoom-changed signal is emitted,
+ * otherwise not. The ::pixbuf-changed signal is also emitted.
+ *
+ * The default pixbuf is %NULL.
+ **/
+void uni_image_view_set_pixbuf(UniImageView *view,
+                               GdkPixbuf *pixbuf, gboolean reset_fit)
+{
+    if (view->pixbuf != pixbuf)
+    {
+        if (view->pixbuf)
+            g_object_unref(view->pixbuf);
+        view->pixbuf = pixbuf;
+        if (view->pixbuf)
+            g_object_ref(pixbuf);
+    }
+
+    if (reset_fit)
+        uni_image_view_set_fitting(view, UNI_FITTING_NORMAL);
+    else
+    {
+        /*
+           If the size of the pixbuf changes, the offset might point to
+           pixels outside it so we use uni_image_view_scroll_to() to
+           make it valid again. And if the size is different, naturally
+           we must also update the adjustments.
+         */
+        _uni_image_view_scroll_to(view, view->offset_x, view->offset_y,
+                                 FALSE, FALSE);
+        _uni_image_view_update_adjustments(view);
+        gtk_widget_queue_draw(GTK_WIDGET(view));
+    }
+
+    g_signal_emit(G_OBJECT(view),
+                  uni_image_view_signals[PIXBUF_CHANGED], 0);
+    uni_dragger_pixbuf_changed(UNI_DRAGGER(view->tool), reset_fit, NULL);
+}
+
+void uni_image_view_set_zoom_mode(UniImageView *view, VnrPrefsZoom mode)
+{
+    switch (mode)
+    {
+    case VNR_PREFS_ZOOM_NORMAL:
+        uni_image_view_set_fitting(view, UNI_FITTING_NONE);
+        // view->zoom = 1.0;
+        uni_image_view_set_zoom(view, 1.0);
+        break;
+    case VNR_PREFS_ZOOM_FIT:
+        uni_image_view_set_fitting(view, UNI_FITTING_FULL);
+        break;
+    case VNR_PREFS_ZOOM_SMART:
+        uni_image_view_set_fitting(view, UNI_FITTING_NORMAL);
+        break;
+    default:
+        break;
+    }
 }
 
 
