@@ -29,7 +29,8 @@ G_DEFINE_TYPE(VnrPropertiesDialog, vnr_properties_dialog, GTK_TYPE_DIALOG)
 
 static void vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog);
 
-static gboolean key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+static gboolean key_press_cb(GtkWidget *widget,
+                             GdkEventKey *event, gpointer user_data)
 {
     if (event->keyval == GDK_KEY_Escape)
     {
@@ -40,14 +41,14 @@ static gboolean key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer use
         return FALSE;
 }
 
-static void
-get_file_info(gchar *filename, goffset *size, const gchar **type)
+static void get_file_info(gchar *filename, goffset *size, const gchar **type)
 {
     GFile *file;
-    GFileInfo *fileinfo;
-
     file = g_file_new_for_path(filename);
-    fileinfo = g_file_query_info(file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE "," G_FILE_ATTRIBUTE_STANDARD_SIZE,
+    GFileInfo *fileinfo;
+    fileinfo = g_file_query_info(file,
+                                 G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+                                 G_FILE_ATTRIBUTE_STANDARD_SIZE,
                                  0, NULL, NULL);
 
     if (fileinfo == NULL)
@@ -90,11 +91,15 @@ static void set_new_pixbuf(VnrPropertiesDialog *dialog, GdkPixbuf *original)
                                                 GDK_INTERP_NEAREST);
 }
 
-static void vnr_properties_dialog_class_init(VnrPropertiesDialogClass *klass) {}
+static void vnr_properties_dialog_class_init(VnrPropertiesDialogClass *klass)
+{
+
+}
 
 GtkWidget* vnr_properties_dialog_new(VnrWindow *window)
 {
-    VnrPropertiesDialog *dialog = g_object_new(VNR_TYPE_PROPERTIES_DIALOG, NULL);
+    VnrPropertiesDialog *dialog = g_object_new(VNR_TYPE_PROPERTIES_DIALOG,
+                                               NULL);
 
     dialog->thumbnail = NULL;
     dialog->window = window;
@@ -121,8 +126,7 @@ GtkWidget* vnr_properties_dialog_new(VnrWindow *window)
     return (GtkWidget*) dialog;
 }
 
-static void
-vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
+static void vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
 {
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
@@ -135,7 +139,7 @@ vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
 
     gtk_window_set_title(GTK_WINDOW(dialog), _("Image Properties"));
 
-    /* VBox containing the Location labels */
+    // VBox containing the Location labels
     temp_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_set_border_width(GTK_CONTAINER(temp_box), 10);
     gtk_box_pack_start(GTK_BOX(content_area), temp_box, FALSE, FALSE, 0);
@@ -152,23 +156,27 @@ vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
     gtk_misc_set_alignment(GTK_MISC(dialog->location_label), 0, 0);
     G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_label_set_selectable(GTK_LABEL(dialog->location_label), TRUE);
-    gtk_label_set_ellipsize(GTK_LABEL(dialog->location_label), PANGO_ELLIPSIZE_END);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->location_label, FALSE, FALSE, 0);
+    gtk_label_set_ellipsize(GTK_LABEL(dialog->location_label),
+                            PANGO_ELLIPSIZE_END);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->location_label, FALSE, FALSE, 0);
 
-    /* VBox containing the image and meta data */
+    // VBox containing the image and meta data
     dialog->layout = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_container_set_border_width(GTK_CONTAINER(dialog->layout), 10);
     gtk_box_pack_start(GTK_BOX(content_area), dialog->layout, FALSE, FALSE, 0);
 
-    /* HBox containing the image and the two columns with labels */
+    // HBox containing the image and the two columns with labels
     dialog->image_layout = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_container_set_border_width(GTK_CONTAINER(dialog->image_layout), 10);
-    gtk_box_pack_start(GTK_BOX(dialog->layout), dialog->image_layout, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(dialog->layout),
+                       dialog->image_layout, FALSE, FALSE, 0);
 
-    /* The frame around the image */
+    // The frame around the image
     temp_box = gtk_frame_new(NULL);
     gtk_widget_set_size_request(temp_box, 105, 105);
-    gtk_box_pack_start(GTK_BOX(dialog->image_layout), temp_box, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(dialog->image_layout),
+                       temp_box, FALSE, FALSE, 0);
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     dialog->image = gtk_image_new_from_stock("gtk-missing-image",
@@ -176,7 +184,7 @@ vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
     G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_container_add(GTK_CONTAINER(temp_box), dialog->image);
 
-    /* Buttons */
+    // Buttons
     dialog->prev_button = gtk_button_new();
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_button_set_image(GTK_BUTTON(dialog->prev_button),
@@ -198,9 +206,10 @@ vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
     G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_container_add(GTK_CONTAINER(action_area), dialog->close_button);
 
-    /* Image Data Labels */
+    // Image Data Labels
     temp_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_pack_start(GTK_BOX(dialog->image_layout), temp_box, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(dialog->image_layout),
+                       temp_box, FALSE, FALSE, 0);
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     temp_label = gtk_label_new(NULL);
@@ -230,54 +239,71 @@ vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
     G_GNUC_END_IGNORE_DEPRECATIONS
 
     temp_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_pack_start(GTK_BOX(dialog->image_layout), temp_box, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(dialog->image_layout),
+                       temp_box, FALSE, FALSE, 0);
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     dialog->name_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->name_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(dialog->name_label), 0, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->name_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->name_label, FALSE, FALSE, 0);
+
     dialog->type_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->type_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(dialog->type_label), 0, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->type_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->type_label, FALSE, FALSE, 0);
+
     dialog->size_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->size_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(dialog->size_label), 0, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->size_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->size_label, FALSE, FALSE, 0);
+
     dialog->width_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->width_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(dialog->width_label), 0, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->width_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->width_label, FALSE, FALSE, 0);
+
     dialog->height_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->height_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(dialog->height_label), 0, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->height_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->height_label, FALSE, FALSE, 0);
+
     dialog->modified_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->modified_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(dialog->modified_label), 0, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->modified_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->modified_label, FALSE, FALSE, 0);
+
     G_GNUC_END_IGNORE_DEPRECATIONS
 
-    /* Metadata Labels */
+    // Metadata Labels
 
     temp_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    gtk_box_pack_start(GTK_BOX(dialog->layout), temp_box, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(dialog->layout),
+                       temp_box, FALSE, FALSE, 0);
 
     dialog->meta_names_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->meta_names_box, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->meta_names_box, FALSE, FALSE, 0);
 
     dialog->meta_values_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_pack_start(GTK_BOX(temp_box), dialog->meta_values_box, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(temp_box),
+                       dialog->meta_values_box, FALSE, FALSE, 0);
 
-    /* Events and rest */
+    // Events and rest
 
     g_signal_connect(G_OBJECT(dialog), "delete-event",
                      G_CALLBACK(gtk_widget_hide_on_delete), NULL);
     g_signal_connect_swapped(G_OBJECT(dialog->close_button), "clicked",
                              G_CALLBACK(gtk_widget_hide_on_delete), dialog);
 
-    g_signal_connect(G_OBJECT(dialog), "key-press-event", G_CALLBACK(key_press_cb), NULL);
+    g_signal_connect(G_OBJECT(dialog),
+                     "key-press-event", G_CALLBACK(key_press_cb), NULL);
 
     gtk_widget_show_all(content_area);
     gtk_widget_show_all(action_area);
@@ -323,29 +349,30 @@ void vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
     g_free(filetype_desc);
 }
 
-static void
-vnr_properties_dialog_clear_metadata(VnrPropertiesDialog *dialog)
+static void vnr_properties_dialog_clear_metadata(VnrPropertiesDialog *dialog)
 {
-    GList *children;
-    GList *iter;
+    GList *children = gtk_container_get_children(
+                GTK_CONTAINER(dialog->meta_values_box));
 
-    children = gtk_container_get_children(GTK_CONTAINER(dialog->meta_values_box));
-    for (iter = children; iter != NULL; iter = g_list_next(iter))
+    for (GList *iter = children; iter != NULL; iter = g_list_next(iter))
     {
         gtk_widget_destroy(GTK_WIDGET(iter->data));
     }
+
     g_list_free(children);
 
-    children = gtk_container_get_children(GTK_CONTAINER(dialog->meta_names_box));
-    for (iter = children; iter != NULL; iter = g_list_next(iter))
+    children = gtk_container_get_children(
+                GTK_CONTAINER(dialog->meta_names_box));
+    for (GList *iter = children; iter != NULL; iter = g_list_next(iter))
     {
         gtk_widget_destroy(GTK_WIDGET(iter->data));
     }
+
     g_list_free(children);
 }
 
-static void
-vnr_cb_add_metadata(const char *label, const char *value, void *user_data)
+static void vnr_cb_add_metadata(const char *label,
+                                const char *value, void *user_data)
 {
     VnrPropertiesDialog *dialog = VNR_PROPERTIES_DIALOG(user_data);
     GtkWidget *temp_label;
@@ -358,7 +385,8 @@ vnr_cb_add_metadata(const char *label, const char *value, void *user_data)
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
     G_GNUC_END_IGNORE_DEPRECATIONS
-    gtk_box_pack_start(GTK_BOX(dialog->meta_values_box), temp_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(dialog->meta_values_box),
+                       temp_label, FALSE, FALSE, 0);
 
     gtk_widget_show(temp_label);
 
@@ -370,7 +398,8 @@ vnr_cb_add_metadata(const char *label, const char *value, void *user_data)
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
     G_GNUC_END_IGNORE_DEPRECATIONS
-    gtk_box_pack_start(GTK_BOX(dialog->meta_names_box), temp_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(dialog->meta_names_box),
+                       temp_label, FALSE, FALSE, 0);
 
     g_free(formatted_label);
     gtk_widget_show(temp_label);
@@ -404,11 +433,15 @@ void vnr_properties_dialog_update_image(VnrPropertiesDialog *dialog)
 
     gtk_label_set_text(GTK_LABEL(dialog->modified_label), date_modified);
 
-    set_new_pixbuf(dialog, uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(dialog->window->view)));
+    set_new_pixbuf(
+            dialog,
+            uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(dialog->window->view)));
     gtk_image_set_from_pixbuf(GTK_IMAGE(dialog->image), dialog->thumbnail);
 
-    width_str = g_strdup_printf("%i px", dialog->window->current_image_width);
-    height_str = g_strdup_printf("%i px", dialog->window->current_image_height);
+    width_str = g_strdup_printf("%i px",
+                                dialog->window->current_image_width);
+    height_str = g_strdup_printf("%i px",
+                                 dialog->window->current_image_height);
 
     gtk_label_set_text(GTK_LABEL(dialog->width_label), width_str);
     gtk_label_set_text(GTK_LABEL(dialog->height_label), height_str);
