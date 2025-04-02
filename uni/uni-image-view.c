@@ -149,6 +149,7 @@ G_DEFINE_TYPE_WITH_CODE(
                 UniImageView,
                 uni_image_view,
                 GTK_TYPE_WIDGET,
+                G_ADD_PRIVATE(UniImageView)
                 G_IMPLEMENT_INTERFACE(GTK_TYPE_SCROLLABLE, NULL))
 
 GtkWidget* uni_image_view_new()
@@ -291,9 +292,7 @@ static void uni_image_view_class_init(UniImageViewClass *klass)
                                  GTK_SCROLL_NONE,
                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    g_type_class_add_private(object_class, sizeof(UniImageViewPrivate));
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    //g_type_class_add_private(object_class, sizeof(UniImageViewPrivate));
 }
 
 static void uni_image_view_init_signals(UniImageViewClass *klass)
