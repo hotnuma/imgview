@@ -32,6 +32,7 @@
 #ifdef EXIV2_VERSION
 #ifdef EXIV2_TEST_VERSION
 #if EXIV2_TEST_VERSION(0, 28, 0)
+#undef EXIV_ERROR
 #define EXIV_ERROR Exiv2::Error
 #endif
 #endif

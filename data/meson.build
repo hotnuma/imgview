@@ -1,6 +1,6 @@
 subdir('icons')
 
-po_dir = join_paths(meson.source_root(), 'po')
+po_dir = join_paths(meson.project_source_root(), 'po')
 
 install_data(
     'vnr-preferences-dialog.ui',
