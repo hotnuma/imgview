@@ -21,13 +21,17 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "uni-anim-view.h"
 #include <glib.h>
 #include <gdk/gdkkeysyms.h>
-#include "uni-anim-view.h"
 
-/*************************************************************/
-/***** Private data ******************************************/
-/*************************************************************/
+static void _uni_anim_view_init_signals(UniAnimViewClass *klass);
+static void uni_anim_view_finalize(GObject *object);
+
+static gboolean _uni_anim_view_updator(gpointer data);
+static void _uni_anim_view_toggle_running(UniAnimView *aview);
+static void _uni_anim_view_step(UniAnimView *aview);
+
 enum
 {
     TOGGLE_RUNNING,
@@ -35,114 +39,40 @@ enum
     LAST_SIGNAL
 };
 
-static guint uni_anim_view_signals[LAST_SIGNAL] = {0};
+static guint _uni_anim_view_signals[LAST_SIGNAL] = {0};
+
+
+// creation / destruction -----------------------------------------------------
 
 G_DEFINE_TYPE(UniAnimView, uni_anim_view, UNI_TYPE_IMAGE_VIEW)
 
-/*************************************************************/
-/***** Static stuff ******************************************/
-/*************************************************************/
-
-static gboolean
-uni_anim_view_updator(gpointer data)
+GtkWidget* uni_anim_view_new()
 {
-    UniAnimView *aview = (UniAnimView *)data;
-
-    // Workaround for #437791.
-    glong delay_us = aview->delay * 1000;
-    if (aview->delay == 20)
-    {
-        // If the delay time is 20 ms, the GIF is a "fast player." and
-        // we increase it to a more reasonable 100 ms so that the
-        // frame is only updated 1/5 of the times
-        // uni_anim_view_updator() is run.
-        delay_us = 200;
-    }
-
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    g_time_val_add(&aview->time, delay_us);
-    G_GNUC_END_IGNORE_DEPRECATIONS
-
-    gboolean next = gdk_pixbuf_animation_iter_advance(aview->iter,
-                                                      &aview->time);
-    uni_anim_view_set_is_playing(aview, FALSE);
-
-    aview->delay = gdk_pixbuf_animation_iter_get_delay_time(aview->iter);
-    aview->timer_id = g_timeout_add(aview->delay,
-                                    uni_anim_view_updator, aview);
-
-    if (!next)
-        return FALSE;
-
-    GdkPixbuf *pixbuf = gdk_pixbuf_animation_iter_get_pixbuf(aview->iter);
-    uni_image_view_set_pixbuf(UNI_IMAGE_VIEW(aview), pixbuf, FALSE);
-
-    return FALSE;
+    return g_object_new(UNI_TYPE_ANIM_VIEW, NULL);
 }
 
-/*************************************************************/
-/***** Private signal handlers *******************************/
-/*************************************************************/
-static void
-uni_anim_view_toggle_running(UniAnimView *aview)
+static void uni_anim_view_class_init(UniAnimViewClass *klass)
 {
-    uni_anim_view_set_is_playing(aview, !aview->timer_id);
+    _uni_anim_view_init_signals(klass);
+
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    object_class->finalize = uni_anim_view_finalize;
+
+    klass->toggle_running = _uni_anim_view_toggle_running;
+    klass->step = _uni_anim_view_step;
+
+    // Add keybindings.
+    GtkBindingSet *binding_set = gtk_binding_set_by_class(klass);
+
+    // Stop
+    gtk_binding_entry_add_signal(binding_set, GDK_KEY_p, 0,
+                                 "toggle_running", 0);
+
+    // Step
+    gtk_binding_entry_add_signal(binding_set, GDK_KEY_j, 0, "step", 0);
 }
 
-/* Steps the animation one frame forward. If the animation is playing
- * it will be stopped. Will it wrap around if the animation is at its
- * last frame?
- **/
-static void
-uni_anim_view_step(UniAnimView *aview)
-{
-    if (aview->anim)
-    {
-        /* Part of workaround for #437791. uni_anim_view_updator()
-         * might not always immidiately step to the next frame, so we
-         * loop until the frame is changed.
-         *
-         * If we are on the last frame, it will not wrap around so the
-         * frame will never change. So we risk an infinite loop.
-         * Unfortunately but expectedly, GdkPixbufAnimationIter
-         * doesn't provide a way to check if we
-         * are on the last frame because the API is totally brain
-         * damaged. The work-around is to give uni_anim_view_updator
-         * exactly 10 chances to advance the frame before bailing out.
-         * */
-        int n = 0;
-        GdkPixbuf *old = gdk_pixbuf_animation_iter_get_pixbuf(aview->iter);
-        while ((gdk_pixbuf_animation_iter_get_pixbuf(aview->iter) == old) && (n < 10))
-        {
-            uni_anim_view_updator(aview);
-            n++;
-        }
-    }
-    uni_anim_view_set_is_playing(aview, FALSE);
-}
-
-/*************************************************************/
-/***** Stuff that deals with the type ************************/
-/*************************************************************/
-static void
-uni_anim_view_init(UniAnimView *aview)
-{
-    aview->anim = NULL;
-    aview->iter = NULL;
-    aview->timer_id = 0;
-}
-
-static void
-uni_anim_view_finalize(GObject *object)
-{
-    uni_anim_view_set_is_playing(UNI_ANIM_VIEW(object), FALSE);
-
-    /* Chain up. */
-    G_OBJECT_CLASS(uni_anim_view_parent_class)->finalize(object);
-}
-
-static void
-uni_anim_view_init_signals(UniAnimViewClass *klass)
+static void _uni_anim_view_init_signals(UniAnimViewClass *klass)
 {
     /**
      * UniAnimView::toggle-running:
@@ -153,7 +83,7 @@ uni_anim_view_init_signals(UniAnimViewClass *klass)
      * %GDK_KEY_p is pressed on the widget and should not be used by
      * clients of this library.
      **/
-    uni_anim_view_signals[TOGGLE_RUNNING] =
+    _uni_anim_view_signals[TOGGLE_RUNNING] =
         g_signal_new("toggle_running",
                      G_TYPE_FROM_CLASS(klass),
                      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
@@ -169,7 +99,7 @@ uni_anim_view_init_signals(UniAnimViewClass *klass)
      * emitted when %GDK_KEY_j is pressed on the widget and should not be
      * used by clients of this library.
      **/
-    uni_anim_view_signals[STEP] =
+    _uni_anim_view_signals[STEP] =
         g_signal_new("step",
                      G_TYPE_FROM_CLASS(klass),
                      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
@@ -178,43 +108,25 @@ uni_anim_view_init_signals(UniAnimViewClass *klass)
                      g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 }
 
-static void
-uni_anim_view_class_init(UniAnimViewClass *klass)
+static void uni_anim_view_init(UniAnimView *aview)
 {
-    uni_anim_view_init_signals(klass);
-
-    GObjectClass *object_class = G_OBJECT_CLASS(klass);
-    object_class->finalize = uni_anim_view_finalize;
-
-    klass->toggle_running = uni_anim_view_toggle_running;
-    klass->step = uni_anim_view_step;
-
-    /* Add keybindings. */
-    GtkBindingSet *binding_set = gtk_binding_set_by_class(klass);
-
-    /* Stop */
-    gtk_binding_entry_add_signal(binding_set, GDK_KEY_p, 0, "toggle_running", 0);
-
-    /* Step */
-    gtk_binding_entry_add_signal(binding_set, GDK_KEY_j, 0, "step", 0);
+    aview->anim = NULL;
+    aview->iter = NULL;
+    aview->timer_id = 0;
 }
 
-/**
- * uni_anim_view_new:
- * @returns: A new #UniAnimView.
- *
- * Creates a new #UniAnimView with default values.
- **/
-GtkWidget *
-uni_anim_view_new(void)
+static void uni_anim_view_finalize(GObject *object)
 {
-    GtkWidget *aview = g_object_new(UNI_TYPE_ANIM_VIEW, NULL);
-    return aview;
+    uni_anim_view_set_is_playing(UNI_ANIM_VIEW(object), FALSE);
+
+    // Chain up.
+    G_OBJECT_CLASS(uni_anim_view_parent_class)->finalize(object);
 }
 
-/*************************************************************/
-/***** Read-write properties *********************************/
-/*************************************************************/
+
+// ----------------------------------------------------------------------------
+
+
 /**
  * uni_anim_view_set_anim:
  * @aview: A #UniAnimView.
@@ -238,9 +150,8 @@ uni_anim_view_new(void)
  * The default pixbuf animation is %NULL.
  **/
 
-/* Return TRUE if anim is a static image */
-gboolean
-uni_anim_view_set_anim(UniAnimView *aview, GdkPixbufAnimation *anim)
+// Return TRUE if anim is a static image
+gboolean uni_anim_view_set_anim(UniAnimView *aview, GdkPixbufAnimation *anim)
 {
     gboolean is_static;
 
@@ -285,8 +196,44 @@ uni_anim_view_set_anim(UniAnimView *aview, GdkPixbufAnimation *anim)
 
     if (!is_static)
         aview->timer_id = g_timeout_add(aview->delay,
-                                        uni_anim_view_updator, aview);
+                                        _uni_anim_view_updator, aview);
     return is_static;
+}
+
+static gboolean _uni_anim_view_updator(gpointer data)
+{
+    UniAnimView *aview = (UniAnimView *)data;
+
+    // Workaround for #437791.
+    glong delay_us = aview->delay * 1000;
+    if (aview->delay == 20)
+    {
+        // If the delay time is 20 ms, the GIF is a "fast player." and
+        // we increase it to a more reasonable 100 ms so that the
+        // frame is only updated 1/5 of the times
+        // uni_anim_view_updator() is run.
+        delay_us = 200;
+    }
+
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    g_time_val_add(&aview->time, delay_us);
+    G_GNUC_END_IGNORE_DEPRECATIONS
+
+    gboolean next = gdk_pixbuf_animation_iter_advance(aview->iter,
+                                                      &aview->time);
+    uni_anim_view_set_is_playing(aview, FALSE);
+
+    aview->delay = gdk_pixbuf_animation_iter_get_delay_time(aview->iter);
+    aview->timer_id = g_timeout_add(aview->delay,
+                                    _uni_anim_view_updator, aview);
+
+    if (!next)
+        return FALSE;
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_animation_iter_get_pixbuf(aview->iter);
+    uni_image_view_set_pixbuf(UNI_IMAGE_VIEW(aview), pixbuf, FALSE);
+
+    return FALSE;
 }
 
 /* No conversion from GdkPixbuf to GdkPixbufAnim can be made
@@ -301,7 +248,7 @@ void uni_anim_view_set_static(UniAnimView *aview, GdkPixbuf *pixbuf)
                                         -1);
     gdk_pixbuf_simple_anim_add_frame(s_anim, pixbuf);
 
-    /* Simple version of uni_anim_view_set_anim */
+    // Simple version of uni_anim_view_set_anim
     if (aview->anim)
         g_object_unref(aview->anim);
 
@@ -331,10 +278,51 @@ void uni_anim_view_set_is_playing(UniAnimView *aview, gboolean playing)
 {
     if (!playing && aview->timer_id)
     {
-        /* Commanded to stop AND the animation is playing. */
+        // Commanded to stop AND the animation is playing.
         g_source_remove(aview->timer_id);
         aview->timer_id = 0;
     }
     else if (playing && aview->anim)
-        uni_anim_view_updator(aview);
+        _uni_anim_view_updator(aview);
 }
+
+
+static void _uni_anim_view_toggle_running(UniAnimView *aview)
+{
+    uni_anim_view_set_is_playing(aview, !aview->timer_id);
+}
+
+/* Steps the animation one frame forward. If the animation is playing
+ * it will be stopped. Will it wrap around if the animation is at its
+ * last frame?
+ **/
+static void _uni_anim_view_step(UniAnimView *aview)
+{
+    if (aview->anim)
+    {
+        /* Part of workaround for #437791. uni_anim_view_updator()
+         * might not always immidiately step to the next frame, so we
+         * loop until the frame is changed.
+         *
+         * If we are on the last frame, it will not wrap around so the
+         * frame will never change. So we risk an infinite loop.
+         * Unfortunately but expectedly, GdkPixbufAnimationIter
+         * doesn't provide a way to check if we
+         * are on the last frame because the API is totally brain
+         * damaged. The work-around is to give uni_anim_view_updator
+         * exactly 10 chances to advance the frame before bailing out.
+         * */
+        int n = 0;
+        GdkPixbuf *old = gdk_pixbuf_animation_iter_get_pixbuf(aview->iter);
+        while ((gdk_pixbuf_animation_iter_get_pixbuf(aview->iter) == old)
+               && (n < 10))
+        {
+            _uni_anim_view_updator(aview);
+            n++;
+        }
+    }
+
+    uni_anim_view_set_is_playing(aview, FALSE);
+}
+
+
