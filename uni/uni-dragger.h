@@ -47,7 +47,7 @@ typedef struct _UniDraggerClass UniDraggerClass;
 
 struct _UniDragger
 {
-    GObject parent;
+    GObject __parent__;
 
     GtkWidget *view;
     UniPixbufDrawCache *cache;
@@ -69,7 +69,7 @@ struct _UniDragger
 
 struct _UniDraggerClass
 {
-    GObjectClass parent;
+    GObjectClass __parent__;
 };
 
 GType uni_dragger_get_type() G_GNUC_CONST;

@@ -118,13 +118,15 @@ UniPixbufDrawCache* uni_pixbuf_draw_cache_new()
     cache->last_pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, FALSE, 8, 1, 1);
     cache->check_size = 16;
 
-    cache->old = (UniPixbufDrawOpts){
-        0,
-        {0, 0, 0, 0},
-        0,
-        0,
-        GDK_INTERP_NEAREST,
-        cache->last_pixbuf};
+    cache->old.zoom = 0;
+    cache->old.zoom_rect.x = 0;
+    cache->old.zoom_rect.y = 0;
+    cache->old.zoom_rect.width = 0;
+    cache->old.zoom_rect.height = 0;
+    cache->old.widget_x = 0;
+    cache->old.widget_y = 0;
+    cache->old.interp = GDK_INTERP_NEAREST;
+    cache->old.pixbuf = cache->last_pixbuf;
 
     return cache;
 }
@@ -158,20 +160,20 @@ void uni_pixbuf_draw_cache_free(UniPixbufDrawCache *cache)
  **/
 void uni_pixbuf_draw_cache_invalidate(UniPixbufDrawCache *cache)
 {
-    /* Set the cached zoom to a bogus value, to force a
-       DRAW_FLAGS_SCALE. */
+    // Set the cached zoom to a bogus value, to force a DRAW_FLAGS_SCALE.
+
     cache->old.zoom = -1234.0;
 }
 
 static GdkPixbuf* uni_pixbuf_draw_cache_scroll_intersection(GdkPixbuf *pixbuf,
-                                          int new_width,
-                                          int new_height,
-                                          int src_x,
-                                          int src_y,
-                                          int inter_width,
-                                          int inter_height,
-                                          int dst_x,
-int dst_y)
+                                                            int new_width,
+                                                            int new_height,
+                                                            int src_x,
+                                                            int src_y,
+                                                            int inter_width,
+                                                            int inter_height,
+                                                            int dst_x,
+                                                            int dst_y)
 {
     int last_width = gdk_pixbuf_get_width(pixbuf);
     int last_height = gdk_pixbuf_get_height(pixbuf);

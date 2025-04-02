@@ -40,6 +40,7 @@ static void _uni_scroll_win_get_preferred_height(GtkWidget *widget,
                                                  gint *natural_height);
 static void _uni_scroll_win_show_scrollbar(UniScrollWin *window, gboolean show);
 
+
 // creation / destruction -----------------------------------------------------
 
 G_DEFINE_TYPE(UniScrollWin, uni_scroll_win, GTK_TYPE_GRID)
