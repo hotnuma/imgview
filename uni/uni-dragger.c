@@ -191,13 +191,10 @@ gboolean uni_dragger_button_release(UniDragger *dragger, GdkEventButton *event)
 
 gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
 {
-    GtkAdjustment *vadj;
-    GtkAdjustment *hadj;
-
-    if (dragger->pressed)
-        dragger->dragging = TRUE;
-    else
+    if (!dragger->pressed)
         return FALSE;
+
+    dragger->dragging = TRUE;
 
     dragger->drag_ofs_x = event->x;
     dragger->drag_ofs_y = event->y;
@@ -209,8 +206,10 @@ gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
     if (abs(dx) < 1 && abs(dy) < 1)
         return FALSE;
 
-    vadj = uni_image_view_get_vadjustment(UNI_IMAGE_VIEW(dragger->view));
-    hadj = uni_image_view_get_hadjustment(UNI_IMAGE_VIEW(dragger->view));
+    GtkAdjustment *vadj = uni_image_view_get_vadjustment(
+                UNI_IMAGE_VIEW(dragger->view));
+    GtkAdjustment *hadj = uni_image_view_get_hadjustment(
+                UNI_IMAGE_VIEW(dragger->view));
 
     if (pow(dx, 2) + pow(dy, 2) > 7
         && UNI_IMAGE_VIEW(dragger->view)->pixbuf != NULL
@@ -219,16 +218,7 @@ gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
         && gtk_adjustment_get_upper(hadj)
             <= gtk_adjustment_get_page_size(hadj))
     {
-        uni_dragger_button_release(dragger, (GdkEventButton *)event);
-
-        //gtk_drag_begin(GTK_WIDGET(dragger->view),
-        //               gtk_target_list_new(target_table,
-        //                                   G_N_ELEMENTS(target_table)),
-        //               GDK_ACTION_COPY,
-        //               1,
-        //               (GdkEvent*) event);
-
-        // mem leak in gtk_target_list_new ?
+        uni_dragger_button_release(dragger, (GdkEventButton*) event);
 
         gtk_drag_begin_with_coordinates(
                             GTK_WIDGET(dragger->view),
@@ -250,8 +240,11 @@ gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
     int offset_x = viewport.x + dx;
     int offset_y = viewport.y + dy;
 
-    uni_image_view_set_offset(UNI_IMAGE_VIEW(dragger->view), offset_x,
-                              offset_y, FALSE);
+    //static int count;
+    //printf("%d : uni_dragger_motion_notify\n", ++count);
+
+    uni_image_view_set_offset(UNI_IMAGE_VIEW(dragger->view),
+                              offset_x, offset_y, FALSE);
 
     dragger->drag_base_x = dragger->drag_ofs_x;
     dragger->drag_base_y = dragger->drag_ofs_y;
