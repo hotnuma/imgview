@@ -22,6 +22,47 @@
 
 #include "uni-utils.h"
 
+static gint _sessiontype = -1;
+
+static gint _uni_get_session_type();
+
+gboolean uni_is_x11()
+{
+    return (_uni_get_session_type() == 0);
+}
+
+gboolean uni_is_wayland()
+{
+    return (_uni_get_session_type() == 1);
+}
+
+static gint _uni_get_session_type()
+{
+    if (_sessiontype != -1)
+        return _sessiontype;
+
+    const char *xdg_session_type = getenv("XDG_SESSION_TYPE");
+
+    if (!xdg_session_type)
+    {
+        _sessiontype = -2;
+    }
+    else if (strcmp(xdg_session_type, "x11") == 0)
+    {
+        _sessiontype = 0;
+    }
+    else if (strcmp(xdg_session_type, "wayland") == 0)
+    {
+        _sessiontype = 1;
+    }
+    else
+    {
+        _sessiontype = -3;
+    }
+
+    return _sessiontype;
+}
+
 /**
  * uni_pixbuf_scale_blend:
  *

@@ -36,6 +36,9 @@ typedef struct
     int height;
 } Size;
 
+gboolean uni_is_x11();
+gboolean uni_is_wayland();
+
 void uni_pixbuf_scale_blend(GdkPixbuf *src,
                             GdkPixbuf *dst,
                             int dst_x,

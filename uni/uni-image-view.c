@@ -20,13 +20,14 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "uni-image-view.h"
+
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <math.h>
 #include <stdlib.h>
 
 #include "uni-dragger.h"
-#include "uni-image-view.h"
 #include "uni-dragger.h"
 #include "uni-anim-view.h"
 #include "uni-marshal.h"
@@ -102,10 +103,10 @@ static void _uni_image_view_scroll_to(UniImageView *view,
                                      gdouble offset_y,
                                      gboolean set_adjustments,
                                      gboolean invalidate);
-static gboolean _uni_image_view_hadj_changed_cb(GtkAdjustment *adj,
-                                               UniImageView *view);
-static gboolean _uni_image_view_vadj_changed_cb(GtkAdjustment *adj,
-                                               UniImageView *view);
+static gboolean _on_hadj_value_changed(UniImageView *view,
+                                                GtkAdjustment *adj);
+static gboolean _on_vadj_value_changed(UniImageView *view,
+                                                GtkAdjustment *adj);
 static void uni_image_view_set_scroll_adjustments(UniImageView *view,
                                                   GtkAdjustment *hadj,
                                                   GtkAdjustment *vadj);
@@ -376,6 +377,7 @@ static void uni_image_view_init(UniImageView *view)
     view->show_cursor = TRUE;
     view->void_cursor = NULL;
     view->tool = G_OBJECT(uni_dragger_new((GtkWidget *)view));
+    view->is_wayland = uni_is_wayland();
 
     view->priv = (UniImageViewPrivate *)g_type_instance_get_private((GTypeInstance *)view, UNI_TYPE_IMAGE_VIEW);
 
@@ -995,9 +997,9 @@ static void uni_image_view_set_scroll_adjustments(UniImageView *view,
             g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->hadjustment), view);
             g_object_unref(view->priv->hadjustment);
         }
-        g_signal_connect(hadj,
+        g_signal_connect_swapped(hadj,
                          "value_changed",
-                         G_CALLBACK(_uni_image_view_hadj_changed_cb), view);
+                         G_CALLBACK(_on_hadj_value_changed), view);
         view->priv->hadjustment = hadj;
         g_object_ref_sink(view->priv->hadjustment);
     }
@@ -1008,15 +1010,15 @@ static void uni_image_view_set_scroll_adjustments(UniImageView *view,
             g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->vadjustment), view);
             g_object_unref(view->priv->vadjustment);
         }
-        g_signal_connect(vadj,
+        g_signal_connect_swapped(vadj,
                          "value_changed",
-                         G_CALLBACK(_uni_image_view_vadj_changed_cb), view);
+                         G_CALLBACK(_on_vadj_value_changed), view);
         view->priv->vadjustment = vadj;
         g_object_ref_sink(view->priv->vadjustment);
     }
 }
 
-static gboolean _uni_image_view_hadj_changed_cb(GtkAdjustment *adj, UniImageView *view)
+static gboolean _on_hadj_value_changed(UniImageView *view, GtkAdjustment *adj)
 {
     int offset_x = gtk_adjustment_get_value(adj);
 
@@ -1025,7 +1027,7 @@ static gboolean _uni_image_view_hadj_changed_cb(GtkAdjustment *adj, UniImageView
     return FALSE;
 }
 
-static gboolean _uni_image_view_vadj_changed_cb(GtkAdjustment *adj, UniImageView *view)
+static gboolean _on_vadj_value_changed(UniImageView *view, GtkAdjustment *adj)
 {
     int offset_y = gtk_adjustment_get_value(adj);
 
