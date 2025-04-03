@@ -65,8 +65,6 @@ struct _UniDragger
 
     // Cursor to use when grabbing.
     GdkCursor *grab_cursor;
-
-    gboolean is_wayland;
 };
 
 struct _UniDraggerClass

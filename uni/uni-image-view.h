@@ -70,8 +70,6 @@ struct _UniImageView
     UniImageViewPrivate *priv;
 
     GObject *tool;
-
-    gboolean is_wayland;
 };
 
 struct _UniImageViewClass

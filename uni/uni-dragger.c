@@ -83,8 +83,6 @@ static void uni_dragger_init(UniDragger *dragger)
 
     dragger->grab_cursor = gdk_cursor_new_for_display(
                                 gdk_display_get_default(), GDK_FLEUR);
-
-    dragger->is_wayland = uni_is_wayland();
 }
 
 static void uni_dragger_set_property(GObject *object, guint prop_id,
@@ -246,7 +244,7 @@ gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
 
     // move image...
     uni_image_view_set_offset(UNI_IMAGE_VIEW(dragger->view),
-                              offset_x, offset_y, dragger->is_wayland);
+                              offset_x, offset_y, uni_is_wayland());
 
     dragger->drag_base_x = dragger->drag_ofs_x;
     dragger->drag_base_y = dragger->drag_ofs_y;

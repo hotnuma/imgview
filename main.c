@@ -21,6 +21,7 @@
 #include "window.h"
 #include "message-area.h"
 #include "list.h"
+#include "uni-utils.h"
 #include "vnr-tools.h"
 
 #define PIXMAP_DIR PACKAGE_DATA_DIR "/imgview/pixmaps/"
@@ -43,6 +44,7 @@ static GOptionEntry opt_entries[] =
 int main(int argc, char **argv)
 {
     setbuf(stdout, NULL);
+    uni_is_wayland();
 
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");

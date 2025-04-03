@@ -377,7 +377,6 @@ static void uni_image_view_init(UniImageView *view)
     view->show_cursor = TRUE;
     view->void_cursor = NULL;
     view->tool = G_OBJECT(uni_dragger_new((GtkWidget *)view));
-    view->is_wayland = uni_is_wayland();
 
     view->priv = (UniImageViewPrivate *)g_type_instance_get_private((GTypeInstance *)view, UNI_TYPE_IMAGE_VIEW);
 
