@@ -387,12 +387,13 @@ static void window_init(VnrWindow *window)
                        window->msg_area, FALSE, FALSE, 0);
     gtk_widget_show(GTK_WIDGET(window->msg_area));
 
-    window->view = uni_anim_view_new();
-    gtk_widget_set_can_focus(window->view, TRUE);
-
-    window->scroll_view = uni_scroll_win_new(UNI_IMAGE_VIEW(window->view));
+    window->scroll_view = uni_scroll_win_new();
     gtk_box_pack_end(GTK_BOX(window->layout_box),
                      window->scroll_view, TRUE, TRUE, 0);
+
+    window->view = uni_scroll_win_get_view(
+                UNI_SCROLL_WIN(window->scroll_view));
+
     gtk_widget_show_all(GTK_WIDGET(window->scroll_view));
 
     // popup menu

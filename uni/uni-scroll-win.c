@@ -21,9 +21,12 @@
  */
 
 #include "uni-scroll-win.h"
-#include "uni-image-view.h"
+#include "uni-anim-view.h"
+//#include "uni-image-view.h"
 
 static void uni_scroll_win_finalize(GObject *object);
+static void uni_scroll_win_get_property(GObject *object, guint prop_id,
+                                        GValue *value, GParamSpec *pspec);
 static void uni_scroll_win_set_property(GObject *object,
                                         guint prop_id,
                                         const GValue *value,
@@ -50,26 +53,30 @@ enum
     PROP_IMAGE_VIEW = 1
 };
 
-GtkWidget* uni_scroll_win_new(UniImageView *view)
+GtkWidget* uni_scroll_win_new()
 {
-    gpointer data = g_object_new(UNI_TYPE_SCROLL_WIN,
-                                 "view", view,
-                                 NULL);
-    return GTK_WIDGET(data);
+    GtkWidget *view = uni_anim_view_new();
+    gtk_widget_set_can_focus(view, TRUE);
+
+    return GTK_WIDGET(g_object_new(UNI_TYPE_SCROLL_WIN,
+                                   "view", view,
+                                   NULL));
 }
 
 static void uni_scroll_win_class_init(UniScrollWinClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
-    object_class->set_property = uni_scroll_win_set_property;
     object_class->finalize = uni_scroll_win_finalize;
+    object_class->get_property = uni_scroll_win_get_property;
+    object_class->set_property = uni_scroll_win_set_property;
 
     GParamSpec *pspec = g_param_spec_object("view",
                                             "Image View",
                                             "Image View to navigate",
                                             UNI_TYPE_IMAGE_VIEW,
-                                            G_PARAM_CONSTRUCT_ONLY |
-                                                G_PARAM_WRITABLE);
+                                            G_PARAM_CONSTRUCT
+                                            | G_PARAM_READWRITE);
+
     g_object_class_install_property(object_class, PROP_IMAGE_VIEW, pspec);
 
     GtkWidgetClass *widget_class = (GtkWidgetClass*) klass;
@@ -86,15 +93,42 @@ static void uni_scroll_win_init(UniScrollWin *window)
     //                              GTK_RESIZE_IMMEDIATE);
 }
 
+static void uni_scroll_win_finalize(GObject *object)
+{
+    // Chain up.
+    G_OBJECT_CLASS(uni_scroll_win_parent_class)->finalize(object);
+}
+
+static void uni_scroll_win_get_property(GObject *object, guint prop_id,
+                                        GValue *value, GParamSpec *pspec)
+{
+    UniScrollWin *window = UNI_SCROLL_WIN(object);
+
+    switch (prop_id)
+    {
+    case PROP_IMAGE_VIEW:
+        g_value_set_object(value, window->view);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        break;
+    }
+}
+
 static void uni_scroll_win_set_property(GObject *object, guint prop_id,
                                         const GValue *value, GParamSpec *pspec)
 {
     UniScrollWin *window = UNI_SCROLL_WIN(object);
 
-    if (prop_id == PROP_IMAGE_VIEW)
+    switch (prop_id)
+    {
+    case PROP_IMAGE_VIEW:
         _uni_scroll_win_set_view(window, g_value_get_object(value));
-    else
+        break;
+    default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        break;
+    }
 }
 
 static void _uni_scroll_win_set_view(UniScrollWin *window, UniImageView *view)
@@ -124,6 +158,8 @@ static void _uni_scroll_win_set_view(UniScrollWin *window, UniImageView *view)
     gtk_widget_set_vexpand(GTK_WIDGET(view), TRUE);
     gtk_grid_attach(GTK_GRID(window), window->vscroll, 1, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(window), window->hscroll, 0, 1, 1, 1);
+
+    window->view = GTK_WIDGET(view);
 }
 
 static void _uni_scroll_win_adjustment_changed(GtkAdjustment *adj,
@@ -181,10 +217,18 @@ static void _uni_scroll_win_get_preferred_height(GtkWidget *widget,
     *minimal_height = *natural_height = 200;
 }
 
-static void uni_scroll_win_finalize(GObject *object)
+
+// public ---------------------------------------------------------------------
+
+GtkWidget *uni_scroll_win_get_view(UniScrollWin *window)
 {
-    // Chain up.
-    G_OBJECT_CLASS(uni_scroll_win_parent_class)->finalize(object);
+    return window->view;
+
+    //GtkWidget *view = NULL;
+    //g_object_get(G_OBJECT(window),
+    //             "view", &view,
+    //             NULL);
+    //return view;
 }
 
 gboolean uni_scroll_win_image_fits(UniScrollWin *window)

@@ -373,10 +373,26 @@ static void uni_image_view_init(UniImageView *view)
     view->void_cursor = NULL;
     view->tool = G_OBJECT(uni_dragger_new((GtkWidget *)view));
 
-    view->priv = (UniImageViewPrivate *)g_type_instance_get_private((GTypeInstance *)view, UNI_TYPE_IMAGE_VIEW);
+    view->priv =
+        (UniImageViewPrivate*) g_type_instance_get_private(
+                                                (GTypeInstance*) view,
+                                                UNI_TYPE_IMAGE_VIEW);
 
     view->priv->hadjustment = view->priv->vadjustment = NULL;
-    uni_image_view_set_scroll_adjustments(view, GTK_ADJUSTMENT(gtk_adjustment_new(0.0, 1.0, 0.0, 1.0, 1.0, 1.0)), GTK_ADJUSTMENT(gtk_adjustment_new(0.0, 1.0, 0.0, 1.0, 1.0, 1.0)));
+    uni_image_view_set_scroll_adjustments(
+                            view,
+                            GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
+                                                              1.0,
+                                                              0.0,
+                                                              1.0,
+                                                              1.0,
+                                                              1.0)),
+                            GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
+                                                              1.0,
+                                                              0.0,
+                                                              1.0,
+                                                              1.0,
+                                                              1.0)));
     g_object_ref_sink(view->priv->hadjustment);
     g_object_ref_sink(view->priv->vadjustment);
 }
@@ -420,12 +436,14 @@ static void uni_image_view_set_property(GObject *object,
     switch (prop_id)
     {
     case P_HADJUSTMENT:
-        uni_image_view_set_hadjustment(iv,
-                                       (GtkAdjustment *)g_value_get_object(value));
+        uni_image_view_set_hadjustment(
+                            iv,
+                            (GtkAdjustment*) g_value_get_object(value));
         break;
     case P_VADJUSTMENT:
-        uni_image_view_set_vadjustment(iv,
-                                       (GtkAdjustment *)g_value_get_object(value));
+        uni_image_view_set_vadjustment(
+                            iv,
+                            (GtkAdjustment*) g_value_get_object(value));
         break;
     case P_HSCROLLPOLICY:
         priv->hscroll_policy = g_value_get_enum(value);
@@ -496,13 +514,15 @@ static void uni_image_view_finalize(GObject *object)
     UniImageView *view = UNI_IMAGE_VIEW(object);
     if (view->priv->hadjustment)
     {
-        g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->hadjustment), view);
+        g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->hadjustment),
+                                             view);
         g_object_unref(view->priv->hadjustment);
         view->priv->hadjustment = NULL;
     }
     if (view->priv->vadjustment)
     {
-        g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->vadjustment), view);
+        g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->vadjustment),
+                                             view);
         g_object_unref(view->priv->vadjustment);
         view->priv->vadjustment = NULL;
     }
@@ -921,8 +941,12 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
             }
             else
             {
-                zoom = CLAMP(view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-                _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
+                zoom = CLAMP(view->zoom * UNI_ZOOM_STEP,
+                             UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                _uni_image_view_set_zoom_with_center(view,
+                                                     zoom,
+                                                     ev->x, ev->y,
+                                                     FALSE);
             }
             break;
         default:
@@ -932,8 +956,12 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
             }
             else
             {
-                zoom = CLAMP(view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-                _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
+                zoom = CLAMP(view->zoom / UNI_ZOOM_STEP,
+                             UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                _uni_image_view_set_zoom_with_center(view,
+                                                     zoom,
+                                                     ev->x, ev->y,
+                                                     FALSE);
             }
         }
     }
@@ -942,20 +970,32 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
         switch (ev->direction)
         {
         case GDK_SCROLL_LEFT:
-            zoom = CLAMP(view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-            _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
+            zoom = CLAMP(view->zoom * UNI_ZOOM_STEP,
+                         UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+            _uni_image_view_set_zoom_with_center(view,
+                                                 zoom,
+                                                 ev->x, ev->y,
+                                                 FALSE);
             break;
 
         case GDK_SCROLL_RIGHT:
-            zoom = CLAMP(view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-            _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
+            zoom = CLAMP(view->zoom / UNI_ZOOM_STEP,
+                         UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+            _uni_image_view_set_zoom_with_center(view,
+                                                 zoom,
+                                                 ev->x, ev->y,
+                                                 FALSE);
             break;
 
         case GDK_SCROLL_UP:
             if (ev->state & GDK_SHIFT_MASK)
             {
-                zoom = CLAMP(view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-                _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
+                zoom = CLAMP(view->zoom * UNI_ZOOM_STEP,
+                             UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                _uni_image_view_set_zoom_with_center(view,
+                                                     zoom,
+                                                     ev->x, ev->y,
+                                                     FALSE);
             }
             else
                 window_prev(appwindow);
@@ -965,8 +1005,12 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
         default:
             if (ev->state & GDK_SHIFT_MASK)
             {
-                zoom = CLAMP(view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-                _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
+                zoom = CLAMP(view->zoom / UNI_ZOOM_STEP,
+                             UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                _uni_image_view_set_zoom_with_center(view,
+                                                     zoom,
+                                                     ev->x, ev->y,
+                                                     FALSE);
             }
             else
                 window_next(appwindow, TRUE);
@@ -977,22 +1021,28 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
         switch (ev->direction)
         {
         case GDK_SCROLL_LEFT:
-            uni_image_view_scroll(view, GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE);
+            uni_image_view_scroll(view,
+                                  GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE);
             break;
         case GDK_SCROLL_RIGHT:
-            uni_image_view_scroll(view, GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE);
+            uni_image_view_scroll(view,
+                                  GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE);
             break;
         case GDK_SCROLL_UP:
             if (ev->state & GDK_SHIFT_MASK)
-                uni_image_view_scroll(view, GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE);
+                uni_image_view_scroll(view,
+                                      GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE);
             else
-                uni_image_view_scroll(view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_UP);
+                uni_image_view_scroll(view,
+                                      GTK_SCROLL_NONE, GTK_SCROLL_PAGE_UP);
             break;
         default:
             if (ev->state & GDK_SHIFT_MASK)
-                uni_image_view_scroll(view, GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE);
+                uni_image_view_scroll(view,
+                                      GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE);
             else
-                uni_image_view_scroll(view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_DOWN);
+                uni_image_view_scroll(view,
+                                      GTK_SCROLL_NONE, GTK_SCROLL_PAGE_DOWN);
         }
     }
 
@@ -1007,7 +1057,8 @@ static void uni_image_view_set_scroll_adjustments(UniImageView *view,
     {
         if (view->priv->hadjustment)
         {
-            g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->hadjustment), view);
+            g_signal_handlers_disconnect_by_data(
+                        G_OBJECT(view->priv->hadjustment), view);
             g_object_unref(view->priv->hadjustment);
         }
         g_signal_connect_swapped(hadj,
@@ -1020,7 +1071,8 @@ static void uni_image_view_set_scroll_adjustments(UniImageView *view,
     {
         if (view->priv->vadjustment)
         {
-            g_signal_handlers_disconnect_by_data(G_OBJECT(view->priv->vadjustment), view);
+            g_signal_handlers_disconnect_by_data(
+                        G_OBJECT(view->priv->vadjustment), view);
             g_object_unref(view->priv->vadjustment);
         }
         g_signal_connect_swapped(vadj,
