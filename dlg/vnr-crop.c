@@ -193,6 +193,7 @@ static GtkWidget* _vnr_crop_build_dialog(VnrCrop *crop)
     // bottom grid
     GtkWidget *grid1 = gtk_grid_new();
     gtk_box_pack_start(GTK_BOX(vbox1), grid1, true, true, 0);
+    gtk_widget_set_halign(grid1, GTK_ALIGN_CENTER);
 
     widget = gtk_label_new("X: ");
     gtk_grid_attach(GTK_GRID(grid1), widget, 0, 0, 1, 1);
