@@ -16,7 +16,7 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | Action                  | Hotkey                  |
 | :---------------------- | :---------------------- |
 | Open                    | Ctrl+O                  |
-| Open Dir                | Ctrl+D                  |
+| Open Dir                | Ctrl+F                  |
 | Copy                    | F7                      |
 | Move                    | F8                      |
 | Rename                  | F2                      |
@@ -24,6 +24,7 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | Delete                  | Del                     |
 | Set Wallpaper           | F10                     |
 | Properties              | Ctrl+Return             |
+| Duplicate               | Ctrl+D                  |
 | Save                    | Ctrl+S                  |
 | Quit                    | Esc / Q                 |
 | Reload                  | F5                      |
@@ -38,8 +39,8 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | Flip Vertical           | Ctrl+Down / V           |
 | Rotate Left             | Ctrl+Left               |
 | Rotate Right            | Ctrl+Right              |
+| Zoom Fit                | Ctrl+W                  |
 | Zoom Normal             | Ctrl+N                  |
-| Zoom Fit                | Ctrl+F                  |
 
 
 #### Install
