@@ -26,9 +26,11 @@
 void vnr_tools_set_cursor(GtkWidget *widget, GdkCursorType type, gboolean flush)
 {
     GdkDisplay *display = gtk_widget_get_display(widget);
-    GdkWindow *gdkwindow = gtk_widget_get_window(widget);
     GdkCursor *cursor = gdk_cursor_new_for_display(display, type);
-    gdk_window_set_cursor(gdkwindow, cursor);
+
+    gdk_window_set_cursor(gtk_widget_get_window(widget), cursor);
+
+    // mem leak ???
 
     if (flush)
         gdk_display_flush(display);

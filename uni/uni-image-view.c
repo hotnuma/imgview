@@ -292,8 +292,6 @@ static void uni_image_view_class_init(UniImageViewClass *klass)
                                  GTK_TYPE_SCROLL_TYPE,
                                  GTK_SCROLL_NONE,
                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);
-
-    //g_type_class_add_private(object_class, sizeof(UniImageViewPrivate));
 }
 
 static void uni_image_view_init_signals(UniImageViewClass *klass)
@@ -462,7 +460,13 @@ static void uni_image_view_realize(GtkWidget *widget)
     attrs.height = allocation.height;
     attrs.wclass = GDK_INPUT_OUTPUT;
     attrs.visual = gtk_widget_get_visual(widget);
-    attrs.event_mask = (gtk_widget_get_events(widget) | GDK_SCROLL_MASK | GDK_EXPOSURE_MASK | GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK);
+    attrs.event_mask = (gtk_widget_get_events(widget)
+                        | GDK_EXPOSURE_MASK
+                        | GDK_BUTTON_PRESS_MASK
+                        | GDK_BUTTON_RELEASE_MASK
+                        | GDK_BUTTON_MOTION_MASK
+                        | GDK_POINTER_MOTION_MASK
+                        | GDK_SCROLL_MASK);
 
     int attr_mask = (GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL);
     GdkWindow *parent = gtk_widget_get_parent_window(widget);
@@ -475,8 +479,10 @@ static void uni_image_view_realize(GtkWidget *widget)
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_style_context_set_background(context, window);
-    view->void_cursor = gdk_cursor_new(GDK_ARROW);
     G_GNUC_END_IGNORE_DEPRECATIONS
+
+    view->void_cursor = gdk_cursor_new_for_display(
+                                gdk_display_get_default(), GDK_ARROW);
 }
 
 static void uni_image_view_unrealize(GtkWidget *widget)

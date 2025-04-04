@@ -79,8 +79,6 @@ static void uni_dragger_init(UniDragger *dragger)
 {
     dragger->cache = uni_pixbuf_draw_cache_new();
 
-    //tool->grab_cursor = gdk_cursor_new(GDK_FLEUR);
-
     dragger->grab_cursor = gdk_cursor_new_for_display(
                                 gdk_display_get_default(), GDK_FLEUR);
 }

@@ -5,9 +5,7 @@ dlg/vnr-properties-dialog.c
 uni/uni-anim-view.c
 uni/uni-anim-view.h
 uni/uni-image-view.c
-uni/uni-nav.c
-uni/uni-scroll-win.c
-vnr/vnr-message-area.c
+message-area.c
 window.c
 
 cgrep -A 5 G_GNUC_BEGIN_IGNORE_DEPRECATIONS >> deprecations.txt
@@ -21,21 +19,6 @@ uni/uni-image-view.c-168-    g_signal_handlers_unblock_by_data(G_OBJECT(view->pr
 --
 uni/uni-image-view.c:525:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 uni/uni-image-view.c-526-    gtk_style_context_set_background(context, window);
-uni/uni-image-view.c-527-    view->void_cursor = gdk_cursor_new(GDK_ARROW);
 uni/uni-image-view.c-528-    G_GNUC_END_IGNORE_DEPRECATIONS
 uni/uni-image-view.c-529-}
 uni/uni-image-view.c-530-
---
-uni/uni-image-view.c:1130:    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-uni/uni-image-view.c-1131-    g_type_class_add_private(object_class, sizeof(UniImageViewPrivate));
-uni/uni-image-view.c-1132-    G_GNUC_END_IGNORE_DEPRECATIONS
-uni/uni-image-view.c-1133-}
-uni/uni-image-view.c-1134-
-uni/uni-image-view.c-1135-/**
---
-dlg/vnr-properties-dialog.c:65:G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-dlg/vnr-properties-dialog.c-66-
-dlg/vnr-properties-dialog.c-67-static void set_new_pixbuf(VnrPropertiesDialog *dialog, GdkPixbuf *original)
-dlg/vnr-properties-dialog.c-68-{
-dlg/vnr-properties-dialog.c-69-    if (dialog->thumbnail != NULL)
-dlg/vnr-properties-dialog.c-70-    {
