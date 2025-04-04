@@ -58,6 +58,7 @@ static void uni_image_view_finalize(GObject *object);
 
 static void widget_size_allocate(GtkWidget *widget, GtkAllocation *alloc);
 static VnrWindow* _uni_get_appwindow(GtkWidget *widget);
+static GtkWidget* _uni_get_scrollwin(GtkWidget *widget);
 static int widget_draw(GtkWidget *widget, cairo_t *cr);
 static int widget_button_press(GtkWidget *widget,
                                        GdkEventButton *event);
@@ -542,13 +543,15 @@ static void uni_image_view_finalize(GObject *object)
 static void widget_size_allocate(GtkWidget *widget, GtkAllocation *alloc)
 {
     UniImageView *view = UNI_IMAGE_VIEW(widget);
+
     if (gtk_widget_get_realized(widget))
     {
         gtk_widget_set_allocation(widget, alloc);
     }
     else
     {
-        GtkWidget *scroll_view = _uni_get_appwindow(widget)->scroll_view;
+        GtkWidget *scroll_view = _uni_get_scrollwin(widget);
+
         GtkAllocation allocation;
         gtk_widget_get_allocation(scroll_view, &allocation);
         gtk_widget_set_allocation(widget, &allocation);
@@ -570,6 +573,13 @@ static void widget_size_allocate(GtkWidget *widget, GtkAllocation *alloc)
 static VnrWindow* _uni_get_appwindow(GtkWidget *widget)
 {
     return VNR_WINDOW(gtk_widget_get_toplevel(widget));
+}
+
+static GtkWidget* _uni_get_scrollwin(GtkWidget *widget)
+{
+    VnrWindow *window = VNR_WINDOW(gtk_widget_get_toplevel(widget));
+
+    return window->scroll_view;
 }
 
 static void _uni_image_view_clamp_offset(UniImageView *view,
@@ -620,10 +630,10 @@ static void _uni_image_view_update_adjustments(UniImageView *view)
 static void _uni_image_view_zoom_to_fit(UniImageView *view,
                                         gboolean is_allocating)
 {
-    VnrWindow *appwindow = _uni_get_appwindow(GTK_WIDGET(view));
+    GtkWidget *scrollwin = _uni_get_scrollwin(GTK_WIDGET(view));
 
     GtkAllocation allocation;
-    gtk_widget_get_allocation(GTK_WIDGET(appwindow->scroll_view), &allocation);
+    gtk_widget_get_allocation(scrollwin, &allocation);
 
     Size imgsize = _uni_image_view_get_pixbuf_size(view);
     gdouble ratio_x = (gdouble) allocation.width / imgsize.width;
@@ -720,10 +730,10 @@ static Size _uni_image_view_get_zoomed_size(UniImageView *view)
 
 static int widget_draw(GtkWidget *widget, cairo_t *cr)
 {
-    VnrWindow *appwindow = _uni_get_appwindow(widget);
+    GtkWidget *scrollwin = _uni_get_scrollwin(widget);
 
     GtkAllocation allocation;
-    gtk_widget_get_allocation(GTK_WIDGET(appwindow->scroll_view), &allocation);
+    gtk_widget_get_allocation(scrollwin, &allocation);
     allocation.x = 0;
     allocation.y = 0;
 
