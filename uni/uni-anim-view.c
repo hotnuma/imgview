@@ -22,8 +22,6 @@
  */
 
 #include "uni-anim-view.h"
-#include <glib.h>
-#include <gdk/gdkkeysyms.h>
 
 static void _uni_anim_view_init_signals(UniAnimViewClass *klass);
 static void uni_anim_view_finalize(GObject *object);

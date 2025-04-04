@@ -29,7 +29,6 @@
 #include "uni-zoom.h"
 #include "uni-utils.h"
 #include "window.h"
-
 #include <math.h>
 
 // clang-format off
@@ -632,8 +631,8 @@ static Size _uni_image_view_get_pixbuf_size(UniImageView *view)
 }
 
 static void _uni_image_view_set_zoom_no_center(UniImageView *view,
-                                              gdouble zoom,
-                                              gboolean is_allocating)
+                                               gdouble zoom,
+                                               gboolean is_allocating)
 {
     Size alloc = _uni_image_view_get_allocated_size(view);
     gdouble center_x = alloc.width / 2.0;

@@ -21,8 +21,8 @@
  */
 
 #include "uni-cache.h"
+
 #include "uni-utils.h"
-#include <string.h>
 
 static gboolean uni_rectangle_contains_rect(GdkRectangle r1, GdkRectangle r2)
 {

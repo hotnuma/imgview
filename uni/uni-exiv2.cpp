@@ -20,10 +20,6 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <exiv2/exiv2.hpp>
-#include <iostream>
-#include <memory>
-
 #include "uni-exiv2.hpp"
 
 #define ARRAY_SIZE(array) (sizeof array / sizeof(array[0]))
@@ -40,8 +36,11 @@
 
 static std::unique_ptr<Exiv2::Image> cached_image;
 
-extern "C" void
-uni_read_exiv2_map(const char *uri, void (*callback)(const char *, const char *, void *), void *user_data)
+extern "C" void uni_read_exiv2_map(const char *uri,
+                                   void (*callback) (const char *,
+                                                     const char *,
+                                                     void *),
+                                   void *user_data)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
     try
@@ -109,8 +108,7 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char *, const char *,
     }
 }
 
-extern "C" int
-uni_read_exiv2_to_cache(const char *uri)
+extern "C" int uni_read_exiv2_to_cache(const char *uri)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
 
@@ -138,8 +136,7 @@ uni_read_exiv2_to_cache(const char *uri)
     return 0;
 }
 
-extern "C" int
-uni_write_exiv2_from_cache(const char *uri)
+extern "C" int uni_write_exiv2_from_cache(const char *uri)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
 
@@ -171,3 +168,5 @@ uni_write_exiv2_from_cache(const char *uri)
 
     return 0;
 }
+
+

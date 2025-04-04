@@ -79,15 +79,15 @@ static void uni_scroll_win_class_init(UniScrollWinClass *klass)
 
 static void uni_scroll_win_init(UniScrollWin *window)
 {
+    (void) window;
+
     // unneeded
     //gtk_container_set_resize_mode(GTK_CONTAINER(window),
     //                              GTK_RESIZE_IMMEDIATE);
 }
 
-static void uni_scroll_win_set_property(GObject *object,
-                                        guint prop_id,
-                                        const GValue *value,
-                                        GParamSpec *pspec)
+static void uni_scroll_win_set_property(GObject *object, guint prop_id,
+                                        const GValue *value, GParamSpec *pspec)
 {
     UniScrollWin *window = UNI_SCROLL_WIN(object);
 
@@ -97,8 +97,7 @@ static void uni_scroll_win_set_property(GObject *object,
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 }
 
-static void _uni_scroll_win_set_view(UniScrollWin *window,
-                                    UniImageView *view)
+static void _uni_scroll_win_set_view(UniScrollWin *window, UniImageView *view)
 {
     // setup the scrollbars
 
@@ -125,7 +124,6 @@ static void _uni_scroll_win_set_view(UniScrollWin *window,
     gtk_widget_set_vexpand(GTK_WIDGET(view), TRUE);
     gtk_grid_attach(GTK_GRID(window), window->vscroll, 1, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(window), window->hscroll, 0, 1, 1, 1);
-    //gtk_grid_attach(GTK_GRID(window), window->nav_box, 1, 1, 1, 1);
 }
 
 static void _uni_scroll_win_adjustment_changed(GtkAdjustment *adj,
