@@ -29,9 +29,9 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | Reset Directory         | F6                      |
 | Copy                    | F7                      |
 | Move                    | F8                      |
-| Set Wallpaper           | F9                      |
-| Slideshow               | F10                     |
+| Set Wallpaper           | F10                     |
 | Fullscreen              | F11                     |
+| Slideshow               | F12                     |
 | Prev Image              | Left / Back             |
 | Next Image              | Right / Space           |
 | First Image             | Home                    |
