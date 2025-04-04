@@ -191,22 +191,22 @@ static GtkWidget* _vnr_crop_build_dialog(VnrCrop *crop)
     GtkWidget *widget = NULL;
 
     // bottom grid
-    GtkWidget *grid1 = gtk_grid_new();
-    gtk_box_pack_start(GTK_BOX(vbox1), grid1, true, true, 0);
-    gtk_widget_set_halign(grid1, GTK_ALIGN_CENTER);
+    GtkWidget *grid = gtk_grid_new();
+    gtk_box_pack_start(GTK_BOX(vbox1), grid, true, true, 0);
+    gtk_widget_set_halign(grid, GTK_ALIGN_CENTER);
 
     widget = gtk_label_new("X: ");
-    gtk_grid_attach(GTK_GRID(grid1), widget, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), widget, 0, 0, 1, 1);
 
     crop->spin_x = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
                                     0,
                                     crop->window->current_image_width - 1,
                                     1));
     gtk_spin_button_set_increments(crop->spin_x, 1, 10);
-    gtk_grid_attach(GTK_GRID(grid1), GTK_WIDGET(crop->spin_x), 1, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(crop->spin_x), 1, 0, 1, 1);
 
     widget = gtk_label_new("Width: ");
-    gtk_grid_attach(GTK_GRID(grid1), widget, 2, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), widget, 2, 0, 1, 1);
 
     crop->spin_width = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
                                     1,
@@ -215,21 +215,21 @@ static GtkWidget* _vnr_crop_build_dialog(VnrCrop *crop)
     gtk_spin_button_set_increments(crop->spin_width, 1, 10);
     gtk_spin_button_set_value(crop->spin_width,
                               crop->window->current_image_width);
-    gtk_grid_attach(GTK_GRID(grid1),
+    gtk_grid_attach(GTK_GRID(grid),
                     GTK_WIDGET(crop->spin_width), 3, 0, 1, 1);
 
     widget = gtk_label_new("Y: ");
-    gtk_grid_attach(GTK_GRID(grid1), widget, 0, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), widget, 0, 1, 1, 1);
 
     crop->spin_y = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
                                     0,
                                     crop->window->current_image_height - 1,
                                     1));
     gtk_spin_button_set_increments(crop->spin_y, 1, 10);
-    gtk_grid_attach(GTK_GRID(grid1), GTK_WIDGET(crop->spin_y), 1, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(crop->spin_y), 1, 1, 1, 1);
 
     widget = gtk_label_new("Height: ");
-    gtk_grid_attach(GTK_GRID(grid1), widget, 2, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), widget, 2, 1, 1, 1);
 
     crop->spin_height = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
                                     1,
@@ -238,7 +238,7 @@ static GtkWidget* _vnr_crop_build_dialog(VnrCrop *crop)
     gtk_spin_button_set_increments(crop->spin_height, 1, 10);
     gtk_spin_button_set_value(crop->spin_height,
                               crop->window->current_image_height);
-    gtk_grid_attach(GTK_GRID(grid1),
+    gtk_grid_attach(GTK_GRID(grid),
                     GTK_WIDGET(crop->spin_height), 3, 1, 1, 1);
 
     gtk_dialog_add_buttons(GTK_DIALOG(dialog),
