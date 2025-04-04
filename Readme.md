@@ -1,25 +1,12 @@
 <link href="style.css" rel="stylesheet"></link>
 
-## ImgView - Fast and elegant image viewer
+## ImgView
 
 This is a fork of Viewnior Gtk3 :  
 https://github.com/Artturin/Viewnior  
 
 From the original project by Siyan Panayotov :  
 https://github.com/hellosiyan/Viewnior  
-
-Viewnior is an image viewer, created to be simple, fast and elegant. Its minimalistic interface provides more screenspace for your images. Among its features are:
-
-  * Rotate, flip, crop, save, delete images
-  * Copy, move, rename
-  * Fullscreen & Slideshow
-  * Animation support
-  * Browse only selected images
-  * Navigation window
-  * Set image as wallpaper (Cinnamon, FluxBox, Gnome 2, Gnome 3, hsetroot, LXDE, MATE, Nitrogen, Puppylinux, XFCE)
-  * EXIF and IPTC metadata
-  * Simple interface
-  * Configurable mouse actions
 
 Most of the Viewnior's sources handling image viewing are adopted from the GtkImageView library by Björn Lindqvist. The files were cleaned up and modified, so that unused functionalities were removed (GtkImageToolSelector, GtkImageToolPainter, GtkZooms). Prefixes were changed from gtk_ to uni_ for clarity.
 
@@ -30,6 +17,10 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | :---------------------- | :---------------------- |
 | Open                    | Ctrl+O                  |
 | Open Dir                | Ctrl+D                  |
+| Save                    | Ctrl+S                  |
+| Delete                  | Del                     |
+| Zoom Normal             | Ctrl+N                  |
+| Zoom Fit                | Ctrl+F                  |
 | Properties              | Ctrl+Return             |
 | Quit                    | Esc / Q                 |
 | Rename                  | F2                      |
@@ -38,7 +29,6 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | Reset Directory         | F6                      |
 | Copy                    | F7                      |
 | Move                    | F8                      |
-| Delete                  | Del                     |
 | Set Wallpaper           | F9                      |
 | Slideshow               | F10                     |
 | Fullscreen              | F11                     |
@@ -50,17 +40,12 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | Flip Vertical           | Ctrl+Down / V           |
 | Rotate Left             | Ctrl+Left               |
 | Rotate Right            | Ctrl+Right              |
-| Zoom Normal             | Ctrl+N                  |
-| Zoom Fit                | Ctrl+F                  |
 
 
-#### Installation
-
-This package requires the following modules to be installed:  
-GTK+, glib, gio, exiv2, shared-mime-info.
+#### Install
 
 ```
-sudo apt install build-essential gettext git meson ninja-build \
+sudo apt install build-essential gettext git meson \
 libgtk-3-dev libexiv2-dev
 ```
 
@@ -77,9 +62,6 @@ This program is released under the terms of the [GNU General Public License](htt
 
 object-rotate-left.png, object-rotate-right.png are taken from Elementary icon theme by ~DanRabbit (under GPL). object-flip-horizontal.png, object-flip-vertical.png are taken from Gnome icon theme (under GPL).
 
-*Last Edited - 17 February 2025*
-
-<br/>
 <br/>
 
 
