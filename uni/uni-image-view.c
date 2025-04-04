@@ -22,11 +22,6 @@
 
 #include "uni-image-view.h"
 
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
-#include <math.h>
-#include <stdlib.h>
-
 #include "uni-dragger.h"
 #include "uni-dragger.h"
 #include "uni-anim-view.h"
@@ -34,6 +29,8 @@
 #include "uni-zoom.h"
 #include "uni-utils.h"
 #include "window.h"
+
+#include <math.h>
 
 // clang-format off
 #define g_signal_handlers_disconnect_by_data(instance, data) \
@@ -61,6 +58,7 @@ static void uni_image_view_unrealize(GtkWidget *widget);
 static void uni_image_view_finalize(GObject *object);
 
 static void widget_size_allocate(GtkWidget *widget, GtkAllocation *alloc);
+static VnrWindow* _uni_get_appwindow(GtkWidget *widget);
 static int widget_draw(GtkWidget *widget, cairo_t *cr);
 static int widget_button_press(GtkWidget *widget,
                                        GdkEventButton *event);
@@ -531,9 +529,9 @@ static void widget_size_allocate(GtkWidget *widget, GtkAllocation *alloc)
     }
     else
     {
-        GtkWidget *window = VNR_WINDOW(gtk_widget_get_toplevel(widget))->scroll_view;
+        GtkWidget *scroll_view = _uni_get_appwindow(widget)->scroll_view;
         GtkAllocation allocation;
-        gtk_widget_get_allocation(window, &allocation);
+        gtk_widget_get_allocation(scroll_view, &allocation);
         gtk_widget_set_allocation(widget, &allocation);
     }
 
@@ -550,7 +548,13 @@ static void widget_size_allocate(GtkWidget *widget, GtkAllocation *alloc)
                                alloc->width, alloc->height);
 }
 
-static void _uni_image_view_clamp_offset(UniImageView *view, gdouble *x, gdouble *y)
+static VnrWindow* _uni_get_appwindow(GtkWidget *widget)
+{
+    return VNR_WINDOW(gtk_widget_get_toplevel(widget));
+}
+
+static void _uni_image_view_clamp_offset(UniImageView *view,
+                                         gdouble *x, gdouble *y)
 {
     Size alloc = _uni_image_view_get_allocated_size(view);
     Size zoomed = _uni_image_view_get_zoomed_size(view);
@@ -597,13 +601,14 @@ static void _uni_image_view_update_adjustments(UniImageView *view)
 static void _uni_image_view_zoom_to_fit(UniImageView *view,
                                         gboolean is_allocating)
 {
-    Size img = _uni_image_view_get_pixbuf_size(view);
-    GtkAllocation alloc;
-    VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
-    gtk_widget_get_allocation(GTK_WIDGET(vnr_win->scroll_view), &alloc);
+    VnrWindow *appwindow = _uni_get_appwindow(GTK_WIDGET(view));
 
-    gdouble ratio_x = (gdouble)alloc.width / img.width;
-    gdouble ratio_y = (gdouble)alloc.height / img.height;
+    GtkAllocation allocation;
+    gtk_widget_get_allocation(GTK_WIDGET(appwindow->scroll_view), &allocation);
+
+    Size imgsize = _uni_image_view_get_pixbuf_size(view);
+    gdouble ratio_x = (gdouble) allocation.width / imgsize.width;
+    gdouble ratio_y = (gdouble) allocation.height / imgsize.height;
 
     gdouble zoom = MIN(ratio_y, ratio_x);
 
@@ -696,12 +701,15 @@ static Size _uni_image_view_get_zoomed_size(UniImageView *view)
 
 static int widget_draw(GtkWidget *widget, cairo_t *cr)
 {
+    VnrWindow *appwindow = _uni_get_appwindow(widget);
+
     GtkAllocation allocation;
-    gtk_widget_get_allocation(GTK_WIDGET(VNR_WINDOW(gtk_widget_get_toplevel(widget))->scroll_view), &allocation);
+    gtk_widget_get_allocation(GTK_WIDGET(appwindow->scroll_view), &allocation);
     allocation.x = 0;
     allocation.y = 0;
 
-    return _uni_image_view_repaint_area(UNI_IMAGE_VIEW(widget), &allocation, cr);
+    return _uni_image_view_repaint_area(UNI_IMAGE_VIEW(widget),
+                                        &allocation, cr);
 }
 
 /**
@@ -804,32 +812,32 @@ static void _uni_image_view_draw_background(UniImageView *view,
     cairo_restore(cr);
 }
 
-static int widget_button_press(GtkWidget *widget,
-                                       GdkEventButton *event)
+static int widget_button_press(GtkWidget *widget, GdkEventButton *event)
 {
     gtk_widget_grab_focus(widget);
 
+    VnrWindow *appwindow = _uni_get_appwindow(widget);
+    g_assert(gtk_widget_is_toplevel(GTK_WIDGET(appwindow)));
+
     UniImageView *view = UNI_IMAGE_VIEW(widget);
-    VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
-    g_assert(gtk_widget_is_toplevel(GTK_WIDGET(vnr_win)));
 
     if (event->type == GDK_2BUTTON_PRESS
             && event->button == 1
-            && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
+            && appwindow->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
     {
-        window_fullscreen_toggle(vnr_win);
+        window_fullscreen_toggle(appwindow);
         return 1;
     }
     else if (event->type == GDK_2BUTTON_PRESS
              && event->button == 1
-             && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
+             && appwindow->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
     {
         int width = gdk_window_get_width(gtk_widget_get_window(widget));
 
         if (event->x / width < 0.5)
-            window_prev(vnr_win);
+            window_prev(appwindow);
         else
-            window_next(vnr_win, TRUE);
+            window_next(appwindow, TRUE);
 
         return 1;
     }
@@ -851,16 +859,16 @@ static int widget_button_press(GtkWidget *widget,
     }
     else if (event->type == GDK_BUTTON_PRESS && event->button == 3)
     {
-        gtk_menu_popup_at_pointer(GTK_MENU(vnr_win->popup_menu),
+        gtk_menu_popup_at_pointer(GTK_MENU(appwindow->popup_menu),
                                   (const GdkEvent*) event);
     }
     else if (event->type == GDK_BUTTON_PRESS && event->button == 8)
     {
-        window_prev(vnr_win);
+        window_prev(appwindow);
     }
     else if (event->type == GDK_BUTTON_PRESS && event->button == 9)
     {
-        window_next(vnr_win, TRUE);
+        window_next(appwindow, TRUE);
     }
 
     return 0;
@@ -885,31 +893,32 @@ static int widget_motion_notify(GtkWidget *widget, GdkEventMotion *ev)
 
 static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
 {
+    VnrWindow *appwindow = _uni_get_appwindow(widget);
+    g_assert(gtk_widget_is_toplevel(GTK_WIDGET(appwindow)));
+
     gdouble zoom;
     UniImageView *view = UNI_IMAGE_VIEW(widget);
-    VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
-    g_assert(gtk_widget_is_toplevel(GTK_WIDGET(vnr_win)));
 
     /* Horizontal scroll left is equivalent to scroll up and right is
      * like scroll down. No idea if that is correct -- I have no input
      * device that can do horizontal scrolls. */
 
-    if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM
+    if (appwindow->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM
             || (ev->state & GDK_CONTROL_MASK) != 0)
     {
         switch (ev->direction)
         {
         case GDK_SCROLL_LEFT:
             // In Zoom mode left/right scroll is used for navigation
-            window_prev(vnr_win);
+            window_prev(appwindow);
             break;
         case GDK_SCROLL_RIGHT:
-            window_next(vnr_win, TRUE);
+            window_next(appwindow, TRUE);
             break;
         case GDK_SCROLL_UP:
             if (ev->state & GDK_SHIFT_MASK)
             {
-                window_prev(vnr_win);
+                window_prev(appwindow);
             }
             else
             {
@@ -920,7 +929,7 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
         default:
             if (ev->state & GDK_SHIFT_MASK)
             {
-                window_next(vnr_win, TRUE);
+                window_next(appwindow, TRUE);
             }
             else
             {
@@ -929,7 +938,7 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
             }
         }
     }
-    else if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
+    else if (appwindow->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
     {
         switch (ev->direction)
         {
@@ -950,7 +959,7 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
                 _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
             }
             else
-                window_prev(vnr_win);
+                window_prev(appwindow);
 
             break;
 
@@ -961,7 +970,7 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
                 _uni_image_view_set_zoom_with_center(view, zoom, ev->x, ev->y, FALSE);
             }
             else
-                window_next(vnr_win, TRUE);
+                window_next(appwindow, TRUE);
         }
     }
     else
