@@ -194,6 +194,8 @@ static GtkWidget* _vnr_crop_build_dialog(VnrCrop *crop)
     GtkWidget *toolbox = gtk_grid_new();
     gtk_box_pack_start(GTK_BOX(vbox1), toolbox, true, true, 0);
     gtk_widget_set_halign(toolbox, GTK_ALIGN_CENTER);
+    gtk_grid_set_column_spacing(GTK_GRID(toolbox), 8);
+    gtk_grid_set_row_spacing(GTK_GRID(toolbox), 8);
 
     widget = gtk_label_new("X: ");
     gtk_grid_attach(GTK_GRID(toolbox), widget, 0, 0, 1, 1);
