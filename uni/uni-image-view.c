@@ -852,14 +852,14 @@ static int widget_button_press(GtkWidget *widget, GdkEventButton *event)
 
     if (event->type == GDK_2BUTTON_PRESS
             && event->button == 1
-            && appwindow->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
+            && appwindow->prefs->click_behavior == VNR_PREFS_CLICK_FULLSCREEN)
     {
         window_fullscreen_toggle(appwindow);
         return 1;
     }
     else if (event->type == GDK_2BUTTON_PRESS
              && event->button == 1
-             && appwindow->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
+             && appwindow->prefs->click_behavior == VNR_PREFS_CLICK_NEXT)
     {
         int width = gdk_window_get_width(gtk_widget_get_window(widget));
 
@@ -932,7 +932,7 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
      * like scroll down. No idea if that is correct -- I have no input
      * device that can do horizontal scrolls. */
 
-    if (appwindow->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM
+    if (appwindow->prefs->wheel_behavior == VNR_PREFS_WHEEL_ZOOM
             || (ev->state & GDK_CONTROL_MASK) != 0)
     {
         switch (ev->direction)
@@ -975,7 +975,7 @@ static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
             }
         }
     }
-    else if (appwindow->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
+    else if (appwindow->prefs->wheel_behavior == VNR_PREFS_WHEEL_NAVIGATE)
     {
         switch (ev->direction)
         {

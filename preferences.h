@@ -94,24 +94,28 @@ struct _VnrPrefs
 
     VnrPrefsZoom zoom;
     VnrPrefsDesktop desktop;
-    VnrPrefsWheel behavior_wheel;
-    VnrPrefsClick behavior_click;
-    VnrPrefsModify behavior_modify;
-    gboolean fit_on_fullscreen;
-    gboolean show_hidden;
     gboolean smooth_images;
     gboolean confirm_delete;
-    gboolean reload_on_save;
-    gboolean show_scrollbar;
-    gboolean start_slideshow;
-    gboolean start_fullscreen;
-    gboolean auto_resize;
+    gboolean show_hidden;
     gboolean dark_background;
-    gint slideshow_timeout;
+
+    gint sl_timeout;
+    GtkSpinButton *sl_timeout_widget;
+    gboolean fit_on_fullscreen;
+
+    VnrPrefsWheel wheel_behavior;
+    VnrPrefsClick click_behavior;
+    VnrPrefsModify modify_behavior;
+
+    gboolean reload_on_save;
     gint jpeg_quality;
     gint png_compression;
 
-    GtkSpinButton *slideshow_timeout_widget;
+    gboolean start_slideshow;
+    gboolean start_fullscreen;
+    gboolean auto_resize;
+    gboolean show_scrollbar;
+
 };
 
 struct _VnrPrefsClass

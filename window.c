@@ -487,7 +487,7 @@ static void window_init(VnrWindow *window)
     etk_widget_list_set_sensitive(window->list_image, false);
 
     // Initialize slideshow timeout
-    window->sl_timeout = window->prefs->slideshow_timeout;
+    window->sl_timeout = window->prefs->sl_timeout;
 
     // Care for Properties dialog
     window->props_dlg = vnr_properties_dialog_new(window);
@@ -661,11 +661,11 @@ void window_preferences_apply(VnrWindow *window)
         gint val = gtk_spin_button_get_value_as_int(
                         GTK_SPIN_BUTTON(window->sl_timeout_widget));
 
-        if (val != window->prefs->slideshow_timeout)
+        if (val != window->prefs->sl_timeout)
         {
             gtk_spin_button_set_value(
                         GTK_SPIN_BUTTON(window->sl_timeout_widget),
-                        (gdouble) window->prefs->slideshow_timeout);
+                        (gdouble) window->prefs->sl_timeout);
         }
     }
 }
@@ -2248,7 +2248,7 @@ static void _window_rotate_pixbuf(VnrWindow *window,
     //      window->action_save, window->modifications);
 
     if (window->modifications == 0
-            && window->prefs->behavior_modify != VNR_PREFS_MODIFY_IGNORE)
+            && window->prefs->modify_behavior != VNR_PREFS_MODIFY_IGNORE)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
         return;
@@ -2262,11 +2262,11 @@ static void _window_rotate_pixbuf(VnrWindow *window,
                                 "Writing in this format is not supported."),
                               FALSE);
     }
-    else if (window->prefs->behavior_modify == VNR_PREFS_MODIFY_SAVE)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_SAVE)
     {
         _window_action_save_image(window, NULL);
     }
-    else if (window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
     {
         vnr_message_area_show_with_button(
                 VNR_MESSAGE_AREA(window->msg_area),
@@ -2331,11 +2331,11 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
                                 "Writing in this format is not supported."),
                               FALSE);
     }
-    else if (window->prefs->behavior_modify == VNR_PREFS_MODIFY_SAVE)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_SAVE)
     {
         _window_action_save_image(window, NULL);
     }
-    else if (window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
     {
         vnr_message_area_show_with_button(
                 VNR_MESSAGE_AREA(window->msg_area),
@@ -2397,11 +2397,11 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
                   "Writing in this format is not supported."),
                 FALSE);
     }
-    else if (window->prefs->behavior_modify == VNR_PREFS_MODIFY_SAVE)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_SAVE)
     {
         _window_action_save_image(window, NULL);
     }
-    else if (window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
     {
         vnr_message_area_show_with_button(
                 VNR_MESSAGE_AREA(window->msg_area),
@@ -2426,7 +2426,7 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
 
-    if (window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
+    if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
     // Store exiv2 metadata to cache, so we can restore it afterwards
@@ -2489,7 +2489,7 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
 
     //gtk_action_group_set_sensitive(window->action_save, FALSE);
 
-    if (window->prefs->behavior_modify != VNR_PREFS_MODIFY_ASK)
+    if (window->prefs->modify_behavior != VNR_PREFS_MODIFY_ASK)
         _view_on_zoom_changed(UNI_IMAGE_VIEW(window->view), window);
 
     if (gtk_widget_get_visible(window->props_dlg))
