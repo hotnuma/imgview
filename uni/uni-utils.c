@@ -22,7 +22,8 @@
 
 #include "uni-utils.h"
 
-static gint _sessiontype = -1;
+#include <gdk/gdkx.h>
+#include <gdk/gdkwayland.h>
 
 static gint _uni_get_session_type();
 
@@ -36,31 +37,25 @@ gboolean uni_is_wayland()
     return (_uni_get_session_type() == 1);
 }
 
+static gint sessiontype = -1;
+
 static gint _uni_get_session_type()
 {
-    if (_sessiontype != -1)
-        return _sessiontype;
+    // must be called after gtk_init or g_option_context_parse
 
-    const char *xdg_session_type = getenv("XDG_SESSION_TYPE");
+    if (sessiontype != -1)
+        return sessiontype;
 
-    if (!xdg_session_type)
-    {
-        _sessiontype = -2;
-    }
-    else if (strcmp(xdg_session_type, "x11") == 0)
-    {
-        _sessiontype = 0;
-    }
-    else if (strcmp(xdg_session_type, "wayland") == 0)
-    {
-        _sessiontype = 1;
-    }
+    GdkDisplay *display = gdk_display_get_default();
+
+    if (GDK_IS_X11_DISPLAY(display))
+        sessiontype = 0;
+    else if (GDK_IS_WAYLAND_DISPLAY(display))
+        sessiontype = 1;
     else
-    {
-        _sessiontype = -3;
-    }
+        sessiontype = -2;
 
-    return _sessiontype;
+    return sessiontype;
 }
 
 /**

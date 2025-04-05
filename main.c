@@ -44,7 +44,6 @@ static GOptionEntry opt_entries[] =
 int main(int argc, char **argv)
 {
     setbuf(stdout, NULL);
-    uni_is_wayland();
 
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
@@ -77,6 +76,8 @@ int main(int argc, char **argv)
 
     gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(),
                                       PIXMAP_DIR);
+
+    uni_is_wayland();
 
     VnrWindow *window = window_new();
     GtkWindow *gtkwindow = GTK_WINDOW(window);
