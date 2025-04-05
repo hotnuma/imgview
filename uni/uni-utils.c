@@ -148,7 +148,7 @@ void uni_rectangle_get_rects_around(GdkRectangle *outer,
 
 VnrPrefsDesktop uni_detect_desktop_environment()
 {
-    VnrPrefsDesktop environment = VNR_PREFS_DESKTOP_GNOME3;
+    VnrPrefsDesktop environment = VNR_PREFS_DESKTOP_WALLSET;
 
     gchar *xdg_current_desktop = g_ascii_strup(
                 g_getenv("XDG_CURRENT_DESKTOP"), -1);
@@ -190,11 +190,6 @@ VnrPrefsDesktop uni_detect_desktop_environment()
     else if (!g_strcmp0(desktop_session, "fluxbox"))
     {
         environment = VNR_PREFS_DESKTOP_FLUXBOX;
-    }
-    else
-    {
-        g_warning("Cannot detect desktop environment."
-                  " Defaulting to GNOME 3.\n");
     }
 
     g_free(xdg_current_desktop);

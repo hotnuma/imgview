@@ -2528,9 +2528,7 @@ static void _window_action_set_wallpaper(VnrWindow *window, GtkWidget *widget)
         VnrPrefsDesktop desktop_environment = window->prefs->desktop;
 
         if (desktop_environment == VNR_PREFS_DESKTOP_AUTO)
-        {
             desktop_environment = uni_detect_desktop_environment();
-        }
 
         VnrFile *current = window_get_current_file(window);
 
@@ -2568,12 +2566,6 @@ static void _window_action_set_wallpaper(VnrWindow *window, GtkWidget *widget)
                    NULL);
             break;
 
-        case VNR_PREFS_DESKTOP_HSETROOT:
-            execlp("wallset", "wallset",
-                   current->path,
-                   NULL);
-            break;
-
         case VNR_PREFS_DESKTOP_LXDE:
             execlp("pcmanfm", "pcmanfm",
                    "--set-wallpaper",
@@ -2597,6 +2589,12 @@ static void _window_action_set_wallpaper(VnrWindow *window, GtkWidget *widget)
 
         case VNR_PREFS_DESKTOP_PUPPY:
             execlp("set_bg", "set_bg",
+                   current->path,
+                   NULL);
+            break;
+
+        case VNR_PREFS_DESKTOP_WALLSET:
+            execlp("wallset", "wallset",
                    current->path,
                    NULL);
             break;
