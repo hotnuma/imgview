@@ -21,6 +21,7 @@
  */
 
 #include "uni-exiv2.hpp"
+#include <iostream>
 
 #define ARRAY_SIZE(array) (sizeof array / sizeof(array[0]))
 
