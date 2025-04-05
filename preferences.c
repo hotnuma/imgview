@@ -143,8 +143,6 @@ static GtkWidget* _prefs_build(VnrPrefs *prefs)
     GtkComboBoxText *action_wheel;
     GtkComboBoxText *action_click;
     GtkComboBoxText *action_modify;
-    GtkRange *jpeg_scale;
-    GtkRange *png_scale;
 
     GtkBox *desktop_box;
     GtkComboBoxText *desktop_env;
@@ -203,14 +201,18 @@ static GtkWidget* _prefs_build(VnrPrefs *prefs)
     g_signal_connect(G_OBJECT(slideshow_timeout), "value-changed", G_CALLBACK(change_spin_value_cb), prefs);
 
     // JPEG quality scale
+    GtkRange *jpeg_scale;
     jpeg_scale = GTK_RANGE(gtk_builder_get_object(builder, "jpeg_scale"));
-    gtk_range_set_value(jpeg_scale, (gdouble)prefs->jpeg_quality);
-    g_signal_connect(G_OBJECT(jpeg_scale), "value-changed", G_CALLBACK(change_jpeg_quality_cb), prefs);
+    gtk_range_set_value(jpeg_scale, (gdouble) prefs->jpeg_quality);
+    g_signal_connect(G_OBJECT(jpeg_scale), "value-changed",
+                     G_CALLBACK(change_jpeg_quality_cb), prefs);
 
     // PNG compression scale
+    GtkRange *png_scale;
     png_scale = GTK_RANGE(gtk_builder_get_object(builder, "png_scale"));
-    gtk_range_set_value(png_scale, (gdouble)prefs->png_compression);
-    g_signal_connect(G_OBJECT(png_scale), "value-changed", G_CALLBACK(change_png_compression_cb), prefs);
+    gtk_range_set_value(png_scale, (gdouble) prefs->png_compression);
+    g_signal_connect(G_OBJECT(png_scale), "value-changed",
+                     G_CALLBACK(change_png_compression_cb), prefs);
 
     // Zoom mode combo box
     zoom_mode_box = GTK_BOX(gtk_builder_get_object(builder, "zoom_mode_box"));
