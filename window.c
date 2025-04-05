@@ -111,7 +111,10 @@ static GSList* _window_file_chooser(VnrWindow *window,
                                     gboolean multiple);
 static void _window_action_copy_to(VnrWindow *window, GtkWidget *widget);
 static void _window_action_duplicate(VnrWindow *window, GtkWidget *widget);
-static void _window_copy_to(VnrWindow *window, const char *destdir);
+static void _window_copy(VnrWindow *window,
+                         const char *destdir, gboolean follow);
+static void _window_duplicate(VnrWindow *window, gboolean follow);
+static gboolean _window_open_item(VnrWindow *window, GList *item);
 static void _window_action_move_to(VnrWindow *window, GtkWidget *widget);
 static void _window_move_to(VnrWindow *window, const char *destdir);
 static void _window_action_rename(VnrWindow *window, GtkWidget *widget);
@@ -1584,8 +1587,6 @@ gboolean window_prev(VnrWindow *window)
     if (g_list_length(g_list_first(window->filelist)) < 2)
         return FALSE;
 
-    _window_set_monitor(window, NULL);
-
     if (window->mode == WINDOW_MODE_SLIDESHOW)
         g_source_remove(window->sl_source_id);
 
@@ -1593,16 +1594,7 @@ gboolean window_prev(VnrWindow *window)
     if (!prev)
         prev = g_list_last(window->filelist);
 
-    window_list_set_current(window, prev);
-
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
-
-    if (window_load_file(window, FALSE))
-        _window_set_monitor(window, prev);
-
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
+    _window_open_item(window, prev);
 
     if (window->mode == WINDOW_MODE_SLIDESHOW)
     {
@@ -1615,13 +1607,29 @@ gboolean window_prev(VnrWindow *window)
     return TRUE;
 }
 
+static gboolean _window_open_item(VnrWindow *window, GList *item)
+{
+    _window_set_monitor(window, NULL);
+
+    window_list_set_current(window, item);
+
+    if (!window->cursor_is_hidden)
+        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
+
+    if (window_load_file(window, FALSE))
+        _window_set_monitor(window, item);
+
+    if (!window->cursor_is_hidden)
+        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
+
+    return true;
+}
+
 gboolean window_next(VnrWindow *window, gboolean reset_timer)
 {
     // don't reload if there's less than 2 images
     if (g_list_length(g_list_first(window->filelist)) < 2)
         return FALSE;
-
-    _window_set_monitor(window, NULL);
 
     if (window->mode == WINDOW_MODE_SLIDESHOW && reset_timer)
         g_source_remove(window->sl_source_id);
@@ -1630,18 +1638,9 @@ gboolean window_next(VnrWindow *window, gboolean reset_timer)
     if (!next)
         next = g_list_first(window->filelist);
 
-    window_list_set_current(window, next);
+    _window_open_item(window, next);
 
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
-
-    if (window_load_file(window, FALSE))
-        _window_set_monitor(window, next);
-
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
-
-    if (window->mode == WINDOW_MODE_SLIDESHOW && reset_timer)
+    if (reset_timer && window->mode == WINDOW_MODE_SLIDESHOW)
     {
         window->sl_source_id =
             g_timeout_add_seconds(window->sl_timeout,
@@ -1669,8 +1668,6 @@ static gboolean _window_on_sl_timeout(VnrWindow *window)
 
 gboolean window_first(VnrWindow *window)
 {
-    _window_set_monitor(window, NULL);
-
     GList *first = g_list_first(window->filelist);
 
     if (vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
@@ -1678,24 +1675,13 @@ gboolean window_first(VnrWindow *window)
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    window_list_set_current(window, first);
+    _window_open_item(window, first);
 
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
-
-    if (window_load_file(window, FALSE))
-        _window_set_monitor(window, first);
-
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
-
-    return TRUE;
+    return true;
 }
 
 gboolean window_last(VnrWindow *window)
 {
-    _window_set_monitor(window, NULL);
-
     GList *last = g_list_last(window->filelist);
 
     if (vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
@@ -1703,18 +1689,9 @@ gboolean window_last(VnrWindow *window)
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    window_list_set_current(window, last);
+    _window_open_item(window, last);
 
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
-
-    if (window_load_file(window, FALSE))
-        _window_set_monitor(window, last);
-
-    if (!window->cursor_is_hidden)
-        vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
-
-    return TRUE;
+    return true;
 }
 
 static void _window_action_reload(VnrWindow *window, GtkWidget *widget)
@@ -1837,7 +1814,7 @@ static void _window_action_copy_to(VnrWindow *window, GtkWidget *widget)
     if (!window->destdir)
         return;
 
-    _window_copy_to(window, window->destdir);
+    _window_copy(window, window->destdir, false);
 }
 
 static void _window_action_duplicate(VnrWindow *window, GtkWidget *widget)
@@ -1849,10 +1826,11 @@ static void _window_action_duplicate(VnrWindow *window, GtkWidget *widget)
         || window->mode != WINDOW_MODE_NORMAL)
         return;
 
-    _window_copy_to(window, NULL);
+    _window_copy(window, NULL, true);
 }
 
-static void _window_copy_to(VnrWindow *window, const char *destdir)
+static void _window_copy(VnrWindow *window,
+                         const char *destdir, gboolean follow)
 {
     g_return_if_fail(window != NULL);
 
@@ -1863,42 +1841,96 @@ static void _window_copy_to(VnrWindow *window, const char *destdir)
 
     const gchar *display_name = current->display_name;
 
-    // duplicate file
+    // duplicate...
     if (!destdir)
     {
-        gchar *dirname = g_path_get_dirname(current->path);
-        g_assert(dirname != NULL);
+        //gchar *dirname = g_path_get_dirname(current->path);
+        //g_assert(dirname != NULL);
 
-        gchar *newpath = g_build_filename(dirname, display_name, NULL);
-        g_free(dirname);
+        //gchar *newpath = g_build_filename(dirname, display_name, NULL);
+        //g_free(dirname);
 
-        gchar *outpath;
-        vnr_file_copy(current, newpath, &outpath);
-        g_free(newpath);
+        //gchar *outpath;
+        //vnr_file_copy(current, newpath, &outpath);
+        //g_free(newpath);
 
-        if (outpath)
-        {
-            //printf("%s\n", outpath);
+        //if (outpath)
+        //{
+        //    //printf("%s\n", outpath);
 
-            VnrFile *newfile = vnr_file_new_for_path(
-                                                outpath,
-                                                window->prefs->show_hidden);
+        //    VnrFile *newfile = vnr_file_new_for_path(
+        //                                        outpath,
+        //                                        window->prefs->show_hidden);
+        //    g_free(outpath);
 
-            if (!vnr_list_insert(window->filelist, newfile))
-                g_object_unref(newfile);
+        //    GList *item = vnr_list_insert(window->filelist, newfile);
+        //    if (!item)
+        //    {
+        //        g_object_unref(newfile);
+        //        return;
+        //    }
 
-            g_free(outpath);
-        }
+        //    if (follow)
+        //        _window_open_item(window, item);
+
+        //}
+
+        _window_duplicate(window, follow);
 
         return;
     }
 
+    // copy to...
     gchar *newpath = g_build_filename(destdir, display_name, NULL);
 
     if (g_strcmp0(current->path, newpath) != 0)
         vnr_file_copy(current, newpath, NULL);
 
     g_free(newpath);
+}
+
+static void _window_duplicate(VnrWindow *window, gboolean follow)
+{
+    g_return_if_fail(window != NULL);
+
+    VnrFile *current = window_get_current_file(window);
+
+    if (!current || window->mode != WINDOW_MODE_NORMAL)
+        return;
+
+    const gchar *display_name = current->display_name;
+
+    gchar *dirname = g_path_get_dirname(current->path);
+    g_assert(dirname != NULL);
+
+    gchar *newpath = g_build_filename(dirname, display_name, NULL);
+    g_free(dirname);
+
+    gchar *outpath;
+    vnr_file_copy(current, newpath, &outpath);
+    g_free(newpath);
+
+    if (!outpath)
+        return;
+
+    //printf("%s\n", outpath);
+
+    VnrFile *newfile = vnr_file_new_for_path(
+                                        outpath,
+                                        window->prefs->show_hidden);
+    g_free(outpath);
+
+    GList *item = vnr_list_insert(window->filelist, newfile);
+    if (!item)
+    {
+        g_object_unref(newfile);
+        return;
+    }
+
+    if (follow)
+        _window_open_item(window, item);
+
+    return;
 }
 
 static void _window_action_move_to(VnrWindow *window, GtkWidget *widget)

@@ -256,11 +256,11 @@ GList* vnr_list_insert(GList *list, VnrFile *newfile)
         l = l->next;
     }
 
-    return g_list_insert_sorted_with_data(
-                                    first,
-                                    newfile,
-                                    _list_compare_func,
-                                    NULL);
+    GList *result = g_list_prepend(first, newfile);
+    first = g_list_sort(result, (GCompareFunc) _list_compare_func);
+    (void) first;
+
+    return result;
 }
 
 GList* vnr_list_sort(GList *list)
