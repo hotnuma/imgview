@@ -17,8 +17,9 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "preferences.h"
 #include "config.h"
+#include "preferences.h"
+
 #include "window.h"
 
 #define UI_PATH PACKAGE_DATA_DIR "/imgview/vnr-preferences-dialog.ui"
@@ -59,8 +60,8 @@ static void toggle_reload_on_save_cb(GtkToggleButton *togglebutton,
                                      gpointer user_data);
 static void change_zoom_mode_cb(GtkComboBox *widget, gpointer user_data);
 static void change_desktop_env_cb(GtkComboBox *widget, gpointer user_data);
-static void change_jpeg_quality_cb(GtkRange *range, gpointer user_data);
-static void change_png_compression_cb(GtkRange *range, gpointer user_data);
+static void _on_change_jpeg_quality(GtkSpinButton *range, gpointer user_data);
+static void change_png_compression_cb(GtkSpinButton *range, gpointer user_data);
 static void change_action_wheel_cb(GtkComboBox *widget, gpointer user_data);
 static void change_action_click_cb(GtkComboBox *widget, gpointer user_data);
 static void change_action_modify_cb(GtkComboBox *widget, gpointer user_data);
@@ -200,18 +201,18 @@ static GtkWidget* _prefs_build(VnrPrefs *prefs)
     prefs->slideshow_timeout_widget = slideshow_timeout;
     g_signal_connect(G_OBJECT(slideshow_timeout), "value-changed", G_CALLBACK(change_spin_value_cb), prefs);
 
+    GtkSpinButton *spin_btn = NULL;
+
     // JPEG quality scale
-    GtkRange *jpeg_scale;
-    jpeg_scale = GTK_RANGE(gtk_builder_get_object(builder, "jpeg_scale"));
-    gtk_range_set_value(jpeg_scale, (gdouble) prefs->jpeg_quality);
-    g_signal_connect(G_OBJECT(jpeg_scale), "value-changed",
-                     G_CALLBACK(change_jpeg_quality_cb), prefs);
+    spin_btn = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "jpeg_scale"));
+    gtk_spin_button_set_value(spin_btn, (gdouble) prefs->jpeg_quality);
+    g_signal_connect(G_OBJECT(spin_btn), "value-changed",
+                     G_CALLBACK(_on_change_jpeg_quality), prefs);
 
     // PNG compression scale
-    GtkRange *png_scale;
-    png_scale = GTK_RANGE(gtk_builder_get_object(builder, "png_scale"));
-    gtk_range_set_value(png_scale, (gdouble) prefs->png_compression);
-    g_signal_connect(G_OBJECT(png_scale), "value-changed",
+    spin_btn = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "png_scale"));
+    gtk_spin_button_set_value(spin_btn, (gdouble) prefs->png_compression);
+    g_signal_connect(G_OBJECT(spin_btn), "value-changed",
                      G_CALLBACK(change_png_compression_cb), prefs);
 
     // Zoom mode combo box
@@ -507,15 +508,21 @@ static void change_desktop_env_cb(GtkComboBox *widget, gpointer user_data)
     vnr_prefs_save(VNR_PREFS(user_data));
 }
 
-static void change_jpeg_quality_cb(GtkRange *range, gpointer user_data)
+static void _on_change_jpeg_quality(GtkSpinButton *range, gpointer user_data)
 {
-    VNR_PREFS(user_data)->jpeg_quality = (int)gtk_range_get_value(range);
+    VnrPrefs *prefs = VNR_PREFS(user_data);
+
+    prefs->jpeg_quality = (int) gtk_spin_button_get_value(range);
+
     vnr_prefs_save(VNR_PREFS(user_data));
 }
 
-static void change_png_compression_cb(GtkRange *range, gpointer user_data)
+static void change_png_compression_cb(GtkSpinButton *range, gpointer user_data)
 {
-    VNR_PREFS(user_data)->png_compression = (int)gtk_range_get_value(range);
+    VnrPrefs *prefs = VNR_PREFS(user_data);
+
+    prefs->png_compression = (int) gtk_spin_button_get_value(range);
+
     vnr_prefs_save(VNR_PREFS(user_data));
 }
 
