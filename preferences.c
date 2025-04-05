@@ -110,7 +110,7 @@ static void vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->dark_background = FALSE;
     prefs->fit_on_fullscreen = TRUE;
     prefs->smooth_images = TRUE;
-    prefs->confirm_delete = TRUE;
+    prefs->confirm_delete = FALSE;
     prefs->slideshow_timeout = 5;
     prefs->behavior_wheel = VNR_PREFS_WHEEL_ZOOM;
     prefs->behavior_click = VNR_PREFS_CLICK_ZOOM;
