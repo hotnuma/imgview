@@ -115,6 +115,7 @@ static void _window_copy(VnrWindow *window,
                          const char *destdir, gboolean follow);
 static void _window_duplicate(VnrWindow *window, gboolean follow);
 static gboolean _window_open_item(VnrWindow *window, GList *item);
+void _window_autosave(VnrWindow *window);
 static void _window_action_move_to(VnrWindow *window, GtkWidget *widget);
 static void _window_move_to(VnrWindow *window, const char *destdir);
 static void _window_action_rename(VnrWindow *window, GtkWidget *widget);
@@ -380,12 +381,11 @@ static void window_init(VnrWindow *window)
 
     // content
     window->layout_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-
     gtk_container_add(GTK_CONTAINER(window), window->layout_box);
     gtk_widget_show(window->layout_box);
 
     window->msg_area = vnr_message_area_new();
-    VNR_MESSAGE_AREA(window->msg_area)->vnr_win = window;
+    VNR_MESSAGE_AREA(window->msg_area)->vnrwindow = window;
     gtk_box_pack_start(GTK_BOX(window->layout_box),
                        window->msg_area, FALSE, FALSE, 0);
     gtk_widget_show(GTK_WIDGET(window->msg_area));
@@ -395,7 +395,7 @@ static void window_init(VnrWindow *window)
                      window->scroll_view, TRUE, TRUE, 0);
 
     window->view = uni_scroll_win_get_view(
-                UNI_SCROLL_WIN(window->scroll_view));
+                                UNI_SCROLL_WIN(window->scroll_view));
 
     gtk_widget_show_all(GTK_WIDGET(window->scroll_view));
 
@@ -499,11 +499,11 @@ static void window_init(VnrWindow *window)
     gtk_widget_grab_focus(window->view);
     _window_set_drag(window);
 
-    g_signal_connect_swapped(G_OBJECT(window), "delete-event",
-                     G_CALLBACK(_window_on_delete), window);
-
     g_signal_connect_swapped(G_OBJECT(window), "realize",
                      G_CALLBACK(_window_on_realize), window);
+
+    g_signal_connect_swapped(G_OBJECT(window), "delete-event",
+                     G_CALLBACK(_window_on_delete), window);
 
     g_signal_connect(G_OBJECT(window), "window-state-event",
                      G_CALLBACK(_window_on_change_state), NULL);
@@ -582,6 +582,7 @@ static gboolean _window_on_delete(VnrWindow *window, GdkEvent *event,
 {
     (void) event;
     (void) user_data;
+
     GtkWidget *widget = GTK_WIDGET(window);
     VnrPrefs *prefs = window->prefs;
 
@@ -1590,6 +1591,8 @@ gboolean window_prev(VnrWindow *window)
     if (window->mode == WINDOW_MODE_SLIDESHOW)
         g_source_remove(window->sl_source_id);
 
+    _window_autosave(window);
+
     GList *prev = g_list_previous(window->filelist);
     if (!prev)
         prev = g_list_last(window->filelist);
@@ -1605,6 +1608,16 @@ gboolean window_prev(VnrWindow *window)
     }
 
     return TRUE;
+}
+
+void _window_autosave(VnrWindow *window)
+{
+    if (window->modifications != 0
+        && window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
+    {
+        _window_action_save_image(window, NULL);
+        window->modifications = 0;
+    }
 }
 
 static gboolean _window_open_item(VnrWindow *window, GList *item)
@@ -1631,8 +1644,10 @@ gboolean window_next(VnrWindow *window, gboolean reset_timer)
     if (g_list_length(g_list_first(window->filelist)) < 2)
         return FALSE;
 
-    if (window->mode == WINDOW_MODE_SLIDESHOW && reset_timer)
+    if (reset_timer && window->mode == WINDOW_MODE_SLIDESHOW)
         g_source_remove(window->sl_source_id);
+
+    _window_autosave(window);
 
     GList *next = g_list_next(window->filelist);
     if (!next)
@@ -1668,12 +1683,12 @@ static gboolean _window_on_sl_timeout(VnrWindow *window)
 
 gboolean window_first(VnrWindow *window)
 {
+    _window_autosave(window);
+
     GList *first = g_list_first(window->filelist);
 
     if (vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
-    {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
-    }
 
     _window_open_item(window, first);
 
@@ -1682,12 +1697,12 @@ gboolean window_first(VnrWindow *window)
 
 gboolean window_last(VnrWindow *window)
 {
+    _window_autosave(window);
+
     GList *last = g_list_last(window->filelist);
 
     if (vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
-    {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
-    }
 
     _window_open_item(window, last);
 
@@ -1844,37 +1859,6 @@ static void _window_copy(VnrWindow *window,
     // duplicate...
     if (!destdir)
     {
-        //gchar *dirname = g_path_get_dirname(current->path);
-        //g_assert(dirname != NULL);
-
-        //gchar *newpath = g_build_filename(dirname, display_name, NULL);
-        //g_free(dirname);
-
-        //gchar *outpath;
-        //vnr_file_copy(current, newpath, &outpath);
-        //g_free(newpath);
-
-        //if (outpath)
-        //{
-        //    //printf("%s\n", outpath);
-
-        //    VnrFile *newfile = vnr_file_new_for_path(
-        //                                        outpath,
-        //                                        window->prefs->show_hidden);
-        //    g_free(outpath);
-
-        //    GList *item = vnr_list_insert(window->filelist, newfile);
-        //    if (!item)
-        //    {
-        //        g_object_unref(newfile);
-        //        return;
-        //    }
-
-        //    if (follow)
-        //        _window_open_item(window, item);
-
-        //}
-
         _window_duplicate(window, follow);
 
         return;
@@ -2077,8 +2061,10 @@ static void _window_action_delete(VnrWindow *window, GtkWidget *widget)
 
         if (error != NULL)
         {
-            vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area), TRUE,
-                                  error->message, FALSE);
+            vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
+                                  TRUE,
+                                  error->message,
+                                  FALSE);
             restart_slideshow = FALSE;
         }
         else
@@ -2175,8 +2161,8 @@ static void _window_show_cursor(VnrWindow *window)
 
 static void _window_action_properties(VnrWindow *window, GtkWidget *widget)
 {
-    (void) widget;
     g_return_if_fail(window != NULL);
+    (void) widget;
 
     if (window_get_current_file(window) == NULL
         || window->mode != WINDOW_MODE_NORMAL)
@@ -2187,8 +2173,8 @@ static void _window_action_properties(VnrWindow *window, GtkWidget *widget)
 
 static void _window_action_preferences(VnrWindow *window, GtkWidget *widget)
 {
-    (void) widget;
     g_return_if_fail(window != NULL);
+    (void) widget;
 
     if (window->mode != WINDOW_MODE_NORMAL)
         return;
@@ -2247,6 +2233,7 @@ static void _window_rotate_pixbuf(VnrWindow *window,
     //gtk_action_group_set_sensitive(
     //      window->action_save, window->modifications);
 
+#if 0
     if (window->modifications == 0
             && window->prefs->modify_behavior != VNR_PREFS_MODIFY_DEFAULT)
     {
@@ -2276,6 +2263,7 @@ static void _window_rotate_pixbuf(VnrWindow *window,
                 FALSE, "gtk-save",
                 G_CALLBACK(_window_action_save_image));
     }
+#endif
 }
 
 static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
@@ -2317,9 +2305,11 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
     //gtk_action_group_set_sensitive(window->action_save,
     //                               window->modifications);
 
+#if 0
     if (window->modifications == 0)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+
         return;
     }
 
@@ -2345,6 +2335,7 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
                 FALSE, "gtk-save",
                 G_CALLBACK(_window_action_save_image));
     }
+#endif
 }
 
 static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
@@ -2397,6 +2388,8 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
                   "Writing in this format is not supported."),
                 FALSE);
     }
+
+#if 0
     else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
     {
         _window_action_save_image(window, NULL);
@@ -2408,9 +2401,11 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
                 FALSE,
                 _("Save modifications?\nThis will overwrite"
                   " the image and may reduce its quality!"),
-                FALSE, "gtk-save",
+                FALSE,
+                "gtk-save",
                 G_CALLBACK(_window_action_save_image));
     }
+#endif
 
     g_object_unref(crop);
 }
@@ -2426,8 +2421,8 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
 
-    if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
-        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+    //if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
+    //    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
     // Store exiv2 metadata to cache, so we can restore it afterwards
     uni_read_exiv2_to_cache(current->path);
@@ -2489,8 +2484,8 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
 
     //gtk_action_group_set_sensitive(window->action_save, FALSE);
 
-    if (window->prefs->modify_behavior != VNR_PREFS_MODIFY_ASK)
-        _view_on_zoom_changed(UNI_IMAGE_VIEW(window->view), window);
+    //if (window->prefs->modify_behavior != VNR_PREFS_MODIFY_ASK)
+    _view_on_zoom_changed(UNI_IMAGE_VIEW(window->view), window);
 
     if (gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));

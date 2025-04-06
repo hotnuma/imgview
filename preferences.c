@@ -105,7 +105,7 @@ static void vnr_prefs_set_default(VnrPrefs *prefs)
 
     prefs->wheel_behavior = VNR_PREFS_WHEEL_ZOOM;
     prefs->click_behavior = VNR_PREFS_CLICK_ZOOM;
-    prefs->modify_behavior = VNR_PREFS_MODIFY_DEFAULT;
+    prefs->modify_behavior = VNR_PREFS_MODIFY_AUTOSAVE;
 
     prefs->reload_on_save = FALSE;
     prefs->jpeg_quality = 90;
@@ -156,8 +156,8 @@ static gboolean vnr_prefs_load(VnrPrefs *prefs)
                       "wheel-behavior", VNR_PREFS_WHEEL_ZOOM);
     VNR_PREF_LOAD_KEY(click_behavior, integer,
                       "click-behavior", VNR_PREFS_CLICK_ZOOM);
-    VNR_PREF_LOAD_KEY(modify_behavior, integer,
-                      "modify-behavior", VNR_PREFS_MODIFY_ASK);
+//    VNR_PREF_LOAD_KEY(modify_behavior, integer,
+//                      "modify-behavior", VNR_PREFS_MODIFY_DEFAULT);
 
     VNR_PREF_LOAD_KEY(reload_on_save, boolean, "reload-on-save", FALSE);
     VNR_PREF_LOAD_KEY(jpeg_quality, integer, "jpeg-quality", 90);
@@ -398,9 +398,8 @@ void vnr_prefs_dialog_run(VnrPrefs *prefs)
                              G_CALLBACK(_prefs_click_action_changed), prefs);
 
     combotext = (GtkComboBoxText*) gtk_combo_box_text_new();
-    gtk_combo_box_text_append_text(combotext, _("Default"));
-    gtk_combo_box_text_append_text(combotext, _("Ask every time"));
     gtk_combo_box_text_append_text(combotext, _("Autosave"));
+    gtk_combo_box_text_append_text(combotext, _("Ignore"));
     gtk_combo_box_set_active(GTK_COMBO_BOX(combotext), prefs->modify_behavior);
     gtk_grid_attach(grid, GTK_WIDGET(combotext), 1, 2, 1, 1);
     gtk_widget_show(GTK_WIDGET(combotext));

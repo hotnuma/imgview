@@ -77,9 +77,8 @@ typedef enum
 
 typedef enum
 {
-    VNR_PREFS_MODIFY_DEFAULT,
-    VNR_PREFS_MODIFY_ASK,
     VNR_PREFS_MODIFY_AUTOSAVE,
+    VNR_PREFS_MODIFY_IGNORE,
 
 } VnrPrefsModify;
 

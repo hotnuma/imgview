@@ -20,33 +20,22 @@
 #ifndef __VNR_MESSAGE_AREA_H__
 #define __VNR_MESSAGE_AREA_H__
 
-#include <glib.h>
-#include <glib-object.h>
-#include <gtk/gtk.h>
 #include "window.h"
 
 G_BEGIN_DECLS
 
 typedef struct _VnrMessageArea VnrMessageArea;
-typedef struct _VnrMessageAreaClass VnrMessageAreaClass;
 
 #define VNR_TYPE_MESSAGE_AREA (vnr_message_area_get_type())
-#define VNR_MESSAGE_AREA(obj) \
-    (G_TYPE_CHECK_INSTANCE_CAST((obj), VNR_TYPE_MESSAGE_AREA, VnrMessageArea))
-#define VNR_MESSAGE_AREA_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), VNR_TYPE_MESSAGE_AREA, VnrMessageAreaClass))
-#define VNR_IS_MESSAGE_AREA(obj) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((obj), VNR_TYPE_MESSAGE_AREA))
-#define VNR_IS_MESSAGE_AREA_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), VNR_TYPE_MESSAGE_AREA))
-#define VNR_MESSAGE_AREA_GET_CLASS(obj) \
-    (G_TYPE_INSTANCE_GET_CLASS((obj), VNR_TYPE_MESSAGE_AREA, VnrMessageAreaClass))
+
+G_DECLARE_FINAL_TYPE(VnrMessageArea,
+                     vnr_message_area, VNR, MESSAGE_AREA, GtkEventBox)
 
 struct _VnrMessageArea
 {
-    GtkEventBox parent;
+    GtkEventBox __parent__;
 
-    VnrWindow *vnr_win;
+    VnrWindow *vnrwindow;
     GtkWidget *hbox;
 
     GtkWidget *image;
@@ -60,11 +49,6 @@ struct _VnrMessageArea
 
     gboolean initialized;
     gboolean is_critical;
-};
-
-struct _VnrMessageAreaClass
-{
-    GtkEventBoxClass parent_class;
 };
 
 GType vnr_message_area_get_type() G_GNUC_CONST;
