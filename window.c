@@ -2193,7 +2193,7 @@ static void _window_action_preferences(VnrWindow *window, GtkWidget *widget)
     if (window->mode != WINDOW_MODE_NORMAL)
         return;
 
-    vnr_prefs_show_dialog(window->prefs);
+    vnr_prefs_dialog_run(window->prefs);
 }
 
 
