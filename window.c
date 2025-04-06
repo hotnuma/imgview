@@ -77,7 +77,7 @@ static gboolean _window_on_change_state(GtkWidget *widget,
                                         gpointer user_data);
 static void _view_on_zoom_changed(UniImageView *view, VnrWindow *window);
 
-// open / close ---------------------------------------------------------------
+// monitor --------------------------------------------------------------------
 
 static void _window_set_monitor(VnrWindow *window, GList *current);
 static void _window_monitor_on_change(VnrWindow *window,
@@ -86,6 +86,9 @@ static void _window_monitor_on_change(VnrWindow *window,
                                       GFileMonitorEvent event_type,
                                       GFileMonitor *monitor);
 static gboolean _window_on_idle_reload(VnrWindow *window);
+
+// open / close ---------------------------------------------------------------
+
 static void _window_action_openfile(VnrWindow *window, GtkWidget *widget);
 static void _on_update_preview(GtkFileChooser *file_chooser, gpointer data);
 static gboolean _file_size_is_small(char *filename);
@@ -114,7 +117,7 @@ static void _window_copy(VnrWindow *window,
                          const char *destdir, gboolean follow);
 static void _window_duplicate(VnrWindow *window, gboolean follow);
 static gboolean _window_open_item(VnrWindow *window, GList *item);
-void _window_autosave(VnrWindow *window);
+void _window_save_or_discard(VnrWindow *window, gboolean reload);
 static void _window_action_move_to(VnrWindow *window, GtkWidget *widget);
 static void _window_move_to(VnrWindow *window, const char *destdir);
 static void _window_action_rename(VnrWindow *window, GtkWidget *widget);
@@ -1077,6 +1080,8 @@ static void _window_action_openfile(VnrWindow *window, GtkWidget *widget)
     (void) widget;
     g_return_if_fail(window != NULL);
 
+    _window_save_or_discard(window, false);
+
     GtkWidget *dialog = gtk_file_chooser_dialog_new(
                                 _("Open Image"),
                                 GTK_WINDOW(window),
@@ -1126,6 +1131,21 @@ static void _window_action_openfile(VnrWindow *window, GtkWidget *widget)
                                      window->prefs->show_hidden);
 }
 
+void _window_save_or_discard(VnrWindow *window, gboolean reload)
+{
+    if (!window_get_current_file(window) || window->modifications == 0)
+        return;
+
+    if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
+    {
+        _window_action_save_image(window, NULL);
+        return;
+    }
+
+    if (reload)
+        _window_action_reload(window, NULL);
+}
+
 static void _on_update_preview(GtkFileChooser *file_chooser, gpointer data)
 {
     char *filename = gtk_file_chooser_get_preview_filename(file_chooser);
@@ -1165,6 +1185,8 @@ static void _window_action_opendir(VnrWindow *window, GtkWidget *widget)
 {
     (void) widget;
     g_return_if_fail(window != NULL);
+
+    _window_save_or_discard(window, false);
 
     GtkWidget *dialog = gtk_file_chooser_dialog_new(
                                 _("Open Folder"),
@@ -1407,6 +1429,8 @@ void window_close_file(VnrWindow *window)
 {
     _window_set_monitor(window, NULL);
 
+    _window_save_or_discard(window, false);
+
     gtk_window_set_title(GTK_WINDOW(window), "ImgView");
     uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), NULL);
 
@@ -1559,8 +1583,6 @@ gboolean window_prev(VnrWindow *window)
     if (window->mode == WINDOW_MODE_SLIDESHOW)
         g_source_remove(window->sl_source_id);
 
-    _window_autosave(window);
-
     GList *prev = g_list_previous(window->filelist);
     if (!prev)
         prev = g_list_last(window->filelist);
@@ -1578,20 +1600,10 @@ gboolean window_prev(VnrWindow *window)
     return TRUE;
 }
 
-void _window_autosave(VnrWindow *window)
-{
-    if (window->modifications != 0
-        && window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
-    {
-        _window_action_save_image(window, NULL);
-        window->modifications = 0;
-    }
-}
-
 static gboolean _window_open_item(VnrWindow *window, GList *item)
 {
     _window_set_monitor(window, NULL);
-
+    _window_save_or_discard(window, false);
     window_list_set_current(window, item);
 
     if (!window->cursor_is_hidden)
@@ -1614,8 +1626,6 @@ gboolean window_next(VnrWindow *window, gboolean reset_timer)
 
     if (reset_timer && window->mode == WINDOW_MODE_SLIDESHOW)
         g_source_remove(window->sl_source_id);
-
-    _window_autosave(window);
 
     GList *next = g_list_next(window->filelist);
     if (!next)
@@ -1651,8 +1661,6 @@ static gboolean _window_on_sl_timeout(VnrWindow *window)
 
 gboolean window_first(VnrWindow *window)
 {
-    _window_autosave(window);
-
     GList *first = g_list_first(window->filelist);
 
     if (vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
@@ -1665,8 +1673,6 @@ gboolean window_first(VnrWindow *window)
 
 gboolean window_last(VnrWindow *window)
 {
-    _window_autosave(window);
-
     GList *last = g_list_last(window->filelist);
 
     if (vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
