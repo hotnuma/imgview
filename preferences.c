@@ -56,8 +56,8 @@ static void _prefs_click_action_changed(VnrPrefs *prefs, GtkComboBox *combo);
 static void _prefs_modify_action_changed(VnrPrefs *prefs, GtkComboBox *combo);
 
 static void _prefs_reload_toggled(VnrPrefs *prefs, GtkToggleButton *togglebtn);
-static void _prefs_jpg_quality_changed(VnrPrefs *prefs,
-                                       GtkSpinButton *spinbtn);
+static void _prefs_jpeg_quality_changed(VnrPrefs *prefs,
+                                        GtkSpinButton *spinbtn);
 static void _prefs_png_comp_changed(VnrPrefs *prefs, GtkSpinButton *spinbtn);
 
 
@@ -105,7 +105,7 @@ static void vnr_prefs_set_default(VnrPrefs *prefs)
 
     prefs->wheel_behavior = VNR_PREFS_WHEEL_ZOOM;
     prefs->click_behavior = VNR_PREFS_CLICK_ZOOM;
-    prefs->modify_behavior = VNR_PREFS_MODIFY_IGNORE;
+    prefs->modify_behavior = VNR_PREFS_MODIFY_DEFAULT;
 
     prefs->reload_on_save = FALSE;
     prefs->jpeg_quality = 90;
@@ -398,9 +398,9 @@ void vnr_prefs_dialog_run(VnrPrefs *prefs)
                              G_CALLBACK(_prefs_click_action_changed), prefs);
 
     combotext = (GtkComboBoxText*) gtk_combo_box_text_new();
+    gtk_combo_box_text_append_text(combotext, _("Default"));
     gtk_combo_box_text_append_text(combotext, _("Ask every time"));
     gtk_combo_box_text_append_text(combotext, _("Autosave"));
-    gtk_combo_box_text_append_text(combotext, _("Ignore changes"));
     gtk_combo_box_set_active(GTK_COMBO_BOX(combotext), prefs->modify_behavior);
     gtk_grid_attach(grid, GTK_WIDGET(combotext), 1, 2, 1, 1);
     gtk_widget_show(GTK_WIDGET(combotext));
@@ -419,7 +419,7 @@ void vnr_prefs_dialog_run(VnrPrefs *prefs)
     spinbtn = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "jpeg_scale"));
     gtk_spin_button_set_value(spinbtn, (gdouble) prefs->jpeg_quality);
     g_signal_connect_swapped(G_OBJECT(spinbtn), "value-changed",
-                             G_CALLBACK(_prefs_jpg_quality_changed), prefs);
+                             G_CALLBACK(_prefs_jpeg_quality_changed), prefs);
 
     // png compression
     spinbtn = GTK_SPIN_BUTTON(gtk_builder_get_object(builder, "png_scale"));
@@ -524,7 +524,7 @@ static void _prefs_reload_toggled(VnrPrefs *prefs,
     vnr_prefs_save(prefs);
 }
 
-static void _prefs_jpg_quality_changed(VnrPrefs *prefs, GtkSpinButton *spinbtn)
+static void _prefs_jpeg_quality_changed(VnrPrefs *prefs, GtkSpinButton *spinbtn)
 {
     prefs->jpeg_quality = (int) gtk_spin_button_get_value(spinbtn);
 

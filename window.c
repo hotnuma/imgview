@@ -2248,7 +2248,7 @@ static void _window_rotate_pixbuf(VnrWindow *window,
     //      window->action_save, window->modifications);
 
     if (window->modifications == 0
-            && window->prefs->modify_behavior != VNR_PREFS_MODIFY_IGNORE)
+            && window->prefs->modify_behavior != VNR_PREFS_MODIFY_DEFAULT)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
         return;
@@ -2262,7 +2262,7 @@ static void _window_rotate_pixbuf(VnrWindow *window,
                                 "Writing in this format is not supported."),
                               FALSE);
     }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_SAVE)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
     {
         _window_action_save_image(window, NULL);
     }
@@ -2331,7 +2331,7 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
                                 "Writing in this format is not supported."),
                               FALSE);
     }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_SAVE)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
     {
         _window_action_save_image(window, NULL);
     }
@@ -2397,7 +2397,7 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
                   "Writing in this format is not supported."),
                 FALSE);
     }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_SAVE)
+    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
     {
         _window_action_save_image(window, NULL);
     }
