@@ -24,12 +24,14 @@
 
 #define UI_PATH PACKAGE_DATA_DIR "/imgview/vnr-preferences-dialog.ui"
 
-#define VNR_PREF_LOAD_KEY(PK, PT, KN, DEF)                           \
-    prefs->PK = g_key_file_get_##PT(conf, "prefs", KN, &read_error); \
-    if (read_error != NULL)                                          \
-    {                                                                \
-        prefs->PK = DEF;                                             \
-        g_clear_error(&read_error);                                  \
+#define GRP_PREFS "prefs"
+
+#define VNR_PREF_LOAD_KEY(PK, PT, KN, DEF)                              \
+    prefs->PK = g_key_file_get_##PT(conf, GRP_PREFS, KN, &read_error);  \
+    if (read_error != NULL)                                             \
+    {                                                                   \
+        prefs->PK = DEF;                                                \
+        g_clear_error(&read_error);                                     \
     }
 
 G_DEFINE_TYPE(VnrPrefs, vnr_prefs, G_TYPE_OBJECT)
@@ -87,11 +89,11 @@ static void vnr_prefs_init(VnrPrefs *prefs)
 
 static void vnr_prefs_set_default(VnrPrefs *prefs)
 {
-    prefs->start_maximized = false;
-    prefs->start_fullscreen = FALSE;
-    prefs->start_slideshow = FALSE;
     prefs->window_width = 480;
     prefs->window_height = 300;
+    prefs->start_maximized = false;
+    prefs->start_fullscreen = false;
+    prefs->start_slideshow = false;
 
     prefs->zoom = VNR_PREFS_ZOOM_SMART;
     prefs->desktop = VNR_PREFS_DESKTOP_AUTO;
@@ -112,7 +114,6 @@ static void vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->png_compression = 9;
 
     prefs->show_scrollbar = false;
-    prefs->auto_resize = FALSE;
 }
 
 static gboolean vnr_prefs_load(VnrPrefs *prefs)
@@ -138,9 +139,9 @@ static gboolean vnr_prefs_load(VnrPrefs *prefs)
     GError *read_error = NULL;
     (void) read_error;
 
-    VNR_PREF_LOAD_KEY(start_maximized, boolean, "start-maximized", FALSE);
     VNR_PREF_LOAD_KEY(window_width, integer, "window-width", 480);
     VNR_PREF_LOAD_KEY(window_height, integer, "window-height", 300);
+    VNR_PREF_LOAD_KEY(start_maximized, boolean, "start-maximized", FALSE);
 
     VNR_PREF_LOAD_KEY(zoom, integer, "zoom-mode", VNR_PREFS_ZOOM_SMART);
     VNR_PREF_LOAD_KEY(desktop, integer, "desktop", VNR_PREFS_DESKTOP_AUTO);
@@ -163,7 +164,6 @@ static gboolean vnr_prefs_load(VnrPrefs *prefs)
     VNR_PREF_LOAD_KEY(jpeg_quality, integer, "jpeg-quality", 90);
     VNR_PREF_LOAD_KEY(png_compression, integer, "png-compression", 9);
 
-    VNR_PREF_LOAD_KEY(auto_resize, boolean, "auto-resize", FALSE);
     VNR_PREF_LOAD_KEY(show_scrollbar, boolean, "show-scrollbar", TRUE);
 
     g_key_file_free(conf);
@@ -179,48 +179,46 @@ gboolean vnr_prefs_save(VnrPrefs *prefs)
 
     GKeyFile *conf = g_key_file_new();
 
-    g_key_file_set_boolean(conf, "prefs", "start-maximized",
-                           prefs->start_maximized);
-    g_key_file_set_integer(conf, "prefs", "window-width",
+    g_key_file_set_integer(conf, GRP_PREFS, "window-width",
                            prefs->window_width);
-    g_key_file_set_integer(conf, "prefs", "window-height",
+    g_key_file_set_integer(conf, GRP_PREFS, "window-height",
                            prefs->window_height);
+    g_key_file_set_boolean(conf, GRP_PREFS, "start-maximized",
+                           prefs->start_maximized);
 
-    g_key_file_set_integer(conf, "prefs", "zoom-mode",
+    g_key_file_set_integer(conf, GRP_PREFS, "zoom-mode",
                            prefs->zoom);
-    g_key_file_set_integer(conf, "prefs", "desktop",
+    g_key_file_set_integer(conf, GRP_PREFS, "desktop",
                            prefs->desktop);
-    g_key_file_set_boolean(conf, "prefs", "smooth-images",
+    g_key_file_set_boolean(conf, GRP_PREFS, "smooth-images",
                            prefs->smooth_images);
-    g_key_file_set_boolean(conf, "prefs", "confirm-delete",
+    g_key_file_set_boolean(conf, GRP_PREFS, "confirm-delete",
                            prefs->confirm_delete);
-    g_key_file_set_boolean(conf, "prefs", "show-hidden",
+    g_key_file_set_boolean(conf, GRP_PREFS, "show-hidden",
                            prefs->show_hidden);
-    g_key_file_set_boolean(conf, "prefs", "dark-background",
+    g_key_file_set_boolean(conf, GRP_PREFS, "dark-background",
                            prefs->dark_background);
 
-    g_key_file_set_integer(conf, "prefs", "slideshow-timeout",
+    g_key_file_set_integer(conf, GRP_PREFS, "slideshow-timeout",
                            prefs->sl_timeout);
-    g_key_file_set_boolean(conf, "prefs", "fit-on-fullscreen",
+    g_key_file_set_boolean(conf, GRP_PREFS, "fit-on-fullscreen",
                            prefs->fit_on_fullscreen);
 
-    g_key_file_set_integer(conf, "prefs", "wheel-behavior",
+    g_key_file_set_integer(conf, GRP_PREFS, "wheel-behavior",
                            prefs->wheel_behavior);
-    g_key_file_set_integer(conf, "prefs", "click-behavior",
+    g_key_file_set_integer(conf, GRP_PREFS, "click-behavior",
                            prefs->click_behavior);
-    g_key_file_set_integer(conf, "prefs", "modify-behavior",
+    g_key_file_set_integer(conf, GRP_PREFS, "modify-behavior",
                            prefs->modify_behavior);
 
-    g_key_file_set_boolean(conf, "prefs", "reload-on-save",
+    g_key_file_set_boolean(conf, GRP_PREFS, "reload-on-save",
                            prefs->reload_on_save);
-    g_key_file_set_integer(conf, "prefs", "jpeg-quality",
+    g_key_file_set_integer(conf, GRP_PREFS, "jpeg-quality",
                            prefs->jpeg_quality);
-    g_key_file_set_integer(conf, "prefs", "png-compression",
+    g_key_file_set_integer(conf, GRP_PREFS, "png-compression",
                            prefs->png_compression);
 
-    g_key_file_set_boolean(conf, "prefs", "auto-resize",
-                           prefs->auto_resize);
-    g_key_file_set_boolean(conf, "prefs", "show-scrollbar",
+    g_key_file_set_boolean(conf, GRP_PREFS, "show-scrollbar",
                            prefs->show_scrollbar);
 
     if (g_mkdir_with_parents(dir, 0700) != 0)

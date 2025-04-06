@@ -87,9 +87,12 @@ struct _VnrPrefs
     GObject __parent__;
 
     GtkWidget *window;
-    gboolean start_maximized;
+
     gint window_width;
     gint window_height;
+    gboolean start_maximized;
+    gboolean start_fullscreen;
+    gboolean start_slideshow;
 
     VnrPrefsZoom zoom;
     VnrPrefsDesktop desktop;
@@ -110,11 +113,7 @@ struct _VnrPrefs
     gint jpeg_quality;
     gint png_compression;
 
-    gboolean start_slideshow;
-    gboolean start_fullscreen;
-    gboolean auto_resize;
     gboolean show_scrollbar;
-
 };
 
 struct _VnrPrefsClass

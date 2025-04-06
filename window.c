@@ -94,7 +94,6 @@ static void _on_file_open_dialog_response(GtkWidget *dialog,
                                           gint response_id,
                                           VnrWindow *window);
 static void _window_update_fs_filename_label(VnrWindow *window);
-static void _action_resize(VnrWindow *window, GtkWidget *widget);
 static void _window_update_openwith_menu(VnrWindow *window);
 static void _on_openwith(VnrWindow *window, gpointer user_data);
 
@@ -1373,11 +1372,6 @@ gboolean window_load_file(VnrWindow *window, gboolean fit_to_screen)
                                      window->prefs->zoom);
     }
 
-    if (window->prefs->auto_resize)
-    {
-        _action_resize(window, NULL);
-    }
-
     if (gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
@@ -1407,32 +1401,6 @@ static void _window_update_fs_filename_label(VnrWindow *window)
         gtk_label_set_text(GTK_LABEL(window->fs_filename_label), buf);
 
     g_free(buf);
-}
-
-static void _action_resize(VnrWindow *window, GtkWidget *widget)
-{
-    (void) widget;
-
-    //if (action != NULL && !gtk_toggle_action_get_active(action))
-    //{
-    //    window->prefs->auto_resize = FALSE;
-    //    return;
-    //}
-
-    // width and Height of the pixbuf
-    gint img_w = window->current_image_width;
-    gint img_h = window->current_image_height;
-
-    if (img_w == 0 || img_h == 0)
-        return;
-
-    window->prefs->auto_resize = TRUE;
-    vnr_tools_fit_to_size(&img_w, &img_h,
-                          window->max_width, window->max_height);
-
-    // _window_get_top_widgets_height(window)
-
-    gtk_window_resize(GTK_WINDOW(window), img_w, img_h);
 }
 
 void window_close_file(VnrWindow *window)
