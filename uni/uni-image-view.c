@@ -78,6 +78,7 @@ static Size _uni_image_view_get_zoomed_size(UniImageView *view);
 static void _uni_image_view_clamp_offset(UniImageView *view,
                                         gdouble *x, gdouble *y);
 static void _uni_image_view_update_adjustments(UniImageView *view);
+
 static void _uni_image_view_set_zoom_with_center(UniImageView *view,
                                     gdouble zoom,
                                     gdouble center_x,
@@ -87,6 +88,7 @@ static void _uni_image_view_set_zoom_no_center(UniImageView *view,
                                               gboolean is_allocating);
 static void _uni_image_view_zoom_to_fit(UniImageView *view,
                                        gboolean is_allocating);
+
 static void _uni_image_view_draw_background(UniImageView *view,
                                            GdkRectangle *image_area,
                                            Size alloc,
@@ -94,6 +96,7 @@ static void _uni_image_view_draw_background(UniImageView *view,
 static int _uni_image_view_repaint_area(UniImageView *view,
                                        GdkRectangle *paint_rect,
                                        cairo_t *cr);
+
 static void _uni_image_view_fast_scroll(UniImageView *view,
                                        int delta_x, int delta_y);
 static void _uni_image_view_scroll_to(UniImageView *view,
@@ -101,6 +104,7 @@ static void _uni_image_view_scroll_to(UniImageView *view,
                                      gdouble offset_y,
                                      gboolean set_adjustments,
                                      gboolean invalidate);
+
 static gboolean _on_hadj_value_changed(UniImageView *view,
                                                 GtkAdjustment *adj);
 static gboolean _on_vadj_value_changed(UniImageView *view,
@@ -652,11 +656,13 @@ static void _uni_image_view_zoom_to_fit(UniImageView *view,
 static Size _uni_image_view_get_pixbuf_size(UniImageView *view)
 {
     Size s = {0, 0};
+
     if (!view->pixbuf)
         return s;
 
     s.width = gdk_pixbuf_get_width(view->pixbuf);
     s.height = gdk_pixbuf_get_height(view->pixbuf);
+
     return s;
 }
 

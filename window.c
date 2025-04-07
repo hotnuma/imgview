@@ -2196,7 +2196,7 @@ static void _window_rotate_pixbuf(VnrWindow *window,
         vnr_properties_dialog_update_image(
                             VNR_PROPERTIES_DIALOG(window->props_dlg));
 
-    // Extra conditions. Rotating 180 degrees is also flipping horizontal
+    // extra conditions, rotating 180 degrees is also flipping horizontal
     // and vertical
     if ((window->modifications & (4))
         ^ ((angle == GDK_PIXBUF_ROTATE_CLOCKWISE) << 2))
@@ -2207,11 +2207,10 @@ static void _window_rotate_pixbuf(VnrWindow *window,
     //gtk_action_group_set_sensitive(
     //      window->action_save, window->modifications);
 
-#if 0
-    if (window->modifications == 0
-            && window->prefs->modify_behavior != VNR_PREFS_MODIFY_DEFAULT)
+    if (window->modifications == 0)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+
         return;
     }
 
@@ -2223,21 +2222,6 @@ static void _window_rotate_pixbuf(VnrWindow *window,
                                 "Writing in this format is not supported."),
                               FALSE);
     }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
-    {
-        _window_action_save_image(window, NULL);
-    }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
-    {
-        vnr_message_area_show_with_button(
-                VNR_MESSAGE_AREA(window->msg_area),
-                FALSE,
-                _("Save modifications?\nThis will overwrite the image "
-                  "and may reduce its quality!"),
-                FALSE, "gtk-save",
-                G_CALLBACK(_window_action_save_image));
-    }
-#endif
 }
 
 static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
@@ -2279,7 +2263,6 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
     //gtk_action_group_set_sensitive(window->action_save,
     //                               window->modifications);
 
-#if 0
     if (window->modifications == 0)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
@@ -2295,21 +2278,6 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
                                 "Writing in this format is not supported."),
                               FALSE);
     }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
-    {
-        _window_action_save_image(window, NULL);
-    }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
-    {
-        vnr_message_area_show_with_button(
-                VNR_MESSAGE_AREA(window->msg_area),
-                FALSE,
-                _("Save modifications?\nThis will overwrite"
-                  " the image and may reduce its quality!"),
-                FALSE, "gtk-save",
-                G_CALLBACK(_window_action_save_image));
-    }
-#endif
 }
 
 static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
@@ -2362,24 +2330,6 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
                   "Writing in this format is not supported."),
                 FALSE);
     }
-
-#if 0
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
-    {
-        _window_action_save_image(window, NULL);
-    }
-    else if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
-    {
-        vnr_message_area_show_with_button(
-                VNR_MESSAGE_AREA(window->msg_area),
-                FALSE,
-                _("Save modifications?\nThis will overwrite"
-                  " the image and may reduce its quality!"),
-                FALSE,
-                "gtk-save",
-                G_CALLBACK(_window_action_save_image));
-    }
-#endif
 
     g_object_unref(crop);
 }
