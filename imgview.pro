@@ -5,13 +5,13 @@ DEFINES = _GNU_SOURCE
 INCLUDEPATH = dlg uni
 PKGCONFIG =
 
+PKGCONFIG += shared-mime-info
 PKGCONFIG += gtk+-3.0
 PKGCONFIG += gdk-pixbuf-2.0
-PKGCONFIG += gio-2.0
 PKGCONFIG += glib-2.0
+PKGCONFIG += gio-2.0
 PKGCONFIG += exiv2
 PKGCONFIG += tinyui
-PKGCONFIG += shared-mime-info
 
 HEADERS = \
     dlg/dialog.h \

@@ -127,6 +127,7 @@ static void _window_hide_cursor(VnrWindow *window);
 static void _window_show_cursor(VnrWindow *window);
 static void _window_action_properties(VnrWindow *window, GtkWidget *widget);
 static void _window_action_preferences(VnrWindow *window, GtkWidget *widget);
+static void _window_action_help(VnrWindow *window, GtkWidget *widget);
 
 // private Actions ------------------------------------------------------------
 
@@ -195,7 +196,7 @@ typedef enum
     WINDOW_ACTION_SLIDESHOW,
     WINDOW_ACTION_ZOOM_NORMAAL,
     WINDOW_ACTION_ZOOM_FIT,
-    WINDOW_ACTION_ITEM6,
+    WINDOW_ACTION_HELP,
     WINDOW_ACTION_ITEM7,
     WINDOW_ACTION_ITEM8,
 
@@ -343,8 +344,20 @@ static EtkActionEntry _window_actions[] =
      NULL,
      G_CALLBACK(_window_action_zoom_normal)},
 
+    {WINDOW_ACTION_HELP,
+     "<Actions>/AppWindow/Help", "F1",
+     0, NULL,
+     NULL,
+     NULL,
+     G_CALLBACK(_window_action_help)},
+
     {0},
 };
+
+static void _window_action_help(VnrWindow *window, GtkWidget *widget)
+{
+    g_return_if_fail(window != NULL);
+}
 
 
 // creation / destruction -----------------------------------------------------
