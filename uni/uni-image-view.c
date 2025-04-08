@@ -1473,16 +1473,10 @@ void uni_image_view_set_vadjustment(UniImageView *view, GtkAdjustment *vadj)
     uni_image_view_set_scroll_adjustments(view, NULL, vadj);
 }
 
-/**
- * uni_image_view_get_pixbuf:
- * @view: A #UniImageView.
- * @returns: The pixbuf this view shows.
- *
- * Returns the pixbuf this view shows.
- **/
 GdkPixbuf* uni_image_view_get_pixbuf(UniImageView *view)
 {
-    g_return_val_if_fail(UNI_IS_IMAGE_VIEW(view), NULL);
+    if (!view)
+        return NULL;
 
     return view->pixbuf;
 }

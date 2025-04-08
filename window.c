@@ -129,6 +129,9 @@ static void _window_show_cursor(VnrWindow *window);
 static void _window_action_properties(VnrWindow *window, GtkWidget *widget);
 static void _window_action_preferences(VnrWindow *window, GtkWidget *widget);
 static void _window_action_help(VnrWindow *window, GtkWidget *widget);
+GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
+gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf);
+GdkPixbuf* gd_to_pixbuf(gdImage *src);
 
 // private Actions ------------------------------------------------------------
 
@@ -355,6 +358,31 @@ static EtkActionEntry _window_actions[] =
     {0},
 };
 
+gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf)
+{
+    if (!pixbuf)
+        return NULL;
+
+    int sx = gdk_pixbuf_get_width(pixbuf);
+    int sy = gdk_pixbuf_get_height(pixbuf);
+    int rowstride = gdk_pixbuf_get_rowstride(pixbuf);
+    int n_channels = gdk_pixbuf_get_n_channels(pixbuf);
+
+    guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
+    gdImage *img = gdImageCreateTrueColor(sx, sy);
+
+    for (int y = 0; y < sy; ++y)
+    {
+        for (int x = 0; x < sx; ++x)
+        {
+            guchar *p = pixels + (y * rowstride) + (x * n_channels);
+            img->tpixels[y][x] = gdTrueColorAlpha(p[0], p[1], p[2], 127);
+        }
+    }
+
+    return img;
+}
+
 GdkPixbuf* gd_to_pixbuf(gdImage *src)
 {
     g_return_val_if_fail(src != NULL, NULL);
@@ -370,46 +398,33 @@ GdkPixbuf* gd_to_pixbuf(gdImage *src)
     {
         for (int x = 0; x < src->sx; ++x)
         {
-            int c = gdImageGetPixel(src, x, y);
+            int c = src->tpixels[y][x];
 
             guchar *p = pixels + (y * rowstride) + (x * n_channels);
             p[0] = gdImageRed(src, c);
             p[1] = gdImageGreen(src, c);
             p[2] = gdImageBlue(src, c);
-            p[3] = 255; //gdImageAlpha(src, c);
+            p[3] = gdImageAlpha(src, c);
         }
     }
 
     return pixbuf;
 }
 
-GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
-
 static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 {
     g_return_if_fail(window != NULL);
 
-    const char *inpath = "/home/hotnuma/Downloads/test.png";
-    FILE *fp = fopen(inpath, "rb");
-    if (!fp)
-    {
-        printf("can't read image %s\n", inpath);
+    if (!window->can_edit)
         return;
-    }
 
-    gdImage *img = gdImageCreateFromPng(fp);
-    fclose(fp);
+    gdImage *img = pixbuf_to_gd(
+                uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)));
 
-    if (!img || !img->trueColor)
-    {
-        printf("Can't create image from %s\n", inpath);
-        gdImageDestroy(img);
+    if (!img)
         return;
-    }
 
     GdkPixbuf *pixbuf = gd_to_pixbuf(img);
-    //GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(inpath, NULL);
-
     gdImageDestroy(img);
 
     GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
