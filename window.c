@@ -34,6 +34,7 @@
 #include <etkaction.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <gd.h>
 
 // Timeout to hide the toolbar in fullscreen mode
 #define FULLSCREEN_TIMEOUT 1000
@@ -354,9 +355,67 @@ static EtkActionEntry _window_actions[] =
     {0},
 };
 
+GdkPixbuf* gd_to_pixbuf(gdImage *src)
+{
+    g_return_val_if_fail(src != NULL, NULL);
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, true, 8,
+                                       src->sx, src->sy);
+
+    guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
+    int rowstride = gdk_pixbuf_get_rowstride(pixbuf);
+    int n_channels = gdk_pixbuf_get_n_channels(pixbuf);
+
+    for (int y = 0; y < src->sy; ++y)
+    {
+        for (int x = 0; x < src->sx; ++x)
+        {
+            int c = gdImageGetPixel(src, x, y);
+
+            guchar *p = pixels + (y * rowstride) + (x * n_channels);
+            p[0] = gdImageRed(src, c);
+            p[1] = gdImageGreen(src, c);
+            p[2] = gdImageBlue(src, c);
+            p[3] = 0; //gdImageAlpha(src, c);
+        }
+    }
+
+    return pixbuf;
+}
+
+GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
+
 static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 {
     g_return_if_fail(window != NULL);
+
+    const char *inpath = "/home/hotnuma/Downloads/test.png";
+    //FILE *fp = fopen(inpath, "rb");
+    //if (!fp)
+    //{
+    //    printf("can't read image %s\n", inpath);
+    //    return;
+    //}
+
+    //gdImage *img = gdImageCreateFromPng(fp);
+    //fclose(fp);
+
+    //if (!img || !img->trueColor)
+    //{
+    //    printf("Can't create image from %s\n", inpath);
+    //    gdImageDestroy(img);
+    //    return;
+    //}
+
+    //GdkPixbuf *pixbuf = gd_to_pixbuf(img);
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(inpath, NULL);
+    //gdImageDestroy(img);
+
+    GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
+    g_object_unref(pixbuf);
+
+    uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
 }
 
 

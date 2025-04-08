@@ -23,6 +23,7 @@ app_deps = [
     dependency('shared-mime-info', version: '>= 0.20'),
     dependency('gdk-pixbuf-2.0', version: '>= 0.21'),
     dependency('exiv2', version: '>= 0.21'),
+    dependency('gdlib'),
     dependency('tinyui'),
 ]
 
