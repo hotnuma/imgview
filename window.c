@@ -376,7 +376,7 @@ GdkPixbuf* gd_to_pixbuf(gdImage *src)
             p[0] = gdImageRed(src, c);
             p[1] = gdImageGreen(src, c);
             p[2] = gdImageBlue(src, c);
-            p[3] = 0; //gdImageAlpha(src, c);
+            p[3] = 255; //gdImageAlpha(src, c);
         }
     }
 
@@ -390,27 +390,27 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
     g_return_if_fail(window != NULL);
 
     const char *inpath = "/home/hotnuma/Downloads/test.png";
-    //FILE *fp = fopen(inpath, "rb");
-    //if (!fp)
-    //{
-    //    printf("can't read image %s\n", inpath);
-    //    return;
-    //}
+    FILE *fp = fopen(inpath, "rb");
+    if (!fp)
+    {
+        printf("can't read image %s\n", inpath);
+        return;
+    }
 
-    //gdImage *img = gdImageCreateFromPng(fp);
-    //fclose(fp);
+    gdImage *img = gdImageCreateFromPng(fp);
+    fclose(fp);
 
-    //if (!img || !img->trueColor)
-    //{
-    //    printf("Can't create image from %s\n", inpath);
-    //    gdImageDestroy(img);
-    //    return;
-    //}
+    if (!img || !img->trueColor)
+    {
+        printf("Can't create image from %s\n", inpath);
+        gdImageDestroy(img);
+        return;
+    }
 
-    //GdkPixbuf *pixbuf = gd_to_pixbuf(img);
+    GdkPixbuf *pixbuf = gd_to_pixbuf(img);
+    //GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(inpath, NULL);
 
-    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(inpath, NULL);
-    //gdImageDestroy(img);
+    gdImageDestroy(img);
 
     GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
     g_object_unref(pixbuf);
