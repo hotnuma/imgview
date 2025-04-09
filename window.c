@@ -363,8 +363,9 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 
     //gint64 t1 = g_get_real_time();
 
-    gdImage *img = pixbuf_to_gd(
-                uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)));
+    GdkPixbuf *inpix = uni_image_view_get_pixbuf(
+                            UNI_IMAGE_VIEW(window->view));
+    gdImage *img = pixbuf_to_gd(inpix);
 
     if (!img)
         return;
