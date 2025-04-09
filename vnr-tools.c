@@ -17,13 +17,11 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
-#include <gio/gio.h>
-#include <stdio.h>
-#include <string.h>
+#include "config.h"
 #include "vnr-tools.h"
 
-void vnr_tools_set_cursor(GtkWidget *widget, GdkCursorType type, gboolean flush)
+void vnr_tools_set_cursor(GtkWidget *widget,
+                          GdkCursorType type, gboolean flush)
 {
     GdkDisplay *display = gtk_widget_get_display(widget);
     GdkCursor *cursor = gdk_cursor_new_for_display(display, type);
@@ -36,14 +34,16 @@ void vnr_tools_set_cursor(GtkWidget *widget, GdkCursorType type, gboolean flush)
         gdk_display_flush(display);
 }
 
-void vnr_tools_fit_to_size(gint *width, gint *height, gint max_width, gint max_height)
+void vnr_tools_fit_to_size(gint *width, gint *height,
+                           gint max_width, gint max_height)
 {
     gfloat ratio, max_ratio;
 
-    /* if size fits well, then exit */
+    // if size fits well, then exit
     if (*width < max_width && *height < max_height)
         return;
-    /* check if dividing by 0 */
+
+    // check if dividing by 0
     if (*width == 0 || max_height == 0)
         return;
 
@@ -69,14 +69,16 @@ void vnr_tools_fit_to_size(gint *width, gint *height, gint max_width, gint max_h
     return;
 }
 
-void vnr_tools_fit_to_size_double(gdouble *width, gdouble *height, gint max_width, gint max_height)
+void vnr_tools_fit_to_size_double(gdouble *width, gdouble *height,
+                                  gint max_width, gint max_height)
 {
     gdouble ratio, max_ratio;
 
-    /* if size fits well, then exit */
+    // if size fits well, then exit
     if (*width < max_width && *height < max_height)
         return;
-    /* check if dividing by 0 */
+
+    // check if dividing by 0
     if (*width == 0 || max_height == 0)
         return;
 
@@ -102,8 +104,7 @@ void vnr_tools_fit_to_size_double(gdouble *width, gdouble *height, gint max_widt
     return;
 }
 
-GSList *
-vnr_tools_get_list_from_array(gchar **files)
+GSList* vnr_tools_get_list_from_array(gchar **files)
 {
     GSList *uri_list = NULL;
     gint i;
@@ -133,8 +134,7 @@ vnr_tools_get_list_from_array(gchar **files)
     return g_slist_reverse(uri_list);
 }
 
-/* modified version of eog's
- * eog_util_parse_uri_string_list_to_file_list */
+// modified version of eog's eog_util_parse_uri_string_list_to_file_list
 GSList* vnr_tools_parse_uri_string_list_to_file_list(const gchar *uri_list)
 {
     GSList *file_list = NULL;
@@ -146,12 +146,15 @@ GSList* vnr_tools_parse_uri_string_list_to_file_list(const gchar *uri_list)
     while (uris[i] != NULL)
     {
         gchar *current_path = g_file_get_path(g_file_new_for_uri(uris[i]));
+
         if (current_path != NULL)
             file_list = g_slist_append(file_list, current_path);
+
         i++;
     }
 
     g_strfreev(uris);
+
     return g_slist_reverse(file_list);
 }
 
@@ -185,3 +188,58 @@ void vnr_tools_apply_embedded_orientation(GdkPixbufAnimation **anim)
 
     *anim = GDK_PIXBUF_ANIMATION(s_anim);
 }
+
+gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf)
+{
+    if (!pixbuf)
+        return NULL;
+
+    int sx = gdk_pixbuf_get_width(pixbuf);
+    int sy = gdk_pixbuf_get_height(pixbuf);
+    int rowstride = gdk_pixbuf_get_rowstride(pixbuf);
+    int n_channels = gdk_pixbuf_get_n_channels(pixbuf);
+
+    guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
+    gdImage *img = gdImageCreateTrueColor(sx, sy);
+
+    for (int y = 0; y < sy; ++y)
+    {
+        for (int x = 0; x < sx; ++x)
+        {
+            guchar *p = pixels + (y * rowstride) + (x * n_channels);
+            img->tpixels[y][x] = gdTrueColorAlpha(p[0], p[1], p[2], 127);
+        }
+    }
+
+    return img;
+}
+
+GdkPixbuf* gd_to_pixbuf(gdImage *src)
+{
+    g_return_val_if_fail(src != NULL, NULL);
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, true, 8,
+                                       src->sx, src->sy);
+
+    guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
+    int rowstride = gdk_pixbuf_get_rowstride(pixbuf);
+    int n_channels = gdk_pixbuf_get_n_channels(pixbuf);
+
+    for (int y = 0; y < src->sy; ++y)
+    {
+        for (int x = 0; x < src->sx; ++x)
+        {
+            int c = src->tpixels[y][x];
+
+            guchar *p = pixels + (y * rowstride) + (x * n_channels);
+            p[0] = gdTrueColorGetRed(c);
+            p[1] = gdTrueColorGetGreen(c);
+            p[2] = gdTrueColorGetBlue(c);
+            p[3] = 2 * gdTrueColorGetAlpha(c);
+        }
+    }
+
+    return pixbuf;
+}
+
+

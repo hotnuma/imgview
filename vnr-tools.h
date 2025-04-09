@@ -21,6 +21,7 @@
 #define __VNR_TOOLS_H__
 
 #include <gtk/gtk.h>
+#include <gd.h>
 
 void vnr_tools_set_cursor(GtkWidget *widget,
                           GdkCursorType type, gboolean flush);
@@ -30,6 +31,11 @@ void vnr_tools_fit_to_size_double(gdouble *w, gdouble *h, gint mw, gint mh);
 GSList *vnr_tools_get_list_from_array(gchar **files);
 GSList *vnr_tools_parse_uri_string_list_to_file_list(const gchar *uri_list);
 void vnr_tools_apply_embedded_orientation(GdkPixbufAnimation **anim);
+
+// libgd / pixbuf interface
+GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
+gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf);
+GdkPixbuf* gd_to_pixbuf(gdImage *src);
 
 #endif // __VNR_TOOLS_H__
 

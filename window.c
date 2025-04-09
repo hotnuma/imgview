@@ -34,7 +34,6 @@
 #include <etkaction.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
-#include <gd.h>
 
 // Timeout to hide the toolbar in fullscreen mode
 #define FULLSCREEN_TIMEOUT 1000
@@ -129,9 +128,6 @@ static void _window_show_cursor(VnrWindow *window);
 static void _window_action_properties(VnrWindow *window, GtkWidget *widget);
 static void _window_action_preferences(VnrWindow *window, GtkWidget *widget);
 static void _window_action_help(VnrWindow *window, GtkWidget *widget);
-GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
-gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf);
-GdkPixbuf* gd_to_pixbuf(gdImage *src);
 
 // private Actions ------------------------------------------------------------
 
@@ -358,65 +354,14 @@ static EtkActionEntry _window_actions[] =
     {0},
 };
 
-gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf)
-{
-    if (!pixbuf)
-        return NULL;
-
-    int sx = gdk_pixbuf_get_width(pixbuf);
-    int sy = gdk_pixbuf_get_height(pixbuf);
-    int rowstride = gdk_pixbuf_get_rowstride(pixbuf);
-    int n_channels = gdk_pixbuf_get_n_channels(pixbuf);
-
-    guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
-    gdImage *img = gdImageCreateTrueColor(sx, sy);
-
-    for (int y = 0; y < sy; ++y)
-    {
-        for (int x = 0; x < sx; ++x)
-        {
-            guchar *p = pixels + (y * rowstride) + (x * n_channels);
-            img->tpixels[y][x] = gdTrueColorAlpha(p[0], p[1], p[2], 127);
-        }
-    }
-
-    return img;
-}
-
-GdkPixbuf* gd_to_pixbuf(gdImage *src)
-{
-    g_return_val_if_fail(src != NULL, NULL);
-
-    GdkPixbuf *pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, true, 8,
-                                       src->sx, src->sy);
-
-    guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
-    int rowstride = gdk_pixbuf_get_rowstride(pixbuf);
-    int n_channels = gdk_pixbuf_get_n_channels(pixbuf);
-
-    for (int y = 0; y < src->sy; ++y)
-    {
-        for (int x = 0; x < src->sx; ++x)
-        {
-            int c = src->tpixels[y][x];
-
-            guchar *p = pixels + (y * rowstride) + (x * n_channels);
-            p[0] = gdImageRed(src, c);
-            p[1] = gdImageGreen(src, c);
-            p[2] = gdImageBlue(src, c);
-            p[3] = gdImageAlpha(src, c);
-        }
-    }
-
-    return pixbuf;
-}
-
 static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 {
     g_return_if_fail(window != NULL);
 
     if (!window->can_edit)
         return;
+
+    //gint64 t1 = g_get_real_time();
 
     gdImage *img = pixbuf_to_gd(
                 uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)));
@@ -426,6 +371,10 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 
     GdkPixbuf *pixbuf = gd_to_pixbuf(img);
     gdImageDestroy(img);
+
+    //gint64 t2 = g_get_real_time();
+    //gint64 diff = t2 - t1;
+    //printf("time = %d\n", (int) diff);
 
     GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
     g_object_unref(pixbuf);
