@@ -621,7 +621,7 @@ static inline int getPixelOverflowTC(gdImagePtr im, const int x, const int y, co
 
         if (c == im->transparent)
         {
-            return bgColor == -1 ? gdTrueColorAlpha(0, 0, 0, 255) : bgColor;
+            return bgColor == -1 ? gd_set_alpha(0, 0, 0, 255) : bgColor;
 		}
 
         return c;  // 31bit ARGB TC
@@ -769,16 +769,16 @@ static inline void _gdScaleOneAxis(gdImagePtr pSrc, gdImagePtr dst,
 				pSrc->tpixels[i][row];
 
 			r += contrib->ContribRow[ndx].Weights[left_channel]
-				* (double)(gdTrueColorGetRed(srcpx));
+                * (double)(gd_get_red(srcpx));
 			g += contrib->ContribRow[ndx].Weights[left_channel]
-				* (double)(gdTrueColorGetGreen(srcpx));
+                * (double)(gd_get_green(srcpx));
 			b += contrib->ContribRow[ndx].Weights[left_channel]
-				* (double)(gdTrueColorGetBlue(srcpx));
+                * (double)(gd_get_blue(srcpx));
 			a += contrib->ContribRow[ndx].Weights[left_channel]
-				* (double)(gdTrueColorGetAlpha(srcpx));
+                * (double)(gd_get_alpha(srcpx));
 		}// for
 
-		*dest = gdTrueColorAlpha(uchar_clamp(r, 0xFF), uchar_clamp(g, 0xFF),
+        *dest = gd_set_alpha(uchar_clamp(r, 0xFF), uchar_clamp(g, 0xFF),
                                  uchar_clamp(b, 0xFF),
                                  uchar_clamp(a, 0xFF));
 	}// for
@@ -889,7 +889,7 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
 
 		scale_pass_res = _gdScalePass(src, src_width, tmp_im, new_width, src_height, HORIZONTAL, filter);
 		if (scale_pass_res != 1) {
-			gdImageDestroy(tmp_im);
+            gd_img_free(tmp_im);
 			return NULL;
 		}
     }// if .. else
@@ -906,9 +906,9 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
         gdImageSetInterpolationMethod(dst, src->interpolation_id);
         scale_pass_res = _gdScalePass(tmp_im, src_height, dst, new_height, new_width, VERTICAL, filter);
 		if (scale_pass_res != 1) {
-			gdImageDestroy(dst);
+            gd_img_free(dst);
 			if (src != tmp_im) {
-				gdImageDestroy(tmp_im);
+                gd_img_free(tmp_im);
 			}
 			return NULL;
 	   }
@@ -916,7 +916,7 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
 
 
 	if (src != tmp_im) {
-        gdImageDestroy(tmp_im);
+        gd_img_free(tmp_im);
     }// if
 
 	return dst;
@@ -1027,29 +1027,29 @@ static gdImagePtr gdImageScaleBilinearTC(gdImagePtr im, const unsigned int new_w
 			pixel3 = getPixelOverflowTC(im, n, m + 1, pixel1);
 			pixel4 = getPixelOverflowTC(im, n + 1, m + 1, pixel1);
 
-			f_r1 = gd_itofx(gdTrueColorGetRed(pixel1));
-			f_r2 = gd_itofx(gdTrueColorGetRed(pixel2));
-			f_r3 = gd_itofx(gdTrueColorGetRed(pixel3));
-			f_r4 = gd_itofx(gdTrueColorGetRed(pixel4));
-			f_g1 = gd_itofx(gdTrueColorGetGreen(pixel1));
-			f_g2 = gd_itofx(gdTrueColorGetGreen(pixel2));
-			f_g3 = gd_itofx(gdTrueColorGetGreen(pixel3));
-			f_g4 = gd_itofx(gdTrueColorGetGreen(pixel4));
-			f_b1 = gd_itofx(gdTrueColorGetBlue(pixel1));
-			f_b2 = gd_itofx(gdTrueColorGetBlue(pixel2));
-			f_b3 = gd_itofx(gdTrueColorGetBlue(pixel3));
-			f_b4 = gd_itofx(gdTrueColorGetBlue(pixel4));
-			f_a1 = gd_itofx(gdTrueColorGetAlpha(pixel1));
-			f_a2 = gd_itofx(gdTrueColorGetAlpha(pixel2));
-			f_a3 = gd_itofx(gdTrueColorGetAlpha(pixel3));
-			f_a4 = gd_itofx(gdTrueColorGetAlpha(pixel4));
+            f_r1 = gd_itofx(gd_get_red(pixel1));
+            f_r2 = gd_itofx(gd_get_red(pixel2));
+            f_r3 = gd_itofx(gd_get_red(pixel3));
+            f_r4 = gd_itofx(gd_get_red(pixel4));
+            f_g1 = gd_itofx(gd_get_green(pixel1));
+            f_g2 = gd_itofx(gd_get_green(pixel2));
+            f_g3 = gd_itofx(gd_get_green(pixel3));
+            f_g4 = gd_itofx(gd_get_green(pixel4));
+            f_b1 = gd_itofx(gd_get_blue(pixel1));
+            f_b2 = gd_itofx(gd_get_blue(pixel2));
+            f_b3 = gd_itofx(gd_get_blue(pixel3));
+            f_b4 = gd_itofx(gd_get_blue(pixel4));
+            f_a1 = gd_itofx(gd_get_alpha(pixel1));
+            f_a2 = gd_itofx(gd_get_alpha(pixel2));
+            f_a3 = gd_itofx(gd_get_alpha(pixel3));
+            f_a4 = gd_itofx(gd_get_alpha(pixel4));
 			{
 				const unsigned char red   = (unsigned char) gd_fxtoi(gd_mulfx(f_w1, f_r1) + gd_mulfx(f_w2, f_r2) + gd_mulfx(f_w3, f_r3) + gd_mulfx(f_w4, f_r4));
 				const unsigned char green = (unsigned char) gd_fxtoi(gd_mulfx(f_w1, f_g1) + gd_mulfx(f_w2, f_g2) + gd_mulfx(f_w3, f_g3) + gd_mulfx(f_w4, f_g4));
 				const unsigned char blue  = (unsigned char) gd_fxtoi(gd_mulfx(f_w1, f_b1) + gd_mulfx(f_w2, f_b2) + gd_mulfx(f_w3, f_b3) + gd_mulfx(f_w4, f_b4));
 				const unsigned char alpha = (unsigned char) gd_fxtoi(gd_mulfx(f_w1, f_a1) + gd_mulfx(f_w2, f_a2) + gd_mulfx(f_w3, f_a3) + gd_mulfx(f_w4, f_a4));
 
-				new_img->tpixels[dst_offset_v][dst_offset_h] = gdTrueColorAlpha(red, green, blue, alpha);
+                new_img->tpixels[dst_offset_v][dst_offset_h] = gd_set_alpha(red, green, blue, alpha);
 			}
 
 			dst_offset_h++;
@@ -1256,10 +1256,10 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 					f_R = gd_mulfx(f_RY,f_RX);
 
 					c = src->tpixels[*(src_offset_y + _k)][*(src_offset_x + _k)];
-					f_rs = gd_itofx(gdTrueColorGetRed(c));
-					f_gs = gd_itofx(gdTrueColorGetGreen(c));
-					f_bs = gd_itofx(gdTrueColorGetBlue(c));
-					f_ba = gd_itofx(gdTrueColorGetAlpha(c));
+                    f_rs = gd_itofx(gd_get_red(c));
+                    f_gs = gd_itofx(gd_get_green(c));
+                    f_bs = gd_itofx(gd_get_blue(c));
+                    f_ba = gd_itofx(gd_get_alpha(c));
 
 					f_red += gd_mulfx(f_rs,f_R);
 					f_green += gd_mulfx(f_gs,f_R);
@@ -1273,7 +1273,7 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 			blue   = (unsigned char) CLAMP(gd_fxtoi(gd_mulfx(f_blue,  f_gamma)),  0, 255);
             alpha  = (unsigned char) CLAMP(gd_fxtoi(gd_mulfx(f_alpha,  f_gamma)), 0, 255);
 
-			*(dst_row + dst_offset_x) = gdTrueColorAlpha(red, green, blue, alpha);
+            *(dst_row + dst_offset_x) = gd_set_alpha(red, green, blue, alpha);
 
 			dst_offset_x++;
 		}

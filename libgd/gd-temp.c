@@ -21,6 +21,118 @@ void* gdReallocEx (void *ptr, size_t size)
 
 // image ----------------------------------------------------------------------
 
+#define gdTrueColorAlpha(r, g, b, a) (((a) << 24) + \
+                      ((r) << 16) + \
+                      ((g) << 8) +  \
+                      (b))
+
+#define gdTrueColorGetAlpha(c) (((c) & 0xFF000000) >> 24)
+#define gdTrueColorGetRed(c) (((c) & 0xFF0000) >> 16)
+#define gdTrueColorGetGreen(c) (((c) & 0x00FF00) >> 8)
+#define gdTrueColorGetBlue(c) ((c) & 0x0000FF)
+
+/**
+ * Group: Types
+ *
+ * typedef: gdPointF
+ *  Defines a point in a 2D coordinate system using floating point
+ *  values.
+ * x - Floating point position (increase from left to right)
+ * y - Floating point Row position (increase from top to bottom)
+ *
+ * typedef: gdPointFPtr
+ *  Pointer to a <gdPointF>
+ *
+ * See also:
+ *  <gdImageCreate>, <gdImageCreateTrueColor>,
+ **/
+typedef struct
+{
+    double x, y;
+}
+gdPointF, *gdPointFPtr;
+
+/*
+  Group: Types
+
+  typedef: gdPoint
+
+  typedef: gdPointPtr
+
+  Represents a point in the coordinate space of the image; used by
+  <gdImagePolygon>, <gdImageOpenPolygon> and <gdImageFilledPolygon>
+  for polygon drawing.
+
+  > typedef struct {
+  >     int x, y;
+  > } gdPoint, *gdPointPtr;
+
+*/
+typedef struct {
+    int x, y;
+}
+gdPoint, *gdPointPtr;
+
+
+/**
+ * Typedef: gdRect
+ *
+ * A rectangle in the coordinate space of the image
+ *
+ * Members:
+ *   x      - The x-coordinate of the upper left corner.
+ *   y      - The y-coordinate of the upper left corner.
+ *   width  - The width.
+ *   height - The height.
+ *
+ * Typedef: gdRectPtr
+ *
+ * A pointer to a <gdRect>
+ */
+typedef struct
+{
+    int x, y;
+    int width, height;
+}
+gdRect, *gdRectPtr;
+
+
+/**
+ * Group: Colors
+ *
+ * Colors are always of type int which is supposed to be at least 32 bit large.
+ *
+ * Kinds of colors:
+ *   true colors     - ARGB values where the alpha channel is stored as most
+ *                     significant, and the blue channel as least significant
+ *                     byte. Note that the alpha channel only uses the 7 least
+ *                     significant bits.
+ *                     Don't rely on the internal representation, though, and
+ *                     use <gdTrueColorAlpha> to compose a truecolor value, and
+ *                     <gdTrueColorGetAlpha>, <gdTrueColorGetRed>,
+ *                     <gdTrueColorGetGreen> and <gdTrueColorGetBlue> to access
+ *                     the respective channels.
+ *   palette indexes - The index of a color palette entry (0-255).
+ *   special colors  - As listed in the following section.
+ *
+ * Constants: Special Colors
+ *   gdStyled        - use the current style, see <gdImageSetStyle>
+ *   gdBrushed       - use the current brush, see <gdImageSetBrush>
+ *   gdStyledBrushed - use the current style and brush
+ *   gdTiled         - use the current tile, see <gdImageSetTile>
+ *   gdTransparent   - indicate transparency, what is not the same as the
+ *                     transparent color index; used for lines only
+ *   gdAntiAliased   - draw anti aliased
+ */
+
+#define gdStyled (-2)
+#define gdBrushed (-3)
+#define gdStyledBrushed (-4)
+#define gdTiled (-5)
+#define gdTransparent (-6)
+#define gdAntiAliased (-7)
+
+
 void gdImageSetPixel (gdImagePtr im, int x, int y, int color);
 
 im->polyInts = 0;

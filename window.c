@@ -373,7 +373,7 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 
     gdImageSetInterpolationMethod(imgin, GD_LANCZOS3);
     gdImagePtr imgout = gdImageScale(imgin, 640, 480);
-    gdImageDestroy(imgin);
+    gd_img_free(imgin);
     if (!imgout)
     {
         fprintf(stderr, "gdImageScale fails\n");
@@ -381,7 +381,7 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
     }
 
     GdkPixbuf *pixbuf = gd_to_pixbuf(imgout);
-    gdImageDestroy(imgout);
+    gd_img_free(imgout);
 
     //gint64 t2 = g_get_real_time();
     //gint64 diff = t2 - t1;
