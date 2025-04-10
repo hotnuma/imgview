@@ -11,7 +11,6 @@ PKGCONFIG += gdk-pixbuf-2.0
 PKGCONFIG += glib-2.0
 PKGCONFIG += gio-2.0
 PKGCONFIG += exiv2
-PKGCONFIG += gdlib
 PKGCONFIG += tinyui
 
 HEADERS = \
@@ -19,6 +18,10 @@ HEADERS = \
     dlg/vnr-crop.h \
     dlg/vnr-properties-dialog.h \
     dlg/xfce-filename-input.h \
+    libgd/gd-helpers.h \
+    libgd/gd-image.h \
+    libgd/gd-resize.h \
+    libgd/gd_errors.h \
     uni/uni-anim-view.h \
     uni/uni-cache.h \
     uni/uni-dragger.h \
@@ -40,6 +43,9 @@ SOURCES = \
     dlg/vnr-crop.c \
     dlg/vnr-properties-dialog.c \
     dlg/xfce-filename-input.c \
+    libgd/gd-helpers.c \
+    libgd/gd-image.c \
+    libgd/gd-resize.c \
     uni/uni-anim-view.c \
     uni/uni-cache.c \
     uni/uni-dragger.c \

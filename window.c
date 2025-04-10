@@ -361,17 +361,27 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
     if (!window->can_edit)
         return;
 
+#if 0
     //gint64 t1 = g_get_real_time();
 
     GdkPixbuf *inpix = uni_image_view_get_pixbuf(
                             UNI_IMAGE_VIEW(window->view));
-    gdImage *img = pixbuf_to_gd(inpix);
+    gdImage *imgin = pixbuf_to_gd(inpix);
 
-    if (!img)
+    if (!imgin)
         return;
 
-    GdkPixbuf *pixbuf = gd_to_pixbuf(img);
-    gdImageDestroy(img);
+    gdImageSetInterpolationMethod(imgin, GD_LANCZOS3);
+    gdImagePtr imgout = gdImageScale(imgin, 640, 480);
+    gdImageDestroy(imgin);
+    if (!imgout)
+    {
+        fprintf(stderr, "gdImageScale fails\n");
+        return;
+    }
+
+    GdkPixbuf *pixbuf = gd_to_pixbuf(imgout);
+    gdImageDestroy(imgout);
 
     //gint64 t2 = g_get_real_time();
     //gint64 diff = t2 - t1;
@@ -381,6 +391,7 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
     g_object_unref(pixbuf);
 
     uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
+#endif
 }
 
 
