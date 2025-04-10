@@ -21,6 +21,29 @@ void* gdReallocEx (void *ptr, size_t size)
 
 // image ----------------------------------------------------------------------
 
+/* If 'truecolor' is set true, the image is truecolor;
+   pixels are represented by integers, which
+   must be 32 bits wide or more.
+
+   True colors are represented as follows:
+
+   ARGB
+
+   Where 'A' (alpha channel) occupies only the
+   LOWER 7 BITS of the MSB. This very small
+   loss of alpha channel resolution allows gd 2.x
+   to keep backwards compatibility by allowing
+   signed integers to be used to represent colors,
+   and negative numbers to represent special cases,
+   just as in gd 1.x. */
+
+#define gdAlphaMax 255
+#define gdAlphaOpaque 0
+#define gdAlphaTransparent 255
+#define gdRedMax 255
+#define gdGreenMax 255
+#define gdBlueMax 255
+
 #define gdTrueColorAlpha(r, g, b, a) (((a) << 24) + \
                       ((r) << 16) + \
                       ((g) << 8) +  \

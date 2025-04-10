@@ -13,59 +13,19 @@ typedef double (* interpolation_method )(double, double);
 /* resolution affects ttf font rendering, particularly hinting */
 #define GD_RESOLUTION           96      /* pixels per inch */
 
-/* If 'truecolor' is set true, the image is truecolor;
-   pixels are represented by integers, which
-   must be 32 bits wide or more.
-
-   True colors are represented as follows:
-
-   ARGB
-
-   Where 'A' (alpha channel) occupies only the
-   LOWER 7 BITS of the MSB. This very small
-   loss of alpha channel resolution allows gd 2.x
-   to keep backwards compatibility by allowing
-   signed integers to be used to represent colors,
-   and negative numbers to represent special cases,
-   just as in gd 1.x. */
-
-#define gdAlphaMax 255
-#define gdAlphaOpaque 0
-#define gdAlphaTransparent 255
-#define gdRedMax 255
-#define gdGreenMax 255
-#define gdBlueMax 255
-
-
-/**
- * Macro: gdImageSX
- *
- * Gets the width (in pixels) of an image.
- *
- * Parameters:
- *   im - The image.
- */
 #define gdImageSX(im) ((im)->sx)
 
-/**
- * Macro: gdImageSY
- *
- * Gets the height (in pixels) of an image.
- *
- * Parameters:
- *   im - The image.
- */
 #define gdImageSY(im) ((im)->sy)
 
-#define gd_set_alpha(r, g, b, a) (((a) << 24) + \
-                                  ((r) << 16) + \
-                                  ((g) <<  8) + \
-                                   (b))
+#define gd_set_alpha(r, g, b, a) (((r) << 24) + \
+                                  ((g) << 16) + \
+                                  ((b) <<  8) + \
+                                   (a))
 
-#define gd_get_red(c)   (((c) & 0xFF0000) >> 16)
-#define gd_get_green(c) (((c) & 0x00FF00) >> 8)
-#define gd_get_blue(c)   ((c) & 0x0000FF)
-#define gd_get_alpha(c) (((c) & 0xFF000000) >> 24)
+#define gd_get_red(c) (((c) & 0xFF000000) >> 24)
+#define gd_get_green(c)   (((c) & 0xFF0000) >> 16)
+#define gd_get_blue(c) (((c) & 0x00FF00) >> 8)
+#define gd_get_alpha(c)   ((c) & 0x0000FF)
 
 typedef enum
 {
