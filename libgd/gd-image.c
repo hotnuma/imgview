@@ -49,7 +49,7 @@ GdkPixbuf* gd_to_pixbuf(gdImage *src)
     {
         for (int x = 0; x < src->sx; ++x)
         {
-            int c = src->tpixels[y][x];
+            uint32_t c = src->tpixels[y][x];
 
             guchar *p = pixels + (y * rowstride) + (x * n_channels);
             p[0] = gd_get_red(c);
@@ -89,19 +89,23 @@ gdImagePtr gd_img_new(int sx, int sy)
 
     memset (im, 0, sizeof (gdImage));
 
-    im->tpixels = (int **) malloc (sizeof (int *) * sy);
+    im->tpixels = (uint32_t **) malloc(sizeof(uint32_t *) * sy);
 
-    if (!im->tpixels) {
+    if (!im->tpixels)
+    {
         free(im);
         return 0;
     }
 
-    for (i = 0; (i < sy); i++) {
-        im->tpixels[i] = (int *) calloc (sx, sizeof (int));
-        if (!im->tpixels[i]) {
+    for (i = 0; (i < sy); i++)
+    {
+        im->tpixels[i] = (uint32_t*) calloc(sx, sizeof(uint32_t));
+        if (!im->tpixels[i])
+        {
             /* 2.0.34 */
             i--;
-            while (i >= 0) {
+            while (i >= 0)
+            {
                 free(im->tpixels[i]);
                 i--;
             }
@@ -158,6 +162,7 @@ void gd_img_free (gdImagePtr im)
 gdImagePtr gdImageClone (gdImagePtr src)
 {
     gdImagePtr dst = {0};
+
     register int i, x;
 
     dst = gd_img_new(src->sx , src->sy);

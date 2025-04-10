@@ -2,6 +2,7 @@
 #define GD_IMAGE_H
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <inttypes.h>
 
 /* Interpolation function ptr */
 typedef double (* interpolation_method )(double, double);
@@ -65,9 +66,6 @@ typedef double (* interpolation_method )(double, double);
 #define gd_get_green(c) (((c) & 0x00FF00) >> 8)
 #define gd_get_blue(c)   ((c) & 0x0000FF)
 #define gd_get_alpha(c) (((c) & 0xFF000000) >> 24)
-
-#if 0
-#endif
 
 typedef enum
 {
@@ -143,8 +141,8 @@ typedef enum
 
 typedef struct gdImageStruct
 {
-    int trueColor;
-    int **tpixels;
+    //int trueColor;
+    uint32_t **tpixels;
     int sx;
     int sy;
     gdInterpolationMethod interpolation_id;

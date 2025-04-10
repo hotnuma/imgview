@@ -617,7 +617,7 @@ static inline int getPixelOverflowTC(gdImagePtr im, const int x, const int y, co
 {
     if (gdImageBoundsSafe(im, x, y))
     {
-		const int c = im->tpixels[y][x];
+        const uint32_t c = im->tpixels[y][x];
 
         if (c == im->transparent)
         {
@@ -751,20 +751,21 @@ static inline void _gdScaleOneAxis(gdImagePtr pSrc, gdImagePtr dst,
 {
 	unsigned int ndx;
 
-	for (ndx = 0; ndx < dst_len; ndx++) {
+    for (ndx = 0; ndx < dst_len; ndx++)
+    {
 		double r = 0, g = 0, b = 0, a = 0;
 		const int left = contrib->ContribRow[ndx].Left;
 		const int right = contrib->ContribRow[ndx].Right;
-		int *dest = (axis == HORIZONTAL) ?
+        uint32_t *dest = (axis == HORIZONTAL) ?
 			&dst->tpixels[row][ndx] :
 			&dst->tpixels[ndx][row];
 
-		int i;
+        uint32_t i;
 
 		// Accumulate each channel
 		for (i = left; i <= right; i++) {
-			const int left_channel = i - left;
-			const int srcpx = (axis == HORIZONTAL) ?
+            const uint32_t left_channel = i - left;
+            const uint32_t srcpx = (axis == HORIZONTAL) ?
 				pSrc->tpixels[row][i] :
 				pSrc->tpixels[i][row];
 
@@ -1107,7 +1108,7 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 			long k;
 			register gdFixed f_red = 0, f_green = 0, f_blue = 0, f_alpha = 0;
 			unsigned char red, green, blue, alpha = 0;
-			int *dst_row = dst->tpixels[dst_offset_y];
+            uint32_t *dst_row = dst->tpixels[dst_offset_y];
 
 			if ((m < 1) || (n < 1)) {
 				src_offset_x[0] = n;
@@ -1241,7 +1242,7 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 					const gdFixed f_fp2 = f + f_2;
 					register gdFixed f_a = 0, f_b = 0, f_c = 0, f_d = 0;
 					register gdFixed f_RX, f_R, f_rs, f_gs, f_bs, f_ba;
-					register int c;
+                    register uint32_t c;
 					const int _k = ((k+1)*4) + (l+1);
 
 					if (f_fp2 > 0) f_a = gd_mulfx(f_fp2,gd_mulfx(f_fp2,f_fp2));
