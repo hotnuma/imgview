@@ -30,6 +30,7 @@
 #include "vnr-crop.h"
 #include "vnr-properties-dialog.h"
 #include "dialog.h"
+#include "gd-resize.h"
 
 #include <etkaction.h>
 #include <sys/stat.h>
@@ -361,7 +362,6 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
     if (!window->can_edit)
         return;
 
-#if 0
     //gint64 t1 = g_get_real_time();
 
     GdkPixbuf *inpix = uni_image_view_get_pixbuf(
@@ -391,7 +391,6 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
     g_object_unref(pixbuf);
 
     uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
-#endif
 }
 
 

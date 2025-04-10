@@ -20,7 +20,6 @@
 #include "config.h"
 #include "gd-resize.h"
 
-#include "gd-image.h"
 #include "gd-helpers.h"
 #include <inttypes.h>
 #include <math.h>

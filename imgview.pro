@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = imgview
 CONFIG = c99 link_pkgconfig
 DEFINES = _GNU_SOURCE
-INCLUDEPATH = dlg uni
+INCLUDEPATH = dlg libgd uni
 PKGCONFIG =
 
 PKGCONFIG += shared-mime-info
