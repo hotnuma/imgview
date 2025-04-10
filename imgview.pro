@@ -46,6 +46,7 @@ SOURCES = \
     libgd/gd-helpers.c \
     libgd/gd-image.c \
     libgd/gd-resize.c \
+    libgd/gd-temp.c \
     uni/uni-anim-view.c \
     uni/uni-cache.c \
     uni/uni-dragger.c \

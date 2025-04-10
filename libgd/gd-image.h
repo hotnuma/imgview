@@ -426,25 +426,6 @@ int gdImageSetInterpolationMethod(gdImagePtr im, gdInterpolationMethod id);
 gdInterpolationMethod gdImageGetInterpolationMethod(gdImagePtr im);
 void gdImageDestroy (gdImagePtr im);
 
-int gdAffineRotate (double dst[6], const double angle);
-int gdTransformAffineBoundingBox(gdRectPtr src, const double affine[6], gdRectPtr bbox);
-
-int gdAffineApplyToPointF (gdPointFPtr dst, const gdPointFPtr src, const double affine[6]);
-int gdAffineInvert (double dst[6], const double src[6]);
-int gdAffineFlip (double dst_affine[6], const double src_affine[6], const int flip_h, const int flip_v);
-int gdAffineConcat (double dst[6], const double m1[6], const double m2[6]);
-
-int gdAffineIdentity (double dst[6]);
-int gdAffineScale (double dst[6], const double scale_x, const double scale_y);
-int gdAffineShearHorizontal (double dst[6], const double angle);
-int gdAffineShearVertical(double dst[6], const double angle);
-int gdAffineTranslate (double dst[6], const double offset_x, const double offset_y);
-double gdAffineExpansion (const double src[6]);
-int gdAffineRectilinear (const double src[6]);
-int gdAffineEqual (const double matrix1[6], const double matrix2[6]);
-int gdTransformAffineGetImage(gdImagePtr *dst, const gdImagePtr src, gdRectPtr src_area, const double affine[6]);
-int gdTransformAffineCopy(gdImagePtr dst, int dst_x, int dst_y, const gdImagePtr src, gdRectPtr src_region, const double affine[6]);
-
 gdImagePtr gdImageRotate90(gdImagePtr src, int ignoretransparent);
 gdImagePtr gdImageRotate180(gdImagePtr src, int ignoretransparent);
 gdImagePtr gdImageRotate270(gdImagePtr src, int ignoretransparent);
