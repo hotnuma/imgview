@@ -1,23 +1,13 @@
-#ifdef HAVE_CONFIG_H
 #include "config.h"
-#endif
-
-#include "gd.h"
 #include "gd-helpers.h"
-#include <stdlib.h>
-#include <string.h>
 
-#include <sys/types.h>
-#include <ctype.h>
-#include "gd_errors.h"
-#include <limits.h>
+#include <stdio.h>
 
-/* TBB: gd_strtok_r is not portable; provide an implementation */
+// TBB: gd_strtok_r is not portable; provide an implementation
 
 #define SEP_TEST (separators[*((unsigned char *) s)])
 
-char *
-gd_strtok_r(char *s, const char *sep, char **state)
+char* gd_strtok_r(char *s, const char *sep, char **state)
 {
 	char separators[256];
 	char *result = 0;
@@ -27,69 +17,58 @@ gd_strtok_r(char *s, const char *sep, char **state)
 		sep++;
 	}
 	if (!s) {
-		/* Pick up where we left off */
+		// Pick up where we left off
 		s = *state;
 	}
-	/* 1. EOS */
+	// 1. EOS
 	if (!(*s)) {
 		*state = s;
 		return 0;
 	}
-	/* 2. Leading separators, if any */
+	// 2. Leading separators, if any
 	if (SEP_TEST) {
 		do {
 			s++;
 		} while (SEP_TEST);
-		/* 2a. EOS after separators only */
+		// 2a. EOS after separators only
 		if (!(*s)) {
 			*state = s;
 			return 0;
 		}
 	}
-	/* 3. A token */
+	// 3. A token
 	result = s;
 	do {
-		/* 3a. Token at end of string */
+		// 3a. Token at end of string
 		if (!(*s)) {
 			*state = s;
 			return result;
 		}
 		s++;
 	} while (!SEP_TEST);
-	/* 4. Terminate token and skip trailing separators */
+	// 4. Terminate token and skip trailing separators
 	*s = '\0';
 	do {
 		s++;
 	} while (SEP_TEST);
-	/* 5. Return token */
+	// 5. Return token
 	*state = s;
 	return result;
 }
 
-void * gdCalloc (size_t nmemb, size_t size)
+void* gd_calloc (size_t nmemb, size_t size)
 {
 	return calloc (nmemb, size);
 }
 
-void *
-gdMalloc (size_t size)
+void* gd_malloc (size_t size)
 {
 	return malloc (size);
 }
 
-void *
-gdRealloc (void *ptr, size_t size)
+void* gd_realloc (void *ptr, size_t size)
 {
 	return realloc (ptr, size);
-}
-
-void *
-gdReallocEx (void *ptr, size_t size)
-{
-	void *newPtr = gdRealloc (ptr, size);
-	if (!newPtr && ptr)
-		gdFree(ptr);
-	return newPtr;
 }
 
 /*
@@ -112,7 +91,7 @@ gdReallocEx (void *ptr, size_t size)
 
 	Nothing.
 */
-void gdFree (void *ptr)
+void gd_free (void *ptr)
 {
 	free (ptr);
 }
@@ -157,6 +136,12 @@ static void gd_stderr_error(int priority, const char *format, va_list args)
     vfprintf(stderr, format, args);
     fflush(stderr);
 }
+
+typedef void(*gdErrorMethod)(int, const char *, va_list);
+
+void gdSetErrorMethod(gdErrorMethod);
+void gdClearErrorMethod(void);
+
 
 static gdErrorMethod gd_error_method = gd_stderr_error;
 

@@ -614,16 +614,12 @@ static double filter_welsh(const double x, const double support)
 	return(0.0);
 }
 
-#if defined(_MSC_VER) && !defined(inline)
-# define inline __inline
-#endif
-
 static inline int getPixelOverflowTC(gdImagePtr im, const int x, const int y, const int bgColor /* 31bit ARGB TC */)
 {
 	if (gdImageBoundsSafe(im, x, y)) {
 		const int c = im->tpixels[y][x];
 		if (c == im->transparent) {
-			return bgColor == -1 ? gdTrueColorAlpha(0, 0, 0, 127) : bgColor;
+            return bgColor == -1 ? gdTrueColorAlpha(0, 0, 0, 255) : bgColor;
 		}
 		return c;  // 31bit ARGB TC
 	} else {
@@ -642,31 +638,31 @@ static inline LineContribType * _gdContributionsAlloc(unsigned int line_length, 
 	} else {
 		weights_size = windows_size * sizeof(double);
 	}
-	res = (LineContribType *) gdMalloc(sizeof(LineContribType));
+    res = (LineContribType *) gd_malloc(sizeof(LineContribType));
 	if (!res) {
 		return NULL;
 	}
 	res->WindowSize = windows_size;
 	res->LineLength = line_length;
 	if (overflow2(line_length, sizeof(ContributionType))) {
-		gdFree(res);
+        gd_free(res);
 		return NULL;
 	}
-	res->ContribRow = (ContributionType *) gdMalloc(line_length * sizeof(ContributionType));
+    res->ContribRow = (ContributionType *) gd_malloc(line_length * sizeof(ContributionType));
 	if (res->ContribRow == NULL) {
-		gdFree(res);
+        gd_free(res);
 		return NULL;
 	}
 	for (u = 0 ; u < line_length ; u++) {
-		res->ContribRow[u].Weights = (double *) gdMalloc(weights_size);
+        res->ContribRow[u].Weights = (double *) gd_malloc(weights_size);
 		if (res->ContribRow[u].Weights == NULL) {
 			unsigned int i;
 
 			for (i=0;i<u;i++) {
-				gdFree(res->ContribRow[i].Weights);
+                gd_free(res->ContribRow[i].Weights);
 			}
-			gdFree(res->ContribRow);
-			gdFree(res);
+            gd_free(res->ContribRow);
+            gd_free(res);
 			return NULL;
 		}
 	}
@@ -677,10 +673,10 @@ static inline void _gdContributionsFree(LineContribType * p)
 {
 	unsigned int u;
 	for (u = 0; u < p->LineLength; u++)  {
-		gdFree(p->ContribRow[u].Weights);
+        gd_free(p->ContribRow[u].Weights);
 	}
-	gdFree(p->ContribRow);
-	gdFree(p);
+    gd_free(p->ContribRow);
+    gd_free(p);
 }
 
 static inline LineContribType *_gdContributionsCalc(unsigned int line_size, unsigned int src_size, double scale_d,   const double support, const interpolation_method pFilter)
@@ -744,8 +740,9 @@ static inline LineContribType *_gdContributionsCalc(unsigned int line_size, unsi
 
 
 static inline void _gdScaleOneAxis(gdImagePtr pSrc, gdImagePtr dst,
-				unsigned int dst_len, unsigned int row, LineContribType *contrib,
-				gdAxis axis)
+                                   unsigned int dst_len, unsigned int row,
+                                   LineContribType *contrib,
+                                   gdAxis axis)
 {
 	unsigned int ndx;
 
@@ -778,7 +775,7 @@ static inline void _gdScaleOneAxis(gdImagePtr pSrc, gdImagePtr dst,
 
 		*dest = gdTrueColorAlpha(uchar_clamp(r, 0xFF), uchar_clamp(g, 0xFF),
                                  uchar_clamp(b, 0xFF),
-                                 uchar_clamp(a, 0x7F)); // alpha is 0..127
+                                 uchar_clamp(a, 0xFF));
 	}// for
 }// _gdScaleOneAxis
 
@@ -1276,7 +1273,7 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 			red    = (unsigned char) CLAMP(gd_fxtoi(gd_mulfx(f_red,   f_gamma)),  0, 255);
 			green  = (unsigned char) CLAMP(gd_fxtoi(gd_mulfx(f_green, f_gamma)),  0, 255);
 			blue   = (unsigned char) CLAMP(gd_fxtoi(gd_mulfx(f_blue,  f_gamma)),  0, 255);
-			alpha  = (unsigned char) CLAMP(gd_fxtoi(gd_mulfx(f_alpha,  f_gamma)), 0, 127);
+            alpha  = (unsigned char) CLAMP(gd_fxtoi(gd_mulfx(f_alpha,  f_gamma)), 0, 255);
 
 			*(dst_row + dst_offset_x) = gdTrueColorAlpha(red, green, blue, alpha);
 

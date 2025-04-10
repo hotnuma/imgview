@@ -21,7 +21,6 @@ HEADERS = \
     libgd/gd-helpers.h \
     libgd/gd-image.h \
     libgd/gd-resize.h \
-    libgd/gd_errors.h \
     uni/uni-anim-view.h \
     uni/uni-cache.h \
     uni/uni-dragger.h \

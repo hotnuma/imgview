@@ -18,6 +18,29 @@ extern "C" {
 #include <sys/types.h>
 #include <stdlib.h>
 
+# include <syslog.h>
+
+/*
+LOG_EMERG      system is unusable
+LOG_ALERT      action must be taken immediately
+LOG_CRIT       critical conditions
+LOG_ERR        error conditions
+LOG_WARNING    warning conditions
+LOG_NOTICE     normal, but significant, condition
+LOG_INFO       informational message
+LOG_DEBUG      debug-level message
+*/
+
+#define GD_ERROR LOG_ERR
+#define GD_WARNING LOG_WARNING
+#define GD_NOTICE LOG_NOTICE
+#define GD_INFO LOG_INFO
+#define GD_DEBUG LOG_DEBUG
+
+void gd_error(const char *format, ...);
+void gd_error_ex(int priority, const char *format, ...);
+
+
 //#define MIN(a,b) ((a)<(b)?(a):(b))
 //#define MAX(a,b) ((a)<(b)?(b):(a))
 
@@ -61,15 +84,16 @@ char *gd_strtok_r(char *s, const char *sep, char **state);
     in gd.h, where callers can utilize it to correctly
     free memory allocated by these functions with the
     right version of free(). */
-void *gdCalloc(size_t nmemb, size_t size) BGD_MALLOC;
-void *gdMalloc(size_t size) BGD_MALLOC;
-void *gdRealloc (void *ptr, size_t size);
+void *gd_calloc(size_t nmemb, size_t size) BGD_MALLOC;
+void *gd_malloc(size_t size) BGD_MALLOC;
+void *gd_realloc (void *ptr, size_t size);
 /* The extended version of gdReallocEx will free *ptr if the
  * realloc fails */
-void *gdReallocEx (void *ptr, size_t size);
+
+
 /* Guaranteed to correctly free memory returned by the gdImage*Ptr
    functions */
-void gdFree (void *m);
+void gd_free (void *m);
 
 /* Returns nonzero if multiplying the two quantities will
     result in integer overflow. Also returns nonzero if

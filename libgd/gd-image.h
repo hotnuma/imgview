@@ -67,7 +67,7 @@ typedef double (* interpolation_method )(double, double);
  *   r - The red channel (0-255)
  *   g - The green channel (0-255)
  *   b - The blue channel (0-255)
- *   a - The alpha channel (0-127, where 127 is fully transparent, and 0 is
+ *   a - The alpha channel (0-255, where 255 is fully transparent, and 0 is
  *       completely opaque).
  *
  * See also:
@@ -429,11 +429,6 @@ void gdImageDestroy (gdImagePtr im);
 gdImagePtr gdImageRotate90(gdImagePtr src, int ignoretransparent);
 gdImagePtr gdImageRotate180(gdImagePtr src, int ignoretransparent);
 gdImagePtr gdImageRotate270(gdImagePtr src, int ignoretransparent);
-
-void gdImageGetClip(gdImagePtr im, int *x1P, int *y1P, int *x2P, int *y2P);
-void gdImageSetClip(gdImagePtr im, int x1, int y1, int x2, int y2);
-void gdImageAlphaBlending (gdImagePtr im, int alphaBlendingArg);
-//void gdImageSetPixel (gdImagePtr im, int x, int y, int color);
 
 #endif // GD_IMAGE_H
 
