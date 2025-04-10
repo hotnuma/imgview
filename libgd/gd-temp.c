@@ -3,6 +3,12 @@
 
 // helpers --------------------------------------------------------------------
 
+void *gd_realloc (void *ptr, size_t size);
+void* gd_realloc (void *ptr, size_t size)
+{
+    return realloc (ptr, size);
+}
+
 void *gdReallocEx (void *ptr, size_t size);
 void* gdReallocEx (void *ptr, size_t size)
 {
@@ -23,6 +29,59 @@ im->brush = 0;
 im->tile = 0;
 im->style = 0;
 im->interlace = 0;
+
+/* Palette-based image pixels */
+unsigned char **pixels;
+/* These are valid in palette images only. See also
+   'alpha', which appears later in the structure to
+   preserve binary backwards compatibility */
+int colorsTotal;
+int red[gdMaxColors];
+int green[gdMaxColors];
+int blue[gdMaxColors];
+int open[gdMaxColors];
+/* For backwards compatibility, this is set to the
+   first palette entry with 100% transparency,
+   and is also set and reset by the
+   gdImageColorTransparent function. Newer
+   applications can allocate palette entries
+   with any desired level of transparency; however,
+   bear in mind that many viewers, notably
+   many web browsers, fail to implement
+   full alpha channel for PNG and provide
+   support for full opacity or transparency only. */
+int *polyInts;
+int polyAllocated;
+struct gdImageStruct *brush;
+struct gdImageStruct *tile;
+int brushColorMap[gdMaxColors];
+int tileColorMap[gdMaxColors];
+int styleLength;
+int stylePos;
+int *style;
+int interlace;
+/* New in 2.0: alpha channel for palettes. Note that only
+   Macintosh Internet Explorer and (possibly) Netscape 6
+   really support multiple levels of transparency in
+   palettes, to my knowledge, as of 2/15/01. Most
+   common browsers will display 100% opaque and
+   100% transparent correctly, and do something
+   unpredictable and/or undesirable for levels
+   in between. TBB */
+int alpha[gdMaxColors];
+
+/* Selects quantization method, see gdImageTrueColorToPaletteSetMethod() and gdPaletteQuantizationMethod enum. */
+int paletteQuantizationMethod;
+/* speed/quality trade-off. 1 = best quality, 10 = best speed. 0 = method-specific default.
+   Applicable to GD_QUANT_LIQ and GD_QUANT_NEUQUANT. */
+int paletteQuantizationSpeed;
+/* Image will remain true-color if conversion to palette cannot achieve given quality.
+   Value from 1 to 100, 1 = ugly, 100 = perfect. Applicable to GD_QUANT_LIQ.*/
+int paletteQuantizationMinQuality;
+/* Image will use minimum number of palette colors needed to achieve given quality. Must be higher than paletteQuantizationMinQuality
+   Value from 1 to 100, 1 = ugly, 100 = perfect. Applicable to GD_QUANT_LIQ.*/
+int paletteQuantizationMaxQuality;
+
 
     dst->paletteQuantizationMethod     = src->paletteQuantizationMethod;
     dst->paletteQuantizationSpeed      = src->paletteQuantizationSpeed;

@@ -56,21 +56,6 @@ char* gd_strtok_r(char *s, const char *sep, char **state)
 	return result;
 }
 
-void* gd_calloc (size_t nmemb, size_t size)
-{
-	return calloc (nmemb, size);
-}
-
-void* gd_malloc (size_t size)
-{
-	return malloc (size);
-}
-
-void* gd_realloc (void *ptr, size_t size)
-{
-	return realloc (ptr, size);
-}
-
 /*
   Function: gdFree
 
@@ -91,11 +76,6 @@ void* gd_realloc (void *ptr, size_t size)
 
 	Nothing.
 */
-void gd_free (void *ptr)
-{
-	free (ptr);
-}
-
 int overflow2(int a, int b)
 {
     if(a <= 0 || b <= 0) {

@@ -615,13 +615,19 @@ static double filter_welsh(const double x, const double support)
 
 static inline int getPixelOverflowTC(gdImagePtr im, const int x, const int y, const int bgColor /* 31bit ARGB TC */)
 {
-	if (gdImageBoundsSafe(im, x, y)) {
+    if (gdImageBoundsSafe(im, x, y))
+    {
 		const int c = im->tpixels[y][x];
-		if (c == im->transparent) {
+
+        if (c == im->transparent)
+        {
             return bgColor == -1 ? gdTrueColorAlpha(0, 0, 0, 255) : bgColor;
 		}
-		return c;  // 31bit ARGB TC
-	} else {
+
+        return c;  // 31bit ARGB TC
+    }
+    else
+    {
 		return bgColor;  // 31bit ARGB TC
 	}
 }
@@ -637,31 +643,31 @@ static inline LineContribType * _gdContributionsAlloc(unsigned int line_length, 
 	} else {
 		weights_size = windows_size * sizeof(double);
 	}
-    res = (LineContribType *) gd_malloc(sizeof(LineContribType));
+    res = (LineContribType *) malloc(sizeof(LineContribType));
 	if (!res) {
 		return NULL;
 	}
 	res->WindowSize = windows_size;
 	res->LineLength = line_length;
 	if (overflow2(line_length, sizeof(ContributionType))) {
-        gd_free(res);
+        free(res);
 		return NULL;
 	}
-    res->ContribRow = (ContributionType *) gd_malloc(line_length * sizeof(ContributionType));
+    res->ContribRow = (ContributionType *) malloc(line_length * sizeof(ContributionType));
 	if (res->ContribRow == NULL) {
-        gd_free(res);
+        free(res);
 		return NULL;
 	}
 	for (u = 0 ; u < line_length ; u++) {
-        res->ContribRow[u].Weights = (double *) gd_malloc(weights_size);
+        res->ContribRow[u].Weights = (double *) malloc(weights_size);
 		if (res->ContribRow[u].Weights == NULL) {
 			unsigned int i;
 
 			for (i=0;i<u;i++) {
-                gd_free(res->ContribRow[i].Weights);
+                free(res->ContribRow[i].Weights);
 			}
-            gd_free(res->ContribRow);
-            gd_free(res);
+            free(res->ContribRow);
+            free(res);
 			return NULL;
 		}
 	}
@@ -672,10 +678,10 @@ static inline void _gdContributionsFree(LineContribType * p)
 {
 	unsigned int u;
 	for (u = 0; u < p->LineLength; u++)  {
-        gd_free(p->ContribRow[u].Weights);
+        free(p->ContribRow[u].Weights);
 	}
-    gd_free(p->ContribRow);
-    gd_free(p);
+    free(p->ContribRow);
+    free(p);
 }
 
 static inline LineContribType *_gdContributionsCalc(unsigned int line_size, unsigned int src_size, double scale_d,   const double support, const interpolation_method pFilter)
@@ -875,7 +881,7 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
         tmp_im = src;
     } else {
 
-        tmp_im = gdImageCreateTrueColor(new_width, src_height);
+        tmp_im = gd_img_new(new_width, src_height);
         if (tmp_im == NULL) {
             return NULL;
         }
@@ -895,7 +901,7 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
     }// if
 
     // Otherwise, we need to scale vertically.
-	dst = gdImageCreateTrueColor(new_width, new_height);
+	dst = gd_img_new(new_width, new_height);
 	if (dst != NULL) {
         gdImageSetInterpolationMethod(dst, src->interpolation_id);
         scale_pass_res = _gdScalePass(tmp_im, src_height, dst, new_height, new_width, VERTICAL, filter);
@@ -941,7 +947,7 @@ static gdImagePtr _gd_img_scale_nearest_neighbour(gdImagePtr im, const unsigned 
 	unsigned long  dst_offset_y = 0;
 	unsigned int i;
 
-	dst_img = gdImageCreateTrueColor(new_width, new_height);
+	dst_img = gd_img_new(new_width, new_height);
 
 	if (dst_img == NULL) {
 		return NULL;
@@ -983,7 +989,7 @@ static gdImagePtr gdImageScaleBilinearTC(gdImagePtr im, const unsigned int new_w
 	long i;
 	gdImagePtr new_img;
 
-	new_img = gdImageCreateTrueColor(new_width, new_height);
+	new_img = gd_img_new(new_width, new_height);
 	if (!new_img){
 		return NULL;
 	}
@@ -1014,7 +1020,8 @@ static gdImagePtr gdImageScaleBilinearTC(gdImagePtr im, const unsigned int new_w
 					f_g1, f_g2, f_g3, f_g4,
 					f_b1, f_b2, f_b3, f_b4,
 					f_a1, f_a2, f_a3, f_a4;
-			// 0 for bgColor; (n,m) is supposed to be valid anyway
+
+            // 0 for bgColor; (n,m) is supposed to be valid anyway
 			pixel1 = getPixelOverflowTC(im, n, m, 0);
 			pixel2 = getPixelOverflowTC(im, n + 1, m, pixel1);
 			pixel3 = getPixelOverflowTC(im, n, m + 1, pixel1);
@@ -1079,21 +1086,13 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 	unsigned int dst_offset_y = 0;
 	long i;
 
-	/* impact perf a bit, but not that much. Implementation for palette
-	   images can be done at a later point.
-	*/
-    //if (src->trueColor == 0) {
-    //    gdImagePaletteToTrueColor(src);
-    //}
-
-	dst = gdImageCreateTrueColor(new_width, new_height);
+	dst = gd_img_new(new_width, new_height);
 	if (!dst) {
 		return NULL;
 	}
 
-	dst->saveAlphaFlag = 1;
-
-	for (i=0; i < new_height; i++) {
+    for (i=0; i < new_height; i++)
+    {
 		long j;
 		dst_offset_x = 0;
 

@@ -80,21 +80,6 @@ uchar_clamp(double clr, unsigned char max) {
 
 char *gd_strtok_r(char *s, const char *sep, char **state);
 
-/* These functions wrap memory management. gdFree is
-    in gd.h, where callers can utilize it to correctly
-    free memory allocated by these functions with the
-    right version of free(). */
-void *gd_calloc(size_t nmemb, size_t size) BGD_MALLOC;
-void *gd_malloc(size_t size) BGD_MALLOC;
-void *gd_realloc (void *ptr, size_t size);
-/* The extended version of gdReallocEx will free *ptr if the
- * realloc fails */
-
-
-/* Guaranteed to correctly free memory returned by the gdImage*Ptr
-   functions */
-void gd_free (void *m);
-
 /* Returns nonzero if multiplying the two quantities will
     result in integer overflow. Also returns nonzero if
     either quantity is negative. By Phil Knirsch based on

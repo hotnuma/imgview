@@ -31,7 +31,7 @@ gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf)
         printf("alpha\n");
 
     guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
-    gdImage *img = gdImageCreateTrueColor(sx, sy);
+    gdImage *img = gd_img_new(sx, sy);
 
     for (int y = 0; y < sy; ++y)
     {
@@ -158,7 +158,8 @@ int gdImageBoundsSafe (gdImagePtr im, int x, int y)
         <gdImageCreateTrueColor>
 
 */
-gdImagePtr gdImageCreateTrueColor (int sx, int sy)
+
+gdImagePtr gd_img_new(int sx, int sy)
 {
     int i;
     gdImagePtr im;
@@ -173,31 +174,31 @@ gdImagePtr gdImageCreateTrueColor (int sx, int sy)
         return NULL;
     }
 
-    im = (gdImage *) gd_malloc (sizeof (gdImage));
+    im = (gdImage *) malloc (sizeof (gdImage));
     if (!im) {
         return 0;
     }
 
     memset (im, 0, sizeof (gdImage));
 
-    im->tpixels = (int **) gd_malloc (sizeof (int *) * sy);
+    im->tpixels = (int **) malloc (sizeof (int *) * sy);
 
     if (!im->tpixels) {
-        gd_free(im);
+        free(im);
         return 0;
     }
 
     for (i = 0; (i < sy); i++) {
-        im->tpixels[i] = (int *) gd_calloc (sx, sizeof (int));
+        im->tpixels[i] = (int *) calloc (sx, sizeof (int));
         if (!im->tpixels[i]) {
             /* 2.0.34 */
             i--;
             while (i >= 0) {
-                gd_free(im->tpixels[i]);
+                free(im->tpixels[i]);
                 i--;
             }
-            gd_free(im->tpixels);
-            gd_free(im);
+            free(im->tpixels);
+            free(im);
             return 0;
         }
     }
@@ -211,16 +212,15 @@ gdImagePtr gdImageCreateTrueColor (int sx, int sy)
        on the first try in JPEGs -- quite important -- and also allows
        for smaller PNGs when saving of alpha channel is not really
        desired, which it usually isn't! */
-    im->saveAlphaFlag = 0;
-    im->alphaBlendingFlag = 1;
-    im->thick = 1;
-    im->AA = 0;
+    //im->thick = 1;
+    //im->AA = 0;
     im->cx1 = 0;
     im->cy1 = 0;
     im->cx2 = im->sx - 1;
     im->cy2 = im->sy - 1;
-    im->res_x = GD_RESOLUTION;
-    im->res_y = GD_RESOLUTION;
+    //im->res_x = GD_RESOLUTION;
+    //im->res_y = GD_RESOLUTION;
+
     im->interpolation = NULL;
     im->interpolation_id = GD_BILINEAR_FIXED;
 
@@ -263,12 +263,12 @@ void gdImageDestroy (gdImagePtr im)
     {
         for (i = 0; (i < im->sy); i++)
         {
-            gd_free (im->tpixels[i]);
+            free (im->tpixels[i]);
         }
-        gd_free (im->tpixels);
+        free (im->tpixels);
     }
 
-    gd_free (im);
+    free (im);
 }
 
 /**
@@ -289,7 +289,7 @@ gdImagePtr gdImageClone (gdImagePtr src)
     gdImagePtr dst = {0};
     register int i, x;
 
-    dst = gdImageCreateTrueColor(src->sx , src->sy);
+    dst = gd_img_new(src->sx , src->sy);
 
     if (dst == NULL)
     {
@@ -304,21 +304,10 @@ gdImagePtr gdImageClone (gdImagePtr src)
         }
     }
 
-    //dst->interlace   = src->interlace;
-
-    dst->alphaBlendingFlag = src->alphaBlendingFlag;
-    dst->saveAlphaFlag     = src->saveAlphaFlag;
-    dst->AA                = src->AA;
-    dst->AA_color          = src->AA_color;
-    dst->AA_dont_blend     = src->AA_dont_blend;
-
     dst->cx1 = src->cx1;
     dst->cy1 = src->cy1;
     dst->cx2 = src->cx2;
     dst->cy2 = src->cy2;
-
-    dst->res_x = src->res_x;
-    dst->res_y = src->res_y;
 
     dst->interpolation_id = src->interpolation_id;
     dst->interpolation    = src->interpolation;
