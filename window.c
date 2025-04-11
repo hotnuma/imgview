@@ -390,7 +390,10 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
     GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
     g_object_unref(pixbuf);
 
-    uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
+    //uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
+
+    window_load_pixbuf(window, anim);
+    g_object_unref(anim);
 }
 
 
@@ -1372,8 +1375,25 @@ gboolean window_load_file(VnrWindow *window)
             vnr_properties_dialog_clear(
                         VNR_PROPERTIES_DIALOG(window->props_dlg));
 
+        if (pixbuf)
+            g_object_unref(pixbuf);
+
         return FALSE;
     }
+
+    gboolean ret = window_load_pixbuf(window, pixbuf);
+    g_object_unref(pixbuf);
+
+    return ret;
+}
+
+gboolean window_load_pixbuf(VnrWindow *window, GdkPixbufAnimation *pixbuf)
+{
+    g_return_val_if_fail(window != NULL, false);
+
+    VnrFile *current = window_get_current_file(window);
+    if (!current)
+        return false;
 
     if (vnr_message_area_is_visible(VNR_MESSAGE_AREA(window->msg_area)))
     {
@@ -1428,8 +1448,6 @@ gboolean window_load_file(VnrWindow *window)
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     _window_update_openwith_menu(window);
-
-    g_object_unref(pixbuf);
 
     return TRUE;
 }
