@@ -49,15 +49,15 @@ struct _VnrWindow
     WindowMode mode;
     GtkAccelGroup *accel_group;
     VnrPrefs *prefs;
-    GList *list_image;
+    GList *group_image;
     gboolean can_edit;
     gboolean can_slideshow;
     gint max_width;
     gint max_height;
-    gint current_image_height;
     gint current_image_width;
+    gint current_image_height;
     gboolean cursor_is_hidden;
-    guint8 modifications;
+    guint8 modified;
     gchar *writable_format_name;
 
     // reload
@@ -100,7 +100,8 @@ void window_list_set_current(VnrWindow *window, GList *list);
 // open / close
 void window_open_list(VnrWindow *window, GSList *uri_list);
 gboolean window_load_file(VnrWindow *window);
-gboolean window_load_pixbuf(VnrWindow *window, GdkPixbufAnimation *pixbuf);
+gboolean window_load_pixbuf(VnrWindow *window,
+                            GdkPixbufAnimation *pixbuf, gboolean modified);
 void window_close_file(VnrWindow *window);
 
 // browse images

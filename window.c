@@ -392,7 +392,7 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 
     //uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
 
-    window_load_pixbuf(window, anim);
+    window_load_pixbuf(window, anim, true);
     g_object_unref(anim);
 }
 
@@ -480,37 +480,37 @@ static void window_init(VnrWindow *window)
                                          WINDOW_ACTION_SELECTDIR,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_COPYTO,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_MOVETO,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_RENAME,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_CROP,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_DELETE,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     etk_menu_append_separator(GTK_MENU_SHELL(menu));
 
@@ -518,13 +518,13 @@ static void window_init(VnrWindow *window)
                                          WINDOW_ACTION_SETWALLPAPER,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_PROPERTIES,
                                          _window_actions,
                                          G_OBJECT(window));
-    window->list_image = etk_widget_list_add(window->list_image, item);
+    window->group_image = etk_widget_list_add(window->group_image, item);
 
     etk_menu_append_separator(GTK_MENU_SHELL(menu));
 
@@ -536,7 +536,7 @@ static void window_init(VnrWindow *window)
     gtk_widget_show_all(menu);
     gtk_widget_hide(window->openwith_item);
 
-    etk_widget_list_set_sensitive(window->list_image, false);
+    etk_widget_list_set_sensitive(window->group_image, false);
 
     // Initialize slideshow timeout
     window->sl_timeout = window->prefs->sl_timeout;
@@ -667,7 +667,7 @@ static void window_dispose(GObject *object)
     _window_set_monitor(window, NULL);
     window->accel_group = etk_actions_dispose(GTK_WINDOW(window),
                                               window->accel_group);
-    window->list_image = etk_widget_list_free(window->list_image);
+    window->group_image = etk_widget_list_free(window->group_image);
 
     G_OBJECT_CLASS(window_parent_class)->dispose(object);
 }
@@ -970,7 +970,7 @@ static void _view_on_zoom_changed(UniImageView *view, VnrWindow *window)
     gint position = vnr_list_get_position(window->filelist, &total);
 
     char *buf = g_strdup_printf("%s%s - %i/%i - %ix%i - %i%%",
-                                (window->modifications) ? "*" : "",
+                                (window->modified) ? "*" : "",
                                 current->display_name,
                                 position,
                                 total,
@@ -1181,7 +1181,7 @@ static void _window_action_openfile(VnrWindow *window, GtkWidget *widget)
 
 void _window_save_or_discard(VnrWindow *window, gboolean reload)
 {
-    if (!window_get_current_file(window) || window->modifications == 0)
+    if (!window_get_current_file(window) || window->modified == 0)
         return;
 
     if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
@@ -1381,13 +1381,14 @@ gboolean window_load_file(VnrWindow *window)
         return FALSE;
     }
 
-    gboolean ret = window_load_pixbuf(window, pixbuf);
+    gboolean ret = window_load_pixbuf(window, pixbuf, false);
     g_object_unref(pixbuf);
 
     return ret;
 }
 
-gboolean window_load_pixbuf(VnrWindow *window, GdkPixbufAnimation *pixbuf)
+gboolean window_load_pixbuf(VnrWindow *window,
+                            GdkPixbufAnimation *pixbuf, gboolean modified)
 {
     g_return_val_if_fail(window != NULL, false);
 
@@ -1400,7 +1401,7 @@ gboolean window_load_pixbuf(VnrWindow *window, GdkPixbufAnimation *pixbuf)
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    etk_widget_list_set_sensitive(window->list_image, true);
+    etk_widget_list_set_sensitive(window->group_image, true);
     //gtk_action_group_set_sensitive(window->actions_image, TRUE);
     //gtk_action_group_set_sensitive(window->action_wallpaper, TRUE);
 
@@ -1419,7 +1420,7 @@ gboolean window_load_pixbuf(VnrWindow *window, GdkPixbufAnimation *pixbuf)
     window->current_image_width = gdk_pixbuf_animation_get_width(pixbuf);
     window->current_image_height = gdk_pixbuf_animation_get_height(pixbuf);
 
-    window->modifications = 0;
+    window->modified = modified;
 
     UniFittingMode last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
 
@@ -1486,7 +1487,7 @@ void window_close_file(VnrWindow *window)
     _window_update_openwith_menu(window);
     window->can_edit = false;
 
-    etk_widget_list_set_sensitive(window->list_image, false);
+    etk_widget_list_set_sensitive(window->group_image, false);
     //gtk_action_group_set_sensitive(window->actions_image, FALSE);
     //gtk_action_group_set_sensitive(window->action_wallpaper, FALSE);
 }
@@ -2246,16 +2247,16 @@ static void _window_rotate_pixbuf(VnrWindow *window,
 
     // extra conditions, rotating 180 degrees is also flipping horizontal
     // and vertical
-    if ((window->modifications & (4))
+    if ((window->modified & (4))
         ^ ((angle == GDK_PIXBUF_ROTATE_CLOCKWISE) << 2))
-        window->modifications ^= 3;
+        window->modified ^= 3;
 
-    window->modifications ^= 4;
+    window->modified ^= 4;
 
     //gtk_action_group_set_sensitive(
     //      window->action_save, window->modifications);
 
-    if (window->modifications == 0)
+    if (window->modified == 0)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
@@ -2305,13 +2306,13 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     // Extra conditions. Rotating 180 degrees is also flipping horizontal
     // and vertical
-    window->modifications ^= (window->modifications & 4)
+    window->modified ^= (window->modified & 4)
             ? 1 + horizontal : 2 - horizontal;
 
     //gtk_action_group_set_sensitive(window->action_save,
     //                               window->modifications);
 
-    if (window->modifications == 0)
+    if (window->modified == 0)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
@@ -2362,7 +2363,7 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
 
     g_object_unref(cropped);
 
-    window->modifications |= 8;
+    window->modified |= 8;
 
     window->current_image_width = crop->area.width;
     window->current_image_height = crop->area.height;
@@ -2452,7 +2453,7 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
         //return;
     }
 
-    window->modifications = 0;
+    window->modified = 0;
 
     //gtk_action_group_set_sensitive(window->action_save, FALSE);
 
