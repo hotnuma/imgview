@@ -107,7 +107,7 @@ static void vnr_prefs_set_default(VnrPrefs *prefs)
 
     prefs->wheel_behavior = VNR_PREFS_WHEEL_ZOOM;
     prefs->click_behavior = VNR_PREFS_CLICK_ZOOM;
-    prefs->modify_behavior = VNR_PREFS_MODIFY_AUTOSAVE;
+    prefs->modify_behavior = VNR_PREFS_MODIFY_DISCARD;
 
     prefs->reload_on_save = FALSE;
     prefs->jpeg_quality = 90;
