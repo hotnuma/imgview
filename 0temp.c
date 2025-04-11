@@ -1,5 +1,20 @@
 #if 0
 
+    if (fit_to_screen)
+    {
+        // Width and Height of the pixbuf
+
+        gint img_w = window->current_image_width;
+        gint img_h = window->current_image_height;
+
+        vnr_tools_fit_to_size(&img_w, &img_h,
+                              window->max_width, window->max_height);
+
+        gtk_window_resize(GTK_WINDOW(window),
+                          img_w,
+                          img_h /*+ _window_get_top_widgets_height(window)*/);
+    }
+
 static void _action_resize(VnrWindow *window, GtkWidget *widget);
 static void _action_resize(VnrWindow *window, GtkWidget *widget)
 {
