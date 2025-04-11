@@ -99,7 +99,7 @@ void window_list_set_current(VnrWindow *window, GList *list);
 
 // open / close
 void window_open_list(VnrWindow *window, GSList *uri_list);
-gboolean window_load_file(VnrWindow *window, gboolean fit_to_screen);
+gboolean window_load_file(VnrWindow *window);
 void window_close_file(VnrWindow *window);
 
 // browse images

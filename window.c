@@ -583,7 +583,7 @@ static void _window_on_realize(VnrWindow *window, gpointer user_data)
 
     if (prefs->start_maximized)
     {
-        if (window_load_file(window, FALSE))
+        if (window_load_file(window))
             _window_set_monitor(window, window->filelist);
     }
     else
@@ -602,9 +602,7 @@ static void _window_on_realize(VnrWindow *window, gpointer user_data)
 
         //printf("w = %d, h = %d\n", geometry.width, geometry.height);
 
-        gboolean fit_to_screen = false;
-
-        if (window_load_file(window, fit_to_screen))
+        if (window_load_file(window))
             _window_set_monitor(window, window->filelist);
     }
 
@@ -1114,7 +1112,7 @@ static gboolean _window_on_idle_reload(VnrWindow *window)
 
     printf("_window_on_idle_reload: reload\n");
 
-    window_load_file(window, FALSE);
+    window_load_file(window);
 
     return G_SOURCE_REMOVE;
 }
@@ -1342,14 +1340,14 @@ void window_open_list(VnrWindow *window, GSList *uri_list)
 
     window_close_file(window);
 
-    if (window_load_file(window, FALSE))
+    if (window_load_file(window))
         _window_set_monitor(window, file_list);
 
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
 }
 
-gboolean window_load_file(VnrWindow *window, gboolean fit_to_screen)
+gboolean window_load_file(VnrWindow *window)
 {
     g_return_val_if_fail(window != NULL, false);
 
@@ -1403,6 +1401,7 @@ gboolean window_load_file(VnrWindow *window, gboolean fit_to_screen)
 
     window->modifications = 0;
 
+#if 0
     if (fit_to_screen)
     {
         // Width and Height of the pixbuf
@@ -1417,6 +1416,7 @@ gboolean window_load_file(VnrWindow *window, gboolean fit_to_screen)
                           img_w,
                           img_h /*+ _window_get_top_widgets_height(window)*/);
     }
+#endif
 
     UniFittingMode last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
 
@@ -1656,7 +1656,7 @@ static gboolean _window_open_item(VnrWindow *window, GList *item)
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
 
-    if (window_load_file(window, FALSE))
+    if (window_load_file(window))
         _window_set_monitor(window, item);
 
     if (!window->cursor_is_hidden)
@@ -1746,7 +1746,7 @@ static void _window_action_reload(VnrWindow *window, GtkWidget *widget)
                                         true);
     window_list_set(window, list);
 
-    if (window_load_file(window, FALSE))
+    if (window_load_file(window))
         _window_set_monitor(window, window->filelist);
 }
 
@@ -1978,7 +1978,7 @@ static void _window_move_to(VnrWindow *window, const char *destdir)
         _window_delete_item(window);
         window_close_file(window);
 
-        if (window_load_file(window, FALSE))
+        if (window_load_file(window))
             _window_set_monitor(window, window->filelist);
     }
 
@@ -2104,7 +2104,7 @@ static void _window_action_delete(VnrWindow *window, GtkWidget *widget)
 
                 window_close_file(window);
 
-                if (window_load_file(window, FALSE))
+                if (window_load_file(window))
                     _window_set_monitor(window, window->filelist);
 
                 if (window->prefs->confirm_delete && !window->cursor_is_hidden)
