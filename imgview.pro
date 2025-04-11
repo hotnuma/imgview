@@ -15,6 +15,8 @@ PKGCONFIG += tinyui
 
 HEADERS = \
     dlg/dialog.h \
+    dlg/message-area.h \
+    dlg/preferences.h \
     dlg/vnr-crop.h \
     dlg/vnr-properties-dialog.h \
     dlg/xfce-filename-input.h \
@@ -32,13 +34,13 @@ HEADERS = \
     config.h.in \
     file.h \
     list.h \
-    message-area.h \
-    preferences.h \
     vnr-tools.h \
     window.h \
 
 SOURCES = \
     dlg/dialog.c \
+    dlg/message-area.c \
+    dlg/preferences.c \
     dlg/vnr-crop.c \
     dlg/vnr-properties-dialog.c \
     dlg/xfce-filename-input.c \
@@ -57,8 +59,6 @@ SOURCES = \
     file.c \
     list.c \
     main.c \
-    message-area.c \
-    preferences.c \
     vnr-tools.c \
     window.c \
 

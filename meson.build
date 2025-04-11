@@ -58,6 +58,8 @@ subdir('data')
 
 app_sources = [
     'dlg/dialog.c',
+    'dlg/message-area.c',
+    'dlg/preferences.c',
     'dlg/vnr-crop.c',
     'dlg/vnr-properties-dialog.c',
     'dlg/xfce-filename-input.c',
@@ -74,8 +76,6 @@ app_sources = [
     'file.c',
     'list.c',
     'main.c',
-    'message-area.c',
-    'preferences.c',
     'vnr-tools.c',
     'window.c',
 ]
