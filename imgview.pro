@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = imgview
 CONFIG = c99 link_pkgconfig
 DEFINES = _GNU_SOURCE
-INCLUDEPATH = dlg libgd uni
+INCLUDEPATH = dialog libgd uni
 PKGCONFIG =
 
 PKGCONFIG += shared-mime-info
@@ -14,12 +14,13 @@ PKGCONFIG += exiv2
 PKGCONFIG += tinyui
 
 HEADERS = \
-    dlg/dialog.h \
-    dlg/message-area.h \
-    dlg/preferences.h \
-    dlg/vnr-crop.h \
-    dlg/vnr-properties-dialog.h \
-    dlg/xfce-filename-input.h \
+    dialog/dialog.h \
+    dialog/message-area.h \
+    dialog/preferences.h \
+    dialog/vnr-crop.h \
+    dialog/vnr-properties-dialog.h \
+    dialog/vnr-scale.h \
+    dialog/xfce-filename-input.h \
     libgd/gd-helpers.h \
     libgd/gd-image.h \
     libgd/gd-resize.h \
@@ -38,12 +39,13 @@ HEADERS = \
     window.h \
 
 SOURCES = \
-    dlg/dialog.c \
-    dlg/message-area.c \
-    dlg/preferences.c \
-    dlg/vnr-crop.c \
-    dlg/vnr-properties-dialog.c \
-    dlg/xfce-filename-input.c \
+    dialog/dialog.c \
+    dialog/message-area.c \
+    dialog/preferences.c \
+    dialog/vnr-crop.c \
+    dialog/vnr-properties-dialog.c \
+    dialog/vnr-scale.c \
+    dialog/xfce-filename-input.c \
     libgd/gd-helpers.c \
     libgd/gd-image.c \
     libgd/gd-resize.c \

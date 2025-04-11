@@ -17,12 +17,12 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "vnr-crop.h"
+#include "vnr-scale.h"
+
+#if 0
 #include "vnr-tools.h"
 #include "uni-utils.h"
 #include "uni-image-view.h"
-
-#define CROP_UI_PATH PACKAGE_DATA_DIR "/imgview/vnr-crop-dialog.ui"
 
 G_DEFINE_TYPE(VnrCrop, vnr_crop, G_TYPE_OBJECT)
 
@@ -540,5 +540,7 @@ static inline void vnr_crop_clear_rectangle(VnrCrop *crop)
 {
     _vnr_crop_draw_rectangle(crop);
 }
+
+#endif
 
 

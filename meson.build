@@ -48,7 +48,7 @@ configure_file(
 )
 
 app_includes = [
-    'dlg',
+    'dialog',
     'libgd',
     'uni',
 ]
@@ -57,12 +57,13 @@ subdir('po')
 subdir('data')
 
 app_sources = [
-    'dlg/dialog.c',
-    'dlg/message-area.c',
-    'dlg/preferences.c',
-    'dlg/vnr-crop.c',
-    'dlg/vnr-properties-dialog.c',
-    'dlg/xfce-filename-input.c',
+    'dialog/dialog.c',
+    'dialog/message-area.c',
+    'dialog/preferences.c',
+    'dialog/vnr-crop.c',
+    'dialog/vnr-properties-dialog.c',
+    'dialog/vnr-scale.c',
+    'dialog/xfce-filename-input.c',
     'libgd/gd-helpers.c',
     'libgd/gd-image.c',
     'libgd/gd-resize.c',

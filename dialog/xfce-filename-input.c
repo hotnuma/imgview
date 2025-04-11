@@ -85,7 +85,7 @@ struct _XfceFilenameInputClass
  **/
 struct _XfceFilenameInput
 {
-    GtkBox parent;
+    GtkBox __parent__;
 
     GtkEntry *entry;
     GtkLabel *label;
