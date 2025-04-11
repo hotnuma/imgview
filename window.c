@@ -1181,7 +1181,7 @@ static void _window_action_openfile(VnrWindow *window, GtkWidget *widget)
 
 void _window_save_or_discard(VnrWindow *window, gboolean reload)
 {
-    if (!window_get_current_file(window) || window->modified == 0)
+    if (!window_get_current_file(window) || window->modified == false)
         return;
 
     if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_AUTOSAVE)
@@ -2245,23 +2245,25 @@ static void _window_rotate_pixbuf(VnrWindow *window,
         vnr_properties_dialog_update_image(
                             VNR_PROPERTIES_DIALOG(window->props_dlg));
 
+    window->modified = true;
+
     // extra conditions, rotating 180 degrees is also flipping horizontal
     // and vertical
-    if ((window->modified & (4))
-        ^ ((angle == GDK_PIXBUF_ROTATE_CLOCKWISE) << 2))
-        window->modified ^= 3;
+    //if ((window->modified & (4))
+    //    ^ ((angle == GDK_PIXBUF_ROTATE_CLOCKWISE) << 2))
+    //    window->modified ^= 3;
 
-    window->modified ^= 4;
+    //window->modified ^= 4;
 
     //gtk_action_group_set_sensitive(
     //      window->action_save, window->modifications);
 
-    if (window->modified == 0)
-    {
-        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+    //if (window->modified == 0)
+    //{
+    //    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
-        return;
-    }
+    //    return;
+    //}
 
     if (window->writable_format_name == NULL)
     {
@@ -2304,20 +2306,22 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     g_object_unref(result);
 
-    // Extra conditions. Rotating 180 degrees is also flipping horizontal
-    // and vertical
-    window->modified ^= (window->modified & 4)
-            ? 1 + horizontal : 2 - horizontal;
+    window->modified = true;
 
     //gtk_action_group_set_sensitive(window->action_save,
     //                               window->modifications);
 
-    if (window->modified == 0)
-    {
-        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+    // Extra conditions. Rotating 180 degrees is also flipping horizontal
+    // and vertical
+    //window->modified ^= (window->modified & 4)
+    //        ? 1 + horizontal : 2 - horizontal;
 
-        return;
-    }
+    //if (window->modified == 0)
+    //{
+    //    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+
+    //    return;
+    //}
 
     if (window->writable_format_name == NULL)
     {
@@ -2363,7 +2367,9 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
 
     g_object_unref(cropped);
 
-    window->modified |= 8;
+    window->modified = true;
+
+    //window->modified |= 8;
 
     window->current_image_width = crop->area.width;
     window->current_image_height = crop->area.height;
@@ -2453,11 +2459,11 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
         //return;
     }
 
-    window->modified = 0;
+    window->modified = false;
 
     //gtk_action_group_set_sensitive(window->action_save, FALSE);
-
     //if (window->prefs->modify_behavior != VNR_PREFS_MODIFY_ASK)
+
     _view_on_zoom_changed(UNI_IMAGE_VIEW(window->view), window);
 
     if (gtk_widget_get_visible(window->props_dlg))
