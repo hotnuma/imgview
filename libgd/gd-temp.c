@@ -21,6 +21,12 @@ void* gdReallocEx (void *ptr, size_t size)
 
 // image ----------------------------------------------------------------------
 
+int gd_img_bounds_safe(gdImage *im, int x, int y);
+int gd_img_bounds_safe(gdImagePtr im, int x, int y)
+{
+    return gd_img_bounds_safe_macro(im, x, y);
+}
+
 /* If 'truecolor' is set true, the image is truecolor;
    pixels are represented by integers, which
    must be 32 bits wide or more.
@@ -742,7 +748,7 @@ void gdImageSetPixel (gdImagePtr im, int x, int y, int color)
         gdImageSetPixel(im, x, y, im->AA_color);
         break;
     default:
-        if (gdImageBoundsSafeMacro (im, x, y)) {
+        if (gd_img_bounds_safe_macro (im, x, y)) {
             if (im->trueColor) {
                 switch (im->alphaBlendingFlag) {
                     default:

@@ -366,12 +366,12 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 
     GdkPixbuf *inpix = uni_image_view_get_pixbuf(
                             UNI_IMAGE_VIEW(window->view));
-    gdImage *imgin = pixbuf_to_gd(inpix);
+    gdImage *imgin = gd_img_new_from_pixbuf(inpix);
 
     if (!imgin)
         return;
 
-    gdImageSetInterpolationMethod(imgin, GD_LANCZOS3);
+    gd_img_set_interpolation_method(imgin, GD_LANCZOS3);
     gdImagePtr imgout = gdImageScale(imgin, 640, 480);
     gd_img_free(imgin);
     if (!imgout)

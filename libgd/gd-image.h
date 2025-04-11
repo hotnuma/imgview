@@ -3,25 +3,16 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <inttypes.h>
+#include <stdbool.h>
 
-/* Interpolation function ptr */
-typedef double (* interpolation_method )(double, double);
+typedef double (*interpolation_method) (double, double);
 
-#undef ARG_NOT_USED
-#define ARG_NOT_USED(arg) (void) arg
-
-/* resolution affects ttf font rendering, particularly hinting */
-#define GD_RESOLUTION           96      /* pixels per inch */
-
-#define gdImageSX(im) ((im)->sx)
-
-#define gdImageSY(im) ((im)->sy)
-
+#define gd_img_sx(im) ((im)->sx)
+#define gd_img_sy(im) ((im)->sy)
 #define gd_set_alpha(r, g, b, a) (((r) << 24) + \
                                   ((g) << 16) + \
                                   ((b) <<  8) + \
                                    (a))
-
 #define gd_get_red(c) (((c) & 0xFF000000) >> 24)
 #define gd_get_green(c)   (((c) & 0xFF0000) >> 16)
 #define gd_get_blue(c) (((c) & 0x00FF00) >> 8)
@@ -64,7 +55,7 @@ typedef enum
  */
 typedef enum
 {
-    GD_DEFAULT          = 0,
+    GD_DEFAULT = 0,
     GD_BELL,
     GD_BESSEL,
     GD_BILINEAR_FIXED,
@@ -101,47 +92,36 @@ typedef enum
 
 typedef struct gdImageStruct
 {
-    //int trueColor;
     uint32_t **tpixels;
+    bool has_alpha;
     int sx;
     int sy;
     gdInterpolationMethod interpolation_id;
     interpolation_method interpolation;
 
-    /* 2.0.12: simple clipping rectangle. These values
-      must be checked for safety when set; please use
-      gdImageSetClip */
     int cx1;
     int cy1;
     int cx2;
     int cy2;
     int transparent;
-}
-gdImage;
+
+} gdImage;
 
 typedef gdImage *gdImagePtr;
 
-// libgd / pixbuf interface
+// creation / destruction -----------------------------------------------------
+
+gdImage* gd_img_new(int sx, int sy);
 GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
-gdImage* pixbuf_to_gd(GdkPixbuf *pixbuf);
+gdImage* gd_img_new_from_pixbuf(GdkPixbuf *pixbuf);
+void gd_img_free(gdImage* im);
+
 GdkPixbuf* gd_to_pixbuf(gdImage *src);
+gdImage* gd_img_copy(gdImage *src);
 
-
-int gdImageBoundsSafe (gdImagePtr im, int x, int y);
-/* 2.0.12: this now checks the clipping rectangle */
-#define gdImageBoundsSafeMacro(im, x, y) (!((((y) < (im)->cy1) || ((y) > (im)->cy2)) || (((x) < (im)->cx1) || ((x) > (im)->cx2))))
-
-/* Creates a truecolor image (millions of colors). */
-gdImagePtr gd_img_new (int sx, int sy);
-
-gdImagePtr gdImageClone (gdImagePtr src);
-int gdImageSetInterpolationMethod(gdImagePtr im, gdInterpolationMethod id);
-gdInterpolationMethod gdImageGetInterpolationMethod(gdImagePtr im);
-void gd_img_free (gdImagePtr im);
-
-gdImagePtr gdImageRotate90(gdImagePtr src, int ignoretransparent);
-gdImagePtr gdImageRotate180(gdImagePtr src, int ignoretransparent);
-gdImagePtr gdImageRotate270(gdImagePtr src, int ignoretransparent);
+#define gd_img_bounds_safe_macro(im, x, y) \
+    (!((((y) < (im)->cy1) || ((y) > (im)->cy2)) \
+    || (((x) < (im)->cx1) || ((x) > (im)->cx2))))
 
 #endif // GD_IMAGE_H
 

@@ -157,8 +157,8 @@ gdImagePtr gdImageScale(const gdImagePtr src, const unsigned int new_width, cons
     if (new_width == 0 || new_height == 0) {
         return NULL;
     }
-    if ((int)new_width == gdImageSX(src) && (int)new_height == gdImageSY(src)) {
-        return gdImageClone(src);
+    if ((int)new_width == gd_img_sx(src) && (int)new_height == gd_img_sy(src)) {
+        return gd_img_copy(src);
     }
     switch (src->interpolation_id) {
         //Special cases, optimized implementations
@@ -323,15 +323,16 @@ static double KernelBessel_Order1(double x)
 
 static double _filter_sinc(const double x, const double support)
 {
-	ARG_NOT_USED(support);
-	// X-scaled Sinc(x) function.
+    (void) support;
+
+    // X-scaled Sinc(x) function.
 	if (x == 0.0) return(1.0);
 	return (sin(M_PI * (double) x) / (M_PI * (double) x));
 }
 
 static double _filter_bessel(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	if (x == 0.0f)
 		return (double)(M_PI/4.0f);
 	return (KernelBessel_Order1((double)M_PI*x)/(2.0f*x));
@@ -339,13 +340,13 @@ static double _filter_bessel(const double x, const double support)
 
 static double _filter_blackman(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	return (0.42f+0.5f*(double)cos(M_PI*x)+0.08f*(double)cos(2.0f*M_PI*x));
 }
 
 static double _filter_linear(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	double ax = fabs(x);
     if (ax < 1.0f)
     {
@@ -356,13 +357,13 @@ static double _filter_linear(const double x, const double support)
 
 static double _filter_blackman_bessel(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
     return(_filter_blackman(x/support,support)*_filter_bessel(x,support));
 }
 
 static double _filter_blackman_sinc(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
     return(_filter_blackman(x/support,support)*_filter_sinc(x,support));
 }
 
@@ -391,7 +392,7 @@ static double _filter_generalized_cubic(const double t, const double support)
 // CubicSpline filter, default radius 2
 static double _filter_cubic_spline(const double x1, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	const double x = x1 < 0.0 ? -x1 : x1;
 
     if (x < 1.0 )
@@ -417,7 +418,7 @@ static double _filter_box(double x, const double support) {
 
 static double _filter_catmullrom(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	if (x < -2.0)
 		return(0.0f);
 	if (x < -1.0)
@@ -460,7 +461,7 @@ static double filter_lanczos3(const double x1, const double support)
 static double filter_hermite(const double x1, const double support)
 {
 	const double x = x1 < 0.0 ? -x1 : x1;
-	ARG_NOT_USED(support);
+    (void) support;
 
 	if (x < 1.0) return ((2.0 * x - 3) * x * x + 1.0 );
 
@@ -471,7 +472,7 @@ static double filter_hermite(const double x1, const double support)
 static double filter_triangle(const double x1, const double support)
 {
 	const double x = x1 < 0.0 ? -x1 : x1;
-	ARG_NOT_USED(support);
+    (void) support;
 
 	if (x < 1.0) return (1.0 - x);
 	return 0.0;
@@ -481,7 +482,7 @@ static double filter_triangle(const double x1, const double support)
 static double filter_bell(const double x1, const double support)
 {
 	const double x = x1 < 0.0 ? -x1 : x1;
-	ARG_NOT_USED(support);
+    (void) support;
 
 	if (x < 0.5) return (0.75 - x*x);
 	if (x < 1.5) return (0.5 * pow(x - 1.5, 2.0));
@@ -491,7 +492,7 @@ static double filter_bell(const double x1, const double support)
 // Mitchell filter, default radius 2.0
 static double filter_mitchell(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 #define KM_B (1.0f/3.0f)
 #define KM_C (1.0f/3.0f)
 #define KM_P0 ((  6.0f - 2.0f * KM_B ) / 6.0f)
@@ -519,7 +520,7 @@ static double filter_mitchell(const double x, const double support)
 // Cosine filter, default radius 1
 static double filter_cosine(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	if ((x >= -1.0) && (x <= 1.0)) return ((cos(x * M_PI) + 1.0)/2.0);
 
 	return 0;
@@ -530,7 +531,7 @@ static double filter_cosine(const double x, const double support)
 static double filter_quadratic(const double x1, const double support)
 {
 	const double x = x1 < 0.0 ? -x1 : x1;
-	ARG_NOT_USED(support);
+    (void) support;
 	if (x <= 0.5) return (- 2.0 * x * x + 1);
 	if (x <= 1.5) return (x * x - 2.5* x + 1.5);
 	return 0.0;
@@ -538,7 +539,7 @@ static double filter_quadratic(const double x1, const double support)
 
 static double filter_bspline(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	if (x>2.0f) {
 		return 0.0f;
 	} else {
@@ -561,7 +562,7 @@ static double filter_bspline(const double x, const double support)
 static double filter_quadratic_bspline(const double x1, const double support)
 {
 	const double x = x1 < 0.0 ? -x1 : x1;
-	ARG_NOT_USED(support);
+    (void) support;
 	if (x <= 0.5) return (- x * x + 0.75);
 	if (x <= 1.5) return (0.5 * x * x - 1.5 * x + 1.125);
 	return 0.0;
@@ -569,21 +570,21 @@ static double filter_quadratic_bspline(const double x1, const double support)
 
 static double filter_gaussian(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	// return(exp((double) (-2.0 * x * x)) * sqrt(2.0 / M_PI));
 	return (double)(exp(-2.0f * x * x) * 0.79788456080287f);
 }
 
 static double filter_hanning(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	// A Cosine windowing function
 	return(0.5 + 0.5 * cos(M_PI * x));
 }
 
 static double filter_hamming(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	/* should be
 	(0.54+0.46*cos(M_PI*(double) x));
 	but this approximation is sufficient */
@@ -598,7 +599,7 @@ static double filter_hamming(const double x, const double support)
 
 static double filter_power(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	const double a = 2.0f;
 	if (fabs(x)>1) return 0.0f;
 	return (1.0f - (double)fabs(pow(x,a)));
@@ -606,16 +607,18 @@ static double filter_power(const double x, const double support)
 
 static double filter_welsh(const double x, const double support)
 {
-	ARG_NOT_USED(support);
+    (void) support;
 	// Welsh parabolic windowing filter
 	if (x <  1.0)
 		return(1 - x*x);
 	return(0.0);
 }
 
-static inline int getPixelOverflowTC(gdImagePtr im, const int x, const int y, const int bgColor /* 31bit ARGB TC */)
+static inline int getPixelOverflowTC(gdImagePtr im,
+                                     const int x, const int y,
+                                     const int bgColor)
 {
-    if (gdImageBoundsSafe(im, x, y))
+    if (gd_img_bounds_safe_macro(im, x, y))
     {
         const uint32_t c = im->tpixels[y][x];
 
@@ -869,7 +872,7 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
 
     // First, handle the trivial case.
     if (src_width == new_width && src_height == new_height) {
-        return gdImageClone(src);
+        return gd_img_copy(src);
     }// if
 
 	// Convert to truecolor if it isn't; this code requires it.
@@ -886,7 +889,7 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
         if (tmp_im == NULL) {
             return NULL;
         }
-        gdImageSetInterpolationMethod(tmp_im, src->interpolation_id);
+        gd_img_set_interpolation_method(tmp_im, src->interpolation_id);
 
 		scale_pass_res = _gdScalePass(src, src_width, tmp_im, new_width, src_height, HORIZONTAL, filter);
 		if (scale_pass_res != 1) {
@@ -904,7 +907,7 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
     // Otherwise, we need to scale vertically.
 	dst = gd_img_new(new_width, new_height);
 	if (dst != NULL) {
-        gdImageSetInterpolationMethod(dst, src->interpolation_id);
+        gd_img_set_interpolation_method(dst, src->interpolation_id);
         scale_pass_res = _gdScalePass(tmp_im, src_height, dst, new_height, new_width, VERTICAL, filter);
 		if (scale_pass_res != 1) {
             gd_img_free(dst);
@@ -979,8 +982,8 @@ static gdImagePtr gdImageScaleBilinearTC(gdImagePtr im, const unsigned int new_w
 {
 	long dst_w = MAX(1, new_width);
 	long dst_h = MAX(1, new_height);
-	float dx = (float)gdImageSX(im) / (float)dst_w;
-	float dy = (float)gdImageSY(im) / (float)dst_h;
+    float dx = (float)gd_img_sx(im) / (float)dst_w;
+    float dy = (float)gd_img_sy(im) / (float)dst_h;
 	gdFixed f_dx = gd_ftofx(dx);
 	gdFixed f_dy = gd_ftofx(dy);
 	gdFixed f_1 = gd_itofx(1);
@@ -1072,8 +1075,8 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 {
 	const long new_width = MAX(1, width);
 	const long new_height = MAX(1, height);
-	const int src_w = gdImageSX(src);
-	const int src_h = gdImageSY(src);
+    const int src_w = gd_img_sx(src);
+    const int src_h = gd_img_sy(src);
 	const gdFixed f_dx = gd_ftofx((float)src_w / (float)new_width);
 	const gdFixed f_dy = gd_ftofx((float)src_h / (float)new_height);
 	const gdFixed f_1 = gd_itofx(1);
@@ -1303,7 +1306,7 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
  *   - <gdInterpolationMethod>
  *   - <gdImageGetInterpolationMethod>
  */
-int gdImageSetInterpolationMethod(gdImagePtr im, gdInterpolationMethod id)
+int gd_img_set_interpolation_method(gdImagePtr im, gdInterpolationMethod id)
 {
 	if (im == NULL || (uintmax_t)id > GD_METHOD_COUNT) {
 		return 0;
@@ -1427,7 +1430,7 @@ int gdImageSetInterpolationMethod(gdImagePtr im, gdInterpolationMethod id)
  *   - <gdInterpolationMethod>
  *   - <gdImageSetInterpolationMethod>
  */
-gdInterpolationMethod gdImageGetInterpolationMethod(gdImagePtr im)
+gdInterpolationMethod gd_img_get_interpolation_method(gdImagePtr im)
 {
     return im->interpolation_id;
 }
