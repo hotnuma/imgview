@@ -28,7 +28,7 @@
 #include "vnr-tools.h"
 #include "uni-exiv2.hpp"
 #include "vnr-crop.h"
-#include "vnr-properties-dialog.h"
+#include "vnr-properties.h"
 #include "dialog.h"
 #include "gd-resize.h"
 

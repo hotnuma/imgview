@@ -17,7 +17,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "vnr-properties-dialog.h"
+#include "vnr-properties.h"
 
 #include "vnr-tools.h"
 #include "uni-exiv2.hpp"

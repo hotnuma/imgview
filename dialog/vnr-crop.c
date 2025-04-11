@@ -25,7 +25,7 @@
 G_DEFINE_TYPE(VnrCrop, vnr_crop, G_TYPE_OBJECT)
 
 static void vnr_crop_dispose(GObject *gobject);
-static GtkWidget* _vnr_crop_build_dialog(VnrCrop *crop);
+static GtkWidget* _vnr_crop_dlg_new(VnrCrop *crop);
 
 static gboolean _on_draw(GtkWidget *widget,
                                    cairo_t *cr, VnrCrop *crop);
@@ -97,14 +97,12 @@ static void vnr_crop_dispose(GObject *gobject)
 
 gboolean vnr_crop_run(VnrCrop *crop)
 {
+    GtkWidget *dialog = _vnr_crop_dlg_new(crop);
 
-    GtkWidget *dialog = _vnr_crop_build_dialog(crop);
-
-    if (dialog == NULL)
+    if (!dialog)
         return FALSE;
 
-    gint crop_dialog_response;
-    crop_dialog_response = gtk_dialog_run(GTK_DIALOG(dialog));
+    gint ret = gtk_dialog_run(GTK_DIALOG(dialog));
 
     crop->area.x = gtk_spin_button_get_value_as_int(crop->spin_x);
     crop->area.y = gtk_spin_button_get_value_as_int(crop->spin_y);
@@ -113,17 +111,20 @@ gboolean vnr_crop_run(VnrCrop *crop)
 
     gtk_widget_destroy(dialog);
 
-    if (crop->area.x == 0 && crop->area.y == 0 && crop->area.width == crop->window->current_image_width && crop->area.height == crop->window->current_image_height)
+    if (crop->area.x == 0
+        && crop->area.y == 0
+        && crop->area.width == crop->window->current_image_width
+        && crop->area.height == crop->window->current_image_height)
     {
         return FALSE;
     }
     else
     {
-        return (crop_dialog_response == GTK_RESPONSE_ACCEPT);
+        return (ret == GTK_RESPONSE_ACCEPT);
     }
 }
 
-static GtkWidget* _vnr_crop_build_dialog(VnrCrop *crop)
+static GtkWidget* _vnr_crop_dlg_new(VnrCrop *crop)
 {
     GtkWidget *dialog = g_object_new(GTK_TYPE_DIALOG,
                                      "border-width", 5,

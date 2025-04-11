@@ -18,8 +18,8 @@ HEADERS = \
     dialog/message-area.h \
     dialog/preferences.h \
     dialog/vnr-crop.h \
-    dialog/vnr-properties-dialog.h \
-    dialog/vnr-scale.h \
+    dialog/vnr-properties.h \
+    dialog/vnr-resize.h \
     dialog/xfce-filename-input.h \
     libgd/gd-helpers.h \
     libgd/gd-image.h \
@@ -43,8 +43,8 @@ SOURCES = \
     dialog/message-area.c \
     dialog/preferences.c \
     dialog/vnr-crop.c \
-    dialog/vnr-properties-dialog.c \
-    dialog/vnr-scale.c \
+    dialog/vnr-properties.c \
+    dialog/vnr-resize.c \
     dialog/xfce-filename-input.c \
     libgd/gd-helpers.c \
     libgd/gd-image.c \
