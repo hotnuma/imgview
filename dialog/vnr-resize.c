@@ -43,8 +43,6 @@ GObject* vnr_resize_new(VnrWindow *window)
 
 static void vnr_resize_class_init(VnrResizeClass *klass)
 {
-    //GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    //gobject_class->dispose = vnr_resize_dispose;
 }
 
 static void vnr_resize_init(VnrResize *resize)
@@ -137,7 +135,7 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 
     gtk_dialog_add_buttons(GTK_DIALOG(dialog),
                            _("Cancel"), GTK_RESPONSE_CANCEL,
-                           _("Crop"), GTK_RESPONSE_ACCEPT,
+                           _("Resize"), GTK_RESPONSE_ACCEPT,
                            NULL);
 
     g_signal_connect(resize->spin_width, "value-changed",
