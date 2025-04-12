@@ -37,6 +37,7 @@ struct _VnrResize
 
     gdouble width;
     gdouble height;
+    gdouble ratio;
 
     GtkSpinButton *spin_width;
     GtkSpinButton *spin_height;

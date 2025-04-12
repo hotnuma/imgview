@@ -79,6 +79,15 @@ gboolean vnr_resize_run(VnrResize *resize)
 
 static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 {
+    resize->width = resize->window->current_image_width;
+    resize->height = resize->window->current_image_height;
+
+    g_return_val_if_fail(resize->width != 0, NULL);
+    g_return_val_if_fail(resize->height != 0, NULL);
+
+    resize->ratio = resize->width / resize->height;
+
+
     GtkWidget *dialog = g_object_new(GTK_TYPE_DIALOG,
                                      "border-width", 5,
                                      "title", "Resize Image",
@@ -88,9 +97,6 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 
     gtk_window_set_transient_for(GTK_WINDOW(dialog),
                                  GTK_WINDOW(resize->window));
-
-    resize->width = resize->window->current_image_width;
-    resize->height = resize->window->current_image_height;
 
     GtkWidget *content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
@@ -151,21 +157,17 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 static void _on_width_value_changed(GtkSpinButton *spinbutton,
                                     VnrResize *resize)
 {
-    //resize->sub_width = gtk_spin_button_get_value(spinbutton)
-    //* resize->zoom;
+    gdouble width = gtk_spin_button_get_value(spinbutton);
 
-    //if (resize->sub_width < 1)
-    //    resize->sub_width = 1;
+    gtk_spin_button_set_value(resize->spin_height, width / resize->ratio);
 }
 
 static void _on_height_value_changed(GtkSpinButton *spinbutton,
                                      VnrResize *resize)
 {
-    //resize->sub_height = gtk_spin_button_get_value(spinbutton)
-    //* resize->zoom;
+    gdouble height = gtk_spin_button_get_value(spinbutton);
 
-    //if (resize->sub_height < 1)
-    //    resize->sub_height = 1;
+    gtk_spin_button_set_value(resize->spin_width, height * resize->ratio);
 }
 
 //static void vnr_resize_update_spin_button_values(VnrResize *resize)
