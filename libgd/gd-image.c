@@ -9,7 +9,7 @@
 
 // creation / destruction -----------------------------------------------------
 
-gdImagePtr gd_img_new(int sx, int sy)
+gdImage* gd_img_new(int sx, int sy)
 {
     if (overflow2(sx, sy))
         return NULL;
@@ -20,7 +20,7 @@ gdImagePtr gd_img_new(int sx, int sy)
     if (overflow2(sizeof(int), sx))
         return NULL;
 
-    gdImagePtr im = (gdImage*) malloc(sizeof(gdImage));
+    gdImage* im = (gdImage*) malloc(sizeof(gdImage));
     if (!im)
         return NULL;
 
@@ -108,7 +108,7 @@ gdImage* gd_img_new_from_pixbuf(GdkPixbuf *pixbuf)
     return img;
 }
 
-void gd_img_free(gdImagePtr im)
+void gd_img_free(gdImage* im)
 {
     if (im->tpixels)
     {
@@ -153,7 +153,7 @@ GdkPixbuf* gd_to_pixbuf(gdImage *src)
     return pixbuf;
 }
 
-gdImage* gd_img_copy(gdImage *src)
+gdImage* gd_img_copy(const gdImage *src)
 {
     gdImage *dst = gd_img_new(src->sx , src->sy);
 

@@ -366,41 +366,6 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 
     return;
 
-    if (!window->can_edit)
-        return;
-
-    //gint64 t1 = g_get_real_time();
-
-    GdkPixbuf *inpix = uni_image_view_get_pixbuf(
-                            UNI_IMAGE_VIEW(window->view));
-    gdImage *imgin = gd_img_new_from_pixbuf(inpix);
-
-    if (!imgin)
-        return;
-
-    gd_img_set_interpolation_method(imgin, GD_LANCZOS3);
-    gdImagePtr imgout = gdImageScale(imgin, 640, 480);
-    gd_img_free(imgin);
-    if (!imgout)
-    {
-        fprintf(stderr, "gdImageScale fails\n");
-        return;
-    }
-
-    GdkPixbuf *pixbuf = gd_to_pixbuf(imgout);
-    gd_img_free(imgout);
-
-    //gint64 t2 = g_get_real_time();
-    //gint64 diff = t2 - t1;
-    //printf("time = %d\n", (int) diff);
-
-    GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
-    g_object_unref(pixbuf);
-
-    //uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
-
-    window_load_pixbuf(window, anim, true);
-    g_object_unref(anim);
 }
 
 
@@ -2408,34 +2373,49 @@ static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
     if (!vnr_resize_run(resize))
     {
         g_object_unref(resize);
+
         return;
     }
 
-    //GdkPixbuf *cropped;
-    //GdkPixbuf *original;
+    //gint64 t1 = g_get_real_time();
 
-    //original = uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view));
+    GdkPixbuf *inpix = uni_image_view_get_pixbuf(
+                            UNI_IMAGE_VIEW(window->view));
+    gdImage *imgin = gd_img_new_from_pixbuf(inpix);
 
-    //cropped = gdk_pixbuf_new(gdk_pixbuf_get_colorspace(original),
-    //                         gdk_pixbuf_get_has_alpha(original),
-    //                         gdk_pixbuf_get_bits_per_sample(original),
-    //                         resize->area.width, resize->area.height);
+    if (!imgin)
+        return;
 
-    //gdk_pixbuf_copy_area((const GdkPixbuf*) original,
-    //                     resize->area.x, resize->area.y,
-    //                     resize->area.width, resize->area.height,
-    //                     cropped, 0, 0);
+    gd_img_set_interpolation_method(imgin, GD_LANCZOS3);
+    gdImage* imgout = gd_img_scale(imgin,
+                                   resize->area_width,
+                                   resize->area_height);
+    gd_img_free(imgin);
+    if (!imgout)
+    {
+        fprintf(stderr, "gdImageScale fails\n");
+        return;
+    }
 
-    //uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), cropped);
+    GdkPixbuf *pixbuf = gd_to_pixbuf(imgout);
+    gd_img_free(imgout);
 
-    //g_object_unref(cropped);
+    //gint64 t2 = g_get_real_time();
+    //gint64 diff = t2 - t1;
+    //printf("time = %d\n", (int) diff);
+
+    GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
+    g_object_unref(pixbuf);
+
+    //uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
+
+    window_load_pixbuf(window, anim, true);
+    g_object_unref(anim);
 
     window->modified = true;
 
-    //window->modified |= 8;
-
-    window->current_image_width = resize->area.width;
-    window->current_image_height = resize->area.height;
+    window->current_image_width = resize->area_width;
+    window->current_image_height = resize->area_height;
 
     //gtk_action_group_set_sensitive(window->action_save, TRUE);
 

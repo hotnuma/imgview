@@ -107,8 +107,6 @@ typedef struct gdImageStruct
 
 } gdImage;
 
-typedef gdImage *gdImagePtr;
-
 // creation / destruction -----------------------------------------------------
 
 gdImage* gd_img_new(int sx, int sy);
@@ -117,7 +115,7 @@ gdImage* gd_img_new_from_pixbuf(GdkPixbuf *pixbuf);
 void gd_img_free(gdImage* im);
 
 GdkPixbuf* gd_to_pixbuf(gdImage *src);
-gdImage* gd_img_copy(gdImage *src);
+gdImage* gd_img_copy(const gdImage *src);
 
 #define gd_img_bounds_safe_macro(im, x, y) \
     (!((((y) < (im)->cy1) || ((y) > (im)->cy2)) \

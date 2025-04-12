@@ -25,16 +25,16 @@
 #include <math.h>
 #include <assert.h>
 
-static gdImagePtr _gd_img_scale_bilinear(gdImagePtr im,
+static gdImage* _gd_img_scale_bilinear(gdImage* im,
                                        const unsigned int new_width,
                                        const unsigned int new_height);
-static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src,
+static gdImage* _gd_img_scale_bicubic_fixed(gdImage* src,
                                            const unsigned int width,
                                            const unsigned int height);
-static gdImagePtr _gd_img_scale_nearest_neighbour(gdImagePtr im,
+static gdImage* _gd_img_scale_nearest_neighbour(gdImage* im,
                                                const unsigned int width,
                                                const unsigned int height);
-static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int new_width,
+static gdImage* gdImageScaleTwoPass(gdImage* src, const unsigned int new_width,
                     const unsigned int new_height);
 
 
@@ -146,9 +146,9 @@ typedef struct
  *   - <gdImageCopyResized>
  *   - <gdImageCopyResampled>
  */
-gdImagePtr gdImageScale(const gdImagePtr src, const unsigned int new_width, const unsigned int new_height)
+gdImage* gd_img_scale(gdImage *src, unsigned int new_width, unsigned int new_height)
 {
-    gdImagePtr im_scaled = NULL;
+    gdImage *im_scaled = NULL;
 
     if (src == NULL || (uintmax_t)src->interpolation_id >= GD_METHOD_COUNT) {
         return NULL;
@@ -614,7 +614,7 @@ static double filter_welsh(const double x, const double support)
 	return(0.0);
 }
 
-static inline int getPixelOverflowTC(gdImagePtr im,
+static inline int getPixelOverflowTC(gdImage* im,
                                      const int x, const int y,
                                      const int bgColor)
 {
@@ -747,7 +747,7 @@ static inline LineContribType *_gdContributionsCalc(unsigned int line_size, unsi
 }
 
 
-static inline void _gdScaleOneAxis(gdImagePtr pSrc, gdImagePtr dst,
+static inline void _gdScaleOneAxis(const gdImage* pSrc, gdImage* dst,
                                    unsigned int dst_len, unsigned int row,
                                    LineContribType *contrib,
                                    gdAxis axis)
@@ -789,8 +789,8 @@ static inline void _gdScaleOneAxis(gdImagePtr pSrc, gdImagePtr dst,
 }// _gdScaleOneAxis
 
 
-static inline int _gdScalePass(const gdImagePtr pSrc, const unsigned int src_len,
-             const gdImagePtr pDst, const unsigned int dst_len,
+static inline int _gdScalePass(const gdImage* pSrc, const unsigned int src_len,
+             gdImage* pDst, const unsigned int dst_len,
              const unsigned int num_lines,
              const gdAxis axis,
 			 const FilterInfo *filter)
@@ -860,13 +860,14 @@ static const FilterInfo* _get_filterinfo_for_id(gdInterpolationMethod id) {
 	return &filters[id];
 }
 
-static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int new_width,
+static gdImage* gdImageScaleTwoPass(gdImage* src,
+                                    const unsigned int new_width,
                     const unsigned int new_height)
 {
     const unsigned int src_width = src->sx;
     const unsigned int src_height = src->sy;
-	gdImagePtr tmp_im = NULL;
-	gdImagePtr dst = NULL;
+    gdImage* tmp_im = NULL;
+    gdImage* dst = NULL;
 	int scale_pass_res;
 	const FilterInfo *filter = _get_filterinfo_for_id(src->interpolation_id);
 
@@ -937,7 +938,9 @@ static gdImagePtr gdImageScaleTwoPass(const gdImagePtr src, const unsigned int n
 	pre scale very large images before using another interpolation
 	methods for the last step.
 */
-static gdImagePtr _gd_img_scale_nearest_neighbour(gdImagePtr im, const unsigned int width, const unsigned int height)
+static gdImage* _gd_img_scale_nearest_neighbour(gdImage* im,
+                                                const unsigned int width,
+                                                const unsigned int height)
 {
 	const unsigned long new_width = MAX(1, width);
 	const unsigned long new_height = MAX(1, height);
@@ -946,7 +949,7 @@ static gdImagePtr _gd_img_scale_nearest_neighbour(gdImagePtr im, const unsigned 
 	const gdFixed f_dx = gd_ftofx(dx);
 	const gdFixed f_dy = gd_ftofx(dy);
 
-	gdImagePtr dst_img;
+    gdImage* dst_img;
 	unsigned long  dst_offset_x;
 	unsigned long  dst_offset_y = 0;
 	unsigned int i;
@@ -978,7 +981,7 @@ static gdImagePtr _gd_img_scale_nearest_neighbour(gdImagePtr im, const unsigned 
     return dst_img;
 }
 
-static gdImagePtr gdImageScaleBilinearTC(gdImagePtr im, const unsigned int new_width, const unsigned int new_height)
+static gdImage* gdImageScaleBilinearTC(gdImage* im, const unsigned int new_width, const unsigned int new_height)
 {
 	long dst_w = MAX(1, new_width);
 	long dst_h = MAX(1, new_height);
@@ -991,7 +994,7 @@ static gdImagePtr gdImageScaleBilinearTC(gdImagePtr im, const unsigned int new_w
 	int dst_offset_h;
 	int dst_offset_v = 0;
 	long i;
-	gdImagePtr new_img;
+    gdImage* new_img;
 
 	new_img = gd_img_new(new_width, new_height);
 	if (!new_img){
@@ -1064,13 +1067,13 @@ static gdImagePtr gdImageScaleBilinearTC(gdImagePtr im, const unsigned int new_w
 	return new_img;
 }
 
-static gdImagePtr _gd_img_scale_bilinear(gdImagePtr im, const unsigned int new_width,
+static gdImage* _gd_img_scale_bilinear(gdImage* im, const unsigned int new_width,
                      const unsigned int new_height)
 {
     return gdImageScaleBilinearTC(im, new_width, new_height);
 }
 
-static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int width,
+static gdImage* _gd_img_scale_bicubic_fixed(gdImage* src, const unsigned int width,
                          const unsigned int height)
 {
 	const long new_width = MAX(1, width);
@@ -1084,7 +1087,7 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
 	const gdFixed f_4 = gd_itofx(4);
 	const gdFixed f_6 = gd_itofx(6);
 	const gdFixed f_gamma = gd_ftofx(1.04f);
-	gdImagePtr dst;
+    gdImage* dst;
 
 	unsigned int dst_offset_x;
 	unsigned int dst_offset_y = 0;
@@ -1306,7 +1309,7 @@ static gdImagePtr _gd_img_scale_bicubic_fixed(gdImagePtr src, const unsigned int
  *   - <gdInterpolationMethod>
  *   - <gdImageGetInterpolationMethod>
  */
-int gd_img_set_interpolation_method(gdImagePtr im, gdInterpolationMethod id)
+int gd_img_set_interpolation_method(gdImage* im, gdInterpolationMethod id)
 {
 	if (im == NULL || (uintmax_t)id > GD_METHOD_COUNT) {
 		return 0;
@@ -1430,7 +1433,7 @@ int gd_img_set_interpolation_method(gdImagePtr im, gdInterpolationMethod id)
  *   - <gdInterpolationMethod>
  *   - <gdImageSetInterpolationMethod>
  */
-gdInterpolationMethod gd_img_get_interpolation_method(gdImagePtr im)
+gdInterpolationMethod gd_img_get_interpolation_method(gdImage* im)
 {
     return im->interpolation_id;
 }

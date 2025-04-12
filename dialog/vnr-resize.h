@@ -35,37 +35,19 @@ struct _VnrResize
 
     VnrWindow *window;
 
-    GtkSpinButton *spin_x;
-    GtkSpinButton *spin_y;
-    GtkSpinButton *spin_width;
-    GtkSpinButton *spin_height;
-
     gdouble width;
     gdouble height;
 
-    GdkRectangle area;
+    GtkSpinButton *spin_width;
+    GtkSpinButton *spin_height;
 
-    //GdkPixbuf *preview_pixbuf;
-
-    //gdouble zoom;
-
-    //GtkWidget *image;
-
-    //gdouble sub_x;
-    //gdouble sub_y;
-    //gdouble sub_width;
-    //gdouble sub_height;
-
-    //gboolean drawing_rectangle;
-    //gboolean do_redraw;
-    //gdouble start_x;
-    //gdouble start_y;
-
+    gdouble area_width;
+    gdouble area_height;
 };
 
 struct _VnrResizeClass
 {
-    GObjectClass parent_class;
+    GObjectClass __parent_class__;
 };
 
 GType vnr_resize_get_type() G_GNUC_CONST;
