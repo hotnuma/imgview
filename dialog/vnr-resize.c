@@ -18,37 +18,106 @@
  */
 
 #include "vnr-resize.h"
+#include "vnr-tools.h"
+#include "uni-utils.h"
+#include "uni-image-view.h"
 
-G_DEFINE_TYPE(VnrResizeDlg, vnr_resize_dlg, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE(VnrResize, vnr_resize, G_TYPE_OBJECT)
 
-//#include "vnr-tools.h"
-//#include "uni-exiv2.hpp"
-//#include "file.h"
-//#include <locale.h>
-//#include <time.h>
+static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize);
+static void vnr_resize_dispose(GObject *gobject);
 
-gboolean vnr_resize_dlg_run(VnrWindow *window)
+static void _on_x_value_changed(GtkSpinButton *spinbutton, VnrResize *resize);
+static void _on_width_value_changed(GtkSpinButton *spinbutton, VnrResize *resize);
+static void _on_y_value_changed(GtkSpinButton *spinbutton, VnrResize *resize);
+static void _on_height_value_changed(GtkSpinButton *spinbutton, VnrResize *resize);
+
+//static gboolean _on_draw(GtkWidget *widget,
+//                                   cairo_t *cr, VnrResize *resize);
+//static gboolean _on_button_press_event(GtkWidget *widget,
+//                                         GdkEventButton *event, VnrResize *resize);
+//static gboolean _on_button_release_event(GtkWidget *widget,
+//                                           GdkEventButton *event, VnrResize *resize);
+//static gboolean _on_motion_notify_event(GtkWidget *widget,
+//                                   GdkEventMotion *event, VnrResize *resize);
+//static void _vnr_resize_draw_rectangle(VnrResize *resize);
+//static inline void vnr_resize_clear_rectangle(VnrResize *resize);
+//static void vnr_resize_check_sub_x(VnrResize *resize);
+//static void vnr_resize_check_sub_y(VnrResize *resize);
+//static void vnr_resize_update_spin_button_values(VnrResize *resize);
+
+
+// creation -------------------------------------------------------------------
+
+GObject* vnr_resize_new(VnrWindow *window)
 {
-    GtkWidget *dialog = vnr_resize_dlg_new(window);
+    VnrResize *resize = g_object_new(VNR_TYPE_RESIZE, NULL);
+
+    resize->window = window;
+
+    return (GObject*) resize;
+}
+
+static void vnr_resize_class_init(VnrResizeClass *klass)
+{
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+
+    gobject_class->dispose = vnr_resize_dispose;
+}
+
+static void vnr_resize_init(VnrResize *resize)
+{
+    resize->spin_x = NULL;
+    resize->spin_y = NULL;
+    resize->spin_width = NULL;
+    resize->spin_height = NULL;
+
+//    resize->drawing_rectangle = FALSE;
+//    resize->do_redraw = TRUE;
+
+//    resize->sub_x = -1;
+//    resize->sub_y = -1;
+//    resize->sub_height = -1;
+//    resize->sub_width = -1;
+//    resize->height = -1;
+//    resize->width = -1;
+
+//    resize->image = NULL;
+//    resize->preview_pixbuf = NULL;
+}
+
+static void vnr_resize_dispose(GObject *gobject)
+{
+//    VnrResize *self = VNR_RESIZE(gobject);
+
+//    if (self->preview_pixbuf != NULL)
+//        g_object_unref(self->preview_pixbuf);
+
+    G_OBJECT_CLASS(vnr_resize_parent_class)->dispose(gobject);
+}
+
+gboolean vnr_resize_run(VnrResize *resize)
+{
+    GtkWidget *dialog = _vnr_resize_dlg_new(resize);
 
     if (!dialog)
-        return false;
+        return FALSE;
 
     gint ret = gtk_dialog_run(GTK_DIALOG(dialog));
 
-    //crop->area.x = gtk_spin_button_get_value_as_int(crop->spin_x);
-    //crop->area.y = gtk_spin_button_get_value_as_int(crop->spin_y);
-    //crop->area.width = gtk_spin_button_get_value_as_int(crop->spin_width);
-    //crop->area.height = gtk_spin_button_get_value_as_int(crop->spin_height);
+//    resize->area.x = gtk_spin_button_get_value_as_int(resize->spin_x);
+//    resize->area.y = gtk_spin_button_get_value_as_int(resize->spin_y);
+//    resize->area.width = gtk_spin_button_get_value_as_int(resize->spin_width);
+//    resize->area.height = gtk_spin_button_get_value_as_int(resize->spin_height);
 
     gtk_widget_destroy(dialog);
 
-    //if (crop->area.x == 0
-    //    && crop->area.y == 0
-    //    && crop->area.width == crop->window->current_image_width
-    //    && crop->area.height == crop->window->current_image_height)
+    //if (resize->area.x == 0
+    //    && resize->area.y == 0
+    //    && resize->area.width == resize->window->current_image_width
+    //    && resize->area.height == resize->window->current_image_height)
     //{
-    //    return false;
+    //    return FALSE;
     //}
     //else
     //{
@@ -58,383 +127,383 @@ gboolean vnr_resize_dlg_run(VnrWindow *window)
     return (ret == GTK_RESPONSE_ACCEPT);
 }
 
-GtkWidget* vnr_resize_dlg_new(VnrWindow *window)
+static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 {
-    VnrResizeDlg *dialog = g_object_new(VNR_TYPE_RESIZE_DLG,
-                                        NULL);
+    GtkWidget *dialog = g_object_new(GTK_TYPE_DIALOG,
+                                     "border-width", 5,
+                                     "title", "Resize Image",
+                                     "resizable", false,
+                                     "modal", true,
+                                     NULL);
 
-    dialog->window = window;
+    gtk_window_set_transient_for(GTK_WINDOW(dialog),
+                                 GTK_WINDOW(resize->window));
 
-    //dialog->thumbnail = NULL;
+    gdouble width = resize->window->current_image_width;
+    gdouble height = resize->window->current_image_height;
 
-    //g_signal_connect_swapped(dialog->prev_button,
-    //                         "clicked",
-    //                         G_CALLBACK(window_action_prev),
-    //                         window);
+    resize->width = width;
+    resize->height = height;
 
-    //g_signal_connect_swapped(dialog->next_button,
-    //                         "clicked",
-    //                         G_CALLBACK(window_action_next),
-    //                         window);
+    GtkWidget *content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
-    //gtk_activatable_set_related_action(GTK_ACTIVATABLE(dialog->next_button),
-    //                                   next_action);
-    //gtk_activatable_set_related_action(GTK_ACTIVATABLE(dialog->prev_button),
-    //                                   prev_action);
+    GtkWidget *grid = gtk_grid_new();
+    gtk_widget_set_halign(grid, GTK_ALIGN_CENTER);
+    gtk_grid_set_column_spacing(GTK_GRID(grid), 8);
+    gtk_grid_set_row_spacing(GTK_GRID(grid), 8);
+    gtk_box_pack_start(GTK_BOX(content), grid, true, true, 0);
 
-    //gtk_button_set_label(GTK_BUTTON(dialog->prev_button), _("_Previous"));
-    //gtk_button_set_label(GTK_BUTTON(dialog->next_button), _("_Next"));
-    //gtk_widget_grab_focus(dialog->close_button);
+    int row = 0;
+    GtkWidget *widget = NULL;
 
-    return (GtkWidget*) dialog;
+    widget = gtk_label_new("X: ");
+    gtk_grid_attach(GTK_GRID(grid), widget, 0, row, 1, 1);
+
+    resize->spin_x = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                     0,
+                                     resize->window->current_image_width - 1,
+                                     1));
+    gtk_spin_button_set_increments(resize->spin_x, 1, 10);
+    gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(resize->spin_x), 1, row, 1, 1);
+
+    widget = gtk_label_new("Width: ");
+    gtk_grid_attach(GTK_GRID(grid), widget, 2, row, 1, 1);
+
+    resize->spin_width = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                    1,
+                                    resize->window->current_image_width,
+                                    1));
+    gtk_spin_button_set_increments(resize->spin_width, 1, 10);
+    gtk_spin_button_set_value(resize->spin_width,
+                              resize->window->current_image_width);
+    gtk_grid_attach(GTK_GRID(grid),
+                    GTK_WIDGET(resize->spin_width), 3, row, 1, 1);
+
+    ++row;
+
+    widget = gtk_label_new("Y: ");
+    gtk_grid_attach(GTK_GRID(grid), widget, 0, row, 1, 1);
+
+    resize->spin_y = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                    0,
+                                    resize->window->current_image_height - 1,
+                                    1));
+    gtk_spin_button_set_increments(resize->spin_y, 1, 10);
+    gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(resize->spin_y), 1, row, 1, 1);
+
+    widget = gtk_label_new("Height: ");
+    gtk_grid_attach(GTK_GRID(grid), widget, 2, row, 1, 1);
+
+    resize->spin_height = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+                                    1,
+                                    resize->window->current_image_height,
+                                    1));
+    gtk_spin_button_set_increments(resize->spin_height, 1, 10);
+    gtk_spin_button_set_value(resize->spin_height,
+                              resize->window->current_image_height);
+    gtk_grid_attach(GTK_GRID(grid),
+                    GTK_WIDGET(resize->spin_height), 3, row, 1, 1);
+
+    gtk_dialog_add_buttons(GTK_DIALOG(dialog),
+                           _("Cancel"), GTK_RESPONSE_CANCEL,
+                           _("Crop"), GTK_RESPONSE_ACCEPT,
+                           NULL);
+
+    //gtk_widget_set_events(resize->image,
+    //                      GDK_BUTTON_PRESS_MASK
+    //                      | GDK_BUTTON_RELEASE_MASK
+    //                      | GDK_BUTTON_MOTION_MASK);
+
+    //g_signal_connect(resize->image, "draw",
+    //                 G_CALLBACK(_on_draw), resize);
+    //g_signal_connect(resize->image, "button-press-event",
+    //                 G_CALLBACK(_on_button_press_event), resize);
+    //g_signal_connect(resize->image, "button-release-event",
+    //                 G_CALLBACK(_on_button_release_event), resize);
+    //g_signal_connect(resize->image, "motion-notify-event",
+    //                 G_CALLBACK(_on_motion_notify_event), resize);
+
+    g_signal_connect(resize->spin_x, "value-changed",
+                     G_CALLBACK(_on_x_value_changed), resize);
+    g_signal_connect(resize->spin_width, "value-changed",
+                     G_CALLBACK(_on_width_value_changed), resize);
+    g_signal_connect(resize->spin_y, "value-changed",
+                     G_CALLBACK(_on_y_value_changed), resize);
+    g_signal_connect(resize->spin_height, "value-changed",
+                     G_CALLBACK(_on_height_value_changed), resize);
+
+    gtk_widget_show_all(dialog);
+
+    return dialog;
 }
 
-static void vnr_resize_dlg_class_init(VnrResizeDlgClass *klass)
+static void _on_x_value_changed(GtkSpinButton *spinbutton, VnrResize *resize)
 {
+//    if (resize->drawing_rectangle)
+//        return;
+
+//    vnr_resize_clear_rectangle(resize);
+
+//    gboolean old_do_redraw = resize->do_redraw;
+
+//    resize->do_redraw = FALSE;
+
+//    gtk_spin_button_set_range(
+//        resize->spin_width,
+//        1,
+//        resize->window->current_image_width
+//            - gtk_spin_button_get_value(spinbutton));
+
+//    resize->do_redraw = old_do_redraw;
+
+//    resize->sub_x = gtk_spin_button_get_value(spinbutton) * resize->zoom;
+
+//    vnr_resize_check_sub_x(resize);
+
+//    _vnr_resize_draw_rectangle(resize);
 }
 
-static void vnr_resize_dlg_init(VnrResizeDlg *dialog)
+//static void vnr_resize_check_sub_x(VnrResize *resize)
+//{
+//    if (gtk_spin_button_get_value(resize->spin_width) + gtk_spin_button_get_value(resize->spin_x) == resize->window->current_image_width)
+//    {
+//        resize->sub_x = (int)resize->width - (int)resize->sub_width;
+//    }
+//}
+
+static void _on_width_value_changed(GtkSpinButton *spinbutton, VnrResize *resize)
 {
-//    GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+//    if (resize->drawing_rectangle)
+//        return;
 
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    GtkWidget *action_area = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
-//    G_GNUC_END_IGNORE_DEPRECATIONS
+//    vnr_resize_clear_rectangle(resize);
 
-//    GtkWidget *temp_box;
-//    GtkWidget *temp_label;
+//    resize->sub_width = gtk_spin_button_get_value(spinbutton) * resize->zoom;
 
-    gtk_window_set_title(GTK_WINDOW(dialog), "Resize");
+//    if (resize->sub_width < 1)
+//        resize->sub_width = 1;
 
-//    // VBox containing the Location labels
-//    temp_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-//    gtk_container_set_border_width(GTK_CONTAINER(temp_box), 10);
-//    gtk_box_pack_start(GTK_BOX(content_area), temp_box, FALSE, FALSE, 0);
-
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Location:</b>"));
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-
-//    dialog->location_label = gtk_label_new(NULL);
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    gtk_misc_set_alignment(GTK_MISC(dialog->location_label), 0, 0);
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_label_set_selectable(GTK_LABEL(dialog->location_label), TRUE);
-//    gtk_label_set_ellipsize(GTK_LABEL(dialog->location_label),
-//                            PANGO_ELLIPSIZE_END);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->location_label, FALSE, FALSE, 0);
-
-//    // VBox containing the image and meta data
-//    dialog->layout = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-//    gtk_container_set_border_width(GTK_CONTAINER(dialog->layout), 10);
-//    gtk_box_pack_start(GTK_BOX(content_area), dialog->layout, FALSE, FALSE, 0);
-
-//    // HBox containing the image and the two columns with labels
-//    dialog->image_layout = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-//    gtk_container_set_border_width(GTK_CONTAINER(dialog->image_layout), 10);
-//    gtk_box_pack_start(GTK_BOX(dialog->layout),
-//                       dialog->image_layout, FALSE, FALSE, 0);
-
-//    // The frame around the image
-//    temp_box = gtk_frame_new(NULL);
-//    gtk_widget_set_size_request(temp_box, 105, 105);
-//    gtk_box_pack_start(GTK_BOX(dialog->image_layout),
-//                       temp_box, FALSE, FALSE, 0);
-
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    dialog->image = gtk_image_new_from_stock("gtk-missing-image",
-//                                             GTK_ICON_SIZE_DIALOG);
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_container_add(GTK_CONTAINER(temp_box), dialog->image);
-
-//    // Buttons
-//    dialog->prev_button = gtk_button_new();
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    gtk_button_set_image(GTK_BUTTON(dialog->prev_button),
-//                         gtk_image_new_from_stock("gtk-go-back",
-//                                                  GTK_ICON_SIZE_BUTTON));
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_container_add(GTK_CONTAINER(action_area), dialog->prev_button);
-
-//    dialog->next_button = gtk_button_new();
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    gtk_button_set_image(GTK_BUTTON(dialog->next_button),
-//                         gtk_image_new_from_stock("gtk-go-forward",
-//                                                  GTK_ICON_SIZE_BUTTON));
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_container_add(GTK_CONTAINER(action_area), dialog->next_button);
-
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    dialog->close_button = gtk_button_new_from_stock("gtk-close");
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_container_add(GTK_CONTAINER(action_area), dialog->close_button);
-
-//    // Image Data Labels
-//    temp_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-//    gtk_box_pack_start(GTK_BOX(dialog->image_layout),
-//                       temp_box, FALSE, FALSE, 0);
-
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Name:</b>"));
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Type:</b>"));
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Size:</b>"));
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Width:</b>"));
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Height:</b>"));
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Modified:</b>"));
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-
-//    temp_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-//    gtk_box_pack_start(GTK_BOX(dialog->image_layout),
-//                       temp_box, FALSE, FALSE, 0);
-
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    dialog->name_label = gtk_label_new(NULL);
-//    gtk_label_set_selectable(GTK_LABEL(dialog->name_label), TRUE);
-//    gtk_misc_set_alignment(GTK_MISC(dialog->name_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->name_label, FALSE, FALSE, 0);
-
-//    dialog->type_label = gtk_label_new(NULL);
-//    gtk_label_set_selectable(GTK_LABEL(dialog->type_label), TRUE);
-//    gtk_misc_set_alignment(GTK_MISC(dialog->type_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->type_label, FALSE, FALSE, 0);
-
-//    dialog->size_label = gtk_label_new(NULL);
-//    gtk_label_set_selectable(GTK_LABEL(dialog->size_label), TRUE);
-//    gtk_misc_set_alignment(GTK_MISC(dialog->size_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->size_label, FALSE, FALSE, 0);
-
-//    dialog->width_label = gtk_label_new(NULL);
-//    gtk_label_set_selectable(GTK_LABEL(dialog->width_label), TRUE);
-//    gtk_misc_set_alignment(GTK_MISC(dialog->width_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->width_label, FALSE, FALSE, 0);
-
-//    dialog->height_label = gtk_label_new(NULL);
-//    gtk_label_set_selectable(GTK_LABEL(dialog->height_label), TRUE);
-//    gtk_misc_set_alignment(GTK_MISC(dialog->height_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->height_label, FALSE, FALSE, 0);
-
-//    dialog->modified_label = gtk_label_new(NULL);
-//    gtk_label_set_selectable(GTK_LABEL(dialog->modified_label), TRUE);
-//    gtk_misc_set_alignment(GTK_MISC(dialog->modified_label), 0, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->modified_label, FALSE, FALSE, 0);
-
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-
-//    // Metadata Labels
-
-//    temp_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-//    gtk_box_pack_start(GTK_BOX(dialog->layout),
-//                       temp_box, FALSE, FALSE, 0);
-
-//    dialog->meta_names_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->meta_names_box, FALSE, FALSE, 0);
-
-//    dialog->meta_values_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-//    gtk_box_pack_start(GTK_BOX(temp_box),
-//                       dialog->meta_values_box, FALSE, FALSE, 0);
-
-//    // Events and rest
-
-//    g_signal_connect(G_OBJECT(dialog), "delete-event",
-//                     G_CALLBACK(gtk_widget_hide_on_delete), NULL);
-//    g_signal_connect_swapped(G_OBJECT(dialog->close_button), "clicked",
-//                             G_CALLBACK(gtk_widget_hide_on_delete), dialog);
-
-//    g_signal_connect(G_OBJECT(dialog),
-//                     "key-press-event", G_CALLBACK(key_press_cb), NULL);
-
-//    gtk_widget_show_all(content_area);
-//    gtk_widget_show_all(action_area);
+//    _vnr_resize_draw_rectangle(resize);
 }
 
-//void vnr_resize_dlg_update(VnrResizeDlg *dialog)
-//{
-//    VnrFile *current = window_get_current_file(dialog->window);
-//    if (!current)
+static void _on_y_value_changed(GtkSpinButton *spinbutton, VnrResize *resize)
+{
+//    if (resize->drawing_rectangle)
 //        return;
 
-//    gchar *filetype_desc = NULL;
-//    gchar *filesize_str = NULL;
+//    vnr_resize_clear_rectangle(resize);
 
-//    goffset filesize = 0;
-//    const gchar *filetype = NULL;
-//    get_file_info((gchar*) current->path, &filesize, &filetype);
+//    gboolean old_do_redraw = resize->do_redraw;
 
-//    if (filetype == NULL && filesize == 0)
+//    resize->do_redraw = FALSE;
+//    gtk_spin_button_set_range(
+//        resize->spin_height,
+//        1,
+//        resize->window->current_image_height
+//            - gtk_spin_button_get_value(spinbutton));
+//    resize->do_redraw = old_do_redraw;
+
+//    resize->sub_y = gtk_spin_button_get_value(spinbutton) * resize->zoom;
+
+//    vnr_resize_check_sub_y(resize);
+
+//    _vnr_resize_draw_rectangle(resize);
+}
+
+//static void vnr_resize_check_sub_y(VnrResize *resize)
+//{
+//    if (gtk_spin_button_get_value(resize->spin_height) + gtk_spin_button_get_value(resize->spin_y) == resize->window->current_image_height)
 //    {
-//        vnr_resize_dlg_clear(dialog);
-//        return;
+//        resize->sub_y = (int)resize->height - (int)resize->sub_height;
 //    }
-
-//    vnr_resize_dlg_update_image(dialog);
-//    vnr_resize_dlg_update_metadata(dialog);
-
-//    filesize_str = g_format_size(filesize);
-
-//    filetype_desc = g_content_type_get_description(filetype);
-
-//    gtk_label_set_text(GTK_LABEL(dialog->name_label),
-//                       (gchar *)current->display_name);
-
-//    gtk_label_set_text(GTK_LABEL(dialog->location_label),
-//                       (gchar *)current->path);
-
-//    gtk_label_set_text(GTK_LABEL(dialog->type_label), filetype_desc);
-//    gtk_label_set_text(GTK_LABEL(dialog->size_label), filesize_str);
-
-//    g_free(filesize_str);
-//    g_free((gchar*) filetype);
-//    g_free(filetype_desc);
 //}
 
-//static void vnr_resize_dlg_clear_metadata(VnrResizeDlg *dialog)
-//{
-//    GList *children = gtk_container_get_children(
-//                GTK_CONTAINER(dialog->meta_values_box));
-
-//    for (GList *iter = children; iter != NULL; iter = g_list_next(iter))
-//    {
-//        gtk_widget_destroy(GTK_WIDGET(iter->data));
-//    }
-
-//    g_list_free(children);
-
-//    children = gtk_container_get_children(
-//                GTK_CONTAINER(dialog->meta_names_box));
-//    for (GList *iter = children; iter != NULL; iter = g_list_next(iter))
-//    {
-//        gtk_widget_destroy(GTK_WIDGET(iter->data));
-//    }
-
-//    g_list_free(children);
-//}
-
-//static void vnr_cb_add_metadata(const char *label,
-//                                const char *value, void *user_data)
-//{
-//    VnrResizeDlg *dialog = VNR_PROPERTIES_DIALOG(user_data);
-//    GtkWidget *temp_label;
-//    gchar *formatted_label;
-
-//    // value
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_text(GTK_LABEL(temp_label), value);
-//    gtk_label_set_selectable(GTK_LABEL(temp_label), TRUE);
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_box_pack_start(GTK_BOX(dialog->meta_values_box),
-//                       temp_label, FALSE, FALSE, 0);
-
-//    gtk_widget_show(temp_label);
-
-//    // label
-//    formatted_label = g_strdup_printf("<b>%s:</b>", label);
-
-//    temp_label = gtk_label_new(NULL);
-//    gtk_label_set_markup(GTK_LABEL(temp_label), formatted_label);
-//    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-//    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-//    G_GNUC_END_IGNORE_DEPRECATIONS
-//    gtk_box_pack_start(GTK_BOX(dialog->meta_names_box),
-//                       temp_label, FALSE, FALSE, 0);
-
-//    g_free(formatted_label);
-//    gtk_widget_show(temp_label);
-//}
-
-//static void vnr_resize_dlg_update_metadata(VnrResizeDlg *dialog)
-//{
-//    vnr_resize_dlg_clear_metadata(dialog);
-
-//    VnrFile *current = window_get_current_file(dialog->window);
-//    if (!current)
+static void _on_height_value_changed(GtkSpinButton *spinbutton, VnrResize *resize)
+{
+//    if (resize->drawing_rectangle)
 //        return;
 
-//    uni_read_exiv2_map(current->path, vnr_cb_add_metadata, (void*) dialog);
-//}
+//    vnr_resize_clear_rectangle(resize);
 
-//void vnr_resize_dlg_update_image(VnrResizeDlg *dialog)
-//{
-//    VnrFile *current = window_get_current_file(dialog->window);
-//    if (!current)
-//        return;
+//    resize->sub_height = gtk_spin_button_get_value(spinbutton) * resize->zoom;
 
-//    gchar *width_str, *height_str;
-//    int date_modified_buf_size = 80;
-//    gchar date_modified[date_modified_buf_size];
+//    if (resize->sub_height < 1)
+//        resize->sub_height = 1;
 
-//    strftime(date_modified,
-//             date_modified_buf_size * sizeof(gchar),
-//             "%Ec",
-//             localtime(&current->mtime));
+//    _vnr_resize_draw_rectangle(resize);
+}
 
-//    gtk_label_set_text(GTK_LABEL(dialog->modified_label), date_modified);
 
-//    set_new_pixbuf(
-//            dialog,
-//            uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(dialog->window->view)));
-//    gtk_image_set_from_pixbuf(GTK_IMAGE(dialog->image), dialog->thumbnail);
+// ----------------------------------------------------------------------------
 
-//    width_str = g_strdup_printf("%i px",
-//                                dialog->window->current_image_width);
-//    height_str = g_strdup_printf("%i px",
-//                                 dialog->window->current_image_height);
+#if 0
+static gboolean _on_draw(GtkWidget *widget, cairo_t *cr, VnrResize *resize)
+{
+    (void) widget;
 
-//    gtk_label_set_text(GTK_LABEL(dialog->width_label), width_str);
-//    gtk_label_set_text(GTK_LABEL(dialog->height_label), height_str);
+    cairo_save(cr);
 
-//    g_free(width_str);
-//    g_free(height_str);
-//}
+    gdk_cairo_set_source_pixbuf(cr, resize->preview_pixbuf, 0, 0);
+    cairo_paint(cr);
 
-//void vnr_resize_dlg_clear(VnrResizeDlg *dialog)
-//{
-//    set_new_pixbuf(dialog, NULL);
-//    vnr_resize_dlg_clear_metadata(dialog);
+    if (resize->sub_width == -1)
+    {
+        resize->sub_x = 0;
+        resize->sub_y = 0;
+        resize->sub_width = resize->width;
+        resize->sub_height = resize->height;
+    }
 
-//    gtk_label_set_text(GTK_LABEL(dialog->location_label), _("None"));
-//    gtk_label_set_text(GTK_LABEL(dialog->name_label), _("None"));
-//    gtk_label_set_text(GTK_LABEL(dialog->type_label), _("None"));
-//    gtk_label_set_text(GTK_LABEL(dialog->size_label), _("None"));
-//    gtk_label_set_text(GTK_LABEL(dialog->width_label), _("None"));
-//    gtk_label_set_text(GTK_LABEL(dialog->height_label), _("None"));
-//    gtk_label_set_text(GTK_LABEL(dialog->modified_label), _("None"));
-//}
+    cairo_restore(cr);
 
-//void vnr_resize_dlg_show(VnrResizeDlg *dialog)
-//{
-//    vnr_resize_dlg_update(dialog);
-//    gtk_window_present(GTK_WINDOW(dialog));
-//}
+    vnr_resize_clear_rectangle(resize);
+
+    return FALSE;
+}
+
+static gboolean _on_button_press_event(GtkWidget *widget,
+                                      GdkEventButton *event, VnrResize *resize)
+{
+    (void) widget;
+
+    if (event->button != 1)
+        return FALSE;
+
+    resize->drawing_rectangle = TRUE;
+    resize->start_x = event->x;
+    resize->start_y = event->y;
+
+    return FALSE;
+}
+
+static gboolean _on_button_release_event(GtkWidget *widget,
+                                        GdkEventButton *event, VnrResize *resize)
+{
+    (void) widget;
+
+    if (event->button != 1)
+        return FALSE;
+
+    resize->drawing_rectangle = FALSE;
+
+    gtk_spin_button_set_range(resize->spin_width, 1,
+                              (resize->width - resize->sub_x) / resize->zoom);
+    gtk_spin_button_set_range(resize->spin_height, 1,
+                              (resize->height - resize->sub_y) / resize->zoom);
+
+    vnr_resize_update_spin_button_values(resize);
+
+    return FALSE;
+}
+
+static gboolean _on_motion_notify_event(GtkWidget *widget,
+                                       GdkEventMotion *event, VnrResize *resize)
+{
+    (void) widget;
+
+    if (!resize->drawing_rectangle)
+        return FALSE;
+
+    gdouble x, y;
+    x = event->x;
+    y = event->y;
+
+    x = CLAMP(x, 0, resize->width);
+    y = CLAMP(y, 0, resize->height);
+
+    vnr_resize_clear_rectangle(resize);
+
+    if (x > resize->start_x)
+    {
+        resize->sub_x = resize->start_x;
+        resize->sub_width = x - resize->start_x;
+    }
+    else if (x == resize->start_x)
+    {
+        resize->sub_x = x;
+        resize->sub_width = 1;
+    }
+    else
+    {
+        resize->sub_x = x;
+        resize->sub_width = resize->start_x - x;
+    }
+
+    if (y > resize->start_y)
+    {
+        resize->sub_y = resize->start_y;
+        resize->sub_height = y - resize->start_y;
+    }
+    else if (y == resize->start_y)
+    {
+        resize->sub_y = y;
+        resize->sub_height = 1;
+    }
+    else
+    {
+        resize->sub_y = y;
+        resize->sub_height = resize->start_y - y;
+    }
+
+    resize->drawing_rectangle = FALSE;
+    resize->do_redraw = FALSE;
+
+    vnr_resize_update_spin_button_values(resize);
+
+    resize->drawing_rectangle = TRUE;
+    resize->do_redraw = TRUE;
+
+    _vnr_resize_draw_rectangle(resize);
+
+    return FALSE;
+}
+
+static void vnr_resize_update_spin_button_values(VnrResize *resize)
+{
+    gtk_spin_button_set_value(resize->spin_height, resize->sub_height / resize->zoom);
+    gtk_spin_button_set_value(resize->spin_width, resize->sub_width / resize->zoom);
+
+    gtk_spin_button_set_value(resize->spin_x, resize->sub_x / resize->zoom);
+    gtk_spin_button_set_value(resize->spin_y, resize->sub_y / resize->zoom);
+}
+
+// ----------------------------------------------------------------------------
+
+static void _vnr_resize_draw_rectangle(VnrResize *resize)
+{
+    if (!resize->do_redraw)
+        return;
+
+    GdkWindow *window = gtk_widget_get_window(resize->image);
+
+    //cairo_t *cr = gdk_cairo_create(window);
+
+    cairo_region_t *region = cairo_region_create();
+    GdkDrawingContext *context;
+    context = gdk_window_begin_draw_frame(window,region);
+    cairo_t *cr = gdk_drawing_context_get_cairo_context(context);
+
+    cairo_set_operator(cr, CAIRO_OPERATOR_DIFFERENCE);
+    cairo_set_line_width(cr, 3);
+    cairo_rectangle(cr,
+                    (int) resize->sub_x + 0.5,
+                    (int) resize->sub_y + 0.5,
+                    (int) resize->sub_width,
+                    (int) resize->sub_height);
+    cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
+    cairo_stroke(cr);
+
+    //cairo_destroy(cr);
+
+    gdk_window_end_draw_frame(window, context);
+    cairo_region_destroy(region);
+}
+
+static inline void vnr_resize_clear_rectangle(VnrResize *resize)
+{
+    _vnr_resize_draw_rectangle(resize);
+}
+
+#endif
 
 

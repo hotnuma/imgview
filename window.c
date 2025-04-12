@@ -21,15 +21,17 @@
 #include "window.h"
 
 #include "list.h"
-#include "message-area.h"
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
 #include "uni-utils.h"
 #include "vnr-tools.h"
 #include "uni-exiv2.hpp"
+
+#include "message-area.h"
+#include "dialog.h"
 #include "vnr-crop.h"
 #include "vnr-properties.h"
-#include "dialog.h"
+#include "vnr-resize.h"
 #include "gd-resize.h"
 
 #include <etkaction.h>
@@ -135,6 +137,7 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget);
 static void _window_rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle);
 static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal);
 static void _window_action_crop(VnrWindow *window, GtkWidget *widget);
+static void _window_action_resize(VnrWindow *window, GtkWidget *widget);
 static void _window_action_save_image(VnrWindow *window, GtkWidget *widget);
 static void _window_action_zoom_normal(VnrWindow *window, GtkWidget *widget);
 static void _window_action_zoom_fit(VnrWindow *window, GtkWidget *widget);
@@ -358,6 +361,10 @@ static EtkActionEntry _window_actions[] =
 static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 {
     g_return_if_fail(window != NULL);
+
+    _window_action_resize(window, widget);
+
+    return;
 
     if (!window->can_edit)
         return;
@@ -2387,6 +2394,62 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
     }
 
     g_object_unref(crop);
+}
+
+static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
+{
+    (void) widget;
+
+    if (!window->can_edit)
+        return;
+
+    VnrResize *resize = (VnrResize*) vnr_resize_new(window);
+
+    if (!vnr_resize_run(resize))
+    {
+        g_object_unref(resize);
+        return;
+    }
+
+    //GdkPixbuf *cropped;
+    //GdkPixbuf *original;
+
+    //original = uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view));
+
+    //cropped = gdk_pixbuf_new(gdk_pixbuf_get_colorspace(original),
+    //                         gdk_pixbuf_get_has_alpha(original),
+    //                         gdk_pixbuf_get_bits_per_sample(original),
+    //                         resize->area.width, resize->area.height);
+
+    //gdk_pixbuf_copy_area((const GdkPixbuf*) original,
+    //                     resize->area.x, resize->area.y,
+    //                     resize->area.width, resize->area.height,
+    //                     cropped, 0, 0);
+
+    //uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), cropped);
+
+    //g_object_unref(cropped);
+
+    window->modified = true;
+
+    //window->modified |= 8;
+
+    window->current_image_width = resize->area.width;
+    window->current_image_height = resize->area.height;
+
+    //gtk_action_group_set_sensitive(window->action_save, TRUE);
+
+    if (window->writable_format_name == NULL)
+    {
+        vnr_message_area_show(
+                VNR_MESSAGE_AREA(window->msg_area),
+                TRUE,
+                _("Image modifications cannot be saved.\n"
+                  "Writing in this format is not supported."),
+                FALSE);
+    }
+
+    g_object_unref(resize);
 }
 
 static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)

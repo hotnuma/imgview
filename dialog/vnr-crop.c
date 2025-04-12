@@ -136,9 +136,9 @@ static GtkWidget* _vnr_crop_dlg_new(VnrCrop *crop)
     gtk_window_set_transient_for(GTK_WINDOW(dialog),
                                  GTK_WINDOW(crop->window));
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    //G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     GtkWidget *vbox0 = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    //G_GNUC_END_IGNORE_DEPRECATIONS
 
     GtkWidget *vbox1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
     gtk_container_add(GTK_CONTAINER(vbox0), vbox1);

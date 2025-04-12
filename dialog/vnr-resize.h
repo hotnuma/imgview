@@ -17,50 +17,64 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __VNR_RESIZE_DLG_H__
-#define __VNR_RESIZE_DLG_H__
+#ifndef __VNR_RESIZE_H__
+#define __VNR_RESIZE_H__
 
 #include "window.h"
 
 G_BEGIN_DECLS
 
-#define VNR_TYPE_RESIZE_DLG (vnr_resize_dlg_get_type())
-G_DECLARE_FINAL_TYPE(VnrResizeDlg, vnr_resize_dlg, VNR, RESIZE_DLG, GObject)
+typedef struct _VnrResize VnrResize;
 
-struct _VnrResizeDlg
+#define VNR_TYPE_RESIZE (vnr_resize_get_type())
+G_DECLARE_FINAL_TYPE(VnrResize, vnr_resize, VNR, RESIZE, GObject)
+
+struct _VnrResize
 {
-    GtkDialog __parent__;
+    GObject __parent__;
 
     VnrWindow *window;
 
-//    GtkWidget *layout;
-//    GtkWidget *image_layout;
-//    GtkWidget *image;
-//    GtkWidget *meta_names_box;
-//    GtkWidget *meta_values_box;
+    GtkSpinButton *spin_x;
+    GtkSpinButton *spin_y;
+    GtkSpinButton *spin_width;
+    GtkSpinButton *spin_height;
 
-//    GtkWidget *close_button;
-//    GtkWidget *next_button;
-//    GtkWidget *prev_button;
+    gdouble width;
+    gdouble height;
 
-//    GtkWidget *location_label;
-//    GtkWidget *name_label;
-//    GtkWidget *type_label;
-//    GtkWidget *size_label;
-//    GtkWidget *width_label;
-//    GtkWidget *height_label;
-//    GtkWidget *modified_label;
+    GdkRectangle area;
 
-//    GdkPixbuf *thumbnail;
+    //GdkPixbuf *preview_pixbuf;
+
+    //gdouble zoom;
+
+    //GtkWidget *image;
+
+    //gdouble sub_x;
+    //gdouble sub_y;
+    //gdouble sub_width;
+    //gdouble sub_height;
+
+    //gboolean drawing_rectangle;
+    //gboolean do_redraw;
+    //gdouble start_x;
+    //gdouble start_y;
+
 };
 
-GType vnr_resize_dlg_get_type() G_GNUC_CONST;
+struct _VnrResizeClass
+{
+    GObjectClass parent_class;
+};
 
-gboolean vnr_resize_dlg_run(VnrWindow *window);
-GtkWidget *vnr_resize_dlg_new(VnrWindow *vnr_win);
+GType vnr_resize_get_type() G_GNUC_CONST;
+
+GObject* vnr_resize_new(VnrWindow *window);
+gboolean vnr_resize_run(VnrResize *resize);
 
 G_END_DECLS
 
-#endif // __VNR_RESIZE_DLG_H__
+#endif // __VNR_RESIZE_H__
 
 
