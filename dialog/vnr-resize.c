@@ -17,6 +17,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "vnr-resize.h"
 
 G_DEFINE_TYPE(VnrResize, vnr_resize, G_TYPE_OBJECT)
@@ -107,9 +108,10 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
     widget = gtk_label_new("Width: ");
     gtk_grid_attach(GTK_GRID(grid), widget, 0, row, 1, 1);
 
-    resize->spin_width = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
+    resize->spin_width =
+        GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
                                     1,
-                                    resize->window->current_image_width,
+                                    VNR_MAX_SIZE,
                                     1));
     gtk_spin_button_set_increments(resize->spin_width, 1, 10);
     gtk_spin_button_set_value(resize->spin_width,
@@ -125,7 +127,7 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
     resize->spin_height =
         GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(
                                     1,
-                                    resize->window->current_image_height,
+                                    VNR_MAX_SIZE,
                                     1));
     gtk_spin_button_set_increments(resize->spin_height, 1, 10);
     gtk_spin_button_set_value(resize->spin_height,

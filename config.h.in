@@ -1,20 +1,23 @@
 
 #include <libintl.h>
 #include <glib/gi18n.h>
+
 // clang-format off
 #define _(String) gettext (String)
 // clang-format on
 
-//#include <stdbool.h>
-#ifndef bool
-#define bool int
-#endif
-#ifndef false
-#define false FALSE
-#endif
-#ifndef true
-#define true TRUE
-#endif
+#define VNR_MAX_SIZE 10000
+
+#include <stdbool.h>
+//#ifndef bool
+//#define bool int
+//#endif
+//#ifndef false
+//#define false FALSE
+//#endif
+//#ifndef true
+//#define true TRUE
+//#endif
 
 #mesondefine VERSION
 #mesondefine PACKAGE
