@@ -18,9 +18,12 @@
  */
 
 #include "vnr-crop.h"
-#include "vnr-tools.h"
-#include "uni-utils.h"
+
 #include "uni-image-view.h"
+#include "uni-utils.h"
+#include "vnr-tools.h"
+
+#define VNR_LINE_WIDTH 1
 
 G_DEFINE_TYPE(VnrCrop, vnr_crop, G_TYPE_OBJECT)
 
@@ -520,7 +523,7 @@ static void _vnr_crop_draw_rectangle(VnrCrop *crop)
     cairo_t *cr = gdk_drawing_context_get_cairo_context(context);
 
     cairo_set_operator(cr, CAIRO_OPERATOR_DIFFERENCE);
-    cairo_set_line_width(cr, 3);
+    cairo_set_line_width(cr, VNR_LINE_WIDTH);
     cairo_rectangle(cr,
                     (int) crop->sub_x + 0.5,
                     (int) crop->sub_y + 0.5,
