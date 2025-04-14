@@ -20,50 +20,50 @@ gdImage* gd_img_new(int sx, int sy)
     if (overflow2(sizeof(int), sx))
         return NULL;
 
-    gdImage* im = (gdImage*) malloc(sizeof(gdImage));
-    if (!im)
+    gdImage* img = (gdImage*) malloc(sizeof(gdImage));
+    if (!img)
         return NULL;
 
-    memset(im, 0, sizeof(gdImage));
+    memset(img, 0, sizeof(gdImage));
 
-    im->tpixels = (uint32_t **) malloc(sizeof(uint32_t*) * sy);
+    img->tpixels = (uint32_t **) malloc(sizeof(uint32_t*) * sy);
 
-    if (!im->tpixels)
+    if (!img->tpixels)
     {
-        free(im);
+        free(img);
         return NULL;
     }
 
     for (int i = 0; i < sy; ++i)
     {
-        im->tpixels[i] = (uint32_t*) calloc(sx, sizeof(uint32_t));
+        img->tpixels[i] = (uint32_t*) calloc(sx, sizeof(uint32_t));
 
-        if (!im->tpixels[i])
+        if (!img->tpixels[i])
         {
             i--;
             while (i >= 0)
             {
-                free(im->tpixels[i]);
+                free(img->tpixels[i]);
                 i--;
             }
-            free(im->tpixels);
-            free(im);
+            free(img->tpixels);
+            free(img);
             return NULL;
         }
     }
 
-    assert(im->has_alpha == 0);
+    assert(img->has_alpha == false);
 
-    im->sx = sx;
-    im->sy = sy;
-    im->interpolation_id = GD_BILINEAR_FIXED;
+    img->sx = sx;
+    img->sy = sy;
+    img->interpolation_id = GD_BILINEAR_FIXED;
 
-    im->cx2 = im->sx - 1;
-    im->cy2 = im->sy - 1;
+    img->cx2 = img->sx - 1;
+    img->cy2 = img->sy - 1;
 
-    im->transparent = (-1);
+    img->transparent = (-1);
 
-    return im;
+    return img;
 }
 
 gdImage* gd_img_new_from_pixbuf(GdkPixbuf *pixbuf)
@@ -80,20 +80,7 @@ gdImage* gd_img_new_from_pixbuf(GdkPixbuf *pixbuf)
     guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
     gdImage *img = gd_img_new(sx, sy);
 
-    if (has_alpha)
-    {
-        printf("gd_img_new_from_pixbuf: has_alpha\n");
-
-        for (int y = 0; y < sy; ++y)
-        {
-            for (int x = 0; x < sx; ++x)
-            {
-                guchar *p = pixels + (y * rowstride) + (x * n_channels);
-                img->tpixels[y][x] = gd_set_alpha(p[0], p[1], p[2], p[3]);
-            }
-        }
-    }
-    else
+    if (!has_alpha)
     {
         for (int y = 0; y < sy; ++y)
         {
@@ -103,44 +90,82 @@ gdImage* gd_img_new_from_pixbuf(GdkPixbuf *pixbuf)
                 img->tpixels[y][x] = gd_set_alpha(p[0], p[1], p[2], 255);
             }
         }
+
+        return img;
     }
+
+    printf("gd_img_new_from_pixbuf: has_alpha\n");
+
+    for (int y = 0; y < sy; ++y)
+    {
+        for (int x = 0; x < sx; ++x)
+        {
+            guchar *p = pixels + (y * rowstride) + (x * n_channels);
+            img->tpixels[y][x] = gd_set_alpha(p[0], p[1], p[2], p[3]);
+        }
+    }
+
+    img->has_alpha = true;
 
     return img;
 }
 
-void gd_img_free(gdImage* im)
+void gd_img_free(gdImage* img)
 {
-    if (im->tpixels)
+    if (img->tpixels)
     {
-        for (int i = 0; (i < im->sy); i++)
+        for (int i = 0; (i < img->sy); i++)
         {
-            free (im->tpixels[i]);
+            free (img->tpixels[i]);
         }
-        free (im->tpixels);
+        free (img->tpixels);
     }
 
-    free (im);
+    free (img);
 }
 
 
 // ----------------------------------------------------------------------------
 
-GdkPixbuf* gd_to_pixbuf(gdImage *src)
+GdkPixbuf* gd_to_pixbuf(gdImage *img)
 {
-    g_return_val_if_fail(src != NULL, NULL);
+    g_return_val_if_fail(img != NULL, NULL);
 
-    GdkPixbuf *pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, true, 8,
-                                       src->sx, src->sy);
+    gboolean has_alpha = img->has_alpha;
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB,
+                                       has_alpha,
+                                       8,
+                                       img->sx, img->sy);
 
     guchar *pixels = gdk_pixbuf_get_pixels(pixbuf);
     int rowstride = gdk_pixbuf_get_rowstride(pixbuf);
     int n_channels = gdk_pixbuf_get_n_channels(pixbuf);
 
-    for (int y = 0; y < src->sy; ++y)
+    if (!has_alpha)
     {
-        for (int x = 0; x < src->sx; ++x)
+        for (int y = 0; y < img->sy; ++y)
         {
-            uint32_t c = src->tpixels[y][x];
+            for (int x = 0; x < img->sx; ++x)
+            {
+                uint32_t c = img->tpixels[y][x];
+
+                guchar *p = pixels + (y * rowstride) + (x * n_channels);
+                p[0] = gd_get_red(c);
+                p[1] = gd_get_green(c);
+                p[2] = gd_get_blue(c);
+                p[3] = 255;
+            }
+        }
+
+        return pixbuf;
+    }
+
+    for (int y = 0; y < img->sy; ++y)
+    {
+        for (int x = 0; x < img->sx; ++x)
+        {
+            uint32_t c = img->tpixels[y][x];
 
             guchar *p = pixels + (y * rowstride) + (x * n_channels);
             p[0] = gd_get_red(c);

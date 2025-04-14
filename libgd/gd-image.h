@@ -107,14 +107,15 @@ typedef struct gdImageStruct
 
 } gdImage;
 
+GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
+
 // creation / destruction -----------------------------------------------------
 
 gdImage* gd_img_new(int sx, int sy);
-GdkPixbufAnimation* gdk_pixbuf_non_anim_new (GdkPixbuf *pixbuf);
 gdImage* gd_img_new_from_pixbuf(GdkPixbuf *pixbuf);
-void gd_img_free(gdImage* im);
+void gd_img_free(gdImage* img);
 
-GdkPixbuf* gd_to_pixbuf(gdImage *src);
+GdkPixbuf* gd_to_pixbuf(gdImage *img);
 gdImage* gd_img_copy(const gdImage *src);
 
 #define gd_img_bounds_safe_macro(im, x, y) \
