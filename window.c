@@ -188,6 +188,7 @@ typedef enum
     WINDOW_ACTION_MOVETO,
     WINDOW_ACTION_RENAME,
     WINDOW_ACTION_CROP,
+    WINDOW_ACTION_RESIZE,
     WINDOW_ACTION_DELETE,
     WINDOW_ACTION_SETWALLPAPER,
     WINDOW_ACTION_PROPERTIES,
@@ -258,11 +259,18 @@ static EtkActionEntry _window_actions[] =
      G_CALLBACK(_window_action_rename)},
 
     {WINDOW_ACTION_CROP,
-     "<Actions>/AppWindow/Crop", "F4",
+     "<Actions>/AppWindow/Crop", "F3",
      ETK_MENU_ITEM, N_("Crop"),
      N_("Crop image"),
      NULL,
      G_CALLBACK(_window_action_crop)},
+
+    {WINDOW_ACTION_RESIZE,
+     "<Actions>/AppWindow/Resize", "F4",
+     ETK_MENU_ITEM, N_("Resize"),
+     N_("Resize image"),
+     NULL,
+     G_CALLBACK(_window_action_resize)},
 
     {WINDOW_ACTION_DELETE,
      "<Actions>/AppWindow/Delete", "Delete",
@@ -362,7 +370,7 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 {
     g_return_if_fail(window != NULL);
 
-    _window_action_resize(window, widget);
+    //_window_action_resize(window, widget);
 
     return;
 
@@ -474,6 +482,12 @@ static void window_init(VnrWindow *window)
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_CROP,
+                                         _window_actions,
+                                         G_OBJECT(window));
+    window->group_image = etk_widget_list_add(window->group_image, item);
+
+    item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
+                                         WINDOW_ACTION_RESIZE,
                                          _window_actions,
                                          G_OBJECT(window));
     window->group_image = etk_widget_list_add(window->group_image, item);
