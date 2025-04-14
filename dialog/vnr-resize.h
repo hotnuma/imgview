@@ -35,15 +35,15 @@ struct _VnrResize
 
     VnrWindow *window;
 
-    gdouble width;
-    gdouble height;
+    gdouble orig_width;
+    gdouble orig_height;
+    gdouble new_width;
+    gdouble new_height;
     gdouble ratio;
 
     GtkSpinButton *spin_width;
     GtkSpinButton *spin_height;
-
-    gdouble area_width;
-    gdouble area_height;
+    GtkWidget *link_check;
 };
 
 struct _VnrResizeClass

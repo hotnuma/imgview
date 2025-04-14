@@ -2388,8 +2388,8 @@ static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
 
     gd_img_set_interpolation_method(imgin, GD_LANCZOS3);
     gdImage* imgout = gd_img_scale(imgin,
-                                   resize->area_width,
-                                   resize->area_height);
+                                   resize->new_width,
+                                   resize->new_height);
     gd_img_free(imgin);
     if (!imgout)
     {
@@ -2414,8 +2414,8 @@ static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
 
     window->modified = true;
 
-    window->current_image_width = resize->area_width;
-    window->current_image_height = resize->area_height;
+    window->current_image_width = resize->new_width;
+    window->current_image_height = resize->new_height;
 
     //gtk_action_group_set_sensitive(window->action_save, TRUE);
 

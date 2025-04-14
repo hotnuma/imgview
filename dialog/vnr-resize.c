@@ -59,15 +59,15 @@ gboolean vnr_resize_run(VnrResize *resize)
 
     gint ret = gtk_dialog_run(GTK_DIALOG(dialog));
 
-    resize->area_width =
+    resize->new_width =
             gtk_spin_button_get_value_as_int(resize->spin_width);
-    resize->area_height =
+    resize->new_height =
             gtk_spin_button_get_value_as_int(resize->spin_height);
 
     gtk_widget_destroy(dialog);
 
-    if (resize->area_width == resize->window->current_image_width
-        && resize->area_height == resize->window->current_image_height)
+    if (resize->new_width == resize->window->current_image_width
+        && resize->new_height == resize->window->current_image_height)
     {
         return FALSE;
     }
@@ -79,13 +79,13 @@ gboolean vnr_resize_run(VnrResize *resize)
 
 static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 {
-    resize->width = resize->window->current_image_width;
-    resize->height = resize->window->current_image_height;
+    resize->orig_width = resize->window->current_image_width;
+    resize->orig_height = resize->window->current_image_height;
 
-    g_return_val_if_fail(resize->width != 0, NULL);
-    g_return_val_if_fail(resize->height != 0, NULL);
+    g_return_val_if_fail(resize->orig_width != 0, NULL);
+    g_return_val_if_fail(resize->orig_height != 0, NULL);
 
-    resize->ratio = resize->width / resize->height;
+    resize->ratio = resize->orig_width / resize->orig_height;
 
 
     GtkWidget *dialog = g_object_new(GTK_TYPE_DIALOG,
@@ -122,6 +122,10 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
                               resize->window->current_image_width);
     gtk_grid_attach(GTK_GRID(grid),
                     GTK_WIDGET(resize->spin_width), 1, row, 1, 1);
+
+    resize->link_check = gtk_check_button_new_with_label("Link");
+    gtk_grid_attach(GTK_GRID(grid),
+                    resize->link_check, 2, row, 1, 1);
 
     ++row;
 
@@ -169,13 +173,5 @@ static void _on_height_value_changed(GtkSpinButton *spinbutton,
 
     gtk_spin_button_set_value(resize->spin_width, height * resize->ratio);
 }
-
-//static void vnr_resize_update_spin_button_values(VnrResize *resize)
-//{
-//    gtk_spin_button_set_value(resize->spin_height,
-//                              resize->sub_height / resize->zoom);
-//    gtk_spin_button_set_value(resize->spin_width,
-//                              resize->sub_width / resize->zoom);
-//}
 
 
