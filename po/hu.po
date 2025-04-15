@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
+"POT-Creation-Date: 2025-04-15 17:55+0200\n"
 "PO-Revision-Date: 2009-12-04 00:07+0000\n"
 "Last-Translator: Polesz <polesz@nedudu.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,67 +19,46 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
 "X-Generator: Launchpad (build 18566)\n"
 
-#: ../data/viewnior.desktop.in.in.h:1
-msgid "Viewnior"
-msgstr "Viewnior"
+#: window.c:2987 window.c:3014
+msgid " second"
+msgid_plural " seconds"
+msgstr[0] " másodperc"
+msgstr[1] " másodperc"
 
-#: ../data/viewnior.desktop.in.in.h:2 ../src/vnr-window.c:1372
-msgid "Elegant Image Viewer"
-msgstr "Elegáns Képnéző"
+#: dialog/preferences.c:298
+msgid "1:1 Mode"
+msgstr "1:1 Méret"
 
-#: ../data/vnr-preferences-dialog.ui.h:1
-msgid "Viewnior Preferences"
-msgstr "Viewnior beállítások"
+#: dialog/vnr-properties.c:232
+msgid "<b>Height:</b>"
+msgstr "<b>Magasság:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:2
-msgid "Open new image in: "
-msgstr "Új kép megnyitása ebben: "
+#: dialog/vnr-properties.c:148
+msgid "<b>Location:</b>"
+msgstr "<b>Hely:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:3
-msgid "Desktop: "
-msgstr ""
+#: dialog/vnr-properties.c:236
+#, fuzzy
+msgid "<b>Modified:</b>"
+msgstr "<b>Méret:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:4
-msgid "Smooth images when zoomed"
-msgstr "Kép simítása nagyításkor"
+#: dialog/vnr-properties.c:216
+msgid "<b>Name:</b>"
+msgstr "<b>Név:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:5
-msgid "Confirm image deletion"
-msgstr "Kép törlés megerősítése"
+#: dialog/vnr-properties.c:224
+msgid "<b>Size:</b>"
+msgstr "<b>Méret:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:6
-msgid "Show hidden images"
-msgstr "Rejtett képek mutatása"
+#: dialog/vnr-properties.c:220
+msgid "<b>Type:</b>"
+msgstr "<b>Típus:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:7
-msgid "General"
-msgstr "Általános"
+#: dialog/vnr-properties.c:228
+msgid "<b>Width:</b>"
+msgstr "<b>Szélesség:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:8
-msgid "Show next image after (in seconds): "
-msgstr "Következő kép mutatása (másodpercben): "
-
-#: ../data/vnr-preferences-dialog.ui.h:9
-msgid "Always expand images to fit screen"
-msgstr "Mindig illessze a képet a képernyőhöz"
-
-#: ../data/vnr-preferences-dialog.ui.h:10
-msgid "Fullscreen"
-msgstr "Teljes képernyő"
-
-#: ../data/vnr-preferences-dialog.ui.h:11
-msgid "On mouse wheel: "
-msgstr "Kerékgörgő használatakor: "
-
-#: ../data/vnr-preferences-dialog.ui.h:12
-msgid "On double click: "
-msgstr "Kettős kattintáskor: "
-
-#: ../data/vnr-preferences-dialog.ui.h:13
-msgid "On image modification: "
-msgstr "Kép módosításakor: "
-
-#: ../data/vnr-preferences-dialog.ui.h:14
+#: data/vnr-preferences-dialog.ui:267
 msgid ""
 "<small>  (!) Navigating images with double click :\n"
 "  Clicking on the left half of the window shows the\n"
@@ -88,219 +68,23 @@ msgstr ""
 "  Kattintson az ablak bal oldalán az előző kép és\n"
 "  a jobb oldalán a következő kép mutatásához.</small> "
 
-#: ../data/vnr-preferences-dialog.ui.h:17
-msgid "Behavior"
-msgstr "Viselkedés"
-
-#: ../data/vnr-preferences-dialog.ui.h:18
-msgid "Reload image on save"
-msgstr "Kép újratöltése mentéskor"
-
-#: ../data/vnr-preferences-dialog.ui.h:19
-msgid "JPEG quality:"
-msgstr "JPEG minőség:"
-
-#: ../data/vnr-preferences-dialog.ui.h:20
-msgid "PNG compression:"
-msgstr "PNG tömörítés:"
-
-#: ../data/vnr-preferences-dialog.ui.h:21
-msgid "Saving"
-msgstr "Mentés"
-
-#: ../data/vnr-crop-dialog.ui.h:1
-msgid "Crop Image"
-msgstr "Kép vágása"
-
-#: ../data/vnr-crop-dialog.ui.h:2
-msgid "X: "
-msgstr "X: "
-
-#: ../data/vnr-crop-dialog.ui.h:3
-msgid "Y: "
-msgstr "Y: "
-
-#: ../data/vnr-crop-dialog.ui.h:4
-msgid "Width: "
-msgstr "Szélesség: "
-
-#: ../data/vnr-crop-dialog.ui.h:5
-msgid "Height: "
-msgstr "Magasság: "
-
-#: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1816
-msgid "Crop"
-msgstr "Vágás"
-
-#: ../src/main.c:117 ../src/vnr-window.c:1620 ../src/vnr-window.c:1975
-#: ../src/vnr-window.c:2414
-msgid "The given locations contain no images."
-msgstr "Az adott helyek nem tartalmaznak képeket."
-
-#: ../src/uni-scroll-win.c:223
-msgid "Open the navigator window"
-msgstr "Navigációs ablak megnyitása"
-
-#: ../src/vnr-file.c:223
-#, c-format
-msgid ""
-"Couldn't recognise the image file\n"
-"format for file '%s'"
-msgstr ""
-"Nem sikerült azonosítani\n"
-"a képfálj formátumát '%s'"
-
-#: ../src/vnr-prefs.c:260
-msgid "Smart Mode"
-msgstr "Intelligens üzemmód"
-
-#: ../src/vnr-prefs.c:261
-msgid "1:1 Mode"
-msgstr "1:1 Méret"
-
-#: ../src/vnr-prefs.c:262
-msgid "Fit To Window Mode"
-msgstr "Ablakhoz igazítás"
-
-#: ../src/vnr-prefs.c:263
-msgid "Last Used Mode"
-msgstr ""
-
-#: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
-msgid "Navigate images"
-msgstr "Képek közötti mozgás"
-
-#: ../src/vnr-prefs.c:293
-msgid "Zoom image"
-msgstr "Kép nagyítása"
-
-#: ../src/vnr-prefs.c:294
-msgid "Scroll image up/down"
-msgstr "Kép görgetése fel/le"
-
-#: ../src/vnr-prefs.c:302
-msgid "Switch zoom modes"
-msgstr "Váltás a nagyítási módok között"
-
-#: ../src/vnr-prefs.c:303
-msgid "Enter fullscreen mode"
-msgstr "Belépés teljesképernyős módba"
-
-#: ../src/vnr-prefs.c:312
-msgid "Ask every time"
-msgstr "Mindig kérdezzen"
-
-#: ../src/vnr-prefs.c:313
-msgid "Autosave"
-msgstr "Automatikus mentés"
-
-#: ../src/vnr-prefs.c:314
-msgid "Ignore changes"
-msgstr "Változások elvetése"
-
-#: ../src/vnr-properties-dialog.c:112
-msgid "_Next"
-msgstr "_Következő"
-
-#: ../src/vnr-properties-dialog.c:113
-msgid "_Previous"
-msgstr "_Előző"
-
-#: ../src/vnr-properties-dialog.c:128
-msgid "Image Properties"
-msgstr "Kép tulajdonságai"
-
-#: ../src/vnr-properties-dialog.c:136
-msgid "<b>Location:</b>"
-msgstr "<b>Hely:</b>"
-
-#: ../src/vnr-properties-dialog.c:185
-msgid "<b>Name:</b>"
-msgstr "<b>Név:</b>"
-
-#: ../src/vnr-properties-dialog.c:189
-msgid "<b>Type:</b>"
-msgstr "<b>Típus:</b>"
-
-#: ../src/vnr-properties-dialog.c:193
-msgid "<b>Size:</b>"
-msgstr "<b>Méret:</b>"
-
-#: ../src/vnr-properties-dialog.c:197
-msgid "<b>Width:</b>"
-msgstr "<b>Szélesség:</b>"
-
-#: ../src/vnr-properties-dialog.c:201
-msgid "<b>Height:</b>"
-msgstr "<b>Magasság:</b>"
-
-#: ../src/vnr-properties-dialog.c:373 ../src/vnr-properties-dialog.c:374
-#: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
-#: ../src/vnr-properties-dialog.c:377 ../src/vnr-properties-dialog.c:378
-msgid "None"
-msgstr "Nincs"
-
-#: ../src/vnr-window.c:297
-#, c-format
-msgid "Use \"%s\" to open the selected image"
-msgstr "A kijelölt kép megnyitása ezzel: „%s”"
-
-#: ../src/vnr-window.c:467
-msgid "Show next image after: "
-msgstr "Következő kép mutatása: "
-
-#: ../src/vnr-window.c:485 ../src/vnr-window.c:902
-msgid " second"
-msgid_plural " seconds"
-msgstr[0] " másodperc"
-msgstr[1] " másodperc"
-
-#: ../src/vnr-window.c:727 ../src/vnr-window.c:790
-msgid "Not enough virtual memory."
-msgstr "Nincs elég virtuális memória."
-
-#: ../src/vnr-window.c:761 ../src/vnr-window.c:819 ../src/vnr-window.c:1706
-msgid ""
-"Image modifications cannot be saved.\n"
-"Writing in this format is not supported."
-msgstr ""
-"Kép módosításainak elmentése nem sikerült.\n"
-"Az írni kívánt fájlformátum nem támogatott."
-
-#: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
-msgid ""
-"Save modifications?\n"
-"This will overwrite the image and may reduce its quality!"
-msgstr ""
-
-#: ../src/vnr-window.c:1271
-msgid "Open Image"
-msgstr "Kép megnyitása"
-
-#: ../src/vnr-window.c:1282
-msgid "All Images"
-msgstr ""
-
-#: ../src/vnr-window.c:1288
+#: window.c:1137
 msgid "All Files"
 msgstr ""
 
-#: ../src/vnr-window.c:1318
-msgid "Open Folder"
-msgstr "Mappa megnyitása"
-
-#: ../src/vnr-window.c:1378
-msgid "translator-credits"
+#: window.c:1131
+msgid "All Images"
 msgstr ""
-"Launchpad Contributions:\n"
-"  Polesz https://launchpad.net/~polesz-nedudu"
 
-#: ../src/vnr-window.c:1558
-msgid "If you delete an item, it will be permanently lost."
-msgstr "Ha töröl egy elemet, akkor az véglegesen el fog veszni."
+#: data/vnr-preferences-dialog.ui:196
+msgid "Always expand images to fit screen"
+msgstr "Mindig illessze a képet a képernyőhöz"
 
-#. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:1561
+#: uni/uni-exiv2.hpp:57
+msgid "Aperture Value"
+msgstr ""
+
+#: window.c:2041
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -309,319 +93,505 @@ msgstr ""
 "Biztos benne, hogy\n"
 "véglegesen törli \"%s\"?"
 
-#: ../src/vnr-window.c:1721
-msgid "_File"
-msgstr "_Fájl"
-
-#: ../src/vnr-window.c:1722
-msgid "_Edit"
-msgstr "Sz_erkesztés"
-
-#: ../src/vnr-window.c:1723
-msgid "_View"
-msgstr "_Nézet"
-
-#: ../src/vnr-window.c:1724
-msgid "_Image"
-msgstr "_Kép"
-
-#: ../src/vnr-window.c:1725
-msgid "_Go"
-msgstr "_Ugrás"
-
-#: ../src/vnr-window.c:1726
-msgid "_Help"
-msgstr "_Segítség"
-
-#: ../src/vnr-window.c:1728
-msgid "Open _Image..."
-msgstr "Kép _megnyitása..."
-
-#: ../src/vnr-window.c:1729
-msgid "Open an Image"
-msgstr "Kép megnyitása"
-
-#: ../src/vnr-window.c:1731
-msgid "Open _Folder..."
-msgstr "Ma_ppa megnyitása…"
-
-#: ../src/vnr-window.c:1732
-msgid "Open a Folder"
-msgstr "Mappa megnyitása"
-
-#: ../src/vnr-window.c:1734
-msgid "_Close"
-msgstr "_Bezárás"
-
-#: ../src/vnr-window.c:1735
-msgid "Close window"
-msgstr "Ablak bezárása"
-
-#: ../src/vnr-window.c:1737
-msgid "_About"
-msgstr "_Névjegy"
-
-#: ../src/vnr-window.c:1738
-msgid "About this application"
-msgstr "Az alkalmazás névjegye"
-
-#: ../src/vnr-window.c:1740
-msgid "_Preferences..."
-msgstr "_Beállítások..."
-
-#: ../src/vnr-window.c:1741
-msgid "User preferences for Viewnior"
-msgstr "Felhasználói beállítások"
-
-#: ../src/vnr-window.c:1746
-msgid "_Save"
-msgstr "_Mentés"
-
-#: ../src/vnr-window.c:1747
-msgid "Save changes"
-msgstr "Változtatások mentése"
-
-#: ../src/vnr-window.c:1752
-msgid "_Properties"
+#: uni/uni-exiv2.hpp:69
+msgid "Author"
 msgstr ""
 
-#: ../src/vnr-window.c:1753
-msgid "Properties"
+#: dialog/preferences.c:310
+msgid "Autodetect"
 msgstr ""
 
-#: ../src/vnr-window.c:1758
-msgid "Set as _Wallpaper"
-msgstr "Beállítás _háttérképként"
+#: dialog/preferences.c:399
+msgid "Autosave"
+msgstr "Automatikus mentés"
 
-#: ../src/vnr-window.c:1759
-msgid "Set the selected image as the desktop background"
-msgstr "A kijelölt kép beállítása asztalháttérként"
+#: data/vnr-preferences-dialog.ui:293
+msgid "Behavior"
+msgstr "Viselkedés"
 
-#: ../src/vnr-window.c:1764
-msgid "Open _With"
-msgstr "Megnyitás _ezzel"
-
-#: ../src/vnr-window.c:1765
-msgid "Open the selected image with a different application"
-msgstr "Kiválasztott kép megnyitása más alkalmazással."
-
-#: ../src/vnr-window.c:1767 ../src/vnr-window.c:1776
-msgid "_Delete"
-msgstr "_Törlés"
-
-#: ../src/vnr-window.c:1768 ../src/vnr-window.c:1777
-msgid "Delete the current file"
-msgstr "Aktuális fájl törlése"
-
-#: ../src/vnr-window.c:1770
-msgid "_Properties..."
-msgstr "_Tulajdonságok…"
-
-#: ../src/vnr-window.c:1771
-msgid "Show information about the current file"
-msgstr "A jelenlegi fájl adatai"
-
-#: ../src/vnr-window.c:1773
-msgid "_Reload"
-msgstr "Új_ratöltés"
-
-#: ../src/vnr-window.c:1774
-msgid "Reload the current file"
-msgstr "Az aktuális fájl újratöltése"
-
-#: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
-msgid "_Zoom In"
-msgstr "_Nagyítás"
-
-#: ../src/vnr-window.c:1780
-msgid "Enlarge the image"
-msgstr "Kép nagyítása"
-
-#: ../src/vnr-window.c:1782 ../src/vnr-window.c:1797
-msgid "Zoom _Out"
-msgstr "_Kicsinyítés"
-
-#: ../src/vnr-window.c:1783 ../src/vnr-window.c:1792 ../src/vnr-window.c:1795
-#: ../src/vnr-window.c:1798
-msgid "Shrink the image"
-msgstr "Kép kicsinyítése"
-
-#: ../src/vnr-window.c:1785
-msgid "_Normal Size"
-msgstr "N_ormál méret"
-
-#: ../src/vnr-window.c:1786
-msgid "Show the image at its normal size"
-msgstr "Kép megjelenítése rendes méretben"
-
-#: ../src/vnr-window.c:1788
-msgid "Best _Fit"
-msgstr "Legjobb _illeszkedés"
-
-#: ../src/vnr-window.c:1789
-msgid "Fit the image to the window"
-msgstr "Kép igazítása az ablakhoz"
-
-#: ../src/vnr-window.c:1803
-msgid "Rotate _Clockwise"
-msgstr "Forgatás az óramutató járásával"
-
-#: ../src/vnr-window.c:1804
-msgid "Rotate image clockwise"
-msgstr "Forgatás az óramutató járásával megyezően"
-
-#: ../src/vnr-window.c:1806
-msgid "Rotate _Anti-clockwise"
-msgstr "Forgatás ellentétesen"
-
-#: ../src/vnr-window.c:1807
-msgid "Rotate image anti-clockwise"
-msgstr "Forgatás az óramutató járásával ellentétesen"
-
-#: ../src/vnr-window.c:1809
-msgid "Flip _Vertical"
-msgstr "_Függőleges tükrözés"
-
-#: ../src/vnr-window.c:1810
-msgid "Flip image vertically"
-msgstr "A kép függőleges tükrözése"
-
-#: ../src/vnr-window.c:1812
-msgid "Flip _Horizontal"
-msgstr "_Vízszintes tükrözés"
-
-#: ../src/vnr-window.c:1813
-msgid "Flip image horizontally"
-msgstr "A kép vízszintes tükrözése"
-
-#: ../src/vnr-window.c:1815
-msgid "Crop..."
-msgstr "Vágás..."
-
-#: ../src/vnr-window.c:1821
-msgid "Full _Screen"
-msgstr "Telje_s képernyő"
-
-#: ../src/vnr-window.c:1822
-msgid "Show in fullscreen mode"
-msgstr "Mutatás teljes képernyős üzemmódban"
-
-#: ../src/vnr-window.c:1824
-msgid "_Adjust window size"
-msgstr "_Ablak méretének beállítása"
-
-#: ../src/vnr-window.c:1825
-msgid "Adjust window size to fit the image"
-msgstr "Ablak méretének beállítása a kép méretéhez"
-
-#: ../src/vnr-window.c:1830
-msgid "Menu Bar"
-msgstr ""
-
-#: ../src/vnr-window.c:1831
-msgid "Show Menu Bar"
-msgstr ""
-
-#: ../src/vnr-window.c:1833
-msgid "Toolbar"
-msgstr "Eszköztár"
-
-#: ../src/vnr-window.c:1834
-msgid "Show Toolbar"
-msgstr "Eszköztár megjelenítése"
-
-#: ../src/vnr-window.c:1839
-msgid "Sli_deshow"
-msgstr "_Diavetítés"
-
-#: ../src/vnr-window.c:1840
-msgid "Show in slideshow mode"
-msgstr "Mutatás diavetítés módban"
-
-#: ../src/vnr-window.c:1845
-msgid "_Previous Image"
-msgstr "_Előző kép"
-
-#: ../src/vnr-window.c:1846
-msgid "Go to the previous image of the collection"
-msgstr "Ugrás a gyűjtemény előző képére"
-
-#: ../src/vnr-window.c:1848
-msgid "_Next Image"
-msgstr "_Következő kép"
-
-#: ../src/vnr-window.c:1849
-msgid "Go to the next image of the collection"
-msgstr "Ugrás a gyűjtemény következő képére"
-
-#: ../src/vnr-window.c:1851
-msgid "_First Image"
-msgstr "_Első kép"
-
-#: ../src/vnr-window.c:1852
-msgid "Go to the first image of the collection"
-msgstr "Ugrás a gyűjtemény első képére"
-
-#: ../src/vnr-window.c:1854
-msgid "_Last Image"
-msgstr "_Utolsó kép"
-
-#: ../src/vnr-window.c:1855
-msgid "Go to the last image of the collection"
-msgstr "Ugrás a gyűjtemény utolsó képére"
-
-#: ../src/uni-exiv2.hpp:49
+#: uni/uni-exiv2.hpp:52
 msgid "Camera make"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:50
+#: uni/uni-exiv2.hpp:53
 msgid "Camera model"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:51
-msgid "Date Taken"
+#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+msgid "Cancel"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:52
-msgid "Exposure time"
+#: uni/uni-exiv2.cpp:86
+msgid "Comment"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:53
-msgid "Exposure mode"
-msgstr ""
+#: data/vnr-preferences-dialog.ui:107
+msgid "Confirm image deletion"
+msgstr "Kép törlés megerősítése"
 
-#: ../src/uni-exiv2.hpp:54
-msgid "Aperture Value"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:55
-msgid "ISO speed"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:56
-msgid "Flash"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:57
-msgid "Metering mode"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:58
-msgid "Focal length"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:59
-msgid "Software"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:63
-msgid "Description"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:64
+#: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:65
-msgid "Author"
+#: dialog/vnr-crop.c:250
+msgid "Crop"
+msgstr "Vágás"
+
+#: dialog/vnr-crop.c:134
+msgid "Crop Image"
+msgstr "Kép vágása"
+
+#: data/vnr-preferences-dialog.ui:134
+msgid "Dark window background"
 msgstr ""
+
+#: uni/uni-exiv2.hpp:54
+msgid "Date Taken"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:67
+msgid "Description"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:75
+msgid "Desktop: "
+msgstr ""
+
+#: dialog/xfce-filename-input.c:217
+msgid "Directory separator illegal in file name"
+msgstr ""
+
+#: dialog/preferences.c:389
+msgid "Enter fullscreen mode"
+msgstr "Belépés teljesképernyős módba"
+
+#: dialog/dialog.c:40
+msgid "Enter the new name:"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:56
+msgid "Exposure mode"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:55
+msgid "Exposure time"
+msgstr ""
+
+#: dialog/xfce-filename-input.c:216
+msgid "Filename is too long"
+msgstr ""
+
+#: dialog/xfce-filename-input.c:218
+msgid "Filenames should not start or end with a space"
+msgstr ""
+
+#: dialog/preferences.c:299
+msgid "Fit To Window Mode"
+msgstr "Ablakhoz igazítás"
+
+#: uni/uni-exiv2.hpp:59
+msgid "Flash"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:61
+msgid "Focal length"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:216
+msgid "Fullscreen"
+msgstr "Teljes képernyő"
+
+#: data/vnr-preferences-dialog.ui:151
+msgid "General"
+msgstr "Általános"
+
+#: uni/uni-exiv2.hpp:58
+msgid "ISO speed"
+msgstr ""
+
+#: window.c:2038
+msgid "If you delete an item, it will be permanently lost."
+msgstr "Ha töröl egy elemet, akkor az véglegesen el fog veszni."
+
+#: dialog/preferences.c:400
+#, fuzzy
+msgid "Ignore"
+msgstr "Változások elvetése"
+
+#: dialog/vnr-properties.c:140
+msgid "Image Properties"
+msgstr "Kép tulajdonságai"
+
+#: uni/uni-exiv2.hpp:63
+#, fuzzy
+msgid "Image description"
+msgstr "Kép tulajdonságai"
+
+#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+msgid ""
+"Image modifications cannot be saved.\n"
+"Writing in this format is not supported."
+msgstr ""
+"Kép módosításainak elmentése nem sikerült.\n"
+"Az írni kívánt fájlformátum nem támogatott."
+
+#: data/vnr-preferences-dialog.ui:322
+msgid "JPEG quality:"
+msgstr "JPEG minőség:"
+
+#: dialog/preferences.c:300
+msgid "Last Used Mode"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:60
+msgid "Metering mode"
+msgstr ""
+
+#: dialog/preferences.c:378 dialog/preferences.c:390
+msgid "Navigate images"
+msgstr "Képek közötti mozgás"
+
+#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
+#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
+#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
+#: dialog/vnr-properties.c:464
+msgid "None"
+msgstr "Nincs"
+
+#: window.c:2215 window.c:2279
+msgid "Not enough virtual memory."
+msgstr "Nincs elég virtuális memória."
+
+#: data/vnr-preferences-dialog.ui:245
+msgid "On double click: "
+msgstr "Kettős kattintáskor: "
+
+#: data/vnr-preferences-dialog.ui:256
+msgid "On image modification: "
+msgstr "Kép módosításakor: "
+
+#: data/vnr-preferences-dialog.ui:234
+msgid "On mouse wheel: "
+msgstr "Kerékgörgő használatakor: "
+
+#: window.c:1226
+msgid "Open Folder"
+msgstr "Mappa megnyitása"
+
+#: window.c:1120
+msgid "Open Image"
+msgstr "Kép megnyitása"
+
+#: data/vnr-preferences-dialog.ui:51
+msgid "Open new image in: "
+msgstr "Új kép megnyitása ebben: "
+
+#: data/vnr-preferences-dialog.ui:347
+msgid "PNG compression:"
+msgstr "PNG tömörítés:"
+
+#: data/vnr-preferences-dialog.ui:308
+msgid "Reload image on save"
+msgstr "Kép újratöltése mentéskor"
+
+#: dialog/dialog.c:18
+#, c-format
+msgid "Rename \"%s\""
+msgstr ""
+
+#: dialog/vnr-resize.c:148
+msgid "Resize"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:376
+msgid "Saving"
+msgstr "Mentés"
+
+#: dialog/preferences.c:380
+msgid "Scroll image up/down"
+msgstr "Kép görgetése fel/le"
+
+#: data/vnr-preferences-dialog.ui:120
+msgid "Show hidden images"
+msgstr "Rejtett képek mutatása"
+
+#: data/vnr-preferences-dialog.ui:171
+msgid "Show next image after (in seconds): "
+msgstr "Következő kép mutatása (másodpercben): "
+
+#: window.c:2966
+msgid "Show next image after: "
+msgstr "Következő kép mutatása: "
+
+#: dialog/preferences.c:297
+msgid "Smart Mode"
+msgstr "Intelligens üzemmód"
+
+#: data/vnr-preferences-dialog.ui:94
+msgid "Smooth images when zoomed"
+msgstr "Kép simítása nagyításkor"
+
+#: uni/uni-exiv2.hpp:62
+msgid "Software"
+msgstr ""
+
+#: dialog/preferences.c:388
+msgid "Switch zoom modes"
+msgstr "Váltás a nagyítási módok között"
+
+#: main.c:113 window.c:797 window.c:1309 window.c:2140
+msgid "The given locations contain no images."
+msgstr "Az adott helyek nem tartalmaznak képeket."
+
+#: window.c:1532
+#, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr "A kijelölt kép megnyitása ezzel: „%s”"
+
+#: uni/uni-exiv2.hpp:64
+msgid "User comment"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:25
+msgid "Viewnior Preferences"
+msgstr "Viewnior beállítások"
+
+#: dialog/preferences.c:379
+msgid "Zoom image"
+msgstr "Kép nagyítása"
+
+#: dialog/dialog.c:24
+msgid "_Cancel"
+msgstr ""
+
+#: dialog/vnr-properties.c:123
+msgid "_Next"
+msgstr "_Következő"
+
+#: dialog/vnr-properties.c:122
+msgid "_Previous"
+msgstr "_Előző"
+
+#: dialog/dialog.c:26
+msgid "_Rename"
+msgstr ""
+
+#~ msgid "About this application"
+#~ msgstr "Az alkalmazás névjegye"
+
+#~ msgid "Adjust window size to fit the image"
+#~ msgstr "Ablak méretének beállítása a kép méretéhez"
+
+#~ msgid "Ask every time"
+#~ msgstr "Mindig kérdezzen"
+
+#~ msgid "Best _Fit"
+#~ msgstr "Legjobb _illeszkedés"
+
+#~ msgid "Close window"
+#~ msgstr "Ablak bezárása"
+
+#, c-format
+#~ msgid ""
+#~ "Couldn't recognise the image file\n"
+#~ "format for file '%s'"
+#~ msgstr ""
+#~ "Nem sikerült azonosítani\n"
+#~ "a képfálj formátumát '%s'"
+
+#~ msgid "Crop..."
+#~ msgstr "Vágás..."
+
+#~ msgid "Delete the current file"
+#~ msgstr "Aktuális fájl törlése"
+
+#~ msgid "Elegant Image Viewer"
+#~ msgstr "Elegáns Képnéző"
+
+#~ msgid "Enlarge the image"
+#~ msgstr "Kép nagyítása"
+
+#~ msgid "Fit the image to the window"
+#~ msgstr "Kép igazítása az ablakhoz"
+
+#~ msgid "Flip _Horizontal"
+#~ msgstr "_Vízszintes tükrözés"
+
+#~ msgid "Flip _Vertical"
+#~ msgstr "_Függőleges tükrözés"
+
+#~ msgid "Flip image horizontally"
+#~ msgstr "A kép vízszintes tükrözése"
+
+#~ msgid "Flip image vertically"
+#~ msgstr "A kép függőleges tükrözése"
+
+#~ msgid "Full _Screen"
+#~ msgstr "Telje_s képernyő"
+
+#~ msgid "Go to the first image of the collection"
+#~ msgstr "Ugrás a gyűjtemény első képére"
+
+#~ msgid "Go to the last image of the collection"
+#~ msgstr "Ugrás a gyűjtemény utolsó képére"
+
+#~ msgid "Go to the next image of the collection"
+#~ msgstr "Ugrás a gyűjtemény következő képére"
+
+#~ msgid "Go to the previous image of the collection"
+#~ msgstr "Ugrás a gyűjtemény előző képére"
+
+#~ msgid "Height: "
+#~ msgstr "Magasság: "
+
+#~ msgid "Open _Folder..."
+#~ msgstr "Ma_ppa megnyitása…"
+
+#~ msgid "Open _Image..."
+#~ msgstr "Kép _megnyitása..."
+
+#~ msgid "Open _With"
+#~ msgstr "Megnyitás _ezzel"
+
+#~ msgid "Open a Folder"
+#~ msgstr "Mappa megnyitása"
+
+#~ msgid "Open an Image"
+#~ msgstr "Kép megnyitása"
+
+#~ msgid "Open the navigator window"
+#~ msgstr "Navigációs ablak megnyitása"
+
+#~ msgid "Open the selected image with a different application"
+#~ msgstr "Kiválasztott kép megnyitása más alkalmazással."
+
+#~ msgid "Reload the current file"
+#~ msgstr "Az aktuális fájl újratöltése"
+
+#~ msgid "Rotate _Anti-clockwise"
+#~ msgstr "Forgatás ellentétesen"
+
+#~ msgid "Rotate _Clockwise"
+#~ msgstr "Forgatás az óramutató járásával"
+
+#~ msgid "Rotate image anti-clockwise"
+#~ msgstr "Forgatás az óramutató járásával ellentétesen"
+
+#~ msgid "Rotate image clockwise"
+#~ msgstr "Forgatás az óramutató járásával megyezően"
+
+#~ msgid "Save changes"
+#~ msgstr "Változtatások mentése"
+
+#~ msgid "Set as _Wallpaper"
+#~ msgstr "Beállítás _háttérképként"
+
+#~ msgid "Set the selected image as the desktop background"
+#~ msgstr "A kijelölt kép beállítása asztalháttérként"
+
+#~ msgid "Show Toolbar"
+#~ msgstr "Eszköztár megjelenítése"
+
+#~ msgid "Show in fullscreen mode"
+#~ msgstr "Mutatás teljes képernyős üzemmódban"
+
+#~ msgid "Show in slideshow mode"
+#~ msgstr "Mutatás diavetítés módban"
+
+#~ msgid "Show information about the current file"
+#~ msgstr "A jelenlegi fájl adatai"
+
+#~ msgid "Show the image at its normal size"
+#~ msgstr "Kép megjelenítése rendes méretben"
+
+#~ msgid "Shrink the image"
+#~ msgstr "Kép kicsinyítése"
+
+#~ msgid "Sli_deshow"
+#~ msgstr "_Diavetítés"
+
+#~ msgid "Toolbar"
+#~ msgstr "Eszköztár"
+
+#~ msgid "User preferences for Viewnior"
+#~ msgstr "Felhasználói beállítások"
+
+#~ msgid "Viewnior"
+#~ msgstr "Viewnior"
+
+#~ msgid "Width: "
+#~ msgstr "Szélesség: "
+
+#~ msgid "X: "
+#~ msgstr "X: "
+
+#~ msgid "Y: "
+#~ msgstr "Y: "
+
+#~ msgid "Zoom _Out"
+#~ msgstr "_Kicsinyítés"
+
+#~ msgid "_About"
+#~ msgstr "_Névjegy"
+
+#~ msgid "_Adjust window size"
+#~ msgstr "_Ablak méretének beállítása"
+
+#~ msgid "_Close"
+#~ msgstr "_Bezárás"
+
+#~ msgid "_Delete"
+#~ msgstr "_Törlés"
+
+#~ msgid "_Edit"
+#~ msgstr "Sz_erkesztés"
+
+#~ msgid "_File"
+#~ msgstr "_Fájl"
+
+#~ msgid "_First Image"
+#~ msgstr "_Első kép"
+
+#~ msgid "_Go"
+#~ msgstr "_Ugrás"
+
+#~ msgid "_Help"
+#~ msgstr "_Segítség"
+
+#~ msgid "_Image"
+#~ msgstr "_Kép"
+
+#~ msgid "_Last Image"
+#~ msgstr "_Utolsó kép"
+
+#~ msgid "_Next Image"
+#~ msgstr "_Következő kép"
+
+#~ msgid "_Normal Size"
+#~ msgstr "N_ormál méret"
+
+#~ msgid "_Preferences..."
+#~ msgstr "_Beállítások..."
+
+#~ msgid "_Previous Image"
+#~ msgstr "_Előző kép"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Tulajdonságok…"
+
+#~ msgid "_Reload"
+#~ msgstr "Új_ratöltés"
+
+#~ msgid "_Save"
+#~ msgstr "_Mentés"
+
+#~ msgid "_View"
+#~ msgstr "_Nézet"
+
+#~ msgid "_Zoom In"
+#~ msgstr "_Nagyítás"
+
+#~ msgid "translator-credits"
+#~ msgstr ""
+#~ "Launchpad Contributions:\n"
+#~ "  Polesz https://launchpad.net/~polesz-nedudu"

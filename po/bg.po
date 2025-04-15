@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
+"POT-Creation-Date: 2025-04-15 17:55+0200\n"
 "PO-Revision-Date: 2012-05-04 17:55+0000\n"
 "Last-Translator: Ve4ernik <ve4ernik@gmail.com>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,67 +19,46 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
 "X-Generator: Launchpad (build 18566)\n"
 
-#: ../data/viewnior.desktop.in.in.h:1
-msgid "Viewnior"
-msgstr "Viewnior"
+#: window.c:2987 window.c:3014
+msgid " second"
+msgid_plural " seconds"
+msgstr[0] " секунда"
+msgstr[1] " секунди"
 
-#: ../data/viewnior.desktop.in.in.h:2 ../src/vnr-window.c:1372
-msgid "Elegant Image Viewer"
-msgstr "Елегантна програма за разглеждане на картинки"
+#: dialog/preferences.c:298
+msgid "1:1 Mode"
+msgstr "Режим 1:1"
 
-#: ../data/vnr-preferences-dialog.ui.h:1
-msgid "Viewnior Preferences"
-msgstr "Настройки на Viewnior"
+#: dialog/vnr-properties.c:232
+msgid "<b>Height:</b>"
+msgstr "<b>Височина:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:2
-msgid "Open new image in: "
-msgstr "Отваряне на ново изображение в: "
+#: dialog/vnr-properties.c:148
+msgid "<b>Location:</b>"
+msgstr "<b>Местоположение:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:3
-msgid "Desktop: "
-msgstr ""
+#: dialog/vnr-properties.c:236
+#, fuzzy
+msgid "<b>Modified:</b>"
+msgstr "<b>Размер:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:4
-msgid "Smooth images when zoomed"
-msgstr "Заглаждане при увеличаване на мащаба"
+#: dialog/vnr-properties.c:216
+msgid "<b>Name:</b>"
+msgstr "<b>Име:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:5
-msgid "Confirm image deletion"
-msgstr "Изискване на потвърждение при изтриване"
+#: dialog/vnr-properties.c:224
+msgid "<b>Size:</b>"
+msgstr "<b>Размер:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:6
-msgid "Show hidden images"
-msgstr "Показване на скритите изображения"
+#: dialog/vnr-properties.c:220
+msgid "<b>Type:</b>"
+msgstr "<b>Вид:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:7
-msgid "General"
-msgstr "Общи"
+#: dialog/vnr-properties.c:228
+msgid "<b>Width:</b>"
+msgstr "<b>Широчина:</b>"
 
-#: ../data/vnr-preferences-dialog.ui.h:8
-msgid "Show next image after (in seconds): "
-msgstr "Показване на следващото изображение след (в секунди): "
-
-#: ../data/vnr-preferences-dialog.ui.h:9
-msgid "Always expand images to fit screen"
-msgstr "Разширяване на изображенията за напасване към екрана"
-
-#: ../data/vnr-preferences-dialog.ui.h:10
-msgid "Fullscreen"
-msgstr "Цял екран"
-
-#: ../data/vnr-preferences-dialog.ui.h:11
-msgid "On mouse wheel: "
-msgstr "При скролване с мишката: "
-
-#: ../data/vnr-preferences-dialog.ui.h:12
-msgid "On double click: "
-msgstr "При двойно кликване: "
-
-#: ../data/vnr-preferences-dialog.ui.h:13
-msgid "On image modification: "
-msgstr "При промяна на изображението: "
-
-#: ../data/vnr-preferences-dialog.ui.h:14
+#: data/vnr-preferences-dialog.ui:267
 msgid ""
 "<small>  (!) Navigating images with double click :\n"
 "  Clicking on the left half of the window shows the\n"
@@ -88,222 +68,23 @@ msgstr ""
 "  Кликване върху лявата половина на изображението зарежда\n"
 "  предишното изображение, а върху дясната - следващото.</small> "
 
-#: ../data/vnr-preferences-dialog.ui.h:17
-msgid "Behavior"
-msgstr "Поведение"
-
-#: ../data/vnr-preferences-dialog.ui.h:18
-msgid "Reload image on save"
-msgstr "Презареждане на изображението след запазване"
-
-#: ../data/vnr-preferences-dialog.ui.h:19
-msgid "JPEG quality:"
-msgstr "Качество на JPEG:"
-
-#: ../data/vnr-preferences-dialog.ui.h:20
-msgid "PNG compression:"
-msgstr "Компресия на PNG:"
-
-#: ../data/vnr-preferences-dialog.ui.h:21
-msgid "Saving"
-msgstr "Запазване"
-
-#: ../data/vnr-crop-dialog.ui.h:1
-msgid "Crop Image"
-msgstr "Изрязване на изображение"
-
-#: ../data/vnr-crop-dialog.ui.h:2
-msgid "X: "
-msgstr "X: "
-
-#: ../data/vnr-crop-dialog.ui.h:3
-msgid "Y: "
-msgstr "Y: "
-
-#: ../data/vnr-crop-dialog.ui.h:4
-msgid "Width: "
-msgstr "Ширина: "
-
-#: ../data/vnr-crop-dialog.ui.h:5
-msgid "Height: "
-msgstr "Височина: "
-
-#: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1816
-msgid "Crop"
-msgstr "Изрязване"
-
-#: ../src/main.c:117 ../src/vnr-window.c:1620 ../src/vnr-window.c:1975
-#: ../src/vnr-window.c:2414
-msgid "The given locations contain no images."
-msgstr "Указаното местоположение не съдържа изображения."
-
-#: ../src/uni-scroll-win.c:223
-msgid "Open the navigator window"
-msgstr "Отваряне прозореца за навигация"
-
-#: ../src/vnr-file.c:223
-#, c-format
-msgid ""
-"Couldn't recognise the image file\n"
-"format for file '%s'"
-msgstr ""
-"Непознат файлов формат \n"
-"'%s'"
-
-#: ../src/vnr-prefs.c:260
-msgid "Smart Mode"
-msgstr "Интелигентен режим"
-
-#: ../src/vnr-prefs.c:261
-msgid "1:1 Mode"
-msgstr "Режим 1:1"
-
-#: ../src/vnr-prefs.c:262
-msgid "Fit To Window Mode"
-msgstr "Режим изпълване на прозореца"
-
-#: ../src/vnr-prefs.c:263
-msgid "Last Used Mode"
-msgstr ""
-
-#: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
-msgid "Navigate images"
-msgstr "Навигиране из изображенията"
-
-#: ../src/vnr-prefs.c:293
-msgid "Zoom image"
-msgstr "Мащабиране на изображението"
-
-#: ../src/vnr-prefs.c:294
-msgid "Scroll image up/down"
-msgstr "Превъртане на изображението нагоре/надолу"
-
-#: ../src/vnr-prefs.c:302
-msgid "Switch zoom modes"
-msgstr "Смяна режима на мащабиране"
-
-#: ../src/vnr-prefs.c:303
-msgid "Enter fullscreen mode"
-msgstr "Влизане в режим „Цял екран“"
-
-#: ../src/vnr-prefs.c:312
-msgid "Ask every time"
-msgstr "Запитване всеки път"
-
-#: ../src/vnr-prefs.c:313
-msgid "Autosave"
-msgstr "Автоматичен запис"
-
-#: ../src/vnr-prefs.c:314
-msgid "Ignore changes"
-msgstr "Игнориране на промените"
-
-#: ../src/vnr-properties-dialog.c:112
-msgid "_Next"
-msgstr "Напред"
-
-#: ../src/vnr-properties-dialog.c:113
-msgid "_Previous"
-msgstr "Назад"
-
-#: ../src/vnr-properties-dialog.c:128
-msgid "Image Properties"
-msgstr "Свойства на изображението"
-
-#: ../src/vnr-properties-dialog.c:136
-msgid "<b>Location:</b>"
-msgstr "<b>Местоположение:</b>"
-
-#: ../src/vnr-properties-dialog.c:185
-msgid "<b>Name:</b>"
-msgstr "<b>Име:</b>"
-
-#: ../src/vnr-properties-dialog.c:189
-msgid "<b>Type:</b>"
-msgstr "<b>Вид:</b>"
-
-#: ../src/vnr-properties-dialog.c:193
-msgid "<b>Size:</b>"
-msgstr "<b>Размер:</b>"
-
-#: ../src/vnr-properties-dialog.c:197
-msgid "<b>Width:</b>"
-msgstr "<b>Широчина:</b>"
-
-#: ../src/vnr-properties-dialog.c:201
-msgid "<b>Height:</b>"
-msgstr "<b>Височина:</b>"
-
-#: ../src/vnr-properties-dialog.c:373 ../src/vnr-properties-dialog.c:374
-#: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
-#: ../src/vnr-properties-dialog.c:377 ../src/vnr-properties-dialog.c:378
-msgid "None"
-msgstr "Липсва"
-
-#: ../src/vnr-window.c:297
-#, c-format
-msgid "Use \"%s\" to open the selected image"
-msgstr "Използвайте „%s“ за отваряне на избраното изображение"
-
-#: ../src/vnr-window.c:467
-msgid "Show next image after: "
-msgstr "Смяна на изображението след: "
-
-#: ../src/vnr-window.c:485 ../src/vnr-window.c:902
-msgid " second"
-msgid_plural " seconds"
-msgstr[0] " секунда"
-msgstr[1] " секунди"
-
-#: ../src/vnr-window.c:727 ../src/vnr-window.c:790
-msgid "Not enough virtual memory."
-msgstr "Оперативната памет е недостатъчна"
-
-#: ../src/vnr-window.c:761 ../src/vnr-window.c:819 ../src/vnr-window.c:1706
-msgid ""
-"Image modifications cannot be saved.\n"
-"Writing in this format is not supported."
-msgstr ""
-"Промените не могат да бъдат запазени.\n"
-"Записане в този файлов формат не се поддържа."
-
-#: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
-msgid ""
-"Save modifications?\n"
-"This will overwrite the image and may reduce its quality!"
-msgstr ""
-
-#: ../src/vnr-window.c:1271
-msgid "Open Image"
-msgstr "Отваряне на изображение"
-
-#: ../src/vnr-window.c:1282
-msgid "All Images"
-msgstr ""
-
-#: ../src/vnr-window.c:1288
+#: window.c:1137
 msgid "All Files"
 msgstr ""
 
-#: ../src/vnr-window.c:1318
-msgid "Open Folder"
-msgstr "Отваряне на папка"
-
-#: ../src/vnr-window.c:1378
-msgid "translator-credits"
+#: window.c:1131
+msgid "All Images"
 msgstr ""
-"Launchpad Contributions:\n"
-"  Alexander Andjelkovic https://launchpad.net/~frankbooth\n"
-"  Siyan Panayotov https://launchpad.net/~xsisqox\n"
-"  Svetoslav Stefanov https://launchpad.net/~svetlisashkov\n"
-"  Ve4ernik https://launchpad.net/~ve4ernik"
 
-#: ../src/vnr-window.c:1558
-msgid "If you delete an item, it will be permanently lost."
-msgstr "Ако изтриете обект, той изчезва окончателно."
+#: data/vnr-preferences-dialog.ui:196
+msgid "Always expand images to fit screen"
+msgstr "Разширяване на изображенията за напасване към екрана"
 
-#. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:1561
+#: uni/uni-exiv2.hpp:57
+msgid "Aperture Value"
+msgstr ""
+
+#: window.c:2041
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -312,319 +93,508 @@ msgstr ""
 "Сигурни ли сте, че искате\n"
 "окончателно да изтриете \"%s\"?"
 
-#: ../src/vnr-window.c:1721
-msgid "_File"
-msgstr "_Файл"
-
-#: ../src/vnr-window.c:1722
-msgid "_Edit"
-msgstr "_Редактиране"
-
-#: ../src/vnr-window.c:1723
-msgid "_View"
-msgstr "Пре_глед"
-
-#: ../src/vnr-window.c:1724
-msgid "_Image"
-msgstr "_Изображение"
-
-#: ../src/vnr-window.c:1725
-msgid "_Go"
-msgstr "О_тиване"
-
-#: ../src/vnr-window.c:1726
-msgid "_Help"
-msgstr "_Помощ"
-
-#: ../src/vnr-window.c:1728
-msgid "Open _Image..."
-msgstr "Отваряне на изображение..."
-
-#: ../src/vnr-window.c:1729
-msgid "Open an Image"
-msgstr "Отваряне на изображение"
-
-#: ../src/vnr-window.c:1731
-msgid "Open _Folder..."
-msgstr "Отваряне на папка..."
-
-#: ../src/vnr-window.c:1732
-msgid "Open a Folder"
-msgstr "Отваряне на папка"
-
-#: ../src/vnr-window.c:1734
-msgid "_Close"
-msgstr "Затваряне"
-
-#: ../src/vnr-window.c:1735
-msgid "Close window"
-msgstr "Затваряне на прозореца"
-
-#: ../src/vnr-window.c:1737
-msgid "_About"
-msgstr "Относно"
-
-#: ../src/vnr-window.c:1738
-msgid "About this application"
-msgstr "За програмата"
-
-#: ../src/vnr-window.c:1740
-msgid "_Preferences..."
-msgstr "Настройки..."
-
-#: ../src/vnr-window.c:1741
-msgid "User preferences for Viewnior"
-msgstr "Потребителски настройки за Viewnior"
-
-#: ../src/vnr-window.c:1746
-msgid "_Save"
-msgstr "_Запазване"
-
-#: ../src/vnr-window.c:1747
-msgid "Save changes"
-msgstr "Запазване на промените"
-
-#: ../src/vnr-window.c:1752
-msgid "_Properties"
+#: uni/uni-exiv2.hpp:69
+msgid "Author"
 msgstr ""
 
-#: ../src/vnr-window.c:1753
-msgid "Properties"
+#: dialog/preferences.c:310
+msgid "Autodetect"
 msgstr ""
 
-#: ../src/vnr-window.c:1758
-msgid "Set as _Wallpaper"
-msgstr "Задаване като фон"
+#: dialog/preferences.c:399
+msgid "Autosave"
+msgstr "Автоматичен запис"
 
-#: ../src/vnr-window.c:1759
-msgid "Set the selected image as the desktop background"
-msgstr "Задаване на изображението като фон"
+#: data/vnr-preferences-dialog.ui:293
+msgid "Behavior"
+msgstr "Поведение"
 
-#: ../src/vnr-window.c:1764
-msgid "Open _With"
-msgstr "Отваряне с"
-
-#: ../src/vnr-window.c:1765
-msgid "Open the selected image with a different application"
-msgstr "Отваряне на избраното изображение с друга програма"
-
-#: ../src/vnr-window.c:1767 ../src/vnr-window.c:1776
-msgid "_Delete"
-msgstr "Изтриване"
-
-#: ../src/vnr-window.c:1768 ../src/vnr-window.c:1777
-msgid "Delete the current file"
-msgstr "Изтриване на текущия файл"
-
-#: ../src/vnr-window.c:1770
-msgid "_Properties..."
-msgstr "_Свойства..."
-
-#: ../src/vnr-window.c:1771
-msgid "Show information about the current file"
-msgstr "Информация за текущия файл"
-
-#: ../src/vnr-window.c:1773
-msgid "_Reload"
-msgstr "_Презареждане"
-
-#: ../src/vnr-window.c:1774
-msgid "Reload the current file"
-msgstr "Презареждане на текущия файл"
-
-#: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
-msgid "_Zoom In"
-msgstr "Увеличаване"
-
-#: ../src/vnr-window.c:1780
-msgid "Enlarge the image"
-msgstr "Увеличаване на изображението"
-
-#: ../src/vnr-window.c:1782 ../src/vnr-window.c:1797
-msgid "Zoom _Out"
-msgstr "Намаляване"
-
-#: ../src/vnr-window.c:1783 ../src/vnr-window.c:1792 ../src/vnr-window.c:1795
-#: ../src/vnr-window.c:1798
-msgid "Shrink the image"
-msgstr "Смаляване на изображението"
-
-#: ../src/vnr-window.c:1785
-msgid "_Normal Size"
-msgstr "Нормален размер"
-
-#: ../src/vnr-window.c:1786
-msgid "Show the image at its normal size"
-msgstr "Показване на изображението в нормалния му размер"
-
-#: ../src/vnr-window.c:1788
-msgid "Best _Fit"
-msgstr "Най-добро изпълване"
-
-#: ../src/vnr-window.c:1789
-msgid "Fit the image to the window"
-msgstr "Вместване на изображението съобразно прозореца"
-
-#: ../src/vnr-window.c:1803
-msgid "Rotate _Clockwise"
-msgstr "Завъртане надясно"
-
-#: ../src/vnr-window.c:1804
-msgid "Rotate image clockwise"
-msgstr "Завъртане изображението надясно"
-
-#: ../src/vnr-window.c:1806
-msgid "Rotate _Anti-clockwise"
-msgstr "Завъртане наляво"
-
-#: ../src/vnr-window.c:1807
-msgid "Rotate image anti-clockwise"
-msgstr "Завъртане изображението наляво"
-
-#: ../src/vnr-window.c:1809
-msgid "Flip _Vertical"
-msgstr "Обръщане по _вертикал"
-
-#: ../src/vnr-window.c:1810
-msgid "Flip image vertically"
-msgstr "Вертикално обръщане"
-
-#: ../src/vnr-window.c:1812
-msgid "Flip _Horizontal"
-msgstr "Обръщане по _хоризонтал"
-
-#: ../src/vnr-window.c:1813
-msgid "Flip image horizontally"
-msgstr "Хоризонтално обръщане"
-
-#: ../src/vnr-window.c:1815
-msgid "Crop..."
-msgstr "Изрязване..."
-
-#: ../src/vnr-window.c:1821
-msgid "Full _Screen"
-msgstr "Цял _Екран"
-
-#: ../src/vnr-window.c:1822
-msgid "Show in fullscreen mode"
-msgstr "Показване в режим на цял екран"
-
-#: ../src/vnr-window.c:1824
-msgid "_Adjust window size"
-msgstr "Преоразмеряване на прозореца"
-
-#: ../src/vnr-window.c:1825
-msgid "Adjust window size to fit the image"
-msgstr "Оразмеряване на прозореца спрямо изображението"
-
-#: ../src/vnr-window.c:1830
-msgid "Menu Bar"
-msgstr ""
-
-#: ../src/vnr-window.c:1831
-msgid "Show Menu Bar"
-msgstr ""
-
-#: ../src/vnr-window.c:1833
-msgid "Toolbar"
-msgstr "Лента с инструменти"
-
-#: ../src/vnr-window.c:1834
-msgid "Show Toolbar"
-msgstr "Показване на лентата с инструменти"
-
-#: ../src/vnr-window.c:1839
-msgid "Sli_deshow"
-msgstr "Про_жекция"
-
-#: ../src/vnr-window.c:1840
-msgid "Show in slideshow mode"
-msgstr "Зареждане в режим на прожекция"
-
-#: ../src/vnr-window.c:1845
-msgid "_Previous Image"
-msgstr "Предишно изображение"
-
-#: ../src/vnr-window.c:1846
-msgid "Go to the previous image of the collection"
-msgstr "Отиване на предишното изображение от колекцията"
-
-#: ../src/vnr-window.c:1848
-msgid "_Next Image"
-msgstr "_Следващо изображение"
-
-#: ../src/vnr-window.c:1849
-msgid "Go to the next image of the collection"
-msgstr "Отиване на следващото изображение от колекцията"
-
-#: ../src/vnr-window.c:1851
-msgid "_First Image"
-msgstr "_Първо изображение"
-
-#: ../src/vnr-window.c:1852
-msgid "Go to the first image of the collection"
-msgstr "Отиване на първото изображение от колекцията"
-
-#: ../src/vnr-window.c:1854
-msgid "_Last Image"
-msgstr "_Последно изображение"
-
-#: ../src/vnr-window.c:1855
-msgid "Go to the last image of the collection"
-msgstr "Отиване на последното изображение от колекцията"
-
-#: ../src/uni-exiv2.hpp:49
+#: uni/uni-exiv2.hpp:52
 msgid "Camera make"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:50
+#: uni/uni-exiv2.hpp:53
 msgid "Camera model"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:51
-msgid "Date Taken"
+#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+msgid "Cancel"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:52
-msgid "Exposure time"
+#: uni/uni-exiv2.cpp:86
+msgid "Comment"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:53
-msgid "Exposure mode"
-msgstr ""
+#: data/vnr-preferences-dialog.ui:107
+msgid "Confirm image deletion"
+msgstr "Изискване на потвърждение при изтриване"
 
-#: ../src/uni-exiv2.hpp:54
-msgid "Aperture Value"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:55
-msgid "ISO speed"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:56
-msgid "Flash"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:57
-msgid "Metering mode"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:58
-msgid "Focal length"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:59
-msgid "Software"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:63
-msgid "Description"
-msgstr ""
-
-#: ../src/uni-exiv2.hpp:64
+#: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr ""
 
-#: ../src/uni-exiv2.hpp:65
-msgid "Author"
+#: dialog/vnr-crop.c:250
+msgid "Crop"
+msgstr "Изрязване"
+
+#: dialog/vnr-crop.c:134
+msgid "Crop Image"
+msgstr "Изрязване на изображение"
+
+#: data/vnr-preferences-dialog.ui:134
+msgid "Dark window background"
 msgstr ""
+
+#: uni/uni-exiv2.hpp:54
+msgid "Date Taken"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:67
+msgid "Description"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:75
+msgid "Desktop: "
+msgstr ""
+
+#: dialog/xfce-filename-input.c:217
+msgid "Directory separator illegal in file name"
+msgstr ""
+
+#: dialog/preferences.c:389
+msgid "Enter fullscreen mode"
+msgstr "Влизане в режим „Цял екран“"
+
+#: dialog/dialog.c:40
+msgid "Enter the new name:"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:56
+msgid "Exposure mode"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:55
+msgid "Exposure time"
+msgstr ""
+
+#: dialog/xfce-filename-input.c:216
+msgid "Filename is too long"
+msgstr ""
+
+#: dialog/xfce-filename-input.c:218
+msgid "Filenames should not start or end with a space"
+msgstr ""
+
+#: dialog/preferences.c:299
+msgid "Fit To Window Mode"
+msgstr "Режим изпълване на прозореца"
+
+#: uni/uni-exiv2.hpp:59
+msgid "Flash"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:61
+msgid "Focal length"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:216
+msgid "Fullscreen"
+msgstr "Цял екран"
+
+#: data/vnr-preferences-dialog.ui:151
+msgid "General"
+msgstr "Общи"
+
+#: uni/uni-exiv2.hpp:58
+msgid "ISO speed"
+msgstr ""
+
+#: window.c:2038
+msgid "If you delete an item, it will be permanently lost."
+msgstr "Ако изтриете обект, той изчезва окончателно."
+
+#: dialog/preferences.c:400
+#, fuzzy
+msgid "Ignore"
+msgstr "Игнориране на промените"
+
+#: dialog/vnr-properties.c:140
+msgid "Image Properties"
+msgstr "Свойства на изображението"
+
+#: uni/uni-exiv2.hpp:63
+#, fuzzy
+msgid "Image description"
+msgstr "Свойства на изображението"
+
+#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+msgid ""
+"Image modifications cannot be saved.\n"
+"Writing in this format is not supported."
+msgstr ""
+"Промените не могат да бъдат запазени.\n"
+"Записане в този файлов формат не се поддържа."
+
+#: data/vnr-preferences-dialog.ui:322
+msgid "JPEG quality:"
+msgstr "Качество на JPEG:"
+
+#: dialog/preferences.c:300
+msgid "Last Used Mode"
+msgstr ""
+
+#: uni/uni-exiv2.hpp:60
+msgid "Metering mode"
+msgstr ""
+
+#: dialog/preferences.c:378 dialog/preferences.c:390
+msgid "Navigate images"
+msgstr "Навигиране из изображенията"
+
+#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
+#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
+#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
+#: dialog/vnr-properties.c:464
+msgid "None"
+msgstr "Липсва"
+
+#: window.c:2215 window.c:2279
+msgid "Not enough virtual memory."
+msgstr "Оперативната памет е недостатъчна"
+
+#: data/vnr-preferences-dialog.ui:245
+msgid "On double click: "
+msgstr "При двойно кликване: "
+
+#: data/vnr-preferences-dialog.ui:256
+msgid "On image modification: "
+msgstr "При промяна на изображението: "
+
+#: data/vnr-preferences-dialog.ui:234
+msgid "On mouse wheel: "
+msgstr "При скролване с мишката: "
+
+#: window.c:1226
+msgid "Open Folder"
+msgstr "Отваряне на папка"
+
+#: window.c:1120
+msgid "Open Image"
+msgstr "Отваряне на изображение"
+
+#: data/vnr-preferences-dialog.ui:51
+msgid "Open new image in: "
+msgstr "Отваряне на ново изображение в: "
+
+#: data/vnr-preferences-dialog.ui:347
+msgid "PNG compression:"
+msgstr "Компресия на PNG:"
+
+#: data/vnr-preferences-dialog.ui:308
+msgid "Reload image on save"
+msgstr "Презареждане на изображението след запазване"
+
+#: dialog/dialog.c:18
+#, c-format
+msgid "Rename \"%s\""
+msgstr ""
+
+#: dialog/vnr-resize.c:148
+msgid "Resize"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:376
+msgid "Saving"
+msgstr "Запазване"
+
+#: dialog/preferences.c:380
+msgid "Scroll image up/down"
+msgstr "Превъртане на изображението нагоре/надолу"
+
+#: data/vnr-preferences-dialog.ui:120
+msgid "Show hidden images"
+msgstr "Показване на скритите изображения"
+
+#: data/vnr-preferences-dialog.ui:171
+msgid "Show next image after (in seconds): "
+msgstr "Показване на следващото изображение след (в секунди): "
+
+#: window.c:2966
+msgid "Show next image after: "
+msgstr "Смяна на изображението след: "
+
+#: dialog/preferences.c:297
+msgid "Smart Mode"
+msgstr "Интелигентен режим"
+
+#: data/vnr-preferences-dialog.ui:94
+msgid "Smooth images when zoomed"
+msgstr "Заглаждане при увеличаване на мащаба"
+
+#: uni/uni-exiv2.hpp:62
+msgid "Software"
+msgstr ""
+
+#: dialog/preferences.c:388
+msgid "Switch zoom modes"
+msgstr "Смяна режима на мащабиране"
+
+#: main.c:113 window.c:797 window.c:1309 window.c:2140
+msgid "The given locations contain no images."
+msgstr "Указаното местоположение не съдържа изображения."
+
+#: window.c:1532
+#, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr "Използвайте „%s“ за отваряне на избраното изображение"
+
+#: uni/uni-exiv2.hpp:64
+msgid "User comment"
+msgstr ""
+
+#: data/vnr-preferences-dialog.ui:25
+msgid "Viewnior Preferences"
+msgstr "Настройки на Viewnior"
+
+#: dialog/preferences.c:379
+msgid "Zoom image"
+msgstr "Мащабиране на изображението"
+
+#: dialog/dialog.c:24
+msgid "_Cancel"
+msgstr ""
+
+#: dialog/vnr-properties.c:123
+msgid "_Next"
+msgstr "Напред"
+
+#: dialog/vnr-properties.c:122
+msgid "_Previous"
+msgstr "Назад"
+
+#: dialog/dialog.c:26
+msgid "_Rename"
+msgstr ""
+
+#~ msgid "About this application"
+#~ msgstr "За програмата"
+
+#~ msgid "Adjust window size to fit the image"
+#~ msgstr "Оразмеряване на прозореца спрямо изображението"
+
+#~ msgid "Ask every time"
+#~ msgstr "Запитване всеки път"
+
+#~ msgid "Best _Fit"
+#~ msgstr "Най-добро изпълване"
+
+#~ msgid "Close window"
+#~ msgstr "Затваряне на прозореца"
+
+#, c-format
+#~ msgid ""
+#~ "Couldn't recognise the image file\n"
+#~ "format for file '%s'"
+#~ msgstr ""
+#~ "Непознат файлов формат \n"
+#~ "'%s'"
+
+#~ msgid "Crop..."
+#~ msgstr "Изрязване..."
+
+#~ msgid "Delete the current file"
+#~ msgstr "Изтриване на текущия файл"
+
+#~ msgid "Elegant Image Viewer"
+#~ msgstr "Елегантна програма за разглеждане на картинки"
+
+#~ msgid "Enlarge the image"
+#~ msgstr "Увеличаване на изображението"
+
+#~ msgid "Fit the image to the window"
+#~ msgstr "Вместване на изображението съобразно прозореца"
+
+#~ msgid "Flip _Horizontal"
+#~ msgstr "Обръщане по _хоризонтал"
+
+#~ msgid "Flip _Vertical"
+#~ msgstr "Обръщане по _вертикал"
+
+#~ msgid "Flip image horizontally"
+#~ msgstr "Хоризонтално обръщане"
+
+#~ msgid "Flip image vertically"
+#~ msgstr "Вертикално обръщане"
+
+#~ msgid "Full _Screen"
+#~ msgstr "Цял _Екран"
+
+#~ msgid "Go to the first image of the collection"
+#~ msgstr "Отиване на първото изображение от колекцията"
+
+#~ msgid "Go to the last image of the collection"
+#~ msgstr "Отиване на последното изображение от колекцията"
+
+#~ msgid "Go to the next image of the collection"
+#~ msgstr "Отиване на следващото изображение от колекцията"
+
+#~ msgid "Go to the previous image of the collection"
+#~ msgstr "Отиване на предишното изображение от колекцията"
+
+#~ msgid "Height: "
+#~ msgstr "Височина: "
+
+#~ msgid "Open _Folder..."
+#~ msgstr "Отваряне на папка..."
+
+#~ msgid "Open _Image..."
+#~ msgstr "Отваряне на изображение..."
+
+#~ msgid "Open _With"
+#~ msgstr "Отваряне с"
+
+#~ msgid "Open a Folder"
+#~ msgstr "Отваряне на папка"
+
+#~ msgid "Open an Image"
+#~ msgstr "Отваряне на изображение"
+
+#~ msgid "Open the navigator window"
+#~ msgstr "Отваряне прозореца за навигация"
+
+#~ msgid "Open the selected image with a different application"
+#~ msgstr "Отваряне на избраното изображение с друга програма"
+
+#~ msgid "Reload the current file"
+#~ msgstr "Презареждане на текущия файл"
+
+#~ msgid "Rotate _Anti-clockwise"
+#~ msgstr "Завъртане наляво"
+
+#~ msgid "Rotate _Clockwise"
+#~ msgstr "Завъртане надясно"
+
+#~ msgid "Rotate image anti-clockwise"
+#~ msgstr "Завъртане изображението наляво"
+
+#~ msgid "Rotate image clockwise"
+#~ msgstr "Завъртане изображението надясно"
+
+#~ msgid "Save changes"
+#~ msgstr "Запазване на промените"
+
+#~ msgid "Set as _Wallpaper"
+#~ msgstr "Задаване като фон"
+
+#~ msgid "Set the selected image as the desktop background"
+#~ msgstr "Задаване на изображението като фон"
+
+#~ msgid "Show Toolbar"
+#~ msgstr "Показване на лентата с инструменти"
+
+#~ msgid "Show in fullscreen mode"
+#~ msgstr "Показване в режим на цял екран"
+
+#~ msgid "Show in slideshow mode"
+#~ msgstr "Зареждане в режим на прожекция"
+
+#~ msgid "Show information about the current file"
+#~ msgstr "Информация за текущия файл"
+
+#~ msgid "Show the image at its normal size"
+#~ msgstr "Показване на изображението в нормалния му размер"
+
+#~ msgid "Shrink the image"
+#~ msgstr "Смаляване на изображението"
+
+#~ msgid "Sli_deshow"
+#~ msgstr "Про_жекция"
+
+#~ msgid "Toolbar"
+#~ msgstr "Лента с инструменти"
+
+#~ msgid "User preferences for Viewnior"
+#~ msgstr "Потребителски настройки за Viewnior"
+
+#~ msgid "Viewnior"
+#~ msgstr "Viewnior"
+
+#~ msgid "Width: "
+#~ msgstr "Ширина: "
+
+#~ msgid "X: "
+#~ msgstr "X: "
+
+#~ msgid "Y: "
+#~ msgstr "Y: "
+
+#~ msgid "Zoom _Out"
+#~ msgstr "Намаляване"
+
+#~ msgid "_About"
+#~ msgstr "Относно"
+
+#~ msgid "_Adjust window size"
+#~ msgstr "Преоразмеряване на прозореца"
+
+#~ msgid "_Close"
+#~ msgstr "Затваряне"
+
+#~ msgid "_Delete"
+#~ msgstr "Изтриване"
+
+#~ msgid "_Edit"
+#~ msgstr "_Редактиране"
+
+#~ msgid "_File"
+#~ msgstr "_Файл"
+
+#~ msgid "_First Image"
+#~ msgstr "_Първо изображение"
+
+#~ msgid "_Go"
+#~ msgstr "О_тиване"
+
+#~ msgid "_Help"
+#~ msgstr "_Помощ"
+
+#~ msgid "_Image"
+#~ msgstr "_Изображение"
+
+#~ msgid "_Last Image"
+#~ msgstr "_Последно изображение"
+
+#~ msgid "_Next Image"
+#~ msgstr "_Следващо изображение"
+
+#~ msgid "_Normal Size"
+#~ msgstr "Нормален размер"
+
+#~ msgid "_Preferences..."
+#~ msgstr "Настройки..."
+
+#~ msgid "_Previous Image"
+#~ msgstr "Предишно изображение"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Свойства..."
+
+#~ msgid "_Reload"
+#~ msgstr "_Презареждане"
+
+#~ msgid "_Save"
+#~ msgstr "_Запазване"
+
+#~ msgid "_View"
+#~ msgstr "Пре_глед"
+
+#~ msgid "_Zoom In"
+#~ msgstr "Увеличаване"
+
+#~ msgid "translator-credits"
+#~ msgstr ""
+#~ "Launchpad Contributions:\n"
+#~ "  Alexander Andjelkovic https://launchpad.net/~frankbooth\n"
+#~ "  Siyan Panayotov https://launchpad.net/~xsisqox\n"
+#~ "  Svetoslav Stefanov https://launchpad.net/~svetlisashkov\n"
+#~ "  Ve4ernik https://launchpad.net/~ve4ernik"
