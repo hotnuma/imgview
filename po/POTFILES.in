@@ -3,11 +3,13 @@
 [encoding: UTF-8]
 data/imgview.desktop.in.in
 [type: gettext/glade]data/vnr-preferences-dialog.ui
-[type: gettext/glade]data/vnr-crop-dialog.ui
-src/main.c
-src/uni-scroll-win.c
-src/vnr-file.c
-src/vnr-prefs.c
-src/vnr-properties-dialog.c
-src/vnr-window.c
-src/uni-exiv2.hpp
+dialog/dialog.c
+dialog/preferences.c
+dialog/vnr-crop.c
+dialog/vnr-properties.c
+dialog/vnr-resize.c
+dialog/xfce-filename-input.c
+main.c
+uni/uni-exiv2.cpp
+uni/uni-exiv2.hpp
+window.c
