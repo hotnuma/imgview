@@ -1,5 +1,6 @@
 **/autre/
 **/build/
 **/.cache/
-*.pro.user
 *.html
+*.pot
+*.pro.user
