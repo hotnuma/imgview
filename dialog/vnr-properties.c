@@ -146,15 +146,13 @@ static void vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
 
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Location:</b>"));
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
 
     dialog->location_label = gtk_label_new(NULL);
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(dialog->location_label), 0, 0);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(dialog->location_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(dialog->location_label), 0);
     gtk_label_set_selectable(GTK_LABEL(dialog->location_label), TRUE);
     gtk_label_set_ellipsize(GTK_LABEL(dialog->location_label),
                             PANGO_ELLIPSIZE_END);
@@ -211,75 +209,82 @@ static void vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
     gtk_box_pack_start(GTK_BOX(dialog->image_layout),
                        temp_box, FALSE, FALSE, 0);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Name:</b>"));
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Type:</b>"));
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Size:</b>"));
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Width:</b>"));
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Height:</b>"));
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Modified:</b>"));
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box), temp_label, FALSE, FALSE, 0);
-    G_GNUC_END_IGNORE_DEPRECATIONS
 
     temp_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_pack_start(GTK_BOX(dialog->image_layout),
                        temp_box, FALSE, FALSE, 0);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     dialog->name_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->name_label), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(dialog->name_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(dialog->name_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(dialog->name_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box),
                        dialog->name_label, FALSE, FALSE, 0);
 
     dialog->type_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->type_label), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(dialog->type_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(dialog->type_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(dialog->type_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box),
                        dialog->type_label, FALSE, FALSE, 0);
 
     dialog->size_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->size_label), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(dialog->size_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(dialog->size_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(dialog->size_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box),
                        dialog->size_label, FALSE, FALSE, 0);
 
     dialog->width_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->width_label), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(dialog->width_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(dialog->width_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(dialog->width_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box),
                        dialog->width_label, FALSE, FALSE, 0);
 
     dialog->height_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->height_label), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(dialog->height_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(dialog->height_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(dialog->height_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box),
                        dialog->height_label, FALSE, FALSE, 0);
 
     dialog->modified_label = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(dialog->modified_label), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(dialog->modified_label), 0, 0);
+    gtk_label_set_xalign(GTK_LABEL(dialog->modified_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(dialog->modified_label), 0);
     gtk_box_pack_start(GTK_BOX(temp_box),
                        dialog->modified_label, FALSE, FALSE, 0);
-
-    G_GNUC_END_IGNORE_DEPRECATIONS
 
     // Metadata Labels
 
@@ -382,9 +387,8 @@ static void vnr_cb_add_metadata(const char *label,
     temp_label = gtk_label_new(NULL);
     gtk_label_set_text(GTK_LABEL(temp_label), value);
     gtk_label_set_selectable(GTK_LABEL(temp_label), TRUE);
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(dialog->meta_values_box),
                        temp_label, FALSE, FALSE, 0);
 
@@ -395,9 +399,8 @@ static void vnr_cb_add_metadata(const char *label,
 
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), formatted_label);
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(temp_label), 0, 0);
-    G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(temp_label), 0);
+    gtk_label_set_yalign(GTK_LABEL(temp_label), 0);
     gtk_box_pack_start(GTK_BOX(dialog->meta_names_box),
                        temp_label, FALSE, FALSE, 0);
 

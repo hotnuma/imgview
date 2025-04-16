@@ -61,9 +61,7 @@ struct _UniAnimView
 
     // Timer used to get the right frame.
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-
     GTimeVal time;
-
     G_GNUC_END_IGNORE_DEPRECATIONS
 
     int delay;

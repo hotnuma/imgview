@@ -619,16 +619,13 @@ static void _uni_image_view_update_adjustments(UniImageView *view)
                              alloc.height / 2,
                              alloc.height);
 
-    g_signal_handlers_block_by_data(G_OBJECT(view->priv->hadjustment), view);
-    g_signal_handlers_block_by_data(G_OBJECT(view->priv->vadjustment), view);
-
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_adjustment_changed(view->priv->hadjustment);
-    gtk_adjustment_changed(view->priv->vadjustment);
-    G_GNUC_END_IGNORE_DEPRECATIONS
-
-    g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->hadjustment), view);
-    g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->vadjustment), view);
+    // https://docs.gtk.org/gtk3/method.Adjustment.changed.html
+    //g_signal_handlers_block_by_data(G_OBJECT(view->priv->hadjustment), view);
+    //g_signal_handlers_block_by_data(G_OBJECT(view->priv->vadjustment), view);
+    //gtk_adjustment_changed(view->priv->hadjustment);
+    //gtk_adjustment_changed(view->priv->vadjustment);
+    //g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->hadjustment), view);
+    //g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->vadjustment), view);
 }
 
 static void _uni_image_view_zoom_to_fit(UniImageView *view,
