@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2015-10-15 19:44+0000\n"
 "Last-Translator: Max Lyashuk aka Ma)(imuM <probel@mail.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -130,16 +130,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Запит підтвердження видалення зображення"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "Авторські права"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Оновити даний файл"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "Авторські права"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Обрізати"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Обрізати зображення"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Обрізати зображення"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -149,6 +164,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "Дата зйомки"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Вилучити даний файл"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -248,6 +267,15 @@ msgstr "Режим останнього використання"
 msgid "Metering mode"
 msgstr "Режим вимірювання"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Вилучити даний файл"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Переходити на наступне зображення"
@@ -283,9 +311,33 @@ msgstr "Відкрити теку"
 msgid "Open Image"
 msgstr "Відкрити зображення"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Відкрити _теку..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Відкрити _Зображення..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Відкрити за допомогою"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Відкрити теку"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Відкрити зображення"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Відкрити нове зображення в: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Відкрити виділене зображення у інший програмі"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -295,13 +347,26 @@ msgstr "Стиснення PNG:"
 msgid "Reload image on save"
 msgstr "Оновити зображення при збереженні"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Оновити даний файл"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -312,9 +377,26 @@ msgstr "Збереження"
 msgid "Scroll image up/down"
 msgstr "Прокручувати зображення вгору/вниз"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Встановити як_Шпалери"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Показувати приховані зображення"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Показати інформацію про поточний файл"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -353,6 +435,11 @@ msgstr "Використовувати \"%s\" для відкривання ви
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Налаштування користувача для Viewnior"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Налаштування Viewnior"
@@ -365,17 +452,34 @@ msgstr "Збільшити зображення"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "В_илучити"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Наступне"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Параметри…"
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Попереднє"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Властивості…"
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Встановити як_Шпалери"
 
 #~ msgid "About this application"
 #~ msgstr "Про програму"
@@ -402,9 +506,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Різати"
-
-#~ msgid "Delete the current file"
-#~ msgstr "Вилучити даний файл"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Елегантний переглядач зображень"
@@ -448,32 +549,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "Смужка меню"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Відкрити _теку..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "Відкрити _Зображення..."
-
-#~ msgid "Open _With"
-#~ msgstr "Відкрити за допомогою"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Відкрити теку"
-
-#~ msgid "Open an Image"
-#~ msgstr "Відкрити зображення"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Відкрити вікно навігатора"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Відкрити виділене зображення у інший програмі"
-
 #~ msgid "Properties"
 #~ msgstr "Властивості"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Оновити даний файл"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "Повернути проти  годинникової стрілки"
@@ -497,9 +577,6 @@ msgstr ""
 #~ "Зберегти зміни?\n"
 #~ "Ця дія перезапише зображення і, ймовірно, воно стане гіршої якості!"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Встановити як_Шпалери"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "Встановити обране зображення як тло робочого столу"
 
@@ -515,9 +592,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Показати в редимі слайдшоу"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Показати інформацію про поточний файл"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Відобразити зображення зі звичайними розмірами"
 
@@ -529,9 +603,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Панель інструментів"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Налаштування користувача для Viewnior"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -556,9 +627,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Закрити"
-
-#~ msgid "_Delete"
-#~ msgstr "В_илучити"
 
 #~ msgid "_Edit"
 #~ msgstr "_Редагувати"
@@ -587,17 +655,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "_Звичайний розмір"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Параметри…"
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Попереднє зображення"
 
 #~ msgid "_Properties"
 #~ msgstr "_Властивості"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Властивості…"
 
 #~ msgid "_Reload"
 #~ msgstr "О_новити"

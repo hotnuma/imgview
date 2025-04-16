@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2015-10-04 09:30+0000\n"
 "Last-Translator: Vincent L. <Unknown>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
@@ -124,16 +124,30 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Confirmar la supression de l'imatge"
 
+#: window.c:242
+msgid "Copy"
+msgstr ""
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Aficha las informacions a prepaus del fichièr actual"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Retalhar"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Retalhar l'imatge"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Retalhar l'imatge"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -142,6 +156,10 @@ msgstr ""
 
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
+msgstr ""
+
+#: window.c:278
+msgid "Delete the current file"
 msgstr ""
 
 #: uni/uni-exiv2.hpp:67
@@ -240,6 +258,15 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Aficha las informacions a prepaus del fichièr actual"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr ""
@@ -275,9 +302,34 @@ msgstr "Dobrir un dorsièr"
 msgid "Open Image"
 msgstr "Dobrir un imatge"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Dobrir un _dorsièr..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Dobrir un _Imatge..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Dobrir _amb"
+
+#: window.c:222
+#, fuzzy
+msgid "Open a Folder"
+msgstr "Dobrir un dorsièr"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Dobrir un Imatge"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr ""
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Dobrir l'imatge seleccionat amb una autra aplicacion"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -287,13 +339,26 @@ msgstr "Compression PNG :"
 msgid "Reload image on save"
 msgstr ""
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Aficha las informacions a prepaus del fichièr actual"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -304,9 +369,25 @@ msgstr "Enregistrament"
 msgid "Scroll image up/down"
 msgstr ""
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+msgid "Set image as wallpaper"
+msgstr ""
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Far veire los imatges amagats"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Aficha las informacions a prepaus del fichièr actual"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -345,6 +426,10 @@ msgstr "Utilizar « %s » per dobrir l'imatge seleccionat"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+msgid "User preferences for ImgView"
+msgstr ""
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Preferéncias de Viewnior"
@@ -357,16 +442,32 @@ msgstr "Zoom sus l'imatge"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Suprimir"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Seguent"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Preferéncias..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Precedent"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Proprietats..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
+msgstr ""
+
+#: window.c:284
+msgid "_Wallpaper"
 msgstr ""
 
 #~ msgid "About this application"
@@ -420,21 +521,6 @@ msgstr ""
 #~ msgid "Height: "
 #~ msgstr "Nautor : "
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Dobrir un _dorsièr..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "Dobrir un _Imatge..."
-
-#~ msgid "Open _With"
-#~ msgstr "Dobrir _amb"
-
-#~ msgid "Open an Image"
-#~ msgstr "Dobrir un Imatge"
-
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Dobrir l'imatge seleccionat amb una autra aplicacion"
-
 #~ msgid "Save changes"
 #~ msgstr "Enregistrar las modificacions"
 
@@ -443,9 +529,6 @@ msgstr ""
 
 #~ msgid "Show Toolbar"
 #~ msgstr "Afichar la barra d'aisinas"
-
-#~ msgid "Show information about the current file"
-#~ msgstr "Aficha las informacions a prepaus del fichièr actual"
 
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Aficha l'imatge a sa talha normala"
@@ -480,9 +563,6 @@ msgstr ""
 #~ msgid "_Close"
 #~ msgstr "_Tampar"
 
-#~ msgid "_Delete"
-#~ msgstr "_Suprimir"
-
 #~ msgid "_Edit"
 #~ msgstr "E_dicion"
 
@@ -507,14 +587,8 @@ msgstr ""
 #~ msgid "_Next Image"
 #~ msgstr "Imatge _seguent"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Preferéncias..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "Imatge _precedent"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Proprietats..."
 
 #~ msgid "_Reload"
 #~ msgstr "_Recargar"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2011-05-07 18:03+0000\n"
 "Last-Translator: Arnout Lok <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -127,16 +127,30 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Bevestig verwijderen van een afbeelding"
 
+#: window.c:242
+msgid "Copy"
+msgstr ""
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Huidig bestand opnieuw laden"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Bijsnijden"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Afbeelding bijsnijden"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Afbeelding bijsnijden"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -146,6 +160,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr ""
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Huidige bestand verwijderen"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -245,6 +263,15 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Huidige bestand verwijderen"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Afbeeldingen Navigeren"
@@ -280,9 +307,33 @@ msgstr "Map openen"
 msgid "Open Image"
 msgstr "Afbeelding openen"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "_Map openen..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Open _Afbeelding..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Openen _met"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Open een map"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Open een afbeelding"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Open nieuwe afbeelding in: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "De geselecteerde afbeelding openen met een andere toepassing"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -292,13 +343,26 @@ msgstr "PNG-compressie:"
 msgid "Reload image on save"
 msgstr "Afbeelding opnieuw laden bij opslaan"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Huidig bestand opnieuw laden"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -309,9 +373,26 @@ msgstr "Opslaan"
 msgid "Scroll image up/down"
 msgstr "Afbeelding naar boven/beneden scrollen"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Als _achtergrond instellen"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Verborgen bestanden tonen"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Informatie over het huidige bestand tonen"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -350,6 +431,11 @@ msgstr "‘%s’ gebruiken om de geselecteerde afbeelding te openen"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Gebruikersvoorkeuren voor Viewnior"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Viewnior Voorkeuren"
@@ -362,17 +448,34 @@ msgstr "Inzoomen"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Verwijderen"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Volgende"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Voorkeuren..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "V_orige"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Eigenschappen..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Als _achtergrond instellen"
 
 #~ msgid "About this application"
 #~ msgstr "Over deze toepassing"
@@ -397,9 +500,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Bijsnijden..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "Huidige bestand verwijderen"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Elegante Afbeeldingsviewer"
@@ -440,29 +540,8 @@ msgstr ""
 #~ msgid "Height: "
 #~ msgstr "Hoogte: "
 
-#~ msgid "Open _Folder..."
-#~ msgstr "_Map openen..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "Open _Afbeelding..."
-
-#~ msgid "Open _With"
-#~ msgstr "Openen _met"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Open een map"
-
-#~ msgid "Open an Image"
-#~ msgstr "Open een afbeelding"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Open navigatievenster"
-
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "De geselecteerde afbeelding openen met een andere toepassing"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Huidig bestand opnieuw laden"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "_Antikloksgewijs Roteren"
@@ -479,9 +558,6 @@ msgstr ""
 #~ msgid "Save changes"
 #~ msgstr "Wijzigingen opslaan"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Als _achtergrond instellen"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "De geselecteerde afbeelding als achtergrond van het bureaublad instellen"
 
@@ -494,9 +570,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Laten zien in slideshow"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Informatie over het huidige bestand tonen"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Afbeelding weergeven op de normale grootte"
 
@@ -508,9 +581,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Werkbalk"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Gebruikersvoorkeuren voor Viewnior"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -535,9 +605,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Sluiten"
-
-#~ msgid "_Delete"
-#~ msgstr "_Verwijderen"
 
 #~ msgid "_Edit"
 #~ msgstr "Be_werken"
@@ -566,14 +633,8 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "_Normale grootte"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Voorkeuren..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "Vo_rige afbeelding"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Eigenschappen..."
 
 #~ msgid "_Reload"
 #~ msgstr "_Herladen"

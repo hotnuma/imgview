@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior-1.4\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2014-02-19 06:28+0000\n"
 "Last-Translator: Kyrill Detinov <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -130,16 +130,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Подтверждение удаления изображения"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "Авторские права"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Обновить текущий файл"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Обрезать"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Обрезать изображение"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Обрезать изображение"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -149,6 +164,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "Дата съёмки"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Удалить текущий файл"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -248,6 +267,15 @@ msgstr "последнем использовавшемся режиме"
 msgid "Metering mode"
 msgstr "Режим замера"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Удалить текущий файл"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "навигация по изображениям"
@@ -283,9 +311,33 @@ msgstr "Открыть папку"
 msgid "Open Image"
 msgstr "Открыть изображение"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Открыть папку…"
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Открыть _изображение…"
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Открыть _в"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Открыть папку"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Открыть изображение"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Открыть новое изображение в: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Открыть выделенное изображение в другом приложении"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -295,13 +347,26 @@ msgstr "Сжатие PNG:"
 msgid "Reload image on save"
 msgstr "Перезагрузить изображение после сохранения"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Обновить текущий файл"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -312,9 +377,26 @@ msgstr "Сохранение"
 msgid "Scroll image up/down"
 msgstr "Прокрутка изображения вверх/вниз"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Сделать фоном рабочего стола"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Показать скрытые изображения"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Показать информацию о текущем файле"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -353,6 +435,11 @@ msgstr "Используйте \"%s\" для открытия выбранног
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Параметры пользователя для Viewnior"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Параметры Viewnior"
@@ -365,17 +452,34 @@ msgstr "увеличить изображение"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Удалить"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Следующее"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Параметры…"
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Предыдущее"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "С_войства…"
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Сделать фоном рабочего стола"
 
 #~ msgid "About this application"
 #~ msgstr "О программе"
@@ -402,9 +506,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Обрезать…"
-
-#~ msgid "Delete the current file"
-#~ msgstr "Удалить текущий файл"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Изящный просмотрщик изображений"
@@ -448,32 +549,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "Панель меню"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Открыть папку…"
-
-#~ msgid "Open _Image..."
-#~ msgstr "Открыть _изображение…"
-
-#~ msgid "Open _With"
-#~ msgstr "Открыть _в"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Открыть папку"
-
-#~ msgid "Open an Image"
-#~ msgstr "Открыть изображение"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Открыть окно навигации"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Открыть выделенное изображение в другом приложении"
-
 #~ msgid "Properties"
 #~ msgstr "Свойства"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Обновить текущий файл"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "Повернуть п_ротив часовой стрелки"
@@ -497,9 +577,6 @@ msgstr ""
 #~ "Сохранить изменения?\n"
 #~ "Это перезапишет изображение и может ухудшить качество!"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Сделать фоном рабочего стола"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "Установить выделенное изображение фоном рабочего стола"
 
@@ -515,9 +592,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Показать в режиме слайдошу"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Показать информацию о текущем файле"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Показать изображение в его нормальном масштабе"
 
@@ -529,9 +603,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Панель инструментов"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Параметры пользователя для Viewnior"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -556,9 +627,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Закрыть"
-
-#~ msgid "_Delete"
-#~ msgstr "_Удалить"
 
 #~ msgid "_Edit"
 #~ msgstr "П_равка"
@@ -587,17 +655,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "1 : 1"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Параметры…"
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Предыдущее изображение"
 
 #~ msgid "_Properties"
 #~ msgstr "_Свойства"
-
-#~ msgid "_Properties..."
-#~ msgstr "С_войства…"
 
 #~ msgid "_Reload"
 #~ msgstr "_Обновить"

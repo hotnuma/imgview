@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2016-02-19 19:52+0000\n"
 "Last-Translator: ereao_eash <coronzon88@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -130,16 +130,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Potwierdź usunięcie obrazu"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "Prawa autorskie"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Wczytaj ponownie bierzący plik"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "Prawa autorskie"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Przytnij"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Przytnij obraz"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Przytnij obraz"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -149,6 +164,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "Data wykonania"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Usuń bierzący plik"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -248,6 +267,15 @@ msgstr "Ostatnio używany tryb"
 msgid "Metering mode"
 msgstr "Tryb pomiaru odległości"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Usuń bierzący plik"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Przeglądaj obrazy"
@@ -283,9 +311,33 @@ msgstr "Otwórz katalog"
 msgid "Open Image"
 msgstr "Otwórz obraz"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Otwórz _katalog..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "O_twórz obraz..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Otwórz za po_mocą"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Otwórz katalog"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Otwórz obraz"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Otwórz nowy obraz za pomocą: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Otwiera zaznaczony obraz za pomocą innego programu"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -295,13 +347,26 @@ msgstr "Kompresja PNG:"
 msgid "Reload image on save"
 msgstr "Przeładuj obraz podczas zapisywania"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Wczytaj ponownie bierzący plik"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -312,9 +377,26 @@ msgstr "Zapisywanie"
 msgid "Scroll image up/down"
 msgstr "Przewiń obwaz w górę/dół"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Ustaw jako _tapetę"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Pokaż ukryte obrazy"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Wyświetla informacje na temat bieżącego pliku"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -353,6 +435,11 @@ msgstr "Użyj \"%s\" do otworzenia zaznaczonego obrazu"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Preferencje użytkownika"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Preferencje"
@@ -365,17 +452,34 @@ msgstr "Powiększ obraz"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Usuń"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Następny"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "Pre_ferencje..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Poprzedni"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Właściwości"
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Ustaw jako _tapetę"
 
 #~ msgid "About this application"
 #~ msgstr "O tym programie"
@@ -402,9 +506,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Przytnij..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "Usuń bierzący plik"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Elegancka Przeglądarka Obrazów"
@@ -448,32 +549,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "Pasek Menu"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Otwórz _katalog..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "O_twórz obraz..."
-
-#~ msgid "Open _With"
-#~ msgstr "Otwórz za po_mocą"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Otwórz katalog"
-
-#~ msgid "Open an Image"
-#~ msgstr "Otwórz obraz"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Otwórz okno przeglądania plików"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Otwiera zaznaczony obraz za pomocą innego programu"
-
 #~ msgid "Properties"
 #~ msgstr "Właściwości"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Wczytaj ponownie bierzący plik"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "Obróć przeciw_nie do ruchu wskazówek zegara"
@@ -497,9 +577,6 @@ msgstr ""
 #~ "Czy zapisać zmiany?\n"
 #~ "Spowoduje to nadpisanie obrazu i może negatywnie wpłynąć na jego jakość!"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Ustaw jako _tapetę"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "Ustaw wybrany obraz jako tło pulpitu"
 
@@ -515,9 +592,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Pokazuje obrazy w trybie pokazu slajdów"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Wyświetla informacje na temat bieżącego pliku"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Wyświetla obraz w naturalnej wielkości"
 
@@ -529,9 +603,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Pasek narzędzi"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Preferencje użytkownika"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -556,9 +627,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Zamknij"
-
-#~ msgid "_Delete"
-#~ msgstr "_Usuń"
 
 #~ msgid "_Edit"
 #~ msgstr "_Edycja"
@@ -587,17 +655,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "Or_yginalny rozmiar"
 
-#~ msgid "_Preferences..."
-#~ msgstr "Pre_ferencje..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Poprzedni obraz"
 
 #~ msgid "_Properties"
 #~ msgstr "_Preferencje"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Właściwości"
 
 #~ msgid "_Reload"
 #~ msgstr "W_czytaj ponownie"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2018-07-27 16:15+0300\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
@@ -130,16 +130,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Patvirtinti paveikslo ištrynimą"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "Autorių teisės"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Įkelti esamą failą iš naujo"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "Autorių teisės"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Apkirpti"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Apkirpti paveikslą"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Apkirpti paveikslą"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -149,6 +164,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "Fotografavimo data"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Ištrinti esamą failą"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -248,6 +267,15 @@ msgstr "Paskutinė naudota veiksena"
 msgid "Metering mode"
 msgstr "Matavimo veiksena"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Ištrinti esamą failą"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Naršyti paveikslus"
@@ -283,9 +311,33 @@ msgstr "Atverti aplanką"
 msgid "Open Image"
 msgstr "Atverti paveikslą"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Atverti _aplanką..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Atverti _paveikslą..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Atverti nau_dojant"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Atverti aplanką"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Atverti paveikslą"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Atverti naują paveikslą naudojant: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Atverti pasirinktą paveikslą naudojant kitą programą"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -295,13 +347,26 @@ msgstr "PNG glaudinimas:"
 msgid "Reload image on save"
 msgstr "Įrašius paveikslą įkelti jį iš naujo"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Įkelti esamą failą iš naujo"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -312,9 +377,26 @@ msgstr "Įrašymas"
 msgid "Scroll image up/down"
 msgstr "Slinkti paveikslą aukštyn/žemyn"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Nustatyti kaip _darbalaukio foną"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Rodyti paslėptus paveikslus"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Rodyti informaciją apie esamą failą"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -353,6 +435,11 @@ msgstr "Atverti pasirinktą paveikslą naudojant „%s“"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Viewnior naudotojo nuostatos"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Viewnior nuostatos"
@@ -365,17 +452,34 @@ msgstr "Keisti paveikslo mastelį"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Ištrinti"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Kitas"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Nuostatos..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Ankstesnis"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Savybės..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Nustatyti kaip _darbalaukio foną"
 
 #~ msgid "About this application"
 #~ msgstr "Apie šią programą"
@@ -402,9 +506,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Apkirpti..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "Ištrinti esamą failą"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Elegantiška paveikslų žiūryklė"
@@ -448,32 +549,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "Meniu juosta"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Atverti _aplanką..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "Atverti _paveikslą..."
-
-#~ msgid "Open _With"
-#~ msgstr "Atverti nau_dojant"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Atverti aplanką"
-
-#~ msgid "Open an Image"
-#~ msgstr "Atverti paveikslą"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Atverti naršymo langą"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Atverti pasirinktą paveikslą naudojant kitą programą"
-
 #~ msgid "Properties"
 #~ msgstr "Savybės"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Įkelti esamą failą iš naujo"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "Pasukti p_rieš laikrodžio rodyklę"
@@ -497,9 +577,6 @@ msgstr ""
 #~ "Įrašyti modifikacijas?\n"
 #~ "Tai perrašys paveikslą ir gali pabloginti jo kokybę!"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Nustatyti kaip _darbalaukio foną"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "Nustatyti pasirinktą paveikslą kaip darbalaukio foną"
 
@@ -515,9 +592,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Rodyti skaidrių rodymo veiksenoje"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Rodyti informaciją apie esamą failą"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Rodyti paveikslą normaliu dydžiu"
 
@@ -529,9 +603,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Įrankių juosta"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Viewnior naudotojo nuostatos"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -556,9 +627,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Užverti"
-
-#~ msgid "_Delete"
-#~ msgstr "_Ištrinti"
 
 #~ msgid "_Edit"
 #~ msgstr "_Taisa"
@@ -587,17 +655,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "_Normalus dydis"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Nuostatos..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Ankstesnis paveikslas"
 
 #~ msgid "_Properties"
 #~ msgstr "_Savybės"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Savybės..."
 
 #~ msgid "_Reload"
 #~ msgstr "Į_kelti iš naujo"

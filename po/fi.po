@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2017-12-03 03:07+0000\n"
 "Last-Translator: Ammuu5 <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -129,16 +129,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Varmista kuvan poistaminen"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "Tekijänoikeus"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Lataa nykyinen tiedosto uudelleen"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "Tekijänoikeus"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Rajaa"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Rajaa kuva"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Rajaa kuva"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -148,6 +163,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "Ottopäivä"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Poista nykyinen tiedosto"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -245,6 +264,15 @@ msgstr "Viimeksi käytetyssä tilassa"
 msgid "Metering mode"
 msgstr "Mittaustapa"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Poista nykyinen tiedosto"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Selaa kuvia"
@@ -280,9 +308,33 @@ msgstr "Avaa kansio"
 msgid "Open Image"
 msgstr "Avaa kuva"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Avaa _kansio..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Avaa _kuva..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Avaa _sovelluksella"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Avaa kansio"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Avaa kuva"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Avaa uudet kuvat: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Avaa valittu kuva eri sovelluksella"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -292,13 +344,26 @@ msgstr "PNG-pakkausaste:"
 msgid "Reload image on save"
 msgstr "Lataa kuva uudelleen tallentaessa"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Lataa nykyinen tiedosto uudelleen"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -309,9 +374,26 @@ msgstr "Tallennetaan"
 msgid "Scroll image up/down"
 msgstr "Vieritä kuvaa ylös/alas"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Aseta _taustakuvaksi"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Näytä piilotetut kuvat"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Näytä tietoja nykyisestä tiedostosta"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -350,6 +432,11 @@ msgstr "Avaa valittu kuva komennolla ”%s”"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Käyttäjäasetukset Viewniorille"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Viewnior asetukset"
@@ -362,17 +449,34 @@ msgstr "Suurenna kuvaa"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Poista"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Seuraava"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Asetukset..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Edellinen"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Ominaisuudet..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Aseta _taustakuvaksi"
 
 #~ msgid "About this application"
 #~ msgstr "Tietoja tästä sovelluksesta"
@@ -399,9 +503,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Rajaa..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "Poista nykyinen tiedosto"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Tyylikäs kuvannäyttäjä"
@@ -445,32 +546,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "Valikkopalkki"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Avaa _kansio..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "Avaa _kuva..."
-
-#~ msgid "Open _With"
-#~ msgstr "Avaa _sovelluksella"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Avaa kansio"
-
-#~ msgid "Open an Image"
-#~ msgstr "Avaa kuva"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Avaa navigointi-ikkuna"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Avaa valittu kuva eri sovelluksella"
-
 #~ msgid "Properties"
 #~ msgstr "Ominaisuudet"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Lataa nykyinen tiedosto uudelleen"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "Käännä _vastapäivään"
@@ -494,9 +574,6 @@ msgstr ""
 #~ "Tallennetaanko muutokset?\n"
 #~ "Tämä korvaa kuvan ja voi heikentää sen laatua!"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Aseta _taustakuvaksi"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "Aseta valittu kuva työpöydän taustakuvaksi"
 
@@ -512,9 +589,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Näytä diaesitystilassa"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Näytä tietoja nykyisestä tiedostosta"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Näytä kuva normaalikoossa"
 
@@ -526,9 +600,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Työkalupalkki"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Käyttäjäasetukset Viewniorille"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -553,9 +624,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Sulje"
-
-#~ msgid "_Delete"
-#~ msgstr "_Poista"
 
 #~ msgid "_Edit"
 #~ msgstr "_Muokkaa"
@@ -584,17 +652,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "_Normaali koko"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Asetukset..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Edellinen kuva"
 
 #~ msgid "_Properties"
 #~ msgstr "_Ominaisuudet"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Ominaisuudet..."
 
 #~ msgid "_Reload"
 #~ msgstr "_Lataa uudelleen"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2014-04-14 19:45+0000\n"
 "Last-Translator: inkubator <alen.voloder@gmail.com>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -123,16 +123,29 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr ""
 
+#: window.c:242
+msgid "Copy"
+msgstr ""
+
+#: window.c:243
+msgid "Copy the current file"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Isijeci"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Isijeci sliku"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Isijeci sliku"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -141,6 +154,10 @@ msgstr ""
 
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
+msgstr ""
+
+#: window.c:278
+msgid "Delete the current file"
 msgstr ""
 
 #: uni/uni-exiv2.hpp:67
@@ -237,6 +254,14 @@ msgstr "Posljednji korišteni način"
 msgid "Metering mode"
 msgstr ""
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+msgid "Move the current file"
+msgstr ""
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Pregled slika"
@@ -272,8 +297,33 @@ msgstr ""
 msgid "Open Image"
 msgstr ""
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr ""
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr ""
+
+#: window.c:228
+msgid "Open _With"
+msgstr ""
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr ""
+
+#: window.c:215
+#, fuzzy
+msgid "Open an Image"
+msgstr "Isijeci sliku"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
+msgstr ""
+
+#: window.c:229
+msgid "Open the selected image with a different application"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:347
@@ -284,13 +334,25 @@ msgstr "PNG kompresija:"
 msgid "Reload image on save"
 msgstr "Ponovo učitaj sliku nakon spašavanja"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+msgid "Rename the current file"
+msgstr ""
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -301,8 +363,24 @@ msgstr "Čuvanje"
 msgid "Scroll image up/down"
 msgstr ""
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+msgid "Set image as wallpaper"
+msgstr ""
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
+msgstr ""
+
+#: window.c:292
+msgid "Show information about the current file"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:171
@@ -342,6 +420,10 @@ msgstr ""
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+msgid "User preferences for ImgView"
+msgstr ""
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr ""
@@ -354,16 +436,32 @@ msgstr ""
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr ""
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
+msgstr ""
+
+#: window.c:298
+msgid "_Preferences..."
 msgstr ""
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr ""
 
+#: window.c:291
+msgid "_Properties..."
+msgstr ""
+
 #: dialog/dialog.c:26
 msgid "_Rename"
+msgstr ""
+
+#: window.c:284
+msgid "_Wallpaper"
 msgstr ""
 
 #~ msgid "Height: "

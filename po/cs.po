@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2015-01-14 08:01+0000\n"
 "Last-Translator: Petr Šimáček <petr.simacek@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -130,16 +130,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Potvrdit smazání obrázku"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "Copyright"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Znovu načíst aktuální soubor"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "Copyright"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Ořez"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Oříznout obrázek"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Oříznout obrázek"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -149,6 +164,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "Datum fotografování"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Smazat aktuální soubor"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -248,6 +267,15 @@ msgstr "Naposledy použitý režim"
 msgid "Metering mode"
 msgstr "Režim měření"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Smazat aktuální soubor"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Procházení obrázků"
@@ -283,9 +311,33 @@ msgstr "Otevřít složku"
 msgid "Open Image"
 msgstr "Otevřít obrázek"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Otevřít _složku..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "_Otevřít obrázek..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Otevřít _s"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Otevře složku"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Otevře obrázek"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Otevřít nový obrázek: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Otevřít vybraný obrázek jinou aplikací"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -295,13 +347,26 @@ msgstr "PNG komprese:"
 msgid "Reload image on save"
 msgstr "Po uložení obrázku jej znovu načíst"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Znovu načíst aktuální soubor"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -312,9 +377,26 @@ msgstr "Ukládání"
 msgid "Scroll image up/down"
 msgstr "Posouvat obrázek nahoru/dolu"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Nastavit jako _tapetu plochy"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Zobrazit i skryté obrázky"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Zobrazí informace o aktuálním souboru"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -353,6 +435,11 @@ msgstr "Otevřít vybraný obrázek pomocí \"%s\""
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Uživatelská nastavení pro Viewnior"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Nastavení Viewnior"
@@ -365,17 +452,34 @@ msgstr "Zvětšit obrázek"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Smazat"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Následující"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Nastavení..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Předchozí"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "Vlas_tnosti..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Nastavit jako _tapetu plochy"
 
 #~ msgid "About this application"
 #~ msgstr "O této aplikaci"
@@ -402,9 +506,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Ořez..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "Smazat aktuální soubor"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Elegantní prohlížeč obrázků"
@@ -448,32 +549,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "Hlavní nabídka"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Otevřít _složku..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "_Otevřít obrázek..."
-
-#~ msgid "Open _With"
-#~ msgstr "Otevřít _s"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Otevře složku"
-
-#~ msgid "Open an Image"
-#~ msgstr "Otevře obrázek"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Otevřít navigační okno"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Otevřít vybraný obrázek jinou aplikací"
-
 #~ msgid "Properties"
 #~ msgstr "Vlastnosti"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Znovu načíst aktuální soubor"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "Rotovat _doleva"
@@ -497,9 +577,6 @@ msgstr ""
 #~ "Uložit změny?\n"
 #~ "Toto přepíše obrázek a může se snížit jeho kvalita."
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Nastavit jako _tapetu plochy"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "Nastavit vybraný obrázek jako pozadí plochy"
 
@@ -515,9 +592,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Zobrazit promítání snímků"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Zobrazí informace o aktuálním souboru"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Zobrazit obrázek v původní velikosti"
 
@@ -529,9 +603,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Lišta nástrojů"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Uživatelská nastavení pro Viewnior"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -556,9 +627,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Zavřít"
-
-#~ msgid "_Delete"
-#~ msgstr "_Smazat"
 
 #~ msgid "_Edit"
 #~ msgstr "_Úpravy"
@@ -587,17 +655,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "No_rmální velikost"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Nastavení..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Předchozí obrázek"
 
 #~ msgid "_Properties"
 #~ msgstr "_Vlastnosti"
-
-#~ msgid "_Properties..."
-#~ msgstr "Vlas_tnosti..."
 
 #~ msgid "_Reload"
 #~ msgstr "_Obnovit"

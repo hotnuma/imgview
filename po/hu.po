@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2009-12-04 00:07+0000\n"
 "Last-Translator: Polesz <polesz@nedudu.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -129,16 +129,30 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Kép törlés megerősítése"
 
+#: window.c:242
+msgid "Copy"
+msgstr ""
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Az aktuális fájl újratöltése"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Vágás"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Kép vágása"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Kép vágása"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -148,6 +162,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr ""
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Aktuális fájl törlése"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -247,6 +265,15 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Aktuális fájl törlése"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Képek közötti mozgás"
@@ -282,9 +309,33 @@ msgstr "Mappa megnyitása"
 msgid "Open Image"
 msgstr "Kép megnyitása"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Ma_ppa megnyitása…"
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Kép _megnyitása..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Megnyitás _ezzel"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Mappa megnyitása"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Kép megnyitása"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Új kép megnyitása ebben: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Kiválasztott kép megnyitása más alkalmazással."
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -294,13 +345,26 @@ msgstr "PNG tömörítés:"
 msgid "Reload image on save"
 msgstr "Kép újratöltése mentéskor"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Az aktuális fájl újratöltése"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -311,9 +375,26 @@ msgstr "Mentés"
 msgid "Scroll image up/down"
 msgstr "Kép görgetése fel/le"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Beállítás _háttérképként"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Rejtett képek mutatása"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "A jelenlegi fájl adatai"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -352,6 +433,11 @@ msgstr "A kijelölt kép megnyitása ezzel: „%s”"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Felhasználói beállítások"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Viewnior beállítások"
@@ -364,17 +450,34 @@ msgstr "Kép nagyítása"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Törlés"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Következő"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Beállítások..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Előző"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Tulajdonságok…"
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Beállítás _háttérképként"
 
 #~ msgid "About this application"
 #~ msgstr "Az alkalmazás névjegye"
@@ -401,9 +504,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Vágás..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "Aktuális fájl törlése"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Elegáns Képnéző"
@@ -444,29 +544,8 @@ msgstr ""
 #~ msgid "Height: "
 #~ msgstr "Magasság: "
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Ma_ppa megnyitása…"
-
-#~ msgid "Open _Image..."
-#~ msgstr "Kép _megnyitása..."
-
-#~ msgid "Open _With"
-#~ msgstr "Megnyitás _ezzel"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Mappa megnyitása"
-
-#~ msgid "Open an Image"
-#~ msgstr "Kép megnyitása"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Navigációs ablak megnyitása"
-
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Kiválasztott kép megnyitása más alkalmazással."
-
-#~ msgid "Reload the current file"
-#~ msgstr "Az aktuális fájl újratöltése"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "Forgatás ellentétesen"
@@ -483,9 +562,6 @@ msgstr ""
 #~ msgid "Save changes"
 #~ msgstr "Változtatások mentése"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Beállítás _háttérképként"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "A kijelölt kép beállítása asztalháttérként"
 
@@ -498,9 +574,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Mutatás diavetítés módban"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "A jelenlegi fájl adatai"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Kép megjelenítése rendes méretben"
 
@@ -512,9 +585,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Eszköztár"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Felhasználói beállítások"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -539,9 +609,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Bezárás"
-
-#~ msgid "_Delete"
-#~ msgstr "_Törlés"
 
 #~ msgid "_Edit"
 #~ msgstr "Sz_erkesztés"
@@ -570,14 +637,8 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "N_ormál méret"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Beállítások..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Előző kép"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Tulajdonságok…"
 
 #~ msgid "_Reload"
 #~ msgstr "Új_ratöltés"

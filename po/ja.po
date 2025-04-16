@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior-0.7\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2014-03-13 01:37+0000\n"
 "Last-Translator: Mika Kobayashi <Unknown>\n"
 "Language-Team: Team Puppy linux Japan\n"
@@ -128,16 +128,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "画像の削除を確認する"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "著作権表示:"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "現在のファイルを再読み込み"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "著作権表示:"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "切り出し"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "画像の切り出し"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "画像の切り出し"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -147,6 +162,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr ""
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "現在のファイルを削除"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -246,6 +265,15 @@ msgstr "最後に使用されたモード"
 msgid "Metering mode"
 msgstr ""
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "現在のファイルを削除"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "画像を移動"
@@ -281,9 +309,33 @@ msgstr "フォルダを開く"
 msgid "Open Image"
 msgstr "画像を開く"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "フォルダを開く(_F)..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "画像を開く(_I)..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "次のプログラムで開く(_W)"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "フォルダを開く"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "画像を開く"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "新しい画像を開く: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "選択画像を別のアプリケーションで開く"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -293,13 +345,26 @@ msgstr "PNG圧縮:"
 msgid "Reload image on save"
 msgstr "保存時に画像を再読み込み"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "現在のファイルを再読み込み"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -310,9 +375,26 @@ msgstr "保存"
 msgid "Scroll image up/down"
 msgstr "画像を上下にスクロール"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "壁紙に設定(_W)"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "隠し画像を表示"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "現在のファイルの情報を表示"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -351,6 +433,11 @@ msgstr "選択画像を開くのに \"%s\" を使う"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Viewnior 用のユーザ設定"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Viewnior 設定"
@@ -363,17 +450,34 @@ msgstr "画像をズーム"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "削除(_D)"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "次(_N)"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "設定(_P)..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "前(_P)"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "プロパティ(_P)..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "壁紙に設定(_W)"
 
 #~ msgid "About this application"
 #~ msgstr "このアプリケーションについて"
@@ -400,9 +504,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "トリミング..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "現在のファイルを削除"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "エレガントな画像ビューア"
@@ -446,29 +547,8 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "メニューバー"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "フォルダを開く(_F)..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "画像を開く(_I)..."
-
-#~ msgid "Open _With"
-#~ msgstr "次のプログラムで開く(_W)"
-
-#~ msgid "Open a Folder"
-#~ msgstr "フォルダを開く"
-
-#~ msgid "Open an Image"
-#~ msgstr "画像を開く"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "ナビゲータ ウィンドウ"
-
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "選択画像を別のアプリケーションで開く"
-
-#~ msgid "Reload the current file"
-#~ msgstr "現在のファイルを再読み込み"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "反時計回りに回転(_A)"
@@ -490,9 +570,6 @@ msgstr ""
 #~ "This will overwrite the image and may reduce its quality!"
 #~ msgstr "変更を保存しますか？"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "壁紙に設定(_W)"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "選択画像をデスクトップ背景に設定"
 
@@ -505,9 +582,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "スライドショー モードで表示"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "現在のファイルの情報を表示"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "画像をその普通サイズで表示"
 
@@ -519,9 +593,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "ツールバー"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Viewnior 用のユーザ設定"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -546,9 +617,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "閉じる(_C)"
-
-#~ msgid "_Delete"
-#~ msgstr "削除(_D)"
 
 #~ msgid "_Edit"
 #~ msgstr "編集(_E)"
@@ -577,14 +645,8 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "普通サイズ(_N)"
 
-#~ msgid "_Preferences..."
-#~ msgstr "設定(_P)..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "前の画像(_P)"
-
-#~ msgid "_Properties..."
-#~ msgstr "プロパティ(_P)..."
 
 #~ msgid "_Reload"
 #~ msgstr "再読み込み(_R)"

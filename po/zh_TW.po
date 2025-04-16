@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2018-11-12 22:37+0800\n"
 "Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
@@ -128,16 +128,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "刪除圖片時確認"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "版權"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "重新載入目前的檔案"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "版權"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "裁剪"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "裁剪圖片"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "裁剪圖片"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -147,6 +162,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "拍攝時間"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "刪除目前的檔案"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -246,6 +265,15 @@ msgstr "上次使用的模式"
 msgid "Metering mode"
 msgstr "測光模式"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "刪除目前的檔案"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "瀏覽圖片"
@@ -281,9 +309,33 @@ msgstr "開啟資料夾"
 msgid "Open Image"
 msgstr "開啟圖片"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "開啟資料夾(_F)..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "開啟圖片(_I)..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "以…開啟(_W)"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "開啟資料夾"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "開啟圖片"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "開啟新的圖片使用："
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "使用不同的應用程式開啟選擇的圖片"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -293,13 +345,26 @@ msgstr "PNG 壓縮："
 msgid "Reload image on save"
 msgstr "儲存圖片後重新載入"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "重新載入目前的檔案"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -310,9 +375,26 @@ msgstr "儲存"
 msgid "Scroll image up/down"
 msgstr "向上/下捲動圖片"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "設為桌布(_W)"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "顯示隱藏圖片"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "顯示目前檔案的資訊"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -351,6 +433,11 @@ msgstr "使用「%s」開啟選擇的圖片"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Viewnior 的使用者偏好設定"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Viewnior 偏好設定"
@@ -363,17 +450,34 @@ msgstr "縮放圖片"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "刪除(_D)"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "下一張(_N)"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "偏好設定 (_P)..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "上一張(_P)"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "屬性(_P)..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "設為桌布(_W)"
 
 #~ msgid "About this application"
 #~ msgstr "關於此應用程式"
@@ -400,9 +504,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "裁剪..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "刪除目前的檔案"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "優雅的圖片檢視器"
@@ -446,32 +547,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "選單列"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "開啟資料夾(_F)..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "開啟圖片(_I)..."
-
-#~ msgid "Open _With"
-#~ msgstr "以…開啟(_W)"
-
-#~ msgid "Open a Folder"
-#~ msgstr "開啟資料夾"
-
-#~ msgid "Open an Image"
-#~ msgstr "開啟圖片"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "開啟導覽器視窗"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "使用不同的應用程式開啟選擇的圖片"
-
 #~ msgid "Properties"
 #~ msgstr "屬性"
-
-#~ msgid "Reload the current file"
-#~ msgstr "重新載入目前的檔案"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "逆時針旋轉(_A)"
@@ -495,9 +575,6 @@ msgstr ""
 #~ "要儲存修改嗎？\n"
 #~ "這將會覆寫圖片並且可能降低品質！"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "設為桌布(_W)"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "將選取的圖片設為桌面背景"
 
@@ -513,9 +590,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "以投影片模式顯示"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "顯示目前檔案的資訊"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "以圖片的正常大小顯示"
 
@@ -527,9 +601,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "工具列"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Viewnior 的使用者偏好設定"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -554,9 +625,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "關閉(_C)"
-
-#~ msgid "_Delete"
-#~ msgstr "刪除(_D)"
 
 #~ msgid "_Edit"
 #~ msgstr "編輯(_E)"
@@ -585,17 +653,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "正常大小(_N)"
 
-#~ msgid "_Preferences..."
-#~ msgstr "偏好設定 (_P)..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "上一張圖片(_P)"
 
 #~ msgid "_Properties"
 #~ msgstr "屬性(_P)"
-
-#~ msgid "_Properties..."
-#~ msgstr "屬性(_P)..."
 
 #~ msgid "_Reload"
 #~ msgstr "重新載入(_R)"

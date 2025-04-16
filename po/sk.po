@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2010-04-17 23:13+0000\n"
 "Last-Translator: Roman Horník <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -128,16 +128,30 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Potvrdiť zmazanie obrázka"
 
+#: window.c:242
+msgid "Copy"
+msgstr ""
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Zobraziť informácie o aktuálnom súbore"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Orezanie"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Orezanie obrázka"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Orezanie obrázka"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -146,6 +160,10 @@ msgstr ""
 
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
+msgstr ""
+
+#: window.c:278
+msgid "Delete the current file"
 msgstr ""
 
 #: uni/uni-exiv2.hpp:67
@@ -244,6 +262,15 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Zobraziť informácie o aktuálnom súbore"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr ""
@@ -279,9 +306,33 @@ msgstr "Otvoriť priečinok"
 msgid "Open Image"
 msgstr "Otvoriť obrázok"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Otvoriť _priečinok..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Otvoriť _obrázok"
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Otvoriť _pomocou"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Otvoriť priečinok"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Otvoriť obrázok"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Otvoriť nový obrázok v: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Otvoriť vybraný obrázok inou aplikáciou"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -291,13 +342,26 @@ msgstr "PNG kompresia:"
 msgid "Reload image on save"
 msgstr ""
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Zobraziť informácie o aktuálnom súbore"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -308,9 +372,25 @@ msgstr "Ukladá sa"
 msgid "Scroll image up/down"
 msgstr ""
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+msgid "Set image as wallpaper"
+msgstr ""
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Zobraziť skryté obrázky"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Zobraziť informácie o aktuálnom súbore"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -349,6 +429,10 @@ msgstr "Použiť  \"%s\" na otvorenie vybraného obrázku"
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+msgid "User preferences for ImgView"
+msgstr ""
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Nastavenie Viewnior"
@@ -361,16 +445,32 @@ msgstr "Zväčšiť obrázok"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Odstrániť"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Nasledujúci"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Predvoľby..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Predchádzajúci"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Vlastnosti..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
+msgstr ""
+
+#: window.c:284
+msgid "_Wallpaper"
 msgstr ""
 
 #~ msgid "About this application"
@@ -424,24 +524,6 @@ msgstr ""
 #~ msgid "Height: "
 #~ msgstr "Výška: "
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Otvoriť _priečinok..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "Otvoriť _obrázok"
-
-#~ msgid "Open _With"
-#~ msgstr "Otvoriť _pomocou"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Otvoriť priečinok"
-
-#~ msgid "Open an Image"
-#~ msgstr "Otvoriť obrázok"
-
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Otvoriť vybraný obrázok inou aplikáciou"
-
 #~ msgid "Save changes"
 #~ msgstr "Uložiť zmeny"
 
@@ -450,9 +532,6 @@ msgstr ""
 
 #~ msgid "Show Toolbar"
 #~ msgstr "Zobraziť panel nástrojov"
-
-#~ msgid "Show information about the current file"
-#~ msgstr "Zobraziť informácie o aktuálnom súbore"
 
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Zobraziť obrázok v jeho pôvodnej veľkosti"
@@ -484,9 +563,6 @@ msgstr ""
 #~ msgid "_Close"
 #~ msgstr "Za_tvoriť"
 
-#~ msgid "_Delete"
-#~ msgstr "_Odstrániť"
-
 #~ msgid "_Edit"
 #~ msgstr "_Upraviť"
 
@@ -514,14 +590,8 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "_Normálna veľkosť"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Predvoľby..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Predchádzajúci obrázok"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Vlastnosti..."
 
 #~ msgid "_Reload"
 #~ msgstr "_Obnoviť"

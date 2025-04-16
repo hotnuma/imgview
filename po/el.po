@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2015-01-05 22:51+0000\n"
 "Last-Translator: Michalis Ntovas <michalisntovas@yahoo.gr>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -129,16 +129,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Επιβεβαίωση διαγραφής εικόνας"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "Πνευματικά δικαιώματα"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "Επαναφόρτωσε το παρόν αρχείο"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "Πνευματικά δικαιώματα"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "Περικοπή"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "Περικοπή εικόνας"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "Περικοπή εικόνας"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -148,6 +163,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "Ημερομηνία Λήψης"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "Διαγραφή παρόντος αρχείου"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -247,6 +266,15 @@ msgstr "Προηγούμενη λειτουργία"
 msgid "Metering mode"
 msgstr "Λειτουργία μέτρησης"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "Διαγραφή παρόντος αρχείου"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "Πλοήγηση εικόνων"
@@ -282,9 +310,33 @@ msgstr "Άνοιγμα Φακέλου"
 msgid "Open Image"
 msgstr "Άνοιγμα εικόνας"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "Άνοιγμα _Φακέλου..."
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "Άνοιγμα _Εικόνας..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "Άνοιγμα _Με"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "Ανοίξτε ένα Φάκελο"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "Ανοίξτε μία Εικόνα"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "Άνοιγμα νέας εικόνας σε: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "Άνοιγμα της επιλεγμένης εικόνας με διαφορετική εφαρμογή"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -294,13 +346,26 @@ msgstr "Συμπίεση PNG:"
 msgid "Reload image on save"
 msgstr "Επαναφόρτωση της εικόνας κατά την αποθήκευση"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "Επαναφόρτωσε το παρόν αρχείο"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -311,9 +376,26 @@ msgstr "Αποθήκευση"
 msgid "Scroll image up/down"
 msgstr "Κύλιση εικόνας πάνω/κάτω"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "Τοποθέτηση ως _Παρασκήνιο Επιφάνειας Εργασίας"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "Προβολή κρυφών εικόνων"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "Εμφάνιση πληροφοριών για το τρέχον αρχείο"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -352,6 +434,11 @@ msgstr "Χρήση \"%s\" για άνοιγμα της επιλεγμένης ε
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "Προτιμήσεις χρήστη για Viewnior"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "Προτιμήσεις Viewnior"
@@ -364,17 +451,34 @@ msgstr "Μεγέθυνση εικόνας"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "_Διαγραφή"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "_Επόμενο"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "_Προτιμήσεις..."
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "_Προηγούμενο"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "_Ιδιότητες..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "Τοποθέτηση ως _Παρασκήνιο Επιφάνειας Εργασίας"
 
 #~ msgid "About this application"
 #~ msgstr "Πληροφορίες Εφαρμογής"
@@ -401,9 +505,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "Περικοπή..."
-
-#~ msgid "Delete the current file"
-#~ msgstr "Διαγραφή παρόντος αρχείου"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "Καλαίσθητος Προβολέας Εικόνων"
@@ -447,32 +548,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "Γραμμή Μενού"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "Άνοιγμα _Φακέλου..."
-
-#~ msgid "Open _Image..."
-#~ msgstr "Άνοιγμα _Εικόνας..."
-
-#~ msgid "Open _With"
-#~ msgstr "Άνοιγμα _Με"
-
-#~ msgid "Open a Folder"
-#~ msgstr "Ανοίξτε ένα Φάκελο"
-
-#~ msgid "Open an Image"
-#~ msgstr "Ανοίξτε μία Εικόνα"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Άνοιγμα του παραθύρου πλοήγησης"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "Άνοιγμα της επιλεγμένης εικόνας με διαφορετική εφαρμογή"
-
 #~ msgid "Properties"
 #~ msgstr "Ιδιότητες"
-
-#~ msgid "Reload the current file"
-#~ msgstr "Επαναφόρτωσε το παρόν αρχείο"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "_Αριστερόστροφη Περιστροφή"
@@ -496,9 +576,6 @@ msgstr ""
 #~ "Αποθήκευση των αλλαγών;\n"
 #~ "Αυτό θα αντικαταστήσει την εικόνα και μπορεί να μειώσει την ποιότητα της!"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Τοποθέτηση ως _Παρασκήνιο Επιφάνειας Εργασίας"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "Τοποθέτηση της επιλεγμένης εικόνας ως Παρασκήνιο Επιφάνειας Εργασίας"
 
@@ -514,9 +591,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "Εμφάνιση σε προβολή διαφανειών"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "Εμφάνιση πληροφοριών για το τρέχον αρχείο"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "Προβολή κανονικού μεγέθους εικόνας"
 
@@ -528,9 +602,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "Γραμμή εργαλείων"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "Προτιμήσεις χρήστη για Viewnior"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -555,9 +626,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_Κλείσιμο"
-
-#~ msgid "_Delete"
-#~ msgstr "_Διαγραφή"
 
 #~ msgid "_Edit"
 #~ msgstr "_Επεξεργασία"
@@ -586,17 +654,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "_Κανονικό Μέγεθος"
 
-#~ msgid "_Preferences..."
-#~ msgstr "_Προτιμήσεις..."
-
 #~ msgid "_Previous Image"
 #~ msgstr "_Προηγούμενη Εικόνα"
 
 #~ msgid "_Properties"
 #~ msgstr "_Ιδιότητες"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Ιδιότητες..."
 
 #~ msgid "_Reload"
 #~ msgstr "_Επαναφόρτωση"

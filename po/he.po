@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-15 17:55+0200\n"
+"POT-Creation-Date: 2025-04-16 11:08+0200\n"
 "PO-Revision-Date: 2015-10-11 07:53+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@translationproject.org>\n"
@@ -126,16 +126,31 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "ודא מחיקת תמונה"
 
+#: window.c:242
+#, fuzzy
+msgid "Copy"
+msgstr "זכויות יוצרים"
+
+#: window.c:243
+#, fuzzy
+msgid "Copy the current file"
+msgstr "טעינה מחדש של הקובץ הנוכחי"
+
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
 msgstr "זכויות יוצרים"
 
-#: dialog/vnr-crop.c:250
+#: dialog/vnr-crop.c:250 window.c:263
 msgid "Crop"
 msgstr "חתוך"
 
 #: dialog/vnr-crop.c:134
 msgid "Crop Image"
+msgstr "חיתוך תמונה"
+
+#: window.c:264
+#, fuzzy
+msgid "Crop image"
 msgstr "חיתוך תמונה"
 
 #: data/vnr-preferences-dialog.ui:134
@@ -145,6 +160,10 @@ msgstr ""
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
 msgstr "תאריך הצילום"
+
+#: window.c:278
+msgid "Delete the current file"
+msgstr "מחיקת הקובץ הנוכחי"
 
 #: uni/uni-exiv2.hpp:67
 msgid "Description"
@@ -244,6 +263,15 @@ msgstr "אחרון שהיה בשימוש"
 msgid "Metering mode"
 msgstr "מצב מונה מטר"
 
+#: window.c:249
+msgid "Move"
+msgstr ""
+
+#: window.c:250
+#, fuzzy
+msgid "Move the current file"
+msgstr "מחיקת הקובץ הנוכחי"
+
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
 msgstr "נווט בין תמונות"
@@ -279,9 +307,33 @@ msgstr "פתיחת תיקייה"
 msgid "Open Image"
 msgstr "פתיחת תמונה"
 
+#: window.c:221
+msgid "Open _Folder..."
+msgstr "פתיחת _תיקייה…"
+
+#: window.c:214
+msgid "Open _Image..."
+msgstr "_פתיחת תמונה..."
+
+#: window.c:228
+msgid "Open _With"
+msgstr "פתח ב_עזרת"
+
+#: window.c:222
+msgid "Open a Folder"
+msgstr "פתיחת תיקייה"
+
+#: window.c:215
+msgid "Open an Image"
+msgstr "פתיחת תמונה"
+
 #: data/vnr-preferences-dialog.ui:51
 msgid "Open new image in: "
 msgstr "פתח תמונה חדשה במצב: "
+
+#: window.c:229
+msgid "Open the selected image with a different application"
+msgstr "פתיחת התמונה הנבחרת בעזרת יישום אחר"
 
 #: data/vnr-preferences-dialog.ui:347
 msgid "PNG compression:"
@@ -291,13 +343,26 @@ msgstr "דחיסת PNG:"
 msgid "Reload image on save"
 msgstr "טען תמונה מחדש בעת שמירה"
 
+#: window.c:256
+msgid "Rename"
+msgstr ""
+
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
 msgstr ""
 
-#: dialog/vnr-resize.c:148
+#: window.c:257
+#, fuzzy
+msgid "Rename the current file"
+msgstr "טעינה מחדש של הקובץ הנוכחי"
+
+#: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
+msgstr ""
+
+#: window.c:271
+msgid "Resize image"
 msgstr ""
 
 #: data/vnr-preferences-dialog.ui:376
@@ -308,9 +373,26 @@ msgstr "שמירה"
 msgid "Scroll image up/down"
 msgstr "גלול תמונה מעלה/מטה"
 
+#: window.c:236
+msgid "Select directory..."
+msgstr ""
+
+#: window.c:235
+msgid "Select..."
+msgstr ""
+
+#: window.c:285
+#, fuzzy
+msgid "Set image as wallpaper"
+msgstr "ה_גדרה כרקע שולחן העבודה"
+
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
 msgstr "הצג תמונות נסתרות"
+
+#: window.c:292
+msgid "Show information about the current file"
+msgstr "הצגת מידע אודות הקובץ הנוכחי"
 
 #: data/vnr-preferences-dialog.ui:171
 msgid "Show next image after (in seconds): "
@@ -349,6 +431,11 @@ msgstr "השתמש ביישום \"%s\" כדי לפתוח את התמונה הנ�
 msgid "User comment"
 msgstr ""
 
+#: window.c:299
+#, fuzzy
+msgid "User preferences for ImgView"
+msgstr "העדפות משתמש עבור Viewnior"
+
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
 msgstr "העדפות Viewnior"
@@ -361,17 +448,34 @@ msgstr "התקרבות לתמונה"
 msgid "_Cancel"
 msgstr ""
 
+#: window.c:277
+msgid "_Delete"
+msgstr "מ_חק"
+
 #: dialog/vnr-properties.c:123
 msgid "_Next"
 msgstr "ה_באה"
+
+#: window.c:298
+msgid "_Preferences..."
+msgstr "ה_עדפות…"
 
 #: dialog/vnr-properties.c:122
 msgid "_Previous"
 msgstr "ה_קודמת"
 
+#: window.c:291
+msgid "_Properties..."
+msgstr "מ_אפיינים..."
+
 #: dialog/dialog.c:26
 msgid "_Rename"
 msgstr ""
+
+#: window.c:284
+#, fuzzy
+msgid "_Wallpaper"
+msgstr "ה_גדרה כרקע שולחן העבודה"
 
 #~ msgid "About this application"
 #~ msgstr "פרטים על היישום הזה"
@@ -398,9 +502,6 @@ msgstr ""
 
 #~ msgid "Crop..."
 #~ msgstr "חיתוך…"
-
-#~ msgid "Delete the current file"
-#~ msgstr "מחיקת הקובץ הנוכחי"
 
 #~ msgid "Elegant Image Viewer"
 #~ msgstr "מציג תמונות אלגנטי"
@@ -444,32 +545,11 @@ msgstr ""
 #~ msgid "Menu Bar"
 #~ msgstr "שורת תפריטים"
 
-#~ msgid "Open _Folder..."
-#~ msgstr "פתיחת _תיקייה…"
-
-#~ msgid "Open _Image..."
-#~ msgstr "_פתיחת תמונה..."
-
-#~ msgid "Open _With"
-#~ msgstr "פתח ב_עזרת"
-
-#~ msgid "Open a Folder"
-#~ msgstr "פתיחת תיקייה"
-
-#~ msgid "Open an Image"
-#~ msgstr "פתיחת תמונה"
-
 #~ msgid "Open the navigator window"
 #~ msgstr "פתיחת חלון הניווט"
 
-#~ msgid "Open the selected image with a different application"
-#~ msgstr "פתיחת התמונה הנבחרת בעזרת יישום אחר"
-
 #~ msgid "Properties"
 #~ msgstr "מאפיינים"
-
-#~ msgid "Reload the current file"
-#~ msgstr "טעינה מחדש של הקובץ הנוכחי"
 
 #~ msgid "Rotate _Anti-clockwise"
 #~ msgstr "סובב _נגד כיוון השעון"
@@ -493,9 +573,6 @@ msgstr ""
 #~ "לשמור שינויים?\n"
 #~ "פעולה זו תמחק את התמונה ועלולה להפחית את איכותה!"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "ה_גדרה כרקע שולחן העבודה"
-
 #~ msgid "Set the selected image as the desktop background"
 #~ msgstr "הגדרת התמונה הנבחרת כרקע שולחן העבודה"
 
@@ -511,9 +588,6 @@ msgstr ""
 #~ msgid "Show in slideshow mode"
 #~ msgstr "הצגה כמצגת"
 
-#~ msgid "Show information about the current file"
-#~ msgstr "הצגת מידע אודות הקובץ הנוכחי"
-
 #~ msgid "Show the image at its normal size"
 #~ msgstr "הצגת התמונה בגודל הרגיל שלה"
 
@@ -525,9 +599,6 @@ msgstr ""
 
 #~ msgid "Toolbar"
 #~ msgstr "סרגל הכלים"
-
-#~ msgid "User preferences for Viewnior"
-#~ msgstr "העדפות משתמש עבור Viewnior"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
@@ -552,9 +623,6 @@ msgstr ""
 
 #~ msgid "_Close"
 #~ msgstr "_סגירה"
-
-#~ msgid "_Delete"
-#~ msgstr "מ_חק"
 
 #~ msgid "_Edit"
 #~ msgstr "ע_ריכה"
@@ -583,17 +651,11 @@ msgstr ""
 #~ msgid "_Normal Size"
 #~ msgstr "גודל _רגיל"
 
-#~ msgid "_Preferences..."
-#~ msgstr "ה_עדפות…"
-
 #~ msgid "_Previous Image"
 #~ msgstr "תמונה _קודמת"
 
 #~ msgid "_Properties"
 #~ msgstr "מ_אפיינים"
-
-#~ msgid "_Properties..."
-#~ msgstr "מ_אפיינים..."
 
 #~ msgid "_Reload"
 #~ msgstr "_רענון"
