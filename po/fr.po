@@ -119,25 +119,23 @@ msgstr "Modèle de l'appareil photo"
 
 #: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: uni/uni-exiv2.cpp:86
 msgid "Comment"
-msgstr "Annuler"
+msgstr ""
 
 #: data/vnr-preferences-dialog.ui:107
 msgid "Confirm image deletion"
 msgstr "Confirmer la suppression de l'image"
 
 #: window.c:242
-#, fuzzy
 msgid "Copy"
-msgstr "Droits d’auteur"
+msgstr "Copier"
 
 #: window.c:243
-#, fuzzy
 msgid "Copy the current file"
-msgstr "Recharger le fichier courant"
+msgstr "Copier le fichier courant"
 
 #: uni/uni-exiv2.hpp:68
 msgid "Copyright"
@@ -152,7 +150,6 @@ msgid "Crop Image"
 msgstr "Découper l'image"
 
 #: window.c:264
-#, fuzzy
 msgid "Crop image"
 msgstr "Découper l'image"
 
@@ -202,7 +199,7 @@ msgstr ""
 
 #: dialog/xfce-filename-input.c:218
 msgid "Filenames should not start or end with a space"
-msgstr ""
+msgstr "Le nom du fichier ne devrait pas débuter par un espace"
 
 #: dialog/preferences.c:299
 msgid "Fit To Window Mode"
@@ -268,12 +265,12 @@ msgstr "Mode de mesure"
 
 #: window.c:249
 msgid "Move"
-msgstr ""
+msgstr "Déplacer"
 
 #: window.c:250
 #, fuzzy
 msgid "Move the current file"
-msgstr "Supprimer le fichier courant"
+msgstr "Déplacer le fichier courant"
 
 #: dialog/preferences.c:378 dialog/preferences.c:390
 msgid "Navigate images"
@@ -347,19 +344,17 @@ msgid "Reload image on save"
 msgstr "Recharger l'image lors d'un enregistrement"
 
 #: window.c:256
-#, fuzzy
 msgid "Rename"
-msgstr "_Renommer"
+msgstr "Renommer"
 
 #: dialog/dialog.c:18
 #, c-format
 msgid "Rename \"%s\""
-msgstr ""
+msgstr "Renommer \"%s\""
 
 #: window.c:257
-#, fuzzy
 msgid "Rename the current file"
-msgstr "Recharger le fichier courant"
+msgstr "Renommer le fichier courant"
 
 #: dialog/vnr-resize.c:148 window.c:270
 msgid "Resize"
@@ -368,7 +363,7 @@ msgstr "Redimensionner"
 #: window.c:271
 #, fuzzy
 msgid "Resize image"
-msgstr "Redimensionner"
+msgstr "Redimensionner l'image"
 
 #: data/vnr-preferences-dialog.ui:376
 msgid "Saving"
@@ -380,11 +375,11 @@ msgstr "Défilement haut/bas"
 
 #: window.c:236
 msgid "Select directory..."
-msgstr ""
+msgstr "Sélectionner un répertoire..."
 
 #: window.c:235
 msgid "Select..."
-msgstr ""
+msgstr "Sélectionner..."
 
 #: window.c:285
 #, fuzzy
@@ -434,7 +429,7 @@ msgstr "Utiliser \"%s\" pour ouvrir l'image sélectionnée"
 
 #: uni/uni-exiv2.hpp:64
 msgid "User comment"
-msgstr ""
+msgstr "Commentaire utilisateur"
 
 #: window.c:299
 #, fuzzy
