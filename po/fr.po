@@ -38,9 +38,8 @@ msgid "<b>Location:</b>"
 msgstr "<b>Emplacement :</b>"
 
 #: dialog/vnr-properties.c:236
-#, fuzzy
 msgid "<b>Modified:</b>"
-msgstr "<b>Taille :</b>"
+msgstr "<b>Modifié :</b>"
 
 #: dialog/vnr-properties.c:216
 msgid "<b>Name:</b>"
@@ -155,7 +154,7 @@ msgstr "Découper l'image"
 
 #: data/vnr-preferences-dialog.ui:134
 msgid "Dark window background"
-msgstr ""
+msgstr "Couleur de fond sombre"
 
 #: uni/uni-exiv2.hpp:54
 msgid "Date Taken"
@@ -230,16 +229,14 @@ msgid "If you delete an item, it will be permanently lost."
 msgstr "Si vous supprimez un élément, il sera définitivement perdu."
 
 #: dialog/preferences.c:400
-#, fuzzy
 msgid "Ignore"
-msgstr "Ignorer les changements"
+msgstr "Ignorer"
 
 #: dialog/vnr-properties.c:140
 msgid "Image Properties"
 msgstr "Propriétés de l'image"
 
 #: uni/uni-exiv2.hpp:63
-#, fuzzy
 msgid "Image description"
 msgstr "Description"
 
@@ -268,7 +265,6 @@ msgid "Move"
 msgstr "Déplacer"
 
 #: window.c:250
-#, fuzzy
 msgid "Move the current file"
 msgstr "Déplacer le fichier courant"
 
@@ -361,7 +357,6 @@ msgid "Resize"
 msgstr "Redimensionner"
 
 #: window.c:271
-#, fuzzy
 msgid "Resize image"
 msgstr "Redimensionner l'image"
 
@@ -382,9 +377,8 @@ msgid "Select..."
 msgstr "Sélectionner..."
 
 #: window.c:285
-#, fuzzy
 msgid "Set image as wallpaper"
-msgstr "Définir comme arrière-plan du _bureau"
+msgstr "Définir comme arrière-plan"
 
 #: data/vnr-preferences-dialog.ui:120
 msgid "Show hidden images"
@@ -432,9 +426,8 @@ msgid "User comment"
 msgstr "Commentaire utilisateur"
 
 #: window.c:299
-#, fuzzy
 msgid "User preferences for ImgView"
-msgstr "Préférences utilisateur de Viewnior"
+msgstr "Préférences de ImgView"
 
 #: data/vnr-preferences-dialog.ui:25
 msgid "Viewnior Preferences"
@@ -473,9 +466,8 @@ msgid "_Rename"
 msgstr "_Renommer"
 
 #: window.c:284
-#, fuzzy
 msgid "_Wallpaper"
-msgstr "Définir comme arrière-plan du _bureau"
+msgstr "_Wallpaper"
 
 #~ msgid "About this application"
 #~ msgstr "À propos de cette application"
