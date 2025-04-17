@@ -24,7 +24,7 @@
 
 #define UI_PATH PACKAGE_DATA_DIR "/imgview/vnr-preferences-dialog.ui"
 
-#define PREFS_GROUP             "prefs"
+#define PREFS_GROUP             "Prefs"
 #define PREFS_WINDOW_WIDTH      "window-width"
 #define PREFS_WINDOW_HEIGHT     "window-height"
 #define PREFS_START_MAXIMIZED   "start-maximized"
