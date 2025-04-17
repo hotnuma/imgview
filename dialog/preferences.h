@@ -93,6 +93,7 @@ struct _VnrPrefs
     gboolean start_maximized;
     gboolean start_fullscreen;
     gboolean start_slideshow;
+    gboolean show_scrollbar;
 
     VnrPrefsZoom zoom;
     VnrPrefsDesktop desktop;
@@ -113,7 +114,7 @@ struct _VnrPrefs
     gint jpeg_quality;
     gint png_compression;
 
-    gboolean show_scrollbar;
+    gboolean resize_link;
 };
 
 struct _VnrPrefsClass
