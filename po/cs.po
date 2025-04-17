@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2015-01-14 08:01+0000\n"
 "Last-Translator: Petr Šimáček <petr.simacek@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -30,7 +30,7 @@ msgstr[2] " sekundách"
 msgid "1:1 Mode"
 msgstr "Režim 1:1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Výška:</b>"
 
@@ -38,20 +38,20 @@ msgstr "<b>Výška:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Umístění:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Velikost:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Název:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Velikost:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Typ:</b>"
 
@@ -118,7 +118,7 @@ msgstr "Vytvoření fotoaparátu"
 msgid "Camera model"
 msgstr "Model fotoaparátu"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr "Znovu načíst aktuální soubor"
 msgid "Copyright"
 msgstr "Copyright"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Ořez"
 
@@ -225,6 +225,10 @@ msgstr "Přes celou obrazovku"
 msgid "General"
 msgstr "Obecné"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Výška: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "ISO"
@@ -263,6 +267,10 @@ msgstr "Kvalita JPEG:"
 msgid "Last Used Mode"
 msgstr "Naposledy použitý režim"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Režim měření"
@@ -280,10 +288,10 @@ msgstr "Smazat aktuální soubor"
 msgid "Navigate images"
 msgstr "Procházení obrázků"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Nic"
 
@@ -444,6 +452,10 @@ msgstr "Uživatelská nastavení pro Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Nastavení Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Šířka: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Zvětšit obrázek"
@@ -543,9 +555,6 @@ msgstr "Nastavit jako _tapetu plochy"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Přejít na předchozí obrázek ze sbírky"
 
-#~ msgid "Height: "
-#~ msgstr "Výška: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Hlavní nabídka"
 
@@ -606,9 +615,6 @@ msgstr "Nastavit jako _tapetu plochy"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Šířka: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

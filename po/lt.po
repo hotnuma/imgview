@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2018-07-27 16:15+0300\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
@@ -30,7 +30,7 @@ msgstr[2] " sekundžių"
 msgid "1:1 Mode"
 msgstr "1:1 veiksena"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Aukštis:</b>"
 
@@ -38,20 +38,20 @@ msgstr "<b>Aukštis:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Vieta:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Dydis:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Pavadinimas:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Dydis:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Tipas:</b>"
 
@@ -118,7 +118,7 @@ msgstr "Fotoaparato gamintojas"
 msgid "Camera model"
 msgstr "Fotoaparato modelis"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr "Įkelti esamą failą iš naujo"
 msgid "Copyright"
 msgstr "Autorių teisės"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Apkirpti"
 
@@ -225,6 +225,10 @@ msgstr "Visas ekranas"
 msgid "General"
 msgstr "Bendra"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Aukštis: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "ISO greitis"
@@ -263,6 +267,10 @@ msgstr "JPEG kokybė:"
 msgid "Last Used Mode"
 msgstr "Paskutinė naudota veiksena"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Matavimo veiksena"
@@ -280,10 +288,10 @@ msgstr "Ištrinti esamą failą"
 msgid "Navigate images"
 msgstr "Naršyti paveikslus"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Nėra"
 
@@ -444,6 +452,10 @@ msgstr "Viewnior naudotojo nuostatos"
 msgid "Viewnior Preferences"
 msgstr "Viewnior nuostatos"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Plotis: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Keisti paveikslo mastelį"
@@ -543,9 +555,6 @@ msgstr "Nustatyti kaip _darbalaukio foną"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Rodyti ankstesnį rinkinio paveikslą"
 
-#~ msgid "Height: "
-#~ msgstr "Aukštis: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Meniu juosta"
 
@@ -606,9 +615,6 @@ msgstr "Nustatyti kaip _darbalaukio foną"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Plotis: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

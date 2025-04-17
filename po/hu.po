@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2009-12-04 00:07+0000\n"
 "Last-Translator: Polesz <polesz@nedudu.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -29,7 +29,7 @@ msgstr[1] " másodperc"
 msgid "1:1 Mode"
 msgstr "1:1 Méret"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Magasság:</b>"
 
@@ -37,20 +37,20 @@ msgstr "<b>Magasság:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Hely:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Méret:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Név:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Méret:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Típus:</b>"
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Camera model"
 msgstr ""
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr "Az aktuális fájl újratöltése"
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Vágás"
 
@@ -223,6 +223,10 @@ msgstr "Teljes képernyő"
 msgid "General"
 msgstr "Általános"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Magasság: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr ""
@@ -261,6 +265,10 @@ msgstr "JPEG minőség:"
 msgid "Last Used Mode"
 msgstr ""
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr ""
@@ -278,10 +286,10 @@ msgstr "Aktuális fájl törlése"
 msgid "Navigate images"
 msgstr "Képek közötti mozgás"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Nincs"
 
@@ -442,6 +450,10 @@ msgstr "Felhasználói beállítások"
 msgid "Viewnior Preferences"
 msgstr "Viewnior beállítások"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Szélesség: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Kép nagyítása"
@@ -541,9 +553,6 @@ msgstr "Beállítás _háttérképként"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Ugrás a gyűjtemény előző képére"
 
-#~ msgid "Height: "
-#~ msgstr "Magasság: "
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Navigációs ablak megnyitása"
 
@@ -588,9 +597,6 @@ msgstr "Beállítás _háttérképként"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Szélesség: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

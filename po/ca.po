@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2018-08-21 16:44+0200\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -30,7 +30,7 @@ msgstr[1] " segons"
 msgid "1:1 Mode"
 msgstr "Mode 1:1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Alçada:</b>"
 
@@ -38,20 +38,20 @@ msgstr "<b>Alçada:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Ubicació:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Mida:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Nom:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Mida:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Tipus:</b>"
 
@@ -118,7 +118,7 @@ msgstr "Fabricant de la càmera"
 msgid "Camera model"
 msgstr "Model de la càmera"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr "Torna a carregar el fitxer actual"
 msgid "Copyright"
 msgstr "Drets d'autor"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Escapça"
 
@@ -225,6 +225,10 @@ msgstr "Pantalla completa"
 msgid "General"
 msgstr "General"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Alçada: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "Velocitat ISO"
@@ -263,6 +267,10 @@ msgstr "Qualitat JPEG:"
 msgid "Last Used Mode"
 msgstr "Últim mode utilitzat"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Mode de mesura"
@@ -280,10 +288,10 @@ msgstr "Suprimeix el fitxer actual"
 msgid "Navigate images"
 msgstr "Navega per les imatges"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Cap"
 
@@ -444,6 +452,10 @@ msgstr "Preferències d'usuari per Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Preferències de Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Amplada: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Amplia la imatge"
@@ -543,9 +555,6 @@ msgstr "Estableix com a fons de pantalla"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Vés a l'anterior imatge de la col·lecció"
 
-#~ msgid "Height: "
-#~ msgstr "Alçada: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Barra de menú"
 
@@ -606,9 +615,6 @@ msgstr "Estableix com a fons de pantalla"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Amplada: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

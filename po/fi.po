@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2017-12-03 03:07+0000\n"
 "Last-Translator: Ammuu5 <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -29,7 +29,7 @@ msgstr[1] " sekuntia"
 msgid "1:1 Mode"
 msgstr "1:1 tilassa"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Korkeus:</b>"
 
@@ -37,20 +37,20 @@ msgstr "<b>Korkeus:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Paikka:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Koko:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Nimi</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Koko:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Tyyppi:</b>"
 
@@ -117,7 +117,7 @@ msgstr "Kameran merkki"
 msgid "Camera model"
 msgstr "Kameran malli"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -143,7 +143,7 @@ msgstr "Lataa nykyinen tiedosto uudelleen"
 msgid "Copyright"
 msgstr "Tekijänoikeus"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Rajaa"
 
@@ -224,6 +224,10 @@ msgstr "Kokoruutu"
 msgid "General"
 msgstr "Yleistä"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Korkeus: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "ISO-herkkyys"
@@ -260,6 +264,10 @@ msgstr "JPEG-kuvanlaatu:"
 msgid "Last Used Mode"
 msgstr "Viimeksi käytetyssä tilassa"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Mittaustapa"
@@ -277,10 +285,10 @@ msgstr "Poista nykyinen tiedosto"
 msgid "Navigate images"
 msgstr "Selaa kuvia"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Ei määritelty"
 
@@ -441,6 +449,10 @@ msgstr "Käyttäjäasetukset Viewniorille"
 msgid "Viewnior Preferences"
 msgstr "Viewnior asetukset"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Leveys: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Suurenna kuvaa"
@@ -540,9 +552,6 @@ msgstr "Aseta _taustakuvaksi"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Siirry kokoelman edelliseen kuvaan"
 
-#~ msgid "Height: "
-#~ msgstr "Korkeus: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Valikkopalkki"
 
@@ -603,9 +612,6 @@ msgstr "Aseta _taustakuvaksi"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Leveys: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

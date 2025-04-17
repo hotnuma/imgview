@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2016-02-19 19:52+0000\n"
 "Last-Translator: ereao_eash <coronzon88@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -30,7 +30,7 @@ msgstr[2] " sekund"
 msgid "1:1 Mode"
 msgstr "Skala 1:1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Wysokość:</b>"
 
@@ -38,20 +38,20 @@ msgstr "<b>Wysokość:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Położenie:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Rozmiar:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Nazwa:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Rozmiar:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Typ:</b>"
 
@@ -118,7 +118,7 @@ msgstr "Producent aparatu"
 msgid "Camera model"
 msgstr "Model aparatu"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr "Wczytaj ponownie bierzący plik"
 msgid "Copyright"
 msgstr "Prawa autorskie"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Przytnij"
 
@@ -225,6 +225,10 @@ msgstr "Pełny ekran"
 msgid "General"
 msgstr "Ogólne"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Wysokość: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "Czułość ISO"
@@ -263,6 +267,10 @@ msgstr "Jakość JEPG:"
 msgid "Last Used Mode"
 msgstr "Ostatnio używany tryb"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Tryb pomiaru odległości"
@@ -280,10 +288,10 @@ msgstr "Usuń bierzący plik"
 msgid "Navigate images"
 msgstr "Przeglądaj obrazy"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Brak"
 
@@ -444,6 +452,10 @@ msgstr "Preferencje użytkownika"
 msgid "Viewnior Preferences"
 msgstr "Preferencje"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Szerokość: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Powiększ obraz"
@@ -543,9 +555,6 @@ msgstr "Ustaw jako _tapetę"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Przechodzi do poprzedniego obrazu w kolekcji"
 
-#~ msgid "Height: "
-#~ msgstr "Wysokość: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Pasek Menu"
 
@@ -606,9 +615,6 @@ msgstr "Ustaw jako _tapetę"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Szerokość: "
 
 #~ msgid "X: "
 #~ msgstr "Oś X: "

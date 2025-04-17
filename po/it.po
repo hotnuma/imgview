@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2012-07-08 09:34+0000\n"
 "Last-Translator: Leonardo Corato <leocor@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -29,7 +29,7 @@ msgstr[1] " secondi"
 msgid "1:1 Mode"
 msgstr "Scala 1:1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Altezza:</b>"
 
@@ -37,20 +37,20 @@ msgstr "<b>Altezza:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Posizione:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Dimensione:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Nome:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Dimensione:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Tipo:</b>"
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Camera model"
 msgstr ""
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr "Ricarica il file corrente"
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Ritaglia"
 
@@ -223,6 +223,10 @@ msgstr "Schermo intero"
 msgid "General"
 msgstr "Generale"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Altezza: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr ""
@@ -261,6 +265,10 @@ msgstr "Qualità JPEG:"
 msgid "Last Used Mode"
 msgstr ""
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr ""
@@ -278,10 +286,10 @@ msgstr "Elimina il file corrente"
 msgid "Navigate images"
 msgstr "Scorri Immagini"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Nessuno"
 
@@ -442,6 +450,10 @@ msgstr "Preferenze utente per Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Preferenze di Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Larghezza: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Ingrandisci immagine"
@@ -541,9 +553,6 @@ msgstr "Imposta come _Sfondo"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Va all'immagine precedente della raccolta"
 
-#~ msgid "Height: "
-#~ msgstr "Altezza: "
-
 #~ msgid "Open the navigator window"
 #~ msgstr "Apri finestra di navigazione"
 
@@ -588,9 +597,6 @@ msgstr "Imposta come _Sfondo"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Larghezza: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

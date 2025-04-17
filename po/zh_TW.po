@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2018-11-12 22:37+0800\n"
 "Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
@@ -28,7 +28,7 @@ msgstr[0] " 秒"
 msgid "1:1 Mode"
 msgstr "1:1 模式"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>高度：</b>"
 
@@ -36,20 +36,20 @@ msgstr "<b>高度：</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>位置：</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>大小：</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>名稱：</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>大小：</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>類型：</b>"
 
@@ -116,7 +116,7 @@ msgstr "相機製造商"
 msgid "Camera model"
 msgstr "相機型號"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr "重新載入目前的檔案"
 msgid "Copyright"
 msgstr "版權"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "裁剪"
 
@@ -223,6 +223,10 @@ msgstr "全螢幕"
 msgid "General"
 msgstr "一般"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "高度： "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "ISO 速度"
@@ -261,6 +265,10 @@ msgstr "JPEG 品質："
 msgid "Last Used Mode"
 msgstr "上次使用的模式"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "測光模式"
@@ -278,10 +286,10 @@ msgstr "刪除目前的檔案"
 msgid "Navigate images"
 msgstr "瀏覽圖片"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "無"
 
@@ -442,6 +450,10 @@ msgstr "Viewnior 的使用者偏好設定"
 msgid "Viewnior Preferences"
 msgstr "Viewnior 偏好設定"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "寬度： "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "縮放圖片"
@@ -541,9 +553,6 @@ msgstr "設為桌布(_W)"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "前往圖片集的上一張圖片"
 
-#~ msgid "Height: "
-#~ msgstr "高度： "
-
 #~ msgid "Menu Bar"
 #~ msgstr "選單列"
 
@@ -604,9 +613,6 @@ msgstr "設為桌布(_W)"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "寬度： "
 
 #~ msgid "X: "
 #~ msgstr "X: "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2014-04-14 19:45+0000\n"
 "Last-Translator: inkubator <alen.voloder@gmail.com>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -29,7 +29,7 @@ msgstr[1] ""
 msgid "1:1 Mode"
 msgstr ""
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr ""
 
@@ -37,19 +37,19 @@ msgstr ""
 msgid "<b>Location:</b>"
 msgstr ""
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 msgid "<b>Modified:</b>"
 msgstr ""
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr ""
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr ""
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr ""
 
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Camera model"
 msgstr ""
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Isijeci"
 
@@ -216,6 +216,10 @@ msgstr "Preko cijelog ekrana"
 msgid "General"
 msgstr "Općenito"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Visina: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr ""
@@ -250,6 +254,10 @@ msgstr "JPEG kvalitet:"
 msgid "Last Used Mode"
 msgstr "Posljednji korišteni način"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr ""
@@ -266,10 +274,10 @@ msgstr ""
 msgid "Navigate images"
 msgstr "Pregled slika"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr ""
 
@@ -428,6 +436,10 @@ msgstr ""
 msgid "Viewnior Preferences"
 msgstr ""
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Širina: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr ""
@@ -463,12 +475,6 @@ msgstr ""
 #: window.c:284
 msgid "_Wallpaper"
 msgstr ""
-
-#~ msgid "Height: "
-#~ msgstr "Visina: "
-
-#~ msgid "Width: "
-#~ msgstr "Širina: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

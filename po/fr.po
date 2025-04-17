@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2015-11-25 22:05+0000\n"
 "Last-Translator: Jean-Marc <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -29,7 +29,7 @@ msgstr[1] " secondes"
 msgid "1:1 Mode"
 msgstr "Mode 1:1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Hauteur :</b>"
 
@@ -37,19 +37,19 @@ msgstr "<b>Hauteur :</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Emplacement :</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 msgid "<b>Modified:</b>"
 msgstr "<b>Modifié :</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Nom :</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Taille :</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Type :</b>"
 
@@ -98,7 +98,7 @@ msgstr "Auteur"
 
 #: dialog/preferences.c:310
 msgid "Autodetect"
-msgstr ""
+msgstr "Auto"
 
 #: dialog/preferences.c:399
 msgid "Autosave"
@@ -116,13 +116,13 @@ msgstr "Marque de l'appareil photo"
 msgid "Camera model"
 msgstr "Modèle de l'appareil photo"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr "Annuler"
 
 #: uni/uni-exiv2.cpp:86
 msgid "Comment"
-msgstr ""
+msgstr "Commentaire"
 
 #: data/vnr-preferences-dialog.ui:107
 msgid "Confirm image deletion"
@@ -140,7 +140,7 @@ msgstr "Copier le fichier courant"
 msgid "Copyright"
 msgstr "Droits d’auteur"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Découper"
 
@@ -174,7 +174,7 @@ msgstr "Bureau : "
 
 #: dialog/xfce-filename-input.c:217
 msgid "Directory separator illegal in file name"
-msgstr ""
+msgstr "Séparateur interdit"
 
 #: dialog/preferences.c:389
 msgid "Enter fullscreen mode"
@@ -182,7 +182,7 @@ msgstr "Passer en mode plein écran"
 
 #: dialog/dialog.c:40
 msgid "Enter the new name:"
-msgstr ""
+msgstr "Saisir un nouveau nom :"
 
 #: uni/uni-exiv2.hpp:56
 msgid "Exposure mode"
@@ -194,7 +194,7 @@ msgstr "Temps d'exposition"
 
 #: dialog/xfce-filename-input.c:216
 msgid "Filename is too long"
-msgstr ""
+msgstr "Le nom est trop long"
 
 #: dialog/xfce-filename-input.c:218
 msgid "Filenames should not start or end with a space"
@@ -219,6 +219,10 @@ msgstr "Plein écran"
 #: data/vnr-preferences-dialog.ui:151
 msgid "General"
 msgstr "Général"
+
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Hauteur: "
 
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
@@ -256,6 +260,10 @@ msgstr "Qualité JPEG :"
 msgid "Last Used Mode"
 msgstr "Mode précédent"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr "Lier"
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Mode de mesure"
@@ -272,10 +280,10 @@ msgstr "Déplacer le fichier courant"
 msgid "Navigate images"
 msgstr "Naviguer dans les images"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Aucun"
 
@@ -433,6 +441,10 @@ msgstr "Préférences de ImgView"
 msgid "Viewnior Preferences"
 msgstr "Préférences de Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Largeur: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Zoomer sur l'image"
@@ -531,9 +543,6 @@ msgstr "_Wallpaper"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Affiche l'image précédente de la collection"
 
-#~ msgid "Height: "
-#~ msgstr "Hauteur: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Barre de menus"
 
@@ -594,9 +603,6 @@ msgstr "_Wallpaper"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Largeur: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

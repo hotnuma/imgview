@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2010-04-17 23:13+0000\n"
 "Last-Translator: Roman Horník <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -30,7 +30,7 @@ msgstr[2] " sekúnd"
 msgid "1:1 Mode"
 msgstr "Režim 1:1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Výška:</b>"
 
@@ -38,20 +38,20 @@ msgstr "<b>Výška:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Umiestnenie:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Veľkosť:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Názov:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Veľkosť:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Typ:</b>"
 
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Camera model"
 msgstr ""
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr "Zobraziť informácie o aktuálnom súbore"
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Orezanie"
 
@@ -222,6 +222,10 @@ msgstr "Celá obrazovka"
 msgid "General"
 msgstr "Všeobecné"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Výška: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr ""
@@ -258,6 +262,10 @@ msgstr "Kvalita JPEG:"
 msgid "Last Used Mode"
 msgstr ""
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr ""
@@ -275,10 +283,10 @@ msgstr "Zobraziť informácie o aktuálnom súbore"
 msgid "Navigate images"
 msgstr ""
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Žiadne"
 
@@ -437,6 +445,10 @@ msgstr ""
 msgid "Viewnior Preferences"
 msgstr "Nastavenie Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Šírka: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Zväčšiť obrázok"
@@ -521,9 +533,6 @@ msgstr ""
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Prejsť na predchádzajúci obrázok v zbierke"
 
-#~ msgid "Height: "
-#~ msgstr "Výška: "
-
 #~ msgid "Save changes"
 #~ msgstr "Uložiť zmeny"
 
@@ -544,9 +553,6 @@ msgstr ""
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Šírka: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

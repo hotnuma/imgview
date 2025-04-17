@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior-0.7\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2014-03-13 01:37+0000\n"
 "Last-Translator: Mika Kobayashi <Unknown>\n"
 "Language-Team: Team Puppy linux Japan\n"
@@ -28,7 +28,7 @@ msgstr[0] " 秒"
 msgid "1:1 Mode"
 msgstr "1:1 モード"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>高さ:</b>"
 
@@ -36,20 +36,20 @@ msgstr "<b>高さ:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>場所:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>サイズ:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>名前:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>サイズ:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>形式:</b>"
 
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Camera model"
 msgstr "カメラの型式"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr "現在のファイルを再読み込み"
 msgid "Copyright"
 msgstr "著作権表示:"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "切り出し"
 
@@ -223,6 +223,10 @@ msgstr "全画面"
 msgid "General"
 msgstr "全般"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "高さ: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr ""
@@ -261,6 +265,10 @@ msgstr "JPEG品質:"
 msgid "Last Used Mode"
 msgstr "最後に使用されたモード"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr ""
@@ -278,10 +286,10 @@ msgstr "現在のファイルを削除"
 msgid "Navigate images"
 msgstr "画像を移動"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "なし"
 
@@ -442,6 +450,10 @@ msgstr "Viewnior 用のユーザ設定"
 msgid "Viewnior Preferences"
 msgstr "Viewnior 設定"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "幅: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "画像をズーム"
@@ -541,9 +553,6 @@ msgstr "壁紙に設定(_W)"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "コレクションの前の画像に移動"
 
-#~ msgid "Height: "
-#~ msgstr "高さ: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "メニューバー"
 
@@ -596,9 +605,6 @@ msgstr "壁紙に設定(_W)"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "幅: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

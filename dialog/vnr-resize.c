@@ -109,7 +109,7 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
     int row = 0;
     GtkWidget *widget = NULL;
 
-    widget = gtk_label_new("Width: ");
+    widget = gtk_label_new(_("Width: "));
     gtk_grid_attach(GTK_GRID(grid), widget, 0, row, 1, 1);
 
     resize->spin_width =
@@ -123,13 +123,13 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
     gtk_grid_attach(GTK_GRID(grid),
                     GTK_WIDGET(resize->spin_width), 1, row, 1, 1);
 
-    resize->link_check = gtk_check_button_new_with_label("Link");
+    resize->link_check = gtk_check_button_new_with_label(_("Link"));
     gtk_grid_attach(GTK_GRID(grid),
                     resize->link_check, 2, row, 1, 1);
 
     ++row;
 
-    widget = gtk_label_new("Height: ");
+    widget = gtk_label_new(_("Height: "));
     gtk_grid_attach(GTK_GRID(grid), widget, 0, row, 1, 1);
 
     resize->spin_height =

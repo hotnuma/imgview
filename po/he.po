@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2015-10-11 07:53+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@translationproject.org>\n"
@@ -28,7 +28,7 @@ msgstr[1] " שניות"
 msgid "1:1 Mode"
 msgstr "1:1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>גובה :</b>"
 
@@ -36,20 +36,20 @@ msgstr "<b>גובה :</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>מיקום:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>מידה:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>שם:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>מידה:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>טיפוס:</b>"
 
@@ -114,7 +114,7 @@ msgstr "יצרן מצלמה"
 msgid "Camera model"
 msgstr "דגם מצלמה"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -140,7 +140,7 @@ msgstr "טעינה מחדש של הקובץ הנוכחי"
 msgid "Copyright"
 msgstr "זכויות יוצרים"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "חתוך"
 
@@ -221,6 +221,10 @@ msgstr "מסך מלא"
 msgid "General"
 msgstr "כללי"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "גובה: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "מהירות ISO"
@@ -259,6 +263,10 @@ msgstr "איכות JPEG:"
 msgid "Last Used Mode"
 msgstr "אחרון שהיה בשימוש"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "מצב מונה מטר"
@@ -276,10 +284,10 @@ msgstr "מחיקת הקובץ הנוכחי"
 msgid "Navigate images"
 msgstr "נווט בין תמונות"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "ללא"
 
@@ -440,6 +448,10 @@ msgstr "העדפות משתמש עבור Viewnior"
 msgid "Viewnior Preferences"
 msgstr "העדפות Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "רוחב: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "התקרבות לתמונה"
@@ -539,9 +551,6 @@ msgstr "ה_גדרה כרקע שולחן העבודה"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "מעבר אל התמונה הקודמת שבאוסף"
 
-#~ msgid "Height: "
-#~ msgstr "גובה: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "שורת תפריטים"
 
@@ -602,9 +611,6 @@ msgstr "ה_גדרה כרקע שולחן העבודה"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "רוחב: "
 
 #~ msgid "X: "
 #~ msgstr "‏X‏: "

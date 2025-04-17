@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior-1.4\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2014-02-19 06:28+0000\n"
 "Last-Translator: Kyrill Detinov <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -30,7 +30,7 @@ msgstr[2] " секунд"
 msgid "1:1 Mode"
 msgstr "в режиме 1 к 1"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Высота:</b>"
 
@@ -38,20 +38,20 @@ msgstr "<b>Высота:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Источник:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Размер:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Название:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Размер:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Тип:</b>"
 
@@ -118,7 +118,7 @@ msgstr "Производитель"
 msgid "Camera model"
 msgstr "Модель камеры"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr "Обновить текущий файл"
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Обрезать"
 
@@ -225,6 +225,10 @@ msgstr "Полный экран"
 msgid "General"
 msgstr "Общие"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Высота: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "Светочувствительность"
@@ -263,6 +267,10 @@ msgstr "Качество JPEG:"
 msgid "Last Used Mode"
 msgstr "последнем использовавшемся режиме"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Режим замера"
@@ -280,10 +288,10 @@ msgstr "Удалить текущий файл"
 msgid "Navigate images"
 msgstr "навигация по изображениям"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Нет"
 
@@ -444,6 +452,10 @@ msgstr "Параметры пользователя для Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Параметры Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Ширина: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "увеличить изображение"
@@ -543,9 +555,6 @@ msgstr "Сделать фоном рабочего стола"
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Перейти к предыдущему изображению"
 
-#~ msgid "Height: "
-#~ msgstr "Высота: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Панель меню"
 
@@ -606,9 +615,6 @@ msgstr "Сделать фоном рабочего стола"
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Ширина: "
 
 #~ msgid "X: "
 #~ msgstr "X: "

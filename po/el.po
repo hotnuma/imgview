@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-16 11:08+0200\n"
+"POT-Creation-Date: 2025-04-17 09:09+0200\n"
 "PO-Revision-Date: 2015-01-05 22:51+0000\n"
 "Last-Translator: Michalis Ntovas <michalisntovas@yahoo.gr>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -29,7 +29,7 @@ msgstr[1] " δευτερόλεπτα"
 msgid "1:1 Mode"
 msgstr "1:1 Λειτουργία"
 
-#: dialog/vnr-properties.c:232
+#: dialog/vnr-properties.c:233
 msgid "<b>Height:</b>"
 msgstr "<b>Ύψος:</b>"
 
@@ -37,20 +37,20 @@ msgstr "<b>Ύψος:</b>"
 msgid "<b>Location:</b>"
 msgstr "<b>Τοποθεσία:</b>"
 
-#: dialog/vnr-properties.c:236
+#: dialog/vnr-properties.c:238
 #, fuzzy
 msgid "<b>Modified:</b>"
 msgstr "<b>Μέγεθος:</b>"
 
-#: dialog/vnr-properties.c:216
+#: dialog/vnr-properties.c:213
 msgid "<b>Name:</b>"
 msgstr "<b>Ονομασία:</b>"
 
-#: dialog/vnr-properties.c:224
+#: dialog/vnr-properties.c:223
 msgid "<b>Size:</b>"
 msgstr "<b>Μέγεθος:</b>"
 
-#: dialog/vnr-properties.c:220
+#: dialog/vnr-properties.c:218
 msgid "<b>Type:</b>"
 msgstr "<b>Τύπος:</b>"
 
@@ -117,7 +117,7 @@ msgstr "Μάρκα κάμερας"
 msgid "Camera model"
 msgstr "Μοντέλο κάμερας"
 
-#: dialog/vnr-crop.c:249 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
 msgid "Cancel"
 msgstr ""
 
@@ -143,7 +143,7 @@ msgstr "Επαναφόρτωσε το παρόν αρχείο"
 msgid "Copyright"
 msgstr "Πνευματικά δικαιώματα"
 
-#: dialog/vnr-crop.c:250 window.c:263
+#: dialog/vnr-crop.c:248 window.c:263
 msgid "Crop"
 msgstr "Περικοπή"
 
@@ -224,6 +224,10 @@ msgstr "Πλήρης Οθόνη"
 msgid "General"
 msgstr "Γενικά"
 
+#: dialog/vnr-resize.c:132
+msgid "Height: "
+msgstr "Ύψος: "
+
 #: uni/uni-exiv2.hpp:58
 msgid "ISO speed"
 msgstr "Ταχύτητα ISO"
@@ -262,6 +266,10 @@ msgstr "Ποιότητα JPEG:"
 msgid "Last Used Mode"
 msgstr "Προηγούμενη λειτουργία"
 
+#: dialog/vnr-resize.c:126
+msgid "Link"
+msgstr ""
+
 #: uni/uni-exiv2.hpp:60
 msgid "Metering mode"
 msgstr "Λειτουργία μέτρησης"
@@ -279,10 +287,10 @@ msgstr "Διαγραφή παρόντος αρχείου"
 msgid "Navigate images"
 msgstr "Πλοήγηση εικόνων"
 
-#: dialog/vnr-properties.c:458 dialog/vnr-properties.c:459
-#: dialog/vnr-properties.c:460 dialog/vnr-properties.c:461
-#: dialog/vnr-properties.c:462 dialog/vnr-properties.c:463
-#: dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:461 dialog/vnr-properties.c:462
+#: dialog/vnr-properties.c:463 dialog/vnr-properties.c:464
+#: dialog/vnr-properties.c:465 dialog/vnr-properties.c:466
+#: dialog/vnr-properties.c:467
 msgid "None"
 msgstr "Καμμία"
 
@@ -443,6 +451,10 @@ msgstr "Προτιμήσεις χρήστη για Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Προτιμήσεις Viewnior"
 
+#: dialog/vnr-resize.c:112
+msgid "Width: "
+msgstr "Πλάτος: "
+
 #: dialog/preferences.c:379
 msgid "Zoom image"
 msgstr "Μεγέθυνση εικόνας"
@@ -542,9 +554,6 @@ msgstr "Τοποθέτηση ως _Παρασκήνιο Επιφάνειας Ε�
 #~ msgid "Go to the previous image of the collection"
 #~ msgstr "Μεταφορά στην προηγούμενη εικόνα της συλλογής"
 
-#~ msgid "Height: "
-#~ msgstr "Ύψος: "
-
 #~ msgid "Menu Bar"
 #~ msgstr "Γραμμή Μενού"
 
@@ -605,9 +614,6 @@ msgstr "Τοποθέτηση ως _Παρασκήνιο Επιφάνειας Ε�
 
 #~ msgid "Viewnior"
 #~ msgstr "Viewnior"
-
-#~ msgid "Width: "
-#~ msgstr "Πλάτος: "
 
 #~ msgid "X: "
 #~ msgstr "Χ: "
