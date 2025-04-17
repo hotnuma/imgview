@@ -28,6 +28,7 @@ static void _on_width_value_changed(GtkSpinButton *spinbutton,
                                     VnrResize *resize);
 static void _on_height_value_changed(GtkSpinButton *spinbutton,
                                      VnrResize *resize);
+static void _on_link_check_toggled(GtkWidget *checkbutton, VnrResize *resize);
 
 
 // creation -------------------------------------------------------------------
@@ -79,8 +80,11 @@ gboolean vnr_resize_run(VnrResize *resize)
 
 static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 {
-    resize->orig_width = resize->window->current_image_width;
-    resize->orig_height = resize->window->current_image_height;
+    VnrWindow *window = resize->window;
+    VnrPrefs *prefs = window->prefs;
+
+    resize->orig_width = window->current_image_width;
+    resize->orig_height = window->current_image_height;
 
     g_return_val_if_fail(resize->orig_width != 0, NULL);
     g_return_val_if_fail(resize->orig_height != 0, NULL);
@@ -96,7 +100,7 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
                                      NULL);
 
     gtk_window_set_transient_for(GTK_WINDOW(dialog),
-                                 GTK_WINDOW(resize->window));
+                                 GTK_WINDOW(window));
 
     GtkWidget *content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
@@ -119,11 +123,13 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
                                     1));
     gtk_spin_button_set_increments(resize->spin_width, 1, 10);
     gtk_spin_button_set_value(resize->spin_width,
-                              resize->window->current_image_width);
+                              window->current_image_width);
     gtk_grid_attach(GTK_GRID(grid),
                     GTK_WIDGET(resize->spin_width), 1, row, 1, 1);
 
     resize->link_check = gtk_check_button_new_with_label(_("Link"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(resize->link_check),
+                                 prefs->resize_link);
     gtk_grid_attach(GTK_GRID(grid),
                     resize->link_check, 2, row, 1, 1);
 
@@ -139,7 +145,7 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
                                     1));
     gtk_spin_button_set_increments(resize->spin_height, 1, 10);
     gtk_spin_button_set_value(resize->spin_height,
-                              resize->window->current_image_height);
+                              window->current_image_height);
     gtk_grid_attach(GTK_GRID(grid),
                     GTK_WIDGET(resize->spin_height), 1, row, 1, 1);
 
@@ -152,6 +158,8 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
                      G_CALLBACK(_on_width_value_changed), resize);
     g_signal_connect(resize->spin_height, "value-changed",
                      G_CALLBACK(_on_height_value_changed), resize);
+    g_signal_connect(resize->link_check, "toggled",
+                     G_CALLBACK(_on_link_check_toggled), resize);
 
     gtk_widget_show_all(dialog);
 
@@ -161,17 +169,30 @@ static GtkWidget* _vnr_resize_dlg_new(VnrResize *resize)
 static void _on_width_value_changed(GtkSpinButton *spinbutton,
                                     VnrResize *resize)
 {
-    gdouble width = gtk_spin_button_get_value(spinbutton);
+    VnrPrefs *prefs = resize->window->prefs;
+    if (!prefs->resize_link)
+        return;
 
+    gdouble width = gtk_spin_button_get_value(spinbutton);
     gtk_spin_button_set_value(resize->spin_height, width / resize->ratio);
 }
 
 static void _on_height_value_changed(GtkSpinButton *spinbutton,
                                      VnrResize *resize)
 {
-    gdouble height = gtk_spin_button_get_value(spinbutton);
+    VnrPrefs *prefs = resize->window->prefs;
+    if (!prefs->resize_link)
+        return;
 
+    gdouble height = gtk_spin_button_get_value(spinbutton);
     gtk_spin_button_set_value(resize->spin_width, height * resize->ratio);
+}
+
+static void _on_link_check_toggled(GtkWidget *checkbutton, VnrResize *resize)
+{
+    VnrPrefs *prefs = resize->window->prefs;
+    prefs->resize_link = gtk_toggle_button_get_active(
+                                        GTK_TOGGLE_BUTTON(checkbutton));
 }
 
 

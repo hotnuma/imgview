@@ -263,7 +263,7 @@ gboolean vnr_prefs_save(VnrPrefs *prefs)
     g_key_file_set_integer(conf, PREFS_GROUP, PREFS_PNG_COMPRESSION,
                            prefs->png_compression);
 
-    g_key_file_set_integer(conf, PREFS_GROUP, PREFS_RESIZE_LINK,
+    g_key_file_set_boolean(conf, PREFS_GROUP, PREFS_RESIZE_LINK,
                            prefs->resize_link);
 
     if (g_mkdir_with_parents(dir, 0700) != 0)
