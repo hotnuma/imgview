@@ -27,14 +27,10 @@
 #include <math.h>
 
 static void uni_dragger_finalize(GObject *object);
-static void uni_dragger_set_property(GObject *object,
-                                     guint prop_id,
-                                     const GValue *value,
-                                     GParamSpec *pspec);
+static void uni_dragger_set_property(GObject *object, guint prop_id,
+                                     const GValue *value, GParamSpec *pspec);
 static void _uni_dragger_grab_pointer(UniDragger *dragger, GdkEventButton *event);
 static void _uni_dragger_get_drag_delta(UniDragger *dragger, int *x, int *y);
-
-#define NEW_FUNCS
 
 static GtkTargetEntry target_table[] =
 {
@@ -130,8 +126,6 @@ static void _uni_dragger_grab_pointer(UniDragger *dragger, GdkEventButton *event
     if (event->button != 1)
         return;
 
-#ifdef NEW_FUNCS
-
     GdkSeat *seat = gdk_display_get_default_seat(gdk_display_get_default());
 
     GdkGrabStatus ret = gdk_seat_grab(seat,
@@ -146,42 +140,14 @@ static void _uni_dragger_grab_pointer(UniDragger *dragger, GdkEventButton *event
 
     if (ret != GDK_GRAB_SUCCESS)
         gdk_seat_ungrab(seat);
-
-#else
-    int mask = (GDK_POINTER_MOTION_MASK
-                | GDK_POINTER_MOTION_HINT_MASK
-                | GDK_BUTTON_RELEASE_MASK);
-
-    gdk_pointer_grab(event->window,
-                     FALSE,
-                     mask,
-                     NULL,
-                     tool->grab_cursor,
-                     event->time);
-#endif
-
-    //printf("grab\n");
 }
 
 gboolean uni_dragger_button_release(UniDragger *dragger, GdkEventButton *event)
 {
     //printf("enter ungrab\n");
 
-#ifdef NEW_FUNCS
-
     GdkSeat *seat = gdk_display_get_default_seat(gdk_display_get_default());
     gdk_seat_ungrab(seat);
-
-#else
-
-    if (event->button != 1)
-        return FALSE;
-
-    gdk_pointer_ungrab(event->time);
-
-#endif
-
-    //printf("ungrab\n");
 
     dragger->pressed = FALSE;
     dragger->dragging = FALSE;

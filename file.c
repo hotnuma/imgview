@@ -434,8 +434,6 @@ gboolean vnr_file_rename(VnrFile *file, const gchar *filepath)
     if (!file || !filepath)
         return false;
 
-    //printf("rename %s to %s\n", file->path, fullpath);
-
     gboolean ret = (g_rename(file->path, filepath) == 0);
 
     if (ret)

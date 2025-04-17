@@ -345,9 +345,8 @@ static gboolean _on_motion_notify_event(GtkWidget *widget,
     if (!crop->drawing_rectangle)
         return FALSE;
 
-    gdouble x, y;
-    x = event->x;
-    y = event->y;
+    gdouble x = event->x;
+    gdouble y = event->y;
 
     x = CLAMP(x, 0, crop->width);
     y = CLAMP(y, 0, crop->height);
@@ -513,8 +512,6 @@ static void _vnr_crop_draw_rectangle(VnrCrop *crop)
 
     GdkWindow *window = gtk_widget_get_window(crop->image);
 
-    //cairo_t *cr = gdk_cairo_create(window);
-
     cairo_region_t *region = cairo_region_create();
     GdkDrawingContext *context;
     context = gdk_window_begin_draw_frame(window,region);
@@ -530,10 +527,11 @@ static void _vnr_crop_draw_rectangle(VnrCrop *crop)
     cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
     cairo_stroke(cr);
 
-    //cairo_destroy(cr);
-
     gdk_window_end_draw_frame(window, context);
     cairo_region_destroy(region);
+
+    if (uni_is_wayland())
+        gdk_window_invalidate_rect(window, NULL, TRUE);
 }
 
 static inline void vnr_crop_clear_rectangle(VnrCrop *crop)
