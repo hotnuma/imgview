@@ -133,8 +133,6 @@ static void _window_action_preferences(VnrWindow *window, GtkWidget *widget);
 
 static void _window_action_help(VnrWindow *window, GtkWidget *widget);
 static void _window_action_test(VnrWindow *window, GtkWidget *widget);
-static void _window_filter_grayscale(VnrWindow *window);
-static void _window_filter_sepia(VnrWindow *window);
 static GdkPixbuf* _window_pixbuf_new(VnrWindow *window);
 
 // private Actions ------------------------------------------------------------
@@ -142,8 +140,13 @@ static GdkPixbuf* _window_pixbuf_new(VnrWindow *window);
 static void _window_rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle);
 static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal);
 static void _window_action_crop(VnrWindow *window, GtkWidget *widget);
-static void _window_view_set_static(VnrWindow *window, GdkPixbuf *pixbuf);
 static void _window_action_resize(VnrWindow *window, GtkWidget *widget);
+static void _window_filter_grayscale(VnrWindow *window);
+static void _window_filter_sepia(VnrWindow *window);
+static void _window_view_set_static(VnrWindow *window, GdkPixbuf *pixbuf);
+
+// ----------------------------------------------------------------------------
+
 static void _window_action_save_image(VnrWindow *window, GtkWidget *widget);
 static void _window_action_zoom_normal(VnrWindow *window, GtkWidget *widget);
 static void _window_action_zoom_fit(VnrWindow *window, GtkWidget *widget);
@@ -384,107 +387,6 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 
 static void _window_action_test(VnrWindow *window, GtkWidget *widget)
 {
-}
-
-static void _window_filter_grayscale(VnrWindow *window)
-{
-    if (!window->can_edit)
-        return;
-
-    GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
-                            UNI_IMAGE_VIEW(window->view));
-
-    GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
-
-    int width = gdk_pixbuf_get_width(dest_pixbuf);
-    int height = gdk_pixbuf_get_height(dest_pixbuf);
-    int stride = gdk_pixbuf_get_rowstride(dest_pixbuf);
-    int channels = gdk_pixbuf_get_n_channels(dest_pixbuf);
-    gboolean has_alpha = gdk_pixbuf_get_has_alpha(dest_pixbuf);
-
-    guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
-    guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
-
-    for (int y = 0; y < height; ++y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
-            int offset = (y * stride) + (x * channels);
-
-            guchar *src_p = src + offset;
-
-            double level = src_p[0] * 0.2126
-                           + src_p[1] * 0.7152
-                           + src_p[2] * 0.0722;
-
-            guchar *dest_p = dest + offset;
-
-            dest_p[0] = (int) level;
-            dest_p[1] = (int) level;
-            dest_p[2] = (int) level;
-
-            if (has_alpha)
-                dest_p[3] = src_p[3];
-        }
-    }
-
-    _window_view_set_static(window, dest_pixbuf);
-}
-
-static void _window_filter_sepia(VnrWindow *window)
-{
-    if (!window->can_edit)
-        return;
-
-    GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
-                            UNI_IMAGE_VIEW(window->view));
-
-    GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
-
-    int width = gdk_pixbuf_get_width(dest_pixbuf);
-    int height = gdk_pixbuf_get_height(dest_pixbuf);
-    int stride = gdk_pixbuf_get_rowstride(dest_pixbuf);
-    int channels = gdk_pixbuf_get_n_channels(dest_pixbuf);
-    gboolean has_alpha = gdk_pixbuf_get_has_alpha(dest_pixbuf);
-
-    guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
-    guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
-
-    for (int y = 0; y < height; ++y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
-            int offset = (y * stride) + (x * channels);
-
-            guchar *src_p = src + offset;
-            guchar *dest_p = dest + offset;
-
-            double level;
-
-            level =   (src_p[0] * 0.393)
-                    + (src_p[1] * 0.769)
-                    + (src_p[2] * 0.189);
-
-            dest_p[0] = CLAMP(level, 0, 255);
-
-            level =   (src_p[0] * 0.349)
-                    + (src_p[1] * 0.686)
-                    + (src_p[2] * 0.168);
-
-            dest_p[1] = CLAMP(level, 0, 255);
-
-            level =   (src_p[0] * 0.272)
-                    + (src_p[1] * 0.534)
-                    + (src_p[2] * 0.131);
-
-            dest_p[2] = CLAMP(level, 0, 255);
-
-            if (has_alpha)
-                dest_p[3] = src_p[3];
-        }
-    }
-
-    _window_view_set_static(window, dest_pixbuf);
 }
 
 static GdkPixbuf* _window_pixbuf_new(VnrWindow *window)
@@ -2329,9 +2231,6 @@ static void _window_rotate_pixbuf(VnrWindow *window,
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
 
-    //gdk_display_flush(display);
-
-    // Stop slideshow while editing the image
     _window_slideshow_stop(window);
 
     GdkPixbuf *result = gdk_pixbuf_rotate_simple(
@@ -2343,51 +2242,21 @@ static void _window_rotate_pixbuf(VnrWindow *window,
         vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
                               TRUE, _("Not enough virtual memory."),
                               FALSE);
-        return;
+        goto out;
     }
 
-    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
+    _window_view_set_static(window, result);
+
+    if (gtk_widget_get_visible(window->props_dlg))
+    {
+        vnr_properties_dialog_update_image(
+                                VNR_PROPERTIES_DIALOG(window->props_dlg));
+    }
+
+out:
 
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
-
-    g_object_unref(result);
-
-    window->current_image_width = gdk_pixbuf_get_width(result);
-    window->current_image_height = gdk_pixbuf_get_height(result);
-
-    if (gtk_widget_get_visible(window->props_dlg))
-        vnr_properties_dialog_update_image(
-                            VNR_PROPERTIES_DIALOG(window->props_dlg));
-
-    window->modified = true;
-
-    // extra conditions, rotating 180 degrees is also flipping horizontal
-    // and vertical
-    //if ((window->modified & (4))
-    //    ^ ((angle == GDK_PIXBUF_ROTATE_CLOCKWISE) << 2))
-    //    window->modified ^= 3;
-
-    //window->modified ^= 4;
-
-    //gtk_action_group_set_sensitive(
-    //      window->action_save, window->modifications);
-
-    //if (window->modified == 0)
-    //{
-    //    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
-
-    //    return;
-    //}
-
-    if (window->writable_format_name == NULL)
-    {
-        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
-                              TRUE,
-                              _("Image modifications cannot be saved.\n"
-                                "Writing in this format is not supported."),
-                              FALSE);
-    }
 }
 
 static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
@@ -2407,33 +2276,21 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
         vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
                               TRUE, _("Not enough virtual memory."),
                               FALSE);
-        return;
+        goto out;
     }
 
-    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
+    _window_view_set_static(window, result);
 
     if (gtk_widget_get_visible(window->props_dlg))
+    {
         vnr_properties_dialog_update_image(
-                    VNR_PROPERTIES_DIALOG(window->props_dlg));
+                            VNR_PROPERTIES_DIALOG(window->props_dlg));
+    }
+
+ out:
 
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_LEFT_PTR, false);
-
-    g_object_unref(result);
-
-    window->modified = true;
-
-    //gtk_action_group_set_sensitive(window->action_save,
-    //                               window->modifications);
-
-    if (window->writable_format_name == NULL)
-    {
-        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
-                              TRUE,
-                              _("Image modifications cannot be saved.\n"
-                                "Writing in this format is not supported."),
-                              FALSE);
-    }
 }
 
 static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
@@ -2469,32 +2326,6 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
     _window_view_set_static(window, cropped);
 
     g_object_unref(crop);
-}
-
-static void _window_view_set_static(VnrWindow *window, GdkPixbuf *pixbuf)
-{
-    if (!window || !pixbuf)
-        return;
-
-    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), pixbuf);
-    g_object_unref(pixbuf);
-
-    window->modified = true;
-
-    window->current_image_width = gdk_pixbuf_get_width(pixbuf);
-    window->current_image_height = gdk_pixbuf_get_height(pixbuf);
-
-    //gtk_action_group_set_sensitive(window->action_save, TRUE);
-
-    if (window->writable_format_name == NULL)
-    {
-        vnr_message_area_show(
-                VNR_MESSAGE_AREA(window->msg_area),
-                TRUE,
-                _("Image modifications cannot be saved.\n"
-                  "Writing in this format is not supported."),
-                FALSE);
-    }
 }
 
 static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
@@ -2538,6 +2369,135 @@ static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
 
     g_object_unref(resize);
 }
+
+static void _window_filter_grayscale(VnrWindow *window)
+{
+    if (!window->can_edit)
+        return;
+
+    GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
+                            UNI_IMAGE_VIEW(window->view));
+
+    GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
+
+    int width = gdk_pixbuf_get_width(dest_pixbuf);
+    int height = gdk_pixbuf_get_height(dest_pixbuf);
+    int stride = gdk_pixbuf_get_rowstride(dest_pixbuf);
+    int channels = gdk_pixbuf_get_n_channels(dest_pixbuf);
+    gboolean has_alpha = gdk_pixbuf_get_has_alpha(dest_pixbuf);
+
+    guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
+    guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
+
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            int offset = (y * stride) + (x * channels);
+
+            guchar *src_p = src + offset;
+
+            double level = src_p[0] * 0.2126
+                           + src_p[1] * 0.7152
+                           + src_p[2] * 0.0722;
+
+            guchar *dest_p = dest + offset;
+
+            dest_p[0] = (int) level;
+            dest_p[1] = (int) level;
+            dest_p[2] = (int) level;
+
+            if (has_alpha)
+                dest_p[3] = src_p[3];
+        }
+    }
+
+    _window_view_set_static(window, dest_pixbuf);
+}
+
+static void _window_filter_sepia(VnrWindow *window)
+{
+    if (!window->can_edit)
+        return;
+
+    GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
+                            UNI_IMAGE_VIEW(window->view));
+
+    GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
+
+    int width = gdk_pixbuf_get_width(dest_pixbuf);
+    int height = gdk_pixbuf_get_height(dest_pixbuf);
+    int stride = gdk_pixbuf_get_rowstride(dest_pixbuf);
+    int channels = gdk_pixbuf_get_n_channels(dest_pixbuf);
+    gboolean has_alpha = gdk_pixbuf_get_has_alpha(dest_pixbuf);
+
+    guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
+    guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
+
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            int offset = (y * stride) + (x * channels);
+
+            guchar *src_p = src + offset;
+            guchar *dest_p = dest + offset;
+
+            double level;
+
+            level =   (src_p[0] * 0.393)
+                    + (src_p[1] * 0.769)
+                    + (src_p[2] * 0.189);
+
+            dest_p[0] = CLAMP(level, 0, 255);
+
+            level =   (src_p[0] * 0.349)
+                    + (src_p[1] * 0.686)
+                    + (src_p[2] * 0.168);
+
+            dest_p[1] = CLAMP(level, 0, 255);
+
+            level =   (src_p[0] * 0.272)
+                    + (src_p[1] * 0.534)
+                    + (src_p[2] * 0.131);
+
+            dest_p[2] = CLAMP(level, 0, 255);
+
+            if (has_alpha)
+                dest_p[3] = src_p[3];
+        }
+    }
+
+    _window_view_set_static(window, dest_pixbuf);
+}
+
+static void _window_view_set_static(VnrWindow *window, GdkPixbuf *pixbuf)
+{
+    if (!window || !pixbuf)
+        return;
+
+    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), pixbuf);
+    g_object_unref(pixbuf);
+
+    window->modified = true;
+    window->current_image_width = gdk_pixbuf_get_width(pixbuf);
+    window->current_image_height = gdk_pixbuf_get_height(pixbuf);
+
+    //gtk_action_group_set_sensitive(window->action_save, TRUE);
+
+    if (window->writable_format_name == NULL)
+    {
+        vnr_message_area_show(
+                VNR_MESSAGE_AREA(window->msg_area),
+                TRUE,
+                _("Image modifications cannot be saved.\n"
+                  "Writing in this format is not supported."),
+                FALSE);
+    }
+}
+
+
+// ----------------------------------------------------------------------------
 
 static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
 {
