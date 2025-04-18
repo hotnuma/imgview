@@ -137,6 +137,7 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget);
 static void _window_rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle);
 static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal);
 static void _window_action_crop(VnrWindow *window, GtkWidget *widget);
+static void _window_view_set_static(VnrWindow *window, GdkPixbuf *pixbuf);
 static void _window_action_resize(VnrWindow *window, GtkWidget *widget);
 static void _window_action_save_image(VnrWindow *window, GtkWidget *widget);
 static void _window_action_zoom_normal(VnrWindow *window, GtkWidget *widget);
@@ -2334,31 +2335,38 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
         return;
     }
 
-    GdkPixbuf *cropped;
-    GdkPixbuf *original;
+    GdkPixbuf *original = uni_image_view_get_pixbuf(
+                            UNI_IMAGE_VIEW(window->view));
 
-    original = uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view));
-
-    cropped = gdk_pixbuf_new(gdk_pixbuf_get_colorspace(original),
-                             gdk_pixbuf_get_has_alpha(original),
-                             gdk_pixbuf_get_bits_per_sample(original),
-                             crop->area.width, crop->area.height);
+    GdkPixbuf *cropped = gdk_pixbuf_new(
+                            gdk_pixbuf_get_colorspace(original),
+                            gdk_pixbuf_get_has_alpha(original),
+                            gdk_pixbuf_get_bits_per_sample(original),
+                            crop->area.width,
+                            crop->area.height);
 
     gdk_pixbuf_copy_area((const GdkPixbuf*) original,
                          crop->area.x, crop->area.y,
                          crop->area.width, crop->area.height,
                          cropped, 0, 0);
 
-    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), cropped);
+    _window_view_set_static(window, cropped);
 
-    g_object_unref(cropped);
+    g_object_unref(crop);
+}
+
+static void _window_view_set_static(VnrWindow *window, GdkPixbuf *pixbuf)
+{
+    if (!window || !pixbuf)
+        return;
+
+    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), pixbuf);
+    g_object_unref(pixbuf);
 
     window->modified = true;
 
-    //window->modified |= 8;
-
-    window->current_image_width = crop->area.width;
-    window->current_image_height = crop->area.height;
+    window->current_image_width = gdk_pixbuf_get_width(pixbuf);
+    window->current_image_height = gdk_pixbuf_get_height(pixbuf);
 
     //gtk_action_group_set_sensitive(window->action_save, TRUE);
 
@@ -2371,8 +2379,6 @@ static void _window_action_crop(VnrWindow *window, GtkWidget *widget)
                   "Writing in this format is not supported."),
                 FALSE);
     }
-
-    g_object_unref(crop);
 }
 
 static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
@@ -2390,8 +2396,6 @@ static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
 
         return;
     }
-
-    //gint64 t1 = g_get_real_time();
 
     GdkPixbuf *inpix = uni_image_view_get_pixbuf(
                             UNI_IMAGE_VIEW(window->view));
@@ -2414,34 +2418,7 @@ static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
     GdkPixbuf *pixbuf = gd_to_pixbuf(imgout);
     gd_img_free(imgout);
 
-    //gint64 t2 = g_get_real_time();
-    //gint64 diff = t2 - t1;
-    //printf("time = %d\n", (int) diff);
-
-    GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
-    g_object_unref(pixbuf);
-
-    //uni_anim_view_set_anim(UNI_ANIM_VIEW(window->view), anim);
-
-    window_load_pixbuf(window, anim, true);
-    g_object_unref(anim);
-
-    window->modified = true;
-
-    window->current_image_width = resize->new_width;
-    window->current_image_height = resize->new_height;
-
-    //gtk_action_group_set_sensitive(window->action_save, TRUE);
-
-    if (window->writable_format_name == NULL)
-    {
-        vnr_message_area_show(
-                VNR_MESSAGE_AREA(window->msg_area),
-                TRUE,
-                _("Image modifications cannot be saved.\n"
-                  "Writing in this format is not supported."),
-                FALSE);
-    }
+    _window_view_set_static(window, pixbuf);
 
     g_object_unref(resize);
 }

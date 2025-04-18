@@ -1,46 +1,38 @@
 #if 0
 
-    if (fit_to_screen)
-    {
-        // Width and Height of the pixbuf
+//gint64 t1 = g_get_real_time();
 
-        gint img_w = window->current_image_width;
-        gint img_h = window->current_image_height;
+//gint64 t2 = g_get_real_time();
+//gint64 diff = t2 - t1;
+//printf("time = %d\n", (int) diff);
 
-        vnr_tools_fit_to_size(&img_w, &img_h,
-                              window->max_width, window->max_height);
-
-        gtk_window_resize(GTK_WINDOW(window),
-                          img_w,
-                          img_h /*+ _window_get_top_widgets_height(window)*/);
-    }
-
-static void _action_resize(VnrWindow *window, GtkWidget *widget);
-static void _action_resize(VnrWindow *window, GtkWidget *widget)
+static void _window_non_anim_new(VnrWindow *window, GdkPixbuf *pixbuf);
+static void _window_non_anim_new(VnrWindow *window, GdkPixbuf *pixbuf)
 {
-    (void) widget;
+    GdkPixbufAnimation *anim = gdk_pixbuf_non_anim_new(pixbuf);
+    g_object_unref(pixbuf);
 
-    //if (action != NULL && !gtk_toggle_action_get_active(action))
-    //{
-    //    window->prefs->auto_resize = FALSE;
-    //    return;
-    //}
+    window_load_pixbuf(window, anim, true);
+    g_object_unref(anim);
 
-    // width and Height of the pixbuf
-    gint img_w = window->current_image_width;
-    gint img_h = window->current_image_height;
+    window->modified = true;
 
-    if (img_w == 0 || img_h == 0)
-        return;
+    window->current_image_width = gdk_pixbuf_get_width(pixbuf);
+    window->current_image_height = gdk_pixbuf_get_height(pixbuf);
 
-    window->prefs->auto_resize = TRUE;
-    vnr_tools_fit_to_size(&img_w, &img_h,
-                          window->max_width, window->max_height);
+    //gtk_action_group_set_sensitive(window->action_save, TRUE);
 
-    // _window_get_top_widgets_height(window)
-
-    gtk_window_resize(GTK_WINDOW(window), img_w, img_h);
+    if (window->writable_format_name == NULL)
+    {
+        vnr_message_area_show(
+                VNR_MESSAGE_AREA(window->msg_area),
+                TRUE,
+                _("Image modifications cannot be saved.\n"
+                  "Writing in this format is not supported."),
+                FALSE);
+    }
 }
+
 
 #endif
 
