@@ -131,6 +131,9 @@ static void _window_show_cursor(VnrWindow *window);
 static void _window_action_properties(VnrWindow *window, GtkWidget *widget);
 static void _window_action_preferences(VnrWindow *window, GtkWidget *widget);
 static void _window_action_help(VnrWindow *window, GtkWidget *widget);
+static void _window_action_test(VnrWindow *window, GtkWidget *widget);
+static void _window_filter_grayscale(VnrWindow *window);
+static GdkPixbuf* _window_pixbuf_new(VnrWindow *window);
 
 // private Actions ------------------------------------------------------------
 
@@ -371,10 +374,77 @@ static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 {
     g_return_if_fail(window != NULL);
 
-    //_window_action_resize(window, widget);
+    _window_filter_grayscale(window);
 
     return;
 
+}
+
+static void _window_action_test(VnrWindow *window, GtkWidget *widget)
+{
+}
+
+static void _window_filter_grayscale(VnrWindow *window)
+{
+    if (!window->can_edit)
+        return;
+
+    GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
+                            UNI_IMAGE_VIEW(window->view));
+
+    GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
+
+    int width = gdk_pixbuf_get_width(dest_pixbuf);
+    int height = gdk_pixbuf_get_height(dest_pixbuf);
+    int stride = gdk_pixbuf_get_rowstride(dest_pixbuf);
+    int channels = gdk_pixbuf_get_n_channels(dest_pixbuf);
+    gboolean has_alpha = gdk_pixbuf_get_has_alpha(dest_pixbuf);
+
+    guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
+    guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
+
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            int offset = (y * stride) + (x * channels);
+
+            guchar *src_p = src + offset;
+
+            double level = src_p[0] * 0.2126
+                           + src_p[1] * 0.7152
+                           + src_p[2] * 0.0722;
+
+            guchar *dest_p = dest + offset;
+
+            dest_p[0] = (int) level;
+            dest_p[1] = (int) level;
+            dest_p[2] = (int) level;
+
+            if (has_alpha)
+                dest_p[3] = src_p[3];
+        }
+    }
+
+    _window_view_set_static(window, dest_pixbuf);
+}
+
+static GdkPixbuf* _window_pixbuf_new(VnrWindow *window)
+{
+    if (!window->can_edit)
+        return NULL;
+
+    GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
+                                        UNI_IMAGE_VIEW(window->view));
+
+    int width = gdk_pixbuf_get_width(src_pixbuf);
+    int height = gdk_pixbuf_get_height(src_pixbuf);
+
+    return gdk_pixbuf_new(gdk_pixbuf_get_colorspace(src_pixbuf),
+                          gdk_pixbuf_get_has_alpha(src_pixbuf),
+                          gdk_pixbuf_get_bits_per_sample(src_pixbuf),
+                          width,
+                          height);
 }
 
 
@@ -2297,18 +2367,6 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     //gtk_action_group_set_sensitive(window->action_save,
     //                               window->modifications);
-
-    // Extra conditions. Rotating 180 degrees is also flipping horizontal
-    // and vertical
-    //window->modified ^= (window->modified & 4)
-    //        ? 1 + horizontal : 2 - horizontal;
-
-    //if (window->modified == 0)
-    //{
-    //    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
-
-    //    return;
-    //}
 
     if (window->writable_format_name == NULL)
     {
