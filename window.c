@@ -131,7 +131,7 @@ static void _window_action_properties(VnrWindow *window, GtkWidget *widget);
 static void _window_action_preferences(VnrWindow *window, GtkWidget *widget);
 
 static void _window_action_help(VnrWindow *window, GtkWidget *widget);
-static void _window_action_test(VnrWindow *window, GtkWidget *widget);
+static void _window_action_test(VnrWindow *window);
 static GdkPixbuf* _window_pixbuf_new(VnrWindow *window);
 
 // private Actions ------------------------------------------------------------
@@ -140,8 +140,8 @@ static void _window_rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle);
 static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal);
 static void _window_action_crop(VnrWindow *window, GtkWidget *widget);
 static void _window_action_resize(VnrWindow *window, GtkWidget *widget);
-static void _window_filter_grayscale(VnrWindow *window);
-static void _window_filter_sepia(VnrWindow *window);
+static void _window_filter_grayscale(VnrWindow *window, GtkWidget *widget);
+static void _window_filter_sepia(VnrWindow *window, GtkWidget *widget);
 static void _window_view_set_static(VnrWindow *window, GdkPixbuf *pixbuf);
 
 // ----------------------------------------------------------------------------
@@ -194,6 +194,9 @@ typedef enum
     WINDOW_ACTION_RENAME,
     WINDOW_ACTION_CROP,
     WINDOW_ACTION_RESIZE,
+    WINDOW_ACTION_FILTERS,
+    WINDOW_ACTION_FILTER_GRAYSCALE,
+    WINDOW_ACTION_FILTER_SEPIA,
     WINDOW_ACTION_SELECTDIR,
     WINDOW_ACTION_COPYTO,
     WINDOW_ACTION_MOVETO,
@@ -257,6 +260,27 @@ static EtkActionEntry _window_actions[] =
      N_("Resize image"),
      NULL,
      G_CALLBACK(_window_action_resize)},
+
+    {WINDOW_ACTION_FILTERS,
+     "<Actions>/AppWindow/Filters", "",
+     ETK_MENU_ITEM, N_("Filters"),
+     N_("Filters"),
+     NULL,
+     NULL},
+
+    {WINDOW_ACTION_FILTER_GRAYSCALE,
+     "<Actions>/AppWindow/FilterGrayscale", "",
+     ETK_MENU_ITEM, N_("Grayscale"),
+     N_("Grayscale Filter"),
+     NULL,
+     G_CALLBACK(_window_filter_grayscale)},
+
+    {WINDOW_ACTION_FILTER_SEPIA,
+     "<Actions>/AppWindow/FilterSepia", "",
+     ETK_MENU_ITEM, N_("Sepia"),
+     N_("Sepia"),
+     NULL,
+     G_CALLBACK(_window_filter_sepia)},
 
     {WINDOW_ACTION_SELECTDIR,
      "<Actions>/AppWindow/SelectDir", "F6",
@@ -369,14 +393,15 @@ static EtkActionEntry _window_actions[] =
 static void _window_action_help(VnrWindow *window, GtkWidget *widget)
 {
     g_return_if_fail(window != NULL);
+    (void) widget;
 
-    _window_filter_sepia(window);
+    _window_action_test(window);
 
     return;
 
 }
 
-static void _window_action_test(VnrWindow *window, GtkWidget *widget)
+static void _window_action_test(VnrWindow *window)
 {
 }
 
@@ -460,6 +485,8 @@ static void window_init(VnrWindow *window)
     window->popup_menu = menu;
     gtk_menu_set_accel_group(GTK_MENU(menu), window->accel_group);
 
+    // open file --------------------------------------------------------------
+
     etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                   WINDOW_ACTION_OPEN,
                                   _window_actions,
@@ -478,11 +505,28 @@ static void window_init(VnrWindow *window)
 
     etk_menu_append_separator(GTK_MENU_SHELL(menu));
 
+    // image edition ----------------------------------------------------------
+
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
-                                         WINDOW_ACTION_RENAME,
+                                         WINDOW_ACTION_FILTERS,
                                          _window_actions,
                                          G_OBJECT(window));
     window->group_image = etk_widget_list_add(window->group_image, item);
+
+    GtkWidget *submenu = gtk_menu_new();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
+
+    item = etk_menu_item_new_from_action(GTK_MENU_SHELL(submenu),
+                                         WINDOW_ACTION_FILTER_GRAYSCALE,
+                                         _window_actions,
+                                         G_OBJECT(window));
+
+    item = etk_menu_item_new_from_action(GTK_MENU_SHELL(submenu),
+                                         WINDOW_ACTION_FILTER_SEPIA,
+                                         _window_actions,
+                                         G_OBJECT(window));
+
+    gtk_widget_show_all(submenu);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_CROP,
@@ -495,6 +539,10 @@ static void window_init(VnrWindow *window)
                                          _window_actions,
                                          G_OBJECT(window));
     window->group_image = etk_widget_list_add(window->group_image, item);
+
+    // file system operations  ------------------------------------------------
+
+    etk_menu_append_separator(GTK_MENU_SHELL(menu));
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_SELECTDIR,
@@ -515,10 +563,18 @@ static void window_init(VnrWindow *window)
     window->group_image = etk_widget_list_add(window->group_image, item);
 
     item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
+                                         WINDOW_ACTION_RENAME,
+                                         _window_actions,
+                                         G_OBJECT(window));
+    window->group_image = etk_widget_list_add(window->group_image, item);
+
+    item = etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                          WINDOW_ACTION_DELETE,
                                          _window_actions,
                                          G_OBJECT(window));
     window->group_image = etk_widget_list_add(window->group_image, item);
+
+    // ------------------------------------------------------------------------
 
     etk_menu_append_separator(GTK_MENU_SHELL(menu));
 
@@ -536,10 +592,13 @@ static void window_init(VnrWindow *window)
 
     etk_menu_append_separator(GTK_MENU_SHELL(menu));
 
+
     etk_menu_item_new_from_action(GTK_MENU_SHELL(menu),
                                   WINDOW_ACTION_PREFERENCES,
                                   _window_actions,
                                   G_OBJECT(window));
+
+    // ------------------------------------------------------------------------
 
     gtk_widget_show_all(menu);
     gtk_widget_hide(window->openwith_item);
@@ -2347,8 +2406,10 @@ static void _window_action_resize(VnrWindow *window, GtkWidget *widget)
     g_object_unref(resize);
 }
 
-static void _window_filter_grayscale(VnrWindow *window)
+static void _window_filter_grayscale(VnrWindow *window, GtkWidget *widget)
 {
+    (void) widget;
+
     if (!window->can_edit)
         return;
 
@@ -2392,8 +2453,10 @@ static void _window_filter_grayscale(VnrWindow *window)
     _window_view_set_static(window, dest_pixbuf);
 }
 
-static void _window_filter_sepia(VnrWindow *window)
+static void _window_filter_sepia(VnrWindow *window, GtkWidget *widget)
 {
+    (void) widget;
+
     if (!window->can_edit)
         return;
 
