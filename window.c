@@ -2414,7 +2414,7 @@ static void _window_filter_grayscale(VnrWindow *window, GtkWidget *widget)
         return;
 
     GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
-                            UNI_IMAGE_VIEW(window->view));
+                                        UNI_IMAGE_VIEW(window->view));
 
     GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
 
@@ -2433,20 +2433,19 @@ static void _window_filter_grayscale(VnrWindow *window, GtkWidget *widget)
         {
             int offset = (y * stride) + (x * channels);
 
-            guchar *src_p = src + offset;
+            guchar *src_color = src + offset;
+            guchar *dest_color = dest + offset;
 
-            double level = src_p[0] * 0.2126
-                           + src_p[1] * 0.7152
-                           + src_p[2] * 0.0722;
+            double level =   src_color[0] * 0.2126
+                           + src_color[1] * 0.7152
+                           + src_color[2] * 0.0722;
 
-            guchar *dest_p = dest + offset;
-
-            dest_p[0] = (int) level;
-            dest_p[1] = (int) level;
-            dest_p[2] = (int) level;
+            dest_color[0] = (uint8_t) CLAMP(level, 0, 255);
+            dest_color[1] = dest_color[0];
+            dest_color[2] = dest_color[0];
 
             if (has_alpha)
-                dest_p[3] = src_p[3];
+                dest_color[3] = src_color[3];
         }
     }
 
@@ -2480,31 +2479,31 @@ static void _window_filter_sepia(VnrWindow *window, GtkWidget *widget)
         {
             int offset = (y * stride) + (x * channels);
 
-            guchar *src_p = src + offset;
-            guchar *dest_p = dest + offset;
+            guchar *src_color = src + offset;
+            guchar *dest_color = dest + offset;
 
             double level;
 
-            level =   (src_p[0] * 0.393)
-                    + (src_p[1] * 0.769)
-                    + (src_p[2] * 0.189);
+            level =   (src_color[0] * 0.393)
+                    + (src_color[1] * 0.769)
+                    + (src_color[2] * 0.189);
 
-            dest_p[0] = CLAMP(level, 0, 255);
+            dest_color[0] = (uint8_t) CLAMP(level, 0, 255);
 
-            level =   (src_p[0] * 0.349)
-                    + (src_p[1] * 0.686)
-                    + (src_p[2] * 0.168);
+            level =   (src_color[0] * 0.349)
+                    + (src_color[1] * 0.686)
+                    + (src_color[2] * 0.168);
 
-            dest_p[1] = CLAMP(level, 0, 255);
+            dest_color[1] = (uint8_t) CLAMP(level, 0, 255);
 
-            level =   (src_p[0] * 0.272)
-                    + (src_p[1] * 0.534)
-                    + (src_p[2] * 0.131);
+            level =   (src_color[0] * 0.272)
+                    + (src_color[1] * 0.534)
+                    + (src_color[2] * 0.131);
 
-            dest_p[2] = CLAMP(level, 0, 255);
+            dest_color[2] = (uint8_t) CLAMP(level, 0, 255);
 
             if (has_alpha)
-                dest_p[3] = src_p[3];
+                dest_color[3] = src_color[3];
         }
     }
 
