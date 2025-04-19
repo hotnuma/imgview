@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-17 09:09+0200\n"
+"POT-Creation-Date: 2025-04-19 14:21+0200\n"
 "PO-Revision-Date: 2014-04-14 19:45+0000\n"
 "Last-Translator: inkubator <alen.voloder@gmail.com>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
 "X-Generator: Launchpad (build 18566)\n"
 
-#: window.c:2987 window.c:3014
+#: window.c:3032 window.c:3059
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: dialog/preferences.c:298
+#: dialog/preferences.c:343
 msgid "1:1 Mode"
 msgstr ""
 
@@ -64,11 +64,11 @@ msgid ""
 "  previous image and on the right side - the next.</small> "
 msgstr ""
 
-#: window.c:1137
+#: window.c:1160
 msgid "All Files"
 msgstr ""
 
-#: window.c:1131
+#: window.c:1154
 msgid "All Images"
 msgstr ""
 
@@ -80,7 +80,7 @@ msgstr "Uvijek uvećaj sliku da se prilagodi veličini ekrana"
 msgid "Aperture Value"
 msgstr ""
 
-#: window.c:2041
+#: window.c:2064
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -91,11 +91,11 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: dialog/preferences.c:310
+#: dialog/preferences.c:355
 msgid "Autodetect"
 msgstr ""
 
-#: dialog/preferences.c:399
+#: dialog/preferences.c:444
 msgid "Autosave"
 msgstr ""
 
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Camera model"
 msgstr ""
 
-#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:153
 msgid "Cancel"
 msgstr ""
 
@@ -123,11 +123,11 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr ""
 
-#: window.c:242
+#: window.c:271
 msgid "Copy"
 msgstr ""
 
-#: window.c:243
+#: window.c:272
 msgid "Copy the current file"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:248 window.c:263
+#: dialog/vnr-crop.c:248 window.c:250
 msgid "Crop"
 msgstr "Isijeci"
 
@@ -143,7 +143,7 @@ msgstr "Isijeci"
 msgid "Crop Image"
 msgstr "Isijeci sliku"
 
-#: window.c:264
+#: window.c:251
 #, fuzzy
 msgid "Crop image"
 msgstr "Isijeci sliku"
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Date Taken"
 msgstr ""
 
-#: window.c:278
+#: window.c:286
 msgid "Delete the current file"
 msgstr ""
 
@@ -172,7 +172,11 @@ msgstr ""
 msgid "Directory separator illegal in file name"
 msgstr ""
 
-#: dialog/preferences.c:389
+#: window.c:264
+msgid "Directory..."
+msgstr ""
+
+#: dialog/preferences.c:434
 msgid "Enter fullscreen mode"
 msgstr "Koristi cijeli ekran"
 
@@ -196,7 +200,7 @@ msgstr ""
 msgid "Filenames should not start or end with a space"
 msgstr ""
 
-#: dialog/preferences.c:299
+#: dialog/preferences.c:344
 msgid "Fit To Window Mode"
 msgstr ""
 
@@ -216,7 +220,7 @@ msgstr "Preko cijelog ekrana"
 msgid "General"
 msgstr "Općenito"
 
-#: dialog/vnr-resize.c:132
+#: dialog/vnr-resize.c:138
 msgid "Height: "
 msgstr "Visina: "
 
@@ -224,11 +228,11 @@ msgstr "Visina: "
 msgid "ISO speed"
 msgstr ""
 
-#: window.c:2038
+#: window.c:2061
 msgid "If you delete an item, it will be permanently lost."
 msgstr ""
 
-#: dialog/preferences.c:400
+#: dialog/preferences.c:445
 msgid "Ignore"
 msgstr ""
 
@@ -240,7 +244,7 @@ msgstr ""
 msgid "Image description"
 msgstr ""
 
-#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+#: window.c:2485
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -250,11 +254,11 @@ msgstr ""
 msgid "JPEG quality:"
 msgstr "JPEG kvalitet:"
 
-#: dialog/preferences.c:300
+#: dialog/preferences.c:345
 msgid "Last Used Mode"
 msgstr "Posljednji korišteni način"
 
-#: dialog/vnr-resize.c:126
+#: dialog/vnr-resize.c:130
 msgid "Link"
 msgstr ""
 
@@ -262,15 +266,15 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
-#: window.c:249
+#: window.c:278
 msgid "Move"
 msgstr ""
 
-#: window.c:250
+#: window.c:279
 msgid "Move the current file"
 msgstr ""
 
-#: dialog/preferences.c:378 dialog/preferences.c:390
+#: dialog/preferences.c:423 dialog/preferences.c:435
 msgid "Navigate images"
 msgstr "Pregled slika"
 
@@ -281,7 +285,7 @@ msgstr "Pregled slika"
 msgid "None"
 msgstr ""
 
-#: window.c:2215 window.c:2279
+#: window.c:2235 window.c:2269
 msgid "Not enough virtual memory."
 msgstr ""
 
@@ -297,31 +301,31 @@ msgstr ""
 msgid "On mouse wheel: "
 msgstr "Koristeći točkić miša: "
 
-#: window.c:1226
+#: window.c:1249
 msgid "Open Folder"
 msgstr ""
 
-#: window.c:1120
+#: window.c:1143
 msgid "Open Image"
 msgstr ""
 
-#: window.c:221
+#: window.c:229
 msgid "Open _Folder..."
 msgstr ""
 
-#: window.c:214
+#: window.c:222
 msgid "Open _Image..."
 msgstr ""
 
-#: window.c:228
+#: window.c:236
 msgid "Open _With"
 msgstr ""
 
-#: window.c:222
+#: window.c:230
 msgid "Open a Folder"
 msgstr ""
 
-#: window.c:215
+#: window.c:223
 #, fuzzy
 msgid "Open an Image"
 msgstr "Isijeci sliku"
@@ -330,7 +334,7 @@ msgstr "Isijeci sliku"
 msgid "Open new image in: "
 msgstr ""
 
-#: window.c:229
+#: window.c:237
 msgid "Open the selected image with a different application"
 msgstr ""
 
@@ -342,7 +346,7 @@ msgstr "PNG kompresija:"
 msgid "Reload image on save"
 msgstr "Ponovo učitaj sliku nakon spašavanja"
 
-#: window.c:256
+#: window.c:243
 msgid "Rename"
 msgstr ""
 
@@ -351,15 +355,15 @@ msgstr ""
 msgid "Rename \"%s\""
 msgstr ""
 
-#: window.c:257
+#: window.c:244
 msgid "Rename the current file"
 msgstr ""
 
-#: dialog/vnr-resize.c:148 window.c:270
+#: dialog/vnr-resize.c:154 window.c:257
 msgid "Resize"
 msgstr ""
 
-#: window.c:271
+#: window.c:258
 msgid "Resize image"
 msgstr ""
 
@@ -367,19 +371,15 @@ msgstr ""
 msgid "Saving"
 msgstr "Čuvanje"
 
-#: dialog/preferences.c:380
+#: dialog/preferences.c:425
 msgid "Scroll image up/down"
 msgstr ""
 
-#: window.c:236
+#: window.c:265
 msgid "Select directory..."
 msgstr ""
 
-#: window.c:235
-msgid "Select..."
-msgstr ""
-
-#: window.c:285
+#: window.c:293
 msgid "Set image as wallpaper"
 msgstr ""
 
@@ -387,7 +387,7 @@ msgstr ""
 msgid "Show hidden images"
 msgstr ""
 
-#: window.c:292
+#: window.c:300
 msgid "Show information about the current file"
 msgstr ""
 
@@ -395,11 +395,11 @@ msgstr ""
 msgid "Show next image after (in seconds): "
 msgstr ""
 
-#: window.c:2966
+#: window.c:3011
 msgid "Show next image after: "
 msgstr ""
 
-#: dialog/preferences.c:297
+#: dialog/preferences.c:342
 msgid "Smart Mode"
 msgstr "Pametni režim"
 
@@ -411,15 +411,15 @@ msgstr ""
 msgid "Software"
 msgstr ""
 
-#: dialog/preferences.c:388
+#: dialog/preferences.c:433
 msgid "Switch zoom modes"
 msgstr ""
 
-#: main.c:113 window.c:797 window.c:1309 window.c:2140
+#: main.c:113 window.c:820 window.c:1332 window.c:2163
 msgid "The given locations contain no images."
 msgstr "Navedena lokacija ne sadrži slike."
 
-#: window.c:1532
+#: window.c:1555
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr ""
@@ -428,7 +428,7 @@ msgstr ""
 msgid "User comment"
 msgstr ""
 
-#: window.c:299
+#: window.c:307
 msgid "User preferences for ImgView"
 msgstr ""
 
@@ -436,11 +436,11 @@ msgstr ""
 msgid "Viewnior Preferences"
 msgstr ""
 
-#: dialog/vnr-resize.c:112
+#: dialog/vnr-resize.c:116
 msgid "Width: "
 msgstr "Širina: "
 
-#: dialog/preferences.c:379
+#: dialog/preferences.c:424
 msgid "Zoom image"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr ""
 msgid "_Cancel"
 msgstr ""
 
-#: window.c:277
+#: window.c:285
 msgid "_Delete"
 msgstr ""
 
@@ -456,7 +456,7 @@ msgstr ""
 msgid "_Next"
 msgstr ""
 
-#: window.c:298
+#: window.c:306
 msgid "_Preferences..."
 msgstr ""
 
@@ -464,7 +464,7 @@ msgstr ""
 msgid "_Previous"
 msgstr ""
 
-#: window.c:291
+#: window.c:299
 msgid "_Properties..."
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 msgid "_Rename"
 msgstr ""
 
-#: window.c:284
+#: window.c:292
 msgid "_Wallpaper"
 msgstr ""
 

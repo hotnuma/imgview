@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-17 09:09+0200\n"
+"POT-Creation-Date: 2025-04-19 14:21+0200\n"
 "PO-Revision-Date: 2010-01-22 08:42+0000\n"
 "Last-Translator: Xu Zhen <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -19,12 +19,12 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
 "X-Generator: Launchpad (build 18566)\n"
 
-#: window.c:2987 window.c:3014
+#: window.c:3032 window.c:3059
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " 秒"
 
-#: dialog/preferences.c:298
+#: dialog/preferences.c:343
 msgid "1:1 Mode"
 msgstr "原始尺寸"
 
@@ -67,11 +67,11 @@ msgstr ""
 "  双击窗口的左半部分来浏览前一张图像，\n"
 "  双击窗口的右半部分来浏览后一张图像。</small> "
 
-#: window.c:1137
+#: window.c:1160
 msgid "All Files"
 msgstr "全部文件"
 
-#: window.c:1131
+#: window.c:1154
 msgid "All Images"
 msgstr "全部图像"
 
@@ -83,7 +83,7 @@ msgstr "放大图像时总是适应屏幕大小"
 msgid "Aperture Value"
 msgstr "光圈大小"
 
-#: window.c:2041
+#: window.c:2064
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -94,11 +94,11 @@ msgstr "确定要永久删除 “%s”？"
 msgid "Author"
 msgstr "作者"
 
-#: dialog/preferences.c:310
+#: dialog/preferences.c:355
 msgid "Autodetect"
 msgstr ""
 
-#: dialog/preferences.c:399
+#: dialog/preferences.c:444
 msgid "Autosave"
 msgstr "自动保存"
 
@@ -114,7 +114,7 @@ msgstr "相机牌子"
 msgid "Camera model"
 msgstr "相机型号"
 
-#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:153
 msgid "Cancel"
 msgstr ""
 
@@ -126,12 +126,12 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "删除图像时需确认"
 
-#: window.c:242
+#: window.c:271
 #, fuzzy
 msgid "Copy"
 msgstr "版权"
 
-#: window.c:243
+#: window.c:272
 #, fuzzy
 msgid "Copy the current file"
 msgstr "重新加载当前文件"
@@ -140,7 +140,7 @@ msgstr "重新加载当前文件"
 msgid "Copyright"
 msgstr "版权"
 
-#: dialog/vnr-crop.c:248 window.c:263
+#: dialog/vnr-crop.c:248 window.c:250
 msgid "Crop"
 msgstr "剪裁"
 
@@ -148,7 +148,7 @@ msgstr "剪裁"
 msgid "Crop Image"
 msgstr "裁剪图像"
 
-#: window.c:264
+#: window.c:251
 #, fuzzy
 msgid "Crop image"
 msgstr "裁剪图像"
@@ -161,7 +161,7 @@ msgstr ""
 msgid "Date Taken"
 msgstr "拍摄日期"
 
-#: window.c:278
+#: window.c:286
 msgid "Delete the current file"
 msgstr "删除当前的文件"
 
@@ -177,7 +177,11 @@ msgstr ""
 msgid "Directory separator illegal in file name"
 msgstr ""
 
-#: dialog/preferences.c:389
+#: window.c:264
+msgid "Directory..."
+msgstr ""
+
+#: dialog/preferences.c:434
 msgid "Enter fullscreen mode"
 msgstr "全屏"
 
@@ -201,7 +205,7 @@ msgstr ""
 msgid "Filenames should not start or end with a space"
 msgstr ""
 
-#: dialog/preferences.c:299
+#: dialog/preferences.c:344
 msgid "Fit To Window Mode"
 msgstr "适应窗口大小"
 
@@ -221,7 +225,7 @@ msgstr "全屏"
 msgid "General"
 msgstr "常规"
 
-#: dialog/vnr-resize.c:132
+#: dialog/vnr-resize.c:138
 msgid "Height: "
 msgstr "高度： "
 
@@ -229,11 +233,11 @@ msgstr "高度： "
 msgid "ISO speed"
 msgstr "ISO感光度"
 
-#: window.c:2038
+#: window.c:2061
 msgid "If you delete an item, it will be permanently lost."
 msgstr "如果选择删除，此图像将无法恢复。"
 
-#: dialog/preferences.c:400
+#: dialog/preferences.c:445
 #, fuzzy
 msgid "Ignore"
 msgstr "忽略更改"
@@ -247,7 +251,7 @@ msgstr "图像属性"
 msgid "Image description"
 msgstr "描述"
 
-#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+#: window.c:2485
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -259,11 +263,11 @@ msgstr ""
 msgid "JPEG quality:"
 msgstr "JPEG 质量："
 
-#: dialog/preferences.c:300
+#: dialog/preferences.c:345
 msgid "Last Used Mode"
 msgstr ""
 
-#: dialog/vnr-resize.c:126
+#: dialog/vnr-resize.c:130
 msgid "Link"
 msgstr ""
 
@@ -271,16 +275,16 @@ msgstr ""
 msgid "Metering mode"
 msgstr "测光方式"
 
-#: window.c:249
+#: window.c:278
 msgid "Move"
 msgstr ""
 
-#: window.c:250
+#: window.c:279
 #, fuzzy
 msgid "Move the current file"
 msgstr "删除当前的文件"
 
-#: dialog/preferences.c:378 dialog/preferences.c:390
+#: dialog/preferences.c:423 dialog/preferences.c:435
 msgid "Navigate images"
 msgstr "浏览图像"
 
@@ -291,7 +295,7 @@ msgstr "浏览图像"
 msgid "None"
 msgstr "无"
 
-#: window.c:2215 window.c:2279
+#: window.c:2235 window.c:2269
 msgid "Not enough virtual memory."
 msgstr "虚拟内存空间不足。"
 
@@ -307,31 +311,31 @@ msgstr "图像被修改时： "
 msgid "On mouse wheel: "
 msgstr "鼠标滚轮滚动： "
 
-#: window.c:1226
+#: window.c:1249
 msgid "Open Folder"
 msgstr "打开文件夹"
 
-#: window.c:1120
+#: window.c:1143
 msgid "Open Image"
 msgstr "打开图像"
 
-#: window.c:221
+#: window.c:229
 msgid "Open _Folder..."
 msgstr "打开文件夹...(_F)"
 
-#: window.c:214
+#: window.c:222
 msgid "Open _Image..."
 msgstr "打开图像...(_I)"
 
-#: window.c:228
+#: window.c:236
 msgid "Open _With"
 msgstr "打开方式(_W)"
 
-#: window.c:222
+#: window.c:230
 msgid "Open a Folder"
 msgstr "打开一个文件夹"
 
-#: window.c:215
+#: window.c:223
 msgid "Open an Image"
 msgstr "打开一个图像文件"
 
@@ -339,7 +343,7 @@ msgstr "打开一个图像文件"
 msgid "Open new image in: "
 msgstr "打开新图像时采用： "
 
-#: window.c:229
+#: window.c:237
 msgid "Open the selected image with a different application"
 msgstr "用其他应用程序打开选中的图像"
 
@@ -351,7 +355,7 @@ msgstr "PNG 压缩："
 msgid "Reload image on save"
 msgstr "保存图像后重新加载"
 
-#: window.c:256
+#: window.c:243
 msgid "Rename"
 msgstr ""
 
@@ -360,16 +364,16 @@ msgstr ""
 msgid "Rename \"%s\""
 msgstr ""
 
-#: window.c:257
+#: window.c:244
 #, fuzzy
 msgid "Rename the current file"
 msgstr "重新加载当前文件"
 
-#: dialog/vnr-resize.c:148 window.c:270
+#: dialog/vnr-resize.c:154 window.c:257
 msgid "Resize"
 msgstr ""
 
-#: window.c:271
+#: window.c:258
 msgid "Resize image"
 msgstr ""
 
@@ -377,19 +381,15 @@ msgstr ""
 msgid "Saving"
 msgstr "保存"
 
-#: dialog/preferences.c:380
+#: dialog/preferences.c:425
 msgid "Scroll image up/down"
 msgstr "上下滚动图像"
 
-#: window.c:236
+#: window.c:265
 msgid "Select directory..."
 msgstr ""
 
-#: window.c:235
-msgid "Select..."
-msgstr ""
-
-#: window.c:285
+#: window.c:293
 #, fuzzy
 msgid "Set image as wallpaper"
 msgstr "设为桌面壁纸(_W)"
@@ -398,7 +398,7 @@ msgstr "设为桌面壁纸(_W)"
 msgid "Show hidden images"
 msgstr "显示隐藏图像"
 
-#: window.c:292
+#: window.c:300
 msgid "Show information about the current file"
 msgstr "显示当前文件的信息"
 
@@ -406,11 +406,11 @@ msgstr "显示当前文件的信息"
 msgid "Show next image after (in seconds): "
 msgstr "在几秒后显示下一张图像： "
 
-#: window.c:2966
+#: window.c:3011
 msgid "Show next image after: "
 msgstr "在几秒后显示下一张图像："
 
-#: dialog/preferences.c:297
+#: dialog/preferences.c:342
 msgid "Smart Mode"
 msgstr "智能模式"
 
@@ -422,15 +422,15 @@ msgstr "缩放图像时平滑处理"
 msgid "Software"
 msgstr "软件"
 
-#: dialog/preferences.c:388
+#: dialog/preferences.c:433
 msgid "Switch zoom modes"
 msgstr "切换缩放模式"
 
-#: main.c:113 window.c:797 window.c:1309 window.c:2140
+#: main.c:113 window.c:820 window.c:1332 window.c:2163
 msgid "The given locations contain no images."
 msgstr "指定的位置没有图像。"
 
-#: window.c:1532
+#: window.c:1555
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "使用“%s”打开选中图像"
@@ -439,7 +439,7 @@ msgstr "使用“%s”打开选中图像"
 msgid "User comment"
 msgstr ""
 
-#: window.c:299
+#: window.c:307
 #, fuzzy
 msgid "User preferences for ImgView"
 msgstr "用户对Viewnior的设置"
@@ -448,11 +448,11 @@ msgstr "用户对Viewnior的设置"
 msgid "Viewnior Preferences"
 msgstr "Viewnior 选项"
 
-#: dialog/vnr-resize.c:112
+#: dialog/vnr-resize.c:116
 msgid "Width: "
 msgstr "宽度： "
 
-#: dialog/preferences.c:379
+#: dialog/preferences.c:424
 msgid "Zoom image"
 msgstr "缩放图像"
 
@@ -460,7 +460,7 @@ msgstr "缩放图像"
 msgid "_Cancel"
 msgstr ""
 
-#: window.c:277
+#: window.c:285
 msgid "_Delete"
 msgstr "删除(_D)"
 
@@ -468,7 +468,7 @@ msgstr "删除(_D)"
 msgid "_Next"
 msgstr "下一张(_N)"
 
-#: window.c:298
+#: window.c:306
 msgid "_Preferences..."
 msgstr "首选项(_P)"
 
@@ -476,7 +476,7 @@ msgstr "首选项(_P)"
 msgid "_Previous"
 msgstr "上一张(_P)"
 
-#: window.c:291
+#: window.c:299
 msgid "_Properties..."
 msgstr "属性...(_P)"
 
@@ -484,7 +484,7 @@ msgstr "属性...(_P)"
 msgid "_Rename"
 msgstr ""
 
-#: window.c:284
+#: window.c:292
 #, fuzzy
 msgid "_Wallpaper"
 msgstr "设为桌面壁纸(_W)"

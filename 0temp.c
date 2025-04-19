@@ -6,6 +6,21 @@
 //gint64 diff = t2 - t1;
 //printf("time = %d\n", (int) diff);
 
+static void _window_action_resetdir(VnrWindow *window, GtkWidget *widget);
+static void _window_action_resetdir(VnrWindow *window, GtkWidget *widget)
+{
+    g_return_if_fail(window != NULL);
+    (void) widget;
+
+    if (window_get_current_file(window) == NULL
+        || window->mode != WINDOW_MODE_NORMAL)
+        return;
+
+    g_free(window->destdir);
+
+    window->destdir = NULL;
+}
+
 static void _window_non_anim_new(VnrWindow *window, GdkPixbuf *pixbuf);
 static void _window_non_anim_new(VnrWindow *window, GdkPixbuf *pixbuf)
 {

@@ -17,19 +17,19 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | :---------------------- | :---------------------- |
 | Open                    | Ctrl+O                  |
 | Open Dir                | Ctrl+F                  |
-| Copy                    | F7                      |
-| Move                    | F8                      |
 | Rename                  | F2                      |
 | Crop                    | F3                      |
 | Resize                  | F4                      |
+| Reload                  | F5                      |
+| Select Directory        | F6                      |
+| Copy                    | F7                      |
+| Move                    | F8                      |
 | Delete                  | Del                     |
 | Set Wallpaper           | F10                     |
 | Properties              | Ctrl+Return             |
 | Duplicate               | Ctrl+D                  |
 | Save                    | Ctrl+S                  |
 | Quit                    | Esc / Q                 |
-| Reload                  | F5                      |
-| Reset Directory         | F6                      |
 | Fullscreen              | F11                     |
 | Slideshow               | F12                     |
 | Prev Image              | Left / Back             |

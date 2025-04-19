@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior-0.7\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-17 09:09+0200\n"
+"POT-Creation-Date: 2025-04-19 14:21+0200\n"
 "PO-Revision-Date: 2014-03-13 01:37+0000\n"
 "Last-Translator: Mika Kobayashi <Unknown>\n"
 "Language-Team: Team Puppy linux Japan\n"
@@ -19,12 +19,12 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
 "X-Generator: Launchpad (build 18566)\n"
 
-#: window.c:2987 window.c:3014
+#: window.c:3032 window.c:3059
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " 秒"
 
-#: dialog/preferences.c:298
+#: dialog/preferences.c:343
 msgid "1:1 Mode"
 msgstr "1:1 モード"
 
@@ -67,11 +67,11 @@ msgstr ""
 "  ウィンドウの左半分でクリックすると前の画像を表示し\n"
 "  右半分でクリックすると次の画像を表示します。</small> "
 
-#: window.c:1137
+#: window.c:1160
 msgid "All Files"
 msgstr "すべてのファイル"
 
-#: window.c:1131
+#: window.c:1154
 msgid "All Images"
 msgstr "すべての画像"
 
@@ -83,7 +83,7 @@ msgstr "常に画面に合うように画像を拡大"
 msgid "Aperture Value"
 msgstr ""
 
-#: window.c:2041
+#: window.c:2064
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -96,11 +96,11 @@ msgstr ""
 msgid "Author"
 msgstr "作成者"
 
-#: dialog/preferences.c:310
+#: dialog/preferences.c:355
 msgid "Autodetect"
 msgstr ""
 
-#: dialog/preferences.c:399
+#: dialog/preferences.c:444
 msgid "Autosave"
 msgstr "自動保存"
 
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Camera model"
 msgstr "カメラの型式"
 
-#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:153
 msgid "Cancel"
 msgstr ""
 
@@ -128,12 +128,12 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "画像の削除を確認する"
 
-#: window.c:242
+#: window.c:271
 #, fuzzy
 msgid "Copy"
 msgstr "著作権表示:"
 
-#: window.c:243
+#: window.c:272
 #, fuzzy
 msgid "Copy the current file"
 msgstr "現在のファイルを再読み込み"
@@ -142,7 +142,7 @@ msgstr "現在のファイルを再読み込み"
 msgid "Copyright"
 msgstr "著作権表示:"
 
-#: dialog/vnr-crop.c:248 window.c:263
+#: dialog/vnr-crop.c:248 window.c:250
 msgid "Crop"
 msgstr "切り出し"
 
@@ -150,7 +150,7 @@ msgstr "切り出し"
 msgid "Crop Image"
 msgstr "画像の切り出し"
 
-#: window.c:264
+#: window.c:251
 #, fuzzy
 msgid "Crop image"
 msgstr "画像の切り出し"
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Date Taken"
 msgstr ""
 
-#: window.c:278
+#: window.c:286
 msgid "Delete the current file"
 msgstr "現在のファイルを削除"
 
@@ -179,7 +179,11 @@ msgstr "デスクトップ: "
 msgid "Directory separator illegal in file name"
 msgstr ""
 
-#: dialog/preferences.c:389
+#: window.c:264
+msgid "Directory..."
+msgstr ""
+
+#: dialog/preferences.c:434
 msgid "Enter fullscreen mode"
 msgstr "全画面モードに移動"
 
@@ -203,7 +207,7 @@ msgstr ""
 msgid "Filenames should not start or end with a space"
 msgstr ""
 
-#: dialog/preferences.c:299
+#: dialog/preferences.c:344
 msgid "Fit To Window Mode"
 msgstr "ウィンドウ モードに合わせる"
 
@@ -223,7 +227,7 @@ msgstr "全画面"
 msgid "General"
 msgstr "全般"
 
-#: dialog/vnr-resize.c:132
+#: dialog/vnr-resize.c:138
 msgid "Height: "
 msgstr "高さ: "
 
@@ -231,11 +235,11 @@ msgstr "高さ: "
 msgid "ISO speed"
 msgstr ""
 
-#: window.c:2038
+#: window.c:2061
 msgid "If you delete an item, it will be permanently lost."
 msgstr "アイテムを削除すると、永久に失われます。"
 
-#: dialog/preferences.c:400
+#: dialog/preferences.c:445
 #, fuzzy
 msgid "Ignore"
 msgstr "変更を無視"
@@ -249,7 +253,7 @@ msgstr "画像のプロパティ"
 msgid "Image description"
 msgstr "説明"
 
-#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+#: window.c:2485
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -261,11 +265,11 @@ msgstr ""
 msgid "JPEG quality:"
 msgstr "JPEG品質:"
 
-#: dialog/preferences.c:300
+#: dialog/preferences.c:345
 msgid "Last Used Mode"
 msgstr "最後に使用されたモード"
 
-#: dialog/vnr-resize.c:126
+#: dialog/vnr-resize.c:130
 msgid "Link"
 msgstr ""
 
@@ -273,16 +277,16 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
-#: window.c:249
+#: window.c:278
 msgid "Move"
 msgstr ""
 
-#: window.c:250
+#: window.c:279
 #, fuzzy
 msgid "Move the current file"
 msgstr "現在のファイルを削除"
 
-#: dialog/preferences.c:378 dialog/preferences.c:390
+#: dialog/preferences.c:423 dialog/preferences.c:435
 msgid "Navigate images"
 msgstr "画像を移動"
 
@@ -293,7 +297,7 @@ msgstr "画像を移動"
 msgid "None"
 msgstr "なし"
 
-#: window.c:2215 window.c:2279
+#: window.c:2235 window.c:2269
 msgid "Not enough virtual memory."
 msgstr "仮想メモリが足りません。"
 
@@ -309,31 +313,31 @@ msgstr "画像修正: "
 msgid "On mouse wheel: "
 msgstr "マウスホイール: "
 
-#: window.c:1226
+#: window.c:1249
 msgid "Open Folder"
 msgstr "フォルダを開く"
 
-#: window.c:1120
+#: window.c:1143
 msgid "Open Image"
 msgstr "画像を開く"
 
-#: window.c:221
+#: window.c:229
 msgid "Open _Folder..."
 msgstr "フォルダを開く(_F)..."
 
-#: window.c:214
+#: window.c:222
 msgid "Open _Image..."
 msgstr "画像を開く(_I)..."
 
-#: window.c:228
+#: window.c:236
 msgid "Open _With"
 msgstr "次のプログラムで開く(_W)"
 
-#: window.c:222
+#: window.c:230
 msgid "Open a Folder"
 msgstr "フォルダを開く"
 
-#: window.c:215
+#: window.c:223
 msgid "Open an Image"
 msgstr "画像を開く"
 
@@ -341,7 +345,7 @@ msgstr "画像を開く"
 msgid "Open new image in: "
 msgstr "新しい画像を開く: "
 
-#: window.c:229
+#: window.c:237
 msgid "Open the selected image with a different application"
 msgstr "選択画像を別のアプリケーションで開く"
 
@@ -353,7 +357,7 @@ msgstr "PNG圧縮:"
 msgid "Reload image on save"
 msgstr "保存時に画像を再読み込み"
 
-#: window.c:256
+#: window.c:243
 msgid "Rename"
 msgstr ""
 
@@ -362,16 +366,16 @@ msgstr ""
 msgid "Rename \"%s\""
 msgstr ""
 
-#: window.c:257
+#: window.c:244
 #, fuzzy
 msgid "Rename the current file"
 msgstr "現在のファイルを再読み込み"
 
-#: dialog/vnr-resize.c:148 window.c:270
+#: dialog/vnr-resize.c:154 window.c:257
 msgid "Resize"
 msgstr ""
 
-#: window.c:271
+#: window.c:258
 msgid "Resize image"
 msgstr ""
 
@@ -379,19 +383,15 @@ msgstr ""
 msgid "Saving"
 msgstr "保存"
 
-#: dialog/preferences.c:380
+#: dialog/preferences.c:425
 msgid "Scroll image up/down"
 msgstr "画像を上下にスクロール"
 
-#: window.c:236
+#: window.c:265
 msgid "Select directory..."
 msgstr ""
 
-#: window.c:235
-msgid "Select..."
-msgstr ""
-
-#: window.c:285
+#: window.c:293
 #, fuzzy
 msgid "Set image as wallpaper"
 msgstr "壁紙に設定(_W)"
@@ -400,7 +400,7 @@ msgstr "壁紙に設定(_W)"
 msgid "Show hidden images"
 msgstr "隠し画像を表示"
 
-#: window.c:292
+#: window.c:300
 msgid "Show information about the current file"
 msgstr "現在のファイルの情報を表示"
 
@@ -408,11 +408,11 @@ msgstr "現在のファイルの情報を表示"
 msgid "Show next image after (in seconds): "
 msgstr "次の画像を表示するまでの時間 (秒): "
 
-#: window.c:2966
+#: window.c:3011
 msgid "Show next image after: "
 msgstr "後ろに次の画像を表示: "
 
-#: dialog/preferences.c:297
+#: dialog/preferences.c:342
 msgid "Smart Mode"
 msgstr "スマートモード"
 
@@ -424,15 +424,15 @@ msgstr "拡大したときに画像をなめらかにする"
 msgid "Software"
 msgstr "ソフトウェア"
 
-#: dialog/preferences.c:388
+#: dialog/preferences.c:433
 msgid "Switch zoom modes"
 msgstr "ズーム モードを切り替え"
 
-#: main.c:113 window.c:797 window.c:1309 window.c:2140
+#: main.c:113 window.c:820 window.c:1332 window.c:2163
 msgid "The given locations contain no images."
 msgstr "指定された場所には画像はありません。"
 
-#: window.c:1532
+#: window.c:1555
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "選択画像を開くのに \"%s\" を使う"
@@ -441,7 +441,7 @@ msgstr "選択画像を開くのに \"%s\" を使う"
 msgid "User comment"
 msgstr ""
 
-#: window.c:299
+#: window.c:307
 #, fuzzy
 msgid "User preferences for ImgView"
 msgstr "Viewnior 用のユーザ設定"
@@ -450,11 +450,11 @@ msgstr "Viewnior 用のユーザ設定"
 msgid "Viewnior Preferences"
 msgstr "Viewnior 設定"
 
-#: dialog/vnr-resize.c:112
+#: dialog/vnr-resize.c:116
 msgid "Width: "
 msgstr "幅: "
 
-#: dialog/preferences.c:379
+#: dialog/preferences.c:424
 msgid "Zoom image"
 msgstr "画像をズーム"
 
@@ -462,7 +462,7 @@ msgstr "画像をズーム"
 msgid "_Cancel"
 msgstr ""
 
-#: window.c:277
+#: window.c:285
 msgid "_Delete"
 msgstr "削除(_D)"
 
@@ -470,7 +470,7 @@ msgstr "削除(_D)"
 msgid "_Next"
 msgstr "次(_N)"
 
-#: window.c:298
+#: window.c:306
 msgid "_Preferences..."
 msgstr "設定(_P)..."
 
@@ -478,7 +478,7 @@ msgstr "設定(_P)..."
 msgid "_Previous"
 msgstr "前(_P)"
 
-#: window.c:291
+#: window.c:299
 msgid "_Properties..."
 msgstr "プロパティ(_P)..."
 
@@ -486,7 +486,7 @@ msgstr "プロパティ(_P)..."
 msgid "_Rename"
 msgstr ""
 
-#: window.c:284
+#: window.c:292
 #, fuzzy
 msgid "_Wallpaper"
 msgstr "壁紙に設定(_W)"

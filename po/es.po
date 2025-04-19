@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-17 09:09+0200\n"
+"POT-Creation-Date: 2025-04-19 14:21+0200\n"
 "PO-Revision-Date: 2018-04-22 18:44+0000\n"
 "Last-Translator: toniem <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-05-12 11:12+0000\n"
 "X-Generator: Launchpad (build 18640)\n"
 
-#: window.c:2987 window.c:3014
+#: window.c:3032 window.c:3059
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " segundo"
 msgstr[1] " segundos"
 
-#: dialog/preferences.c:298
+#: dialog/preferences.c:343
 msgid "1:1 Mode"
 msgstr "Modo 1:1"
 
@@ -68,11 +68,11 @@ msgstr ""
 "  Al clicar en la mitad izquierda de la ventana se muestra la \n"
 "  imagen anterior y al clicar en la derecha se muestra la siguiente.</small> "
 
-#: window.c:1137
+#: window.c:1160
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: window.c:1131
+#: window.c:1154
 msgid "All Images"
 msgstr "Todas las imágenes"
 
@@ -84,7 +84,7 @@ msgstr "Expandir siempre las imágenes para ajustarlas a la pantalla"
 msgid "Aperture Value"
 msgstr "Valor de apertura"
 
-#: window.c:2041
+#: window.c:2064
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -97,11 +97,11 @@ msgstr ""
 msgid "Author"
 msgstr "Autor/a"
 
-#: dialog/preferences.c:310
+#: dialog/preferences.c:355
 msgid "Autodetect"
 msgstr ""
 
-#: dialog/preferences.c:399
+#: dialog/preferences.c:444
 msgid "Autosave"
 msgstr "Guardar automáticamente"
 
@@ -117,7 +117,7 @@ msgstr "Fabricante de la cámara"
 msgid "Camera model"
 msgstr "Modelo de cámara"
 
-#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:153
 msgid "Cancel"
 msgstr ""
 
@@ -129,12 +129,12 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Confirmar la eliminación de imágenes"
 
-#: window.c:242
+#: window.c:271
 #, fuzzy
 msgid "Copy"
 msgstr "Derechos de autor"
 
-#: window.c:243
+#: window.c:272
 #, fuzzy
 msgid "Copy the current file"
 msgstr "Recargar el archivo actual"
@@ -143,7 +143,7 @@ msgstr "Recargar el archivo actual"
 msgid "Copyright"
 msgstr "Derechos de autor"
 
-#: dialog/vnr-crop.c:248 window.c:263
+#: dialog/vnr-crop.c:248 window.c:250
 msgid "Crop"
 msgstr "Recortar"
 
@@ -151,7 +151,7 @@ msgstr "Recortar"
 msgid "Crop Image"
 msgstr "Recortar la imagen"
 
-#: window.c:264
+#: window.c:251
 #, fuzzy
 msgid "Crop image"
 msgstr "Recortar la imagen"
@@ -164,7 +164,7 @@ msgstr ""
 msgid "Date Taken"
 msgstr "Fecha en que se tomó"
 
-#: window.c:278
+#: window.c:286
 msgid "Delete the current file"
 msgstr "Eliminar el archivo actual"
 
@@ -180,7 +180,11 @@ msgstr "Escritorio: "
 msgid "Directory separator illegal in file name"
 msgstr ""
 
-#: dialog/preferences.c:389
+#: window.c:264
+msgid "Directory..."
+msgstr ""
+
+#: dialog/preferences.c:434
 msgid "Enter fullscreen mode"
 msgstr "Activar el modo de pantalla completa"
 
@@ -204,7 +208,7 @@ msgstr ""
 msgid "Filenames should not start or end with a space"
 msgstr ""
 
-#: dialog/preferences.c:299
+#: dialog/preferences.c:344
 msgid "Fit To Window Mode"
 msgstr "Modo de ajustar a la ventana"
 
@@ -224,7 +228,7 @@ msgstr "Pantalla completa"
 msgid "General"
 msgstr "General"
 
-#: dialog/vnr-resize.c:132
+#: dialog/vnr-resize.c:138
 msgid "Height: "
 msgstr "Altura: "
 
@@ -232,11 +236,11 @@ msgstr "Altura: "
 msgid "ISO speed"
 msgstr "Velocidad ISO"
 
-#: window.c:2038
+#: window.c:2061
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Si elimina un elemento, se perderá permanentemente."
 
-#: dialog/preferences.c:400
+#: dialog/preferences.c:445
 #, fuzzy
 msgid "Ignore"
 msgstr "Ignorar los cambios"
@@ -250,7 +254,7 @@ msgstr "Propiedades de la imagen"
 msgid "Image description"
 msgstr "Descripción"
 
-#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+#: window.c:2485
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -262,11 +266,11 @@ msgstr ""
 msgid "JPEG quality:"
 msgstr "Calidad JPEG:"
 
-#: dialog/preferences.c:300
+#: dialog/preferences.c:345
 msgid "Last Used Mode"
 msgstr "Último modo usado"
 
-#: dialog/vnr-resize.c:126
+#: dialog/vnr-resize.c:130
 msgid "Link"
 msgstr ""
 
@@ -274,16 +278,16 @@ msgstr ""
 msgid "Metering mode"
 msgstr "Modo de medición"
 
-#: window.c:249
+#: window.c:278
 msgid "Move"
 msgstr ""
 
-#: window.c:250
+#: window.c:279
 #, fuzzy
 msgid "Move the current file"
 msgstr "Eliminar el archivo actual"
 
-#: dialog/preferences.c:378 dialog/preferences.c:390
+#: dialog/preferences.c:423 dialog/preferences.c:435
 msgid "Navigate images"
 msgstr "Navegar por las imágenes"
 
@@ -294,7 +298,7 @@ msgstr "Navegar por las imágenes"
 msgid "None"
 msgstr "Ninguno"
 
-#: window.c:2215 window.c:2279
+#: window.c:2235 window.c:2269
 msgid "Not enough virtual memory."
 msgstr "No hay suficiente memoria virtual."
 
@@ -310,31 +314,31 @@ msgstr "Al modificar la imagen: "
 msgid "On mouse wheel: "
 msgstr "Al girar la rueda del ratón: "
 
-#: window.c:1226
+#: window.c:1249
 msgid "Open Folder"
 msgstr "Abrir una carpeta"
 
-#: window.c:1120
+#: window.c:1143
 msgid "Open Image"
 msgstr "Abrir una imagen"
 
-#: window.c:221
+#: window.c:229
 msgid "Open _Folder..."
 msgstr "Abrir una _carpeta…"
 
-#: window.c:214
+#: window.c:222
 msgid "Open _Image..."
 msgstr "Abrir una _imagen..."
 
-#: window.c:228
+#: window.c:236
 msgid "Open _With"
 msgstr "Abrir _con"
 
-#: window.c:222
+#: window.c:230
 msgid "Open a Folder"
 msgstr "Abrir una carpeta"
 
-#: window.c:215
+#: window.c:223
 msgid "Open an Image"
 msgstr "Abrir una imagen"
 
@@ -342,7 +346,7 @@ msgstr "Abrir una imagen"
 msgid "Open new image in: "
 msgstr "Abrir una imagen nueva en: "
 
-#: window.c:229
+#: window.c:237
 msgid "Open the selected image with a different application"
 msgstr "Abrir la imagen seleccionada con una aplicación diferente"
 
@@ -354,7 +358,7 @@ msgstr "Compresión PNG:"
 msgid "Reload image on save"
 msgstr "Recargar la imagen al guardarla"
 
-#: window.c:256
+#: window.c:243
 msgid "Rename"
 msgstr ""
 
@@ -363,16 +367,16 @@ msgstr ""
 msgid "Rename \"%s\""
 msgstr ""
 
-#: window.c:257
+#: window.c:244
 #, fuzzy
 msgid "Rename the current file"
 msgstr "Recargar el archivo actual"
 
-#: dialog/vnr-resize.c:148 window.c:270
+#: dialog/vnr-resize.c:154 window.c:257
 msgid "Resize"
 msgstr ""
 
-#: window.c:271
+#: window.c:258
 msgid "Resize image"
 msgstr ""
 
@@ -380,19 +384,15 @@ msgstr ""
 msgid "Saving"
 msgstr "Guardar"
 
-#: dialog/preferences.c:380
+#: dialog/preferences.c:425
 msgid "Scroll image up/down"
 msgstr "Desplazar la imagen hacia arriba/abajo"
 
-#: window.c:236
+#: window.c:265
 msgid "Select directory..."
 msgstr ""
 
-#: window.c:235
-msgid "Select..."
-msgstr ""
-
-#: window.c:285
+#: window.c:293
 #, fuzzy
 msgid "Set image as wallpaper"
 msgstr "Establecer como el _fondo de pantalla"
@@ -401,7 +401,7 @@ msgstr "Establecer como el _fondo de pantalla"
 msgid "Show hidden images"
 msgstr "Mostrar las imágenes ocultas"
 
-#: window.c:292
+#: window.c:300
 msgid "Show information about the current file"
 msgstr "Mostrar información acerca del archivo actual"
 
@@ -409,11 +409,11 @@ msgstr "Mostrar información acerca del archivo actual"
 msgid "Show next image after (in seconds): "
 msgstr "Mostrar la siguiente imagen tras (segundos): "
 
-#: window.c:2966
+#: window.c:3011
 msgid "Show next image after: "
 msgstr "Ver la siguiente imagen tras: "
 
-#: dialog/preferences.c:297
+#: dialog/preferences.c:342
 msgid "Smart Mode"
 msgstr "Modo inteligente"
 
@@ -425,15 +425,15 @@ msgstr "Suavizar las imágenes al ampliarlas"
 msgid "Software"
 msgstr "Programa"
 
-#: dialog/preferences.c:388
+#: dialog/preferences.c:433
 msgid "Switch zoom modes"
 msgstr "Cambiar los modos de zoom"
 
-#: main.c:113 window.c:797 window.c:1309 window.c:2140
+#: main.c:113 window.c:820 window.c:1332 window.c:2163
 msgid "The given locations contain no images."
 msgstr "Las ubicaciones dadas no contienen imágenes."
 
-#: window.c:1532
+#: window.c:1555
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Usar «%s» para abrir la imagen seleccionada"
@@ -442,7 +442,7 @@ msgstr "Usar «%s» para abrir la imagen seleccionada"
 msgid "User comment"
 msgstr ""
 
-#: window.c:299
+#: window.c:307
 #, fuzzy
 msgid "User preferences for ImgView"
 msgstr "Preferencias de usuario para Viewnior"
@@ -451,11 +451,11 @@ msgstr "Preferencias de usuario para Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Preferencias de Viewnior"
 
-#: dialog/vnr-resize.c:112
+#: dialog/vnr-resize.c:116
 msgid "Width: "
 msgstr "Anchura: "
 
-#: dialog/preferences.c:379
+#: dialog/preferences.c:424
 msgid "Zoom image"
 msgstr "Ampliar la imagen"
 
@@ -463,7 +463,7 @@ msgstr "Ampliar la imagen"
 msgid "_Cancel"
 msgstr ""
 
-#: window.c:277
+#: window.c:285
 msgid "_Delete"
 msgstr "_Eliminar"
 
@@ -471,7 +471,7 @@ msgstr "_Eliminar"
 msgid "_Next"
 msgstr "_Siguiente"
 
-#: window.c:298
+#: window.c:306
 msgid "_Preferences..."
 msgstr "_Preferencias..."
 
@@ -479,7 +479,7 @@ msgstr "_Preferencias..."
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: window.c:291
+#: window.c:299
 msgid "_Properties..."
 msgstr "_Propiedades..."
 
@@ -487,7 +487,7 @@ msgstr "_Propiedades..."
 msgid "_Rename"
 msgstr ""
 
-#: window.c:284
+#: window.c:292
 #, fuzzy
 msgid "_Wallpaper"
 msgstr "Establecer como el _fondo de pantalla"

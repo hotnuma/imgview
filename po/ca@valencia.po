@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-17 09:09+0200\n"
+"POT-Creation-Date: 2025-04-19 14:21+0200\n"
 "PO-Revision-Date: 2013-10-01 07:30+0000\n"
 "Last-Translator: Ecron <Unknown>\n"
 "Language-Team: Catalan (Valencian) <ca@valencia@li.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
 "X-Generator: Launchpad (build 18566)\n"
 
-#: window.c:2987 window.c:3014
+#: window.c:3032 window.c:3059
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " segon"
 msgstr[1] " segons"
 
-#: dialog/preferences.c:298
+#: dialog/preferences.c:343
 msgid "1:1 Mode"
 msgstr "Mode 1:1"
 
@@ -68,11 +68,11 @@ msgstr ""
 "  Si clica a la mitat esquerra de la finestra es mostrarà\n"
 "  la imatge prèvia, i a la mitat dreta, la següent.</small> "
 
-#: window.c:1137
+#: window.c:1160
 msgid "All Files"
 msgstr ""
 
-#: window.c:1131
+#: window.c:1154
 msgid "All Images"
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr "Amplia les imatges per ajustar-les a la pantalla"
 msgid "Aperture Value"
 msgstr ""
 
-#: window.c:2041
+#: window.c:2064
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -97,11 +97,11 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: dialog/preferences.c:310
+#: dialog/preferences.c:355
 msgid "Autodetect"
 msgstr ""
 
-#: dialog/preferences.c:399
+#: dialog/preferences.c:444
 msgid "Autosave"
 msgstr "Alça automàticament"
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Camera model"
 msgstr ""
 
-#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:153
 msgid "Cancel"
 msgstr ""
 
@@ -129,11 +129,11 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Confirma la supresió de la imatge"
 
-#: window.c:242
+#: window.c:271
 msgid "Copy"
 msgstr ""
 
-#: window.c:243
+#: window.c:272
 #, fuzzy
 msgid "Copy the current file"
 msgstr "Actualitza el fitxer"
@@ -142,7 +142,7 @@ msgstr "Actualitza el fitxer"
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:248 window.c:263
+#: dialog/vnr-crop.c:248 window.c:250
 msgid "Crop"
 msgstr "Escapça"
 
@@ -150,7 +150,7 @@ msgstr "Escapça"
 msgid "Crop Image"
 msgstr "Escapça la imatge"
 
-#: window.c:264
+#: window.c:251
 #, fuzzy
 msgid "Crop image"
 msgstr "Escapça la imatge"
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Date Taken"
 msgstr ""
 
-#: window.c:278
+#: window.c:286
 msgid "Delete the current file"
 msgstr "Suprimix el fitxer"
 
@@ -179,7 +179,11 @@ msgstr ""
 msgid "Directory separator illegal in file name"
 msgstr ""
 
-#: dialog/preferences.c:389
+#: window.c:264
+msgid "Directory..."
+msgstr ""
+
+#: dialog/preferences.c:434
 msgid "Enter fullscreen mode"
 msgstr "Mode pantalla completa"
 
@@ -203,7 +207,7 @@ msgstr ""
 msgid "Filenames should not start or end with a space"
 msgstr ""
 
-#: dialog/preferences.c:299
+#: dialog/preferences.c:344
 msgid "Fit To Window Mode"
 msgstr "Mode d'ajust a la finestra"
 
@@ -223,7 +227,7 @@ msgstr "Pantalla completa"
 msgid "General"
 msgstr "General"
 
-#: dialog/vnr-resize.c:132
+#: dialog/vnr-resize.c:138
 msgid "Height: "
 msgstr "Alçada: "
 
@@ -231,11 +235,11 @@ msgstr "Alçada: "
 msgid "ISO speed"
 msgstr ""
 
-#: window.c:2038
+#: window.c:2061
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Si suprimiu un element, es perdrà de forma permanent."
 
-#: dialog/preferences.c:400
+#: dialog/preferences.c:445
 #, fuzzy
 msgid "Ignore"
 msgstr "Ignora els canvis"
@@ -249,7 +253,7 @@ msgstr "Propietats de la imatge"
 msgid "Image description"
 msgstr "Propietats de la imatge"
 
-#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+#: window.c:2485
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -261,11 +265,11 @@ msgstr ""
 msgid "JPEG quality:"
 msgstr "Qualitat JPEG:"
 
-#: dialog/preferences.c:300
+#: dialog/preferences.c:345
 msgid "Last Used Mode"
 msgstr ""
 
-#: dialog/vnr-resize.c:126
+#: dialog/vnr-resize.c:130
 msgid "Link"
 msgstr ""
 
@@ -273,16 +277,16 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
-#: window.c:249
+#: window.c:278
 msgid "Move"
 msgstr ""
 
-#: window.c:250
+#: window.c:279
 #, fuzzy
 msgid "Move the current file"
 msgstr "Suprimix el fitxer"
 
-#: dialog/preferences.c:378 dialog/preferences.c:390
+#: dialog/preferences.c:423 dialog/preferences.c:435
 msgid "Navigate images"
 msgstr "Navega per les imatges"
 
@@ -293,7 +297,7 @@ msgstr "Navega per les imatges"
 msgid "None"
 msgstr "Cap"
 
-#: window.c:2215 window.c:2279
+#: window.c:2235 window.c:2269
 msgid "Not enough virtual memory."
 msgstr "No n'hi ha prou memòria virtual."
 
@@ -309,31 +313,31 @@ msgstr "Quan es modifique la imatge: "
 msgid "On mouse wheel: "
 msgstr "En fer ús de la roda del ratolí: "
 
-#: window.c:1226
+#: window.c:1249
 msgid "Open Folder"
 msgstr "Obri un directori"
 
-#: window.c:1120
+#: window.c:1143
 msgid "Open Image"
 msgstr "Obri una imatge"
 
-#: window.c:221
+#: window.c:229
 msgid "Open _Folder..."
 msgstr "Obri un _directori..."
 
-#: window.c:214
+#: window.c:222
 msgid "Open _Image..."
 msgstr "Obri una _imatge..."
 
-#: window.c:228
+#: window.c:236
 msgid "Open _With"
 msgstr "Obri _amb"
 
-#: window.c:222
+#: window.c:230
 msgid "Open a Folder"
 msgstr "Obri un directori"
 
-#: window.c:215
+#: window.c:223
 msgid "Open an Image"
 msgstr "Obri una imatge"
 
@@ -341,7 +345,7 @@ msgstr "Obri una imatge"
 msgid "Open new image in: "
 msgstr "Obre una nova imatge en: "
 
-#: window.c:229
+#: window.c:237
 msgid "Open the selected image with a different application"
 msgstr "Obri la imatge amb una aplicació diferent"
 
@@ -353,7 +357,7 @@ msgstr "Compressió PNG:"
 msgid "Reload image on save"
 msgstr "Actualitza la imatge en alçar-la"
 
-#: window.c:256
+#: window.c:243
 msgid "Rename"
 msgstr ""
 
@@ -362,16 +366,16 @@ msgstr ""
 msgid "Rename \"%s\""
 msgstr ""
 
-#: window.c:257
+#: window.c:244
 #, fuzzy
 msgid "Rename the current file"
 msgstr "Actualitza el fitxer"
 
-#: dialog/vnr-resize.c:148 window.c:270
+#: dialog/vnr-resize.c:154 window.c:257
 msgid "Resize"
 msgstr ""
 
-#: window.c:271
+#: window.c:258
 msgid "Resize image"
 msgstr ""
 
@@ -379,19 +383,15 @@ msgstr ""
 msgid "Saving"
 msgstr "Alçant"
 
-#: dialog/preferences.c:380
+#: dialog/preferences.c:425
 msgid "Scroll image up/down"
 msgstr "Desplaça la imatge dalt o baix"
 
-#: window.c:236
+#: window.c:265
 msgid "Select directory..."
 msgstr ""
 
-#: window.c:235
-msgid "Select..."
-msgstr ""
-
-#: window.c:285
+#: window.c:293
 #, fuzzy
 msgid "Set image as wallpaper"
 msgstr "Establix com a fons d'escriptori"
@@ -400,7 +400,7 @@ msgstr "Establix com a fons d'escriptori"
 msgid "Show hidden images"
 msgstr "Mostra les imatges ocultes"
 
-#: window.c:292
+#: window.c:300
 msgid "Show information about the current file"
 msgstr "Mostra la informació del fitxer"
 
@@ -408,11 +408,11 @@ msgstr "Mostra la informació del fitxer"
 msgid "Show next image after (in seconds): "
 msgstr "Mostra la imatge següent després de (segons): "
 
-#: window.c:2966
+#: window.c:3011
 msgid "Show next image after: "
 msgstr "Mostra la imatge següent després de: "
 
-#: dialog/preferences.c:297
+#: dialog/preferences.c:342
 msgid "Smart Mode"
 msgstr "Mode intel·ligent"
 
@@ -424,15 +424,15 @@ msgstr "Suavitza les imatges en escalar"
 msgid "Software"
 msgstr ""
 
-#: dialog/preferences.c:388
+#: dialog/preferences.c:433
 msgid "Switch zoom modes"
 msgstr "Commuta els modes d'escalat"
 
-#: main.c:113 window.c:797 window.c:1309 window.c:2140
+#: main.c:113 window.c:820 window.c:1332 window.c:2163
 msgid "The given locations contain no images."
 msgstr "No es troben imatges als directoris especificats."
 
-#: window.c:1532
+#: window.c:1555
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Utilitzeu \"%s\" per obrir la imatge"
@@ -441,7 +441,7 @@ msgstr "Utilitzeu \"%s\" per obrir la imatge"
 msgid "User comment"
 msgstr ""
 
-#: window.c:299
+#: window.c:307
 #, fuzzy
 msgid "User preferences for ImgView"
 msgstr "Preferències d'usuari per al Viewnior"
@@ -450,11 +450,11 @@ msgstr "Preferències d'usuari per al Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Preferències del Viewnior"
 
-#: dialog/vnr-resize.c:112
+#: dialog/vnr-resize.c:116
 msgid "Width: "
 msgstr "Amplada: "
 
-#: dialog/preferences.c:379
+#: dialog/preferences.c:424
 msgid "Zoom image"
 msgstr "Escala la imatge"
 
@@ -462,7 +462,7 @@ msgstr "Escala la imatge"
 msgid "_Cancel"
 msgstr ""
 
-#: window.c:277
+#: window.c:285
 msgid "_Delete"
 msgstr "_Suprimix"
 
@@ -470,7 +470,7 @@ msgstr "_Suprimix"
 msgid "_Next"
 msgstr "Següe_nt"
 
-#: window.c:298
+#: window.c:306
 msgid "_Preferences..."
 msgstr "_Preferències..."
 
@@ -478,7 +478,7 @@ msgstr "_Preferències..."
 msgid "_Previous"
 msgstr "_Prèvia"
 
-#: window.c:291
+#: window.c:299
 msgid "_Properties..."
 msgstr "_Propietats..."
 
@@ -486,7 +486,7 @@ msgstr "_Propietats..."
 msgid "_Rename"
 msgstr ""
 
-#: window.c:284
+#: window.c:292
 #, fuzzy
 msgid "_Wallpaper"
 msgstr "Establix com a fons d'escriptori"

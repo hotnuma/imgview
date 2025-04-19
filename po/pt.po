@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: hotnuma@gmail.com\n"
-"POT-Creation-Date: 2025-04-17 09:09+0200\n"
+"POT-Creation-Date: 2025-04-19 14:21+0200\n"
 "PO-Revision-Date: 2012-07-26 13:12+0000\n"
 "Last-Translator: Sérgio Marques <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
 "X-Generator: Launchpad (build 18566)\n"
 
-#: window.c:2987 window.c:3014
+#: window.c:3032 window.c:3059
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " segundo"
 msgstr[1] " segundos"
 
-#: dialog/preferences.c:298
+#: dialog/preferences.c:343
 msgid "1:1 Mode"
 msgstr "Modo 1:1"
 
@@ -68,11 +68,11 @@ msgstr ""
 "  Clique na metade esquerda da janela para mostrar a\n"
 "  imagem anterior e na metade direita para mostrar a seguinr.</small> "
 
-#: window.c:1137
+#: window.c:1160
 msgid "All Files"
 msgstr ""
 
-#: window.c:1131
+#: window.c:1154
 msgid "All Images"
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr "Expandir sempre as imagens para ajustar ao ecrã"
 msgid "Aperture Value"
 msgstr ""
 
-#: window.c:2041
+#: window.c:2064
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -97,11 +97,11 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: dialog/preferences.c:310
+#: dialog/preferences.c:355
 msgid "Autodetect"
 msgstr ""
 
-#: dialog/preferences.c:399
+#: dialog/preferences.c:444
 msgid "Autosave"
 msgstr "Gravação automática"
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Camera model"
 msgstr ""
 
-#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:147
+#: dialog/vnr-crop.c:247 dialog/vnr-resize.c:153
 msgid "Cancel"
 msgstr ""
 
@@ -129,11 +129,11 @@ msgstr ""
 msgid "Confirm image deletion"
 msgstr "Confirmar eliminação da imagem"
 
-#: window.c:242
+#: window.c:271
 msgid "Copy"
 msgstr ""
 
-#: window.c:243
+#: window.c:272
 #, fuzzy
 msgid "Copy the current file"
 msgstr "Recarregar ficheiro atual"
@@ -142,7 +142,7 @@ msgstr "Recarregar ficheiro atual"
 msgid "Copyright"
 msgstr ""
 
-#: dialog/vnr-crop.c:248 window.c:263
+#: dialog/vnr-crop.c:248 window.c:250
 msgid "Crop"
 msgstr "Cortar"
 
@@ -150,7 +150,7 @@ msgstr "Cortar"
 msgid "Crop Image"
 msgstr "Cortar imagem"
 
-#: window.c:264
+#: window.c:251
 #, fuzzy
 msgid "Crop image"
 msgstr "Cortar imagem"
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Date Taken"
 msgstr ""
 
-#: window.c:278
+#: window.c:286
 msgid "Delete the current file"
 msgstr "Eliminar ficheiro atual"
 
@@ -179,7 +179,11 @@ msgstr ""
 msgid "Directory separator illegal in file name"
 msgstr ""
 
-#: dialog/preferences.c:389
+#: window.c:264
+msgid "Directory..."
+msgstr ""
+
+#: dialog/preferences.c:434
 msgid "Enter fullscreen mode"
 msgstr "Entrar no modo de ecrã completo"
 
@@ -203,7 +207,7 @@ msgstr ""
 msgid "Filenames should not start or end with a space"
 msgstr ""
 
-#: dialog/preferences.c:299
+#: dialog/preferences.c:344
 msgid "Fit To Window Mode"
 msgstr "Modo de ajuste à janela"
 
@@ -223,7 +227,7 @@ msgstr "Ecrã completo"
 msgid "General"
 msgstr "Geral"
 
-#: dialog/vnr-resize.c:132
+#: dialog/vnr-resize.c:138
 msgid "Height: "
 msgstr "Altura: "
 
@@ -231,11 +235,11 @@ msgstr "Altura: "
 msgid "ISO speed"
 msgstr ""
 
-#: window.c:2038
+#: window.c:2061
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Se eliminar um item, este não poderá ser recuperado."
 
-#: dialog/preferences.c:400
+#: dialog/preferences.c:445
 #, fuzzy
 msgid "Ignore"
 msgstr "Ignorar modificações"
@@ -249,7 +253,7 @@ msgstr "Propriedades da imagem"
 msgid "Image description"
 msgstr "Propriedades da imagem"
 
-#: window.c:2258 window.c:2316 window.c:2370 window.c:2441
+#: window.c:2485
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -261,11 +265,11 @@ msgstr ""
 msgid "JPEG quality:"
 msgstr "Qualidade JPEG:"
 
-#: dialog/preferences.c:300
+#: dialog/preferences.c:345
 msgid "Last Used Mode"
 msgstr ""
 
-#: dialog/vnr-resize.c:126
+#: dialog/vnr-resize.c:130
 msgid "Link"
 msgstr ""
 
@@ -273,16 +277,16 @@ msgstr ""
 msgid "Metering mode"
 msgstr ""
 
-#: window.c:249
+#: window.c:278
 msgid "Move"
 msgstr ""
 
-#: window.c:250
+#: window.c:279
 #, fuzzy
 msgid "Move the current file"
 msgstr "Eliminar ficheiro atual"
 
-#: dialog/preferences.c:378 dialog/preferences.c:390
+#: dialog/preferences.c:423 dialog/preferences.c:435
 msgid "Navigate images"
 msgstr "Explorar imagens"
 
@@ -293,7 +297,7 @@ msgstr "Explorar imagens"
 msgid "None"
 msgstr "Nenhum"
 
-#: window.c:2215 window.c:2279
+#: window.c:2235 window.c:2269
 msgid "Not enough virtual memory."
 msgstr "Memória virtual insuficiente."
 
@@ -309,31 +313,31 @@ msgstr "Ao modificar a imagem: "
 msgid "On mouse wheel: "
 msgstr "Com a roda do rato "
 
-#: window.c:1226
+#: window.c:1249
 msgid "Open Folder"
 msgstr "Abrir pasta"
 
-#: window.c:1120
+#: window.c:1143
 msgid "Open Image"
 msgstr "Abrir imagem"
 
-#: window.c:221
+#: window.c:229
 msgid "Open _Folder..."
 msgstr "Abrir _pasta..."
 
-#: window.c:214
+#: window.c:222
 msgid "Open _Image..."
 msgstr "Abrir _imagem..."
 
-#: window.c:228
+#: window.c:236
 msgid "Open _With"
 msgstr "Abrir _com"
 
-#: window.c:222
+#: window.c:230
 msgid "Open a Folder"
 msgstr "Abrir uma pasta"
 
-#: window.c:215
+#: window.c:223
 msgid "Open an Image"
 msgstr "Abrir uma imagem"
 
@@ -341,7 +345,7 @@ msgstr "Abrir uma imagem"
 msgid "Open new image in: "
 msgstr "Abrir nova imagem em: "
 
-#: window.c:229
+#: window.c:237
 msgid "Open the selected image with a different application"
 msgstr "Abrir imagem selecionada com outra aplicação"
 
@@ -353,7 +357,7 @@ msgstr "Compressão PNG:"
 msgid "Reload image on save"
 msgstr "Ao gravar, recarregar imagem"
 
-#: window.c:256
+#: window.c:243
 msgid "Rename"
 msgstr ""
 
@@ -362,16 +366,16 @@ msgstr ""
 msgid "Rename \"%s\""
 msgstr ""
 
-#: window.c:257
+#: window.c:244
 #, fuzzy
 msgid "Rename the current file"
 msgstr "Recarregar ficheiro atual"
 
-#: dialog/vnr-resize.c:148 window.c:270
+#: dialog/vnr-resize.c:154 window.c:257
 msgid "Resize"
 msgstr ""
 
-#: window.c:271
+#: window.c:258
 msgid "Resize image"
 msgstr ""
 
@@ -379,19 +383,15 @@ msgstr ""
 msgid "Saving"
 msgstr "A gravar"
 
-#: dialog/preferences.c:380
+#: dialog/preferences.c:425
 msgid "Scroll image up/down"
 msgstr "Mover imagem para cima/baixo"
 
-#: window.c:236
+#: window.c:265
 msgid "Select directory..."
 msgstr ""
 
-#: window.c:235
-msgid "Select..."
-msgstr ""
-
-#: window.c:285
+#: window.c:293
 #, fuzzy
 msgid "Set image as wallpaper"
 msgstr "_Definir como papel de parede"
@@ -400,7 +400,7 @@ msgstr "_Definir como papel de parede"
 msgid "Show hidden images"
 msgstr "Mostrar imagens ocultas"
 
-#: window.c:292
+#: window.c:300
 msgid "Show information about the current file"
 msgstr "Mostrar informações do ficheiro atual"
 
@@ -408,11 +408,11 @@ msgstr "Mostrar informações do ficheiro atual"
 msgid "Show next image after (in seconds): "
 msgstr "Mostrar imagem seguinte após (segundos): "
 
-#: window.c:2966
+#: window.c:3011
 msgid "Show next image after: "
 msgstr "Mostrar imagem seguinte após: "
 
-#: dialog/preferences.c:297
+#: dialog/preferences.c:342
 msgid "Smart Mode"
 msgstr "Modo inteligente"
 
@@ -424,15 +424,15 @@ msgstr "Suavizar imagens aumentadas"
 msgid "Software"
 msgstr ""
 
-#: dialog/preferences.c:388
+#: dialog/preferences.c:433
 msgid "Switch zoom modes"
 msgstr "Trocar modo de ampliação"
 
-#: main.c:113 window.c:797 window.c:1309 window.c:2140
+#: main.c:113 window.c:820 window.c:1332 window.c:2163
 msgid "The given locations contain no images."
 msgstr "As localizações indicadas não possuem imagens."
 
-#: window.c:1532
+#: window.c:1555
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Utilizar \"%s\" para abrir a imagem selecionada"
@@ -441,7 +441,7 @@ msgstr "Utilizar \"%s\" para abrir a imagem selecionada"
 msgid "User comment"
 msgstr ""
 
-#: window.c:299
+#: window.c:307
 #, fuzzy
 msgid "User preferences for ImgView"
 msgstr "Preferências do utilizador para o Viewnior"
@@ -450,11 +450,11 @@ msgstr "Preferências do utilizador para o Viewnior"
 msgid "Viewnior Preferences"
 msgstr "Preferências do Viewnior"
 
-#: dialog/vnr-resize.c:112
+#: dialog/vnr-resize.c:116
 msgid "Width: "
 msgstr "Largura: "
 
-#: dialog/preferences.c:379
+#: dialog/preferences.c:424
 msgid "Zoom image"
 msgstr "Ampliar imagem"
 
@@ -462,7 +462,7 @@ msgstr "Ampliar imagem"
 msgid "_Cancel"
 msgstr ""
 
-#: window.c:277
+#: window.c:285
 msgid "_Delete"
 msgstr "_Eliminar"
 
@@ -470,7 +470,7 @@ msgstr "_Eliminar"
 msgid "_Next"
 msgstr "_Seguinte"
 
-#: window.c:298
+#: window.c:306
 msgid "_Preferences..."
 msgstr "_Preferências..."
 
@@ -478,7 +478,7 @@ msgstr "_Preferências..."
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: window.c:291
+#: window.c:299
 msgid "_Properties..."
 msgstr "_Propriedades..."
 
@@ -486,7 +486,7 @@ msgstr "_Propriedades..."
 msgid "_Rename"
 msgstr ""
 
-#: window.c:284
+#: window.c:292
 #, fuzzy
 msgid "_Wallpaper"
 msgstr "_Definir como papel de parede"
