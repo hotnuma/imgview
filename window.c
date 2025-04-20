@@ -37,6 +37,7 @@
 #include <etkaction.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <assert.h>
 
 // Timeout to hide the toolbar in fullscreen mode
 #define FULLSCREEN_TIMEOUT 1000
@@ -2418,20 +2419,27 @@ static void _window_filter_grayscale(VnrWindow *window, GtkWidget *widget)
 
     GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
 
-    int width = gdk_pixbuf_get_width(dest_pixbuf);
     int height = gdk_pixbuf_get_height(dest_pixbuf);
     int stride = gdk_pixbuf_get_rowstride(dest_pixbuf);
+    int max_h = height * stride;
+
+    int width = gdk_pixbuf_get_width(dest_pixbuf);
     int channels = gdk_pixbuf_get_n_channels(dest_pixbuf);
+    int max_w = width * channels;
+
+    assert(stride == gdk_pixbuf_get_rowstride(src_pixbuf));
+    assert(channels == gdk_pixbuf_get_n_channels(src_pixbuf));
+
     gboolean has_alpha = gdk_pixbuf_get_has_alpha(dest_pixbuf);
 
     guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
     guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
 
-    for (int y = 0; y < height; ++y)
+    for (int y = 0; y < max_h; y+=stride)
     {
-        for (int x = 0; x < width; ++x)
+        for (int x = 0; x < max_w; x+=channels)
         {
-            int offset = (y * stride) + (x * channels);
+            int offset = y + x;
 
             guchar *src_color = src + offset;
             guchar *dest_color = dest + offset;
@@ -2460,24 +2468,31 @@ static void _window_filter_sepia(VnrWindow *window, GtkWidget *widget)
         return;
 
     GdkPixbuf *src_pixbuf = uni_image_view_get_pixbuf(
-                            UNI_IMAGE_VIEW(window->view));
+                                        UNI_IMAGE_VIEW(window->view));
 
     GdkPixbuf *dest_pixbuf = _window_pixbuf_new(window);
 
-    int width = gdk_pixbuf_get_width(dest_pixbuf);
     int height = gdk_pixbuf_get_height(dest_pixbuf);
     int stride = gdk_pixbuf_get_rowstride(dest_pixbuf);
+    int max_h = height * stride;
+
+    int width = gdk_pixbuf_get_width(dest_pixbuf);
     int channels = gdk_pixbuf_get_n_channels(dest_pixbuf);
+    int max_w = width * channels;
+
+    assert(stride == gdk_pixbuf_get_rowstride(src_pixbuf));
+    assert(channels == gdk_pixbuf_get_n_channels(src_pixbuf));
+
     gboolean has_alpha = gdk_pixbuf_get_has_alpha(dest_pixbuf);
 
     guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
     guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
 
-    for (int y = 0; y < height; ++y)
+    for (int y = 0; y < max_h; y+=stride)
     {
-        for (int x = 0; x < width; ++x)
+        for (int x = 0; x < max_w; x+=channels)
         {
-            int offset = (y * stride) + (x * channels);
+            int offset = y + x;
 
             guchar *src_color = src + offset;
             guchar *dest_color = dest + offset;
