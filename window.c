@@ -2435,7 +2435,7 @@ static void _window_filter_grayscale(VnrWindow *window, GtkWidget *widget)
     guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
     guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
 
-    gint64 t1 = g_get_real_time();
+    //gint64 t1 = g_get_monotonic_time();
 
     for (int y = 0; y < max_h; y+=stride)
     {
@@ -2459,9 +2459,9 @@ static void _window_filter_grayscale(VnrWindow *window, GtkWidget *widget)
         }
     }
 
-    gint64 t2 = g_get_real_time();
-    gint64 diff = t2 - t1;
-    printf("time = %d\n", (int) diff);
+    //gint64 t2 = g_get_monotonic_time();
+    //gint64 diff = t2 - t1;
+    //printf("time = %d\n", (int) diff);
 
     _window_view_set_static(window, dest_pixbuf);
 }
@@ -2494,7 +2494,7 @@ static void _window_filter_sepia(VnrWindow *window, GtkWidget *widget)
     guchar *src = gdk_pixbuf_get_pixels(src_pixbuf);
     guchar *dest = gdk_pixbuf_get_pixels(dest_pixbuf);
 
-    gint64 t1 = g_get_real_time();
+    //gint64 t1 = g_get_monotonic_time();
 
     for (int y = 0; y < max_h; y+=stride)
     {
@@ -2530,9 +2530,9 @@ static void _window_filter_sepia(VnrWindow *window, GtkWidget *widget)
         }
     }
 
-    gint64 t2 = g_get_real_time();
-    gint64 diff = t2 - t1;
-    printf("time = %d\n", (int) diff);
+    //gint64 t2 = g_get_monotonic_time();
+    //gint64 diff = t2 - t1;
+    //printf("time = %d\n", (int) diff);
 
     _window_view_set_static(window, dest_pixbuf);
 }

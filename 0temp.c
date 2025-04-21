@@ -1,8 +1,8 @@
 #if 0
 
-gint64 t1 = g_get_real_time();
+gint64 t1 = g_get_monotonic_time();
 
-gint64 t2 = g_get_real_time();
+gint64 t2 = g_get_monotonic_time();
 gint64 diff = t2 - t1;
 printf("time = %d\n", (int) diff);
 
@@ -74,11 +74,11 @@ static void _window_filter_sepia2(VnrWindow *window, GtkWidget *widget)
         {0.0,   0.0,   0.0,   1.0},
     };
 
-    gint64 t1 = g_get_real_time();
+    gint64 t1 = g_get_monotonic_time();
 
     _filter_transform(src_pixbuf, dest_pixbuf, mat);
 
-    gint64 t2 = g_get_real_time();
+    gint64 t2 = g_get_monotonic_time();
     gint64 diff = t2 - t1;
     printf("time = %d\n", (int) diff);
 
@@ -105,11 +105,11 @@ static void _window_filter_grayscale2(VnrWindow *window, GtkWidget *widget)
         {0.0,    0.0,    0.0,    1.0},
     };
 
-    gint64 t1 = g_get_real_time();
+    gint64 t1 = g_get_monotonic_time();
 
     _filter_transform(src_pixbuf, dest_pixbuf, mat);
 
-    gint64 t2 = g_get_real_time();
+    gint64 t2 = g_get_monotonic_time();
     gint64 diff = t2 - t1;
     printf("time = %d\n", (int) diff);
 
