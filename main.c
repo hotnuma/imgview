@@ -18,6 +18,7 @@
  */
 
 #include "config.h"
+
 #include "window.h"
 #include "message-area.h"
 #include "list.h"

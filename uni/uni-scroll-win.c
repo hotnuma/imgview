@@ -20,6 +20,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
 //#include "uni-image-view.h"

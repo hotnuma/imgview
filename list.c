@@ -1,5 +1,6 @@
-#include "list.h"
+
 #include "config.h"
+#include "list.h"
 
 static gint _file_compare_func(VnrFile *file, char *uri);
 static gint _list_compare_func(gconstpointer a, gconstpointer b,

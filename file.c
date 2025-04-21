@@ -17,15 +17,14 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "file.h"
 #include "config.h"
+#include "file.h"
+
 #include "vnr-tools.h"
 #include <glib/gstdio.h>
-
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
-
 
 // Mime types
 GList *_supported_mime_types;

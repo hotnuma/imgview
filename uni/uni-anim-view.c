@@ -21,6 +21,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "uni-anim-view.h"
 
 static void _uni_anim_view_init_signals(UniAnimViewClass *klass);

@@ -17,6 +17,9 @@
  * MA 02110-1301 USA
  */
 
+#include "config.h"
+#include "xfce-filename-input.h"
+
 /**
  * SECTION:xfce-filename-input
  * @title: XfceFilenameInput
@@ -28,10 +31,6 @@
  * with as-you-type checking for invalid filenames.
  **/
 
-#include <stdlib.h>
-
-#include "config.h"
-#include "xfce-filename-input.h"
 
 // Property identifiers
 enum

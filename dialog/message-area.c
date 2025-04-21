@@ -17,6 +17,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "message-area.h"
 
 static void _vnr_message_area_show_basic(VnrMessageArea *msg_area,

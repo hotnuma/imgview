@@ -1,3 +1,4 @@
+#include "config.h"
 #include "gd-image.h"
 
 #include "gd-helpers.h"

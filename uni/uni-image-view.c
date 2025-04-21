@@ -20,6 +20,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "uni-image-view.h"
 
 #include "uni-dragger.h"

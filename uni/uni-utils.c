@@ -20,6 +20,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "uni-utils.h"
 
 #include <gdk/gdkx.h>

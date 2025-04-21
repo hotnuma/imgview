@@ -33,6 +33,7 @@ typedef enum
     UNI_PIXBUF_DRAW_METHOD_SCALE = 0,
     UNI_PIXBUF_DRAW_METHOD_CONTAINS = 1,
     UNI_PIXBUF_DRAW_METHOD_SCROLL = 2
+
 } UniPixbufDrawMethod;
 
 /**
@@ -46,10 +47,10 @@ struct _UniPixbufDrawOpts
 {
     gdouble zoom;
 
-    /* Rectangle in zoom-space coordinates of the area to draw. */
+    // Rectangle in zoom-space coordinates of the area to draw.
     GdkRectangle zoom_rect;
 
-    /* Position in widget-space coordinates where to draw. */
+    // Position in widget-space coordinates where to draw.
     int widget_x;
     int widget_y;
 
@@ -93,4 +94,6 @@ UniPixbufDrawMethod uni_pixbuf_draw_cache_get_method(UniPixbufDrawOpts *old,
                                                      UniPixbufDrawOpts *
                                                          new_);
 
-#endif /* __UNI_CACHE_H__ */
+#endif // __UNI_CACHE_H__
+
+
