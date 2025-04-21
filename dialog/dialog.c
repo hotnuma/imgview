@@ -2,8 +2,9 @@
  * from Thunar by XFCE developpers
  */
 
-#include "dialog.h"
 #include "config.h"
+#include "dialog.h"
+
 #include "xfce-filename-input.h"
 
 static void _dialog_select_filename(GtkWidget *entry, const gchar *filename);
@@ -34,7 +35,9 @@ gboolean dialog_file_rename(GtkWindow *window, VnrFile *file)
     gtk_grid_set_column_spacing(GTK_GRID(grid), 6);
     gtk_grid_set_row_spacing(GTK_GRID(grid), 3);
     gtk_container_set_border_width(GTK_CONTAINER(grid), 6);
-    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), grid, TRUE, TRUE, 0);
+    gtk_box_pack_start(
+                GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))),
+                grid, TRUE, TRUE, 0);
     gtk_widget_show(grid);
 
     GtkWidget *label = gtk_label_new(_("Enter the new name:"));
@@ -51,17 +54,19 @@ gboolean dialog_file_rename(GtkWindow *window, VnrFile *file)
     gtk_widget_set_hexpand(GTK_WIDGET(filename_input), TRUE);
     gtk_widget_set_valign(GTK_WIDGET(filename_input), GTK_ALIGN_CENTER);
 
-    /* connect to signals so that the sensitivity of the Create button is updated according to whether there
-     * is a valid file name entered */
+    /* connect to signals so that the sensitivity of the Create button is
+     * updated according to whether there is a valid file name entered */
     g_signal_connect_swapped(
         filename_input, "text-invalid",
         G_CALLBACK(xfce_filename_input_desensitise_widget),
-        gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK));
+        gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog),
+                                           GTK_RESPONSE_OK));
 
     g_signal_connect_swapped(
         filename_input, "text-valid",
         G_CALLBACK(xfce_filename_input_sensitise_widget),
-        gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK));
+        gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog),
+                                           GTK_RESPONSE_OK));
 
     gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(filename_input), 1, 1, 1, 1);
 
@@ -201,7 +206,8 @@ gchar* util_str_get_extension(const gchar *filename)
         for (i = 0, is_in = TRUE; is_in && i < 3; i++)
         {
             dot2 = _util_strrchr_offset(filename, dot - 1, '.');
-            // the extension before .in could be long. check that it's at least 2 chars
+            // the extension before .in could be long.
+            // check that it's at least 2 chars
             len = dot - dot2 - 1;
             if (dot2 == NULL || dot2 == filename || len < 2)
                 break;
@@ -231,8 +237,8 @@ gchar* util_str_get_extension(const gchar *filename)
  *
  * Return value: pointer in @str or NULL.
  **/
-static inline gchar* _util_strrchr_offset(const gchar *str, const gchar *offset,
-                                          gchar c)
+static inline gchar* _util_strrchr_offset(const gchar *str,
+                                          const gchar *offset, gchar c)
 {
     const gchar *p;
 
@@ -250,7 +256,7 @@ static void _dialog_select_filename(GtkWidget *entry, const gchar *filename)
 {
 #if 0
     const gchar *filename;
-    check if we have a directory here
+    //check if we have a directory here
 
     if (th_file_is_directory(file))
     {

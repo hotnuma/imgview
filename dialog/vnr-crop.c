@@ -17,6 +17,7 @@
  * along with ImgView.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "vnr-crop.h"
 
 #include "uni-image-view.h"

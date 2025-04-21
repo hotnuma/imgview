@@ -20,7 +20,6 @@
 #ifndef VNR_CROP_H
 #define VNR_CROP_H
 
-#include <gtk/gtk.h>
 #include "window.h"
 
 G_BEGIN_DECLS

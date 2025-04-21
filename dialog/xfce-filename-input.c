@@ -194,40 +194,40 @@ xfce_filename_input_init(XfceFilenameInput *filename_input)
 {
     GError *err = NULL;
 
-    /* by default there is no maximum length for the filename and no original filename */
+    // by default there is no maximum length for the filename and no original filename
     filename_input->max_text_length = -1;
     filename_input->original_filename = NULL;
 
-    /* compile the regular expressions used to check the input */
-    /* the pattern for whitespace_regex matches if the text starts or ends with whitespace */
+    // compile the regular expressions used to check the input
+    // the pattern for whitespace_regex matches if the text starts or ends with whitespace
     filename_input->whitespace_regex = g_regex_new("^\\s|\\s$", 0, 0, &err);
     filename_input->dir_sep_regex = g_regex_new(G_DIR_SEPARATOR_S, 0, 0, &err);
 
     gtk_orientable_set_orientation(GTK_ORIENTABLE(filename_input), GTK_ORIENTATION_VERTICAL);
     gtk_container_set_border_width(GTK_CONTAINER(filename_input), 2);
 
-    /* set up the GtkEntry for the input */
+    // set up the GtkEntry for the input
     filename_input->entry = GTK_ENTRY(gtk_entry_new());
     gtk_widget_set_hexpand(GTK_WIDGET(filename_input->entry), TRUE);
     gtk_widget_set_valign(GTK_WIDGET(filename_input->entry), GTK_ALIGN_CENTER);
     gtk_box_pack_start(GTK_BOX(filename_input), GTK_WIDGET(filename_input->entry), FALSE, FALSE, 0);
 
-    /* retrieve the error and warning messages */
+    // retrieve the error and warning messages
     filename_input->too_long_mssg = _("Filename is too long");
     filename_input->sep_illegal_mssg = _("Directory separator illegal in file name");
     filename_input->whitespace_mssg = _("Filenames should not start or end with a space");
 
-    /* set up the GtkLabel to display any error or warning messages */
+    // set up the GtkLabel to display any error or warning messages
     filename_input->label = GTK_LABEL(gtk_label_new(""));
     gtk_label_set_xalign(filename_input->label, 0.0f);
     gtk_box_pack_start(GTK_BOX(filename_input), GTK_WIDGET(filename_input->label), FALSE, FALSE, 0);
     gtk_label_set_line_wrap(filename_input->label, TRUE);
 
-    /* allow reverting the filename with ctrl + z */
+    // allow reverting the filename with ctrl + z
     g_signal_connect(filename_input->entry, "key-press-event",
                      G_CALLBACK(xfce_filename_input_entry_undo), filename_input);
 
-    /* set up a callback to check the input text whenever it is changed*/
+    // set up a callback to check the input text whenever it is changed
     g_signal_connect(filename_input->entry, "changed",
                      G_CALLBACK(xfce_filename_input_entry_changed), filename_input);
 }
@@ -265,7 +265,7 @@ static void xfce_filename_input_finalize(GObject *object)
 {
     XfceFilenameInput *filename_input = XFCE_FILENAME_INPUT(object);
 
-    /* cancel any pending timer */
+    // cancel any pending timer
     if (filename_input->whitespace_warning_timer_id != 0)
         g_source_remove(filename_input->whitespace_warning_timer_id);
 
@@ -391,11 +391,11 @@ xfce_filename_input_entry_changed(GtkEditable *editable,
     filename_input = XFCE_FILENAME_INPUT(data);
     label = filename_input->label;
 
-    /* cancel any pending timer to display a warning about the text starting or ending with whitespace */
+    // cancel any pending timer to display a warning about the text starting or ending with whitespace
     if (filename_input->whitespace_warning_timer_id != 0)
         g_source_remove(filename_input->whitespace_warning_timer_id);
 
-    /* get the string representing the current text of the GtkEntry */
+    // get the string representing the current text of the GtkEntry
     text_length = gtk_entry_get_text_length(entry);
     text = gtk_entry_get_text(entry); /* NB this string must not be modified or freed,
                                          as it belongs to the GtkEntry */
@@ -409,22 +409,22 @@ xfce_filename_input_entry_changed(GtkEditable *editable,
 
     if (text_length == 0)
     {
-        /* the string is empty */
+        // the string is empty
         icon_name = NULL;
         label_text = "";
         new_text_valid = FALSE;
     }
     else if (match_ds)
     {
-        /* the string contains a directory separator */
+        // the string contains a directory separator
         label_text = filename_input->sep_illegal_mssg;
         icon_name = "dialog-error";
         new_text_valid = FALSE;
     }
-    else if (filename_input->max_text_length != -1 && /* max_text_length = -1 means no maximum */
+    else if (filename_input->max_text_length != -1 && // max_text_length = -1 means no maximum
              text_length > filename_input->max_text_length)
     {
-        /* the string is too long */
+        // the string is too long
         label_text = filename_input->too_long_mssg;
         icon_name = "dialog-error";
         new_text_valid = FALSE;
@@ -443,13 +443,13 @@ xfce_filename_input_entry_changed(GtkEditable *editable,
         new_text_valid = TRUE;
     }
 
-    /* update the icon in the GtkEntry and the message in the GtkLabel */
+    // update the icon in the GtkEntry and the message in the GtkLabel
     gtk_entry_set_icon_from_icon_name(entry,
                                       GTK_ENTRY_ICON_SECONDARY,
                                       icon_name);
     gtk_label_set_text(label, label_text);
 
-    /* send a signal to indicate whether the filename is valid */
+    // send a signal to indicate whether the filename is valid
     gtk_entry_set_activates_default(entry, new_text_valid);
     if (new_text_valid)
         g_signal_emit_by_name(filename_input, "text-valid", 0);
@@ -469,15 +469,15 @@ xfce_filename_input_entry_undo(GtkWidget *widget,
     g_return_val_if_fail(XFCE_IS_FILENAME_INPUT(data), GDK_EVENT_PROPAGATE);
     filename_input = XFCE_FILENAME_INPUT(data);
 
-    /* if there is no original filename to restore, we are done */
+    // if there is no original filename to restore, we are done
     if (filename_input->original_filename == NULL)
         return GDK_EVENT_PROPAGATE;
 
-    /* extract the keyval and state from the event */
+    // extract the keyval and state from the event
     if (G_UNLIKELY(!gdk_event_get_keyval(event, &keyval) || !gdk_event_get_state(event, &state)))
         return GDK_EVENT_PROPAGATE;
 
-    /* if the user pressed ctrl + z, reset the text to the original filename */
+    // if the user pressed ctrl + z, reset the text to the original filename
     if ((state & GDK_CONTROL_MASK) != 0 && keyval == GDK_KEY_z)
     {
         gtk_entry_set_text(GTK_ENTRY(widget),
@@ -496,7 +496,7 @@ xfce_filename_input_whitespace_warning_timer(gpointer data)
     g_return_val_if_fail(XFCE_IS_FILENAME_INPUT(data), FALSE);
     filename_input = XFCE_FILENAME_INPUT(data);
 
-    /* update the icon in the GtkEntry and the message in the GtkLabel */
+    // update the icon in the GtkEntry and the message in the GtkLabel
     gtk_entry_set_icon_from_icon_name(filename_input->entry,
                                       GTK_ENTRY_ICON_SECONDARY,
                                       "dialog-warning");

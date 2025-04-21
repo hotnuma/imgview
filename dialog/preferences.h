@@ -20,12 +20,7 @@
 #ifndef __VNR_PREFERENCES_H__
 #define __VNR_PREFERENCES_H__
 
-#include "config.h"
-
-#include <glib.h>
 #include <gtk/gtk.h>
-#include <gio/gio.h>
-#include <gdk/gdkkeysyms.h>
 
 G_BEGIN_DECLS
 

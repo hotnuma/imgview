@@ -28,11 +28,16 @@ typedef struct _XfceFilenameInputClass XfceFilenameInputClass;
 typedef struct _XfceFilenameInput XfceFilenameInput;
 
 #define XFCE_TYPE_FILENAME_INPUT (xfce_filename_input_get_type())
-#define XFCE_FILENAME_INPUT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_FILENAME_INPUT, XfceFilenameInput))
-#define XFCE_IS_FILENAME_INPUT(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_FILENAME_INPUT))
-#define XFCE_FILENAME_INPUT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), XFCE_TYPE_FILENAME_INPUT, XfceFilenameInputClass))
-#define XFCE_IS_FILENAME_INPUT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), XFCE_TYPE_FILENAME_INPUT))
-#define XFCE_FILENAME_INPUT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), XFCE_TYPE_FILENAME_INPUT, XfceFilenameInputClass))
+#define XFCE_FILENAME_INPUT(obj) \
+    (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_FILENAME_INPUT, XfceFilenameInput))
+#define XFCE_IS_FILENAME_INPUT(obj) \
+    (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_FILENAME_INPUT))
+#define XFCE_FILENAME_INPUT_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_CAST((klass), XFCE_TYPE_FILENAME_INPUT, XfceFilenameInputClass))
+#define XFCE_IS_FILENAME_INPUT_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_TYPE((klass), XFCE_TYPE_FILENAME_INPUT))
+#define XFCE_FILENAME_INPUT_GET_CLASS(obj) \
+    (G_TYPE_INSTANCE_GET_CLASS((obj), XFCE_TYPE_FILENAME_INPUT, XfceFilenameInputClass))
 
 GType xfce_filename_input_get_type() G_GNUC_CONST;
 
@@ -44,4 +49,6 @@ void xfce_filename_input_desensitise_widget(GtkWidget *widget);
 
 G_END_DECLS
 
-#endif /* !__XFCE_FILENAME_INPUT_H__ */
+#endif // __XFCE_FILENAME_INPUT_H__
+
+
