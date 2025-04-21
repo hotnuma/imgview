@@ -21,9 +21,6 @@
 
 #include "vnr-tools.h"
 #include "uni-exiv2.hpp"
-#include "file.h"
-#include <locale.h>
-#include <time.h>
 
 G_DEFINE_TYPE(VnrPropertiesDialog, vnr_propsdlg, GTK_TYPE_DIALOG)
 

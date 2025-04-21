@@ -20,22 +20,12 @@
 #ifndef __VNR_PROPERTIES_DIALOG_H__
 #define __VNR_PROPERTIES_DIALOG_H__
 
-#include <glib.h>
-#include <glib-object.h>
-#include <gtk/gtk.h>
-#include <gio/gio.h>
-#include <gdk/gdkkeysyms.h>
-#include "uni-image-view.h"
 #include "window.h"
+#include "uni-image-view.h"
 
 G_BEGIN_DECLS
 
 typedef struct _VnrPropertiesDialog VnrPropertiesDialog;
-
-#define VNR_TYPE_PROPERTIES_DIALOG \
-    (vnr_propsdlg_get_type())
-
-G_DECLARE_FINAL_TYPE(VnrPropertiesDialog, vnr_propsdlg, VNR, PROPERTIES_DIALOG, GtkDialog)
 
 struct _VnrPropertiesDialog
 {
@@ -64,7 +54,11 @@ struct _VnrPropertiesDialog
     VnrWindow *window;
 };
 
-GType vnr_propsdlg_get_type(void) G_GNUC_CONST;
+#define VNR_TYPE_PROPERTIES_DIALOG (vnr_propsdlg_get_type())
+
+G_DECLARE_FINAL_TYPE(VnrPropertiesDialog, vnr_propsdlg, VNR, PROPERTIES_DIALOG, GtkDialog)
+
+GType vnr_propsdlg_get_type() G_GNUC_CONST;
 
 GtkWidget *vnr_propsdlg_new(VnrWindow *vnr_win);
 
