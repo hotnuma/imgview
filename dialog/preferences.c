@@ -196,8 +196,8 @@ static gboolean vnr_prefs_load(VnrPrefs *prefs)
                        PREFS_WHEEL_BEHAVIOR, VNR_PREFS_WHEEL_ZOOM);
     VNR_PREFS_LOAD_KEY(click_behavior, integer,
                        PREFS_CLICK_BEHAVIOR, VNR_PREFS_CLICK_ZOOM);
-    //VNR_PREFS_LOAD_KEY(modify_behavior, integer,
-    //                 PREFS_MODIFY_BEHAVIOR, VNR_PREFS_MODIFY_DEFAULT);
+    VNR_PREFS_LOAD_KEY(modify_behavior, integer,
+                       PREFS_MODIFY_BEHAVIOR, VNR_PREFS_MODIFY_DISCARD);
 
     VNR_PREFS_LOAD_KEY(reload_on_save, boolean,
                        PREFS_RELOAD_ON_SAVE, FALSE);

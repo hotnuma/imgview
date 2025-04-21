@@ -31,18 +31,15 @@
 G_BEGIN_DECLS
 
 typedef struct _VnrPropertiesDialog VnrPropertiesDialog;
-typedef struct _VnrPropertiesDialogClass VnrPropertiesDialogClass;
 
-#define VNR_TYPE_PROPERTIES_DIALOG (vnr_properties_dialog_get_type())
-#define VNR_PROPERTIES_DIALOG(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), VNR_TYPE_PROPERTIES_DIALOG, VnrPropertiesDialog))
-#define VNR_PROPERTIES_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), VNR_TYPE_PROPERTIES_DIALOG, VnrPropertiesDialogClass))
-#define VNR_IS_PROPERTIES_DIALOG(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), VNR_TYPE_PROPERTIES_DIALOG))
-#define VNR_IS_PROPERTIES_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), VNR_TYPE_PROPERTIES_DIALOG))
-#define VNR_PROPERTIES_DIALOG_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), VNR_TYPE_PROPERTIES_DIALOG, VnrPropertiesDialogClass))
+#define VNR_TYPE_PROPERTIES_DIALOG \
+    (vnr_propsdlg_get_type())
+
+G_DECLARE_FINAL_TYPE(VnrPropertiesDialog, vnr_propsdlg, VNR, PROPERTIES_DIALOG, GtkDialog)
 
 struct _VnrPropertiesDialog
 {
-    GtkDialog parent;
+    GtkDialog __parent__;
 
     GtkWidget *layout;
     GtkWidget *image_layout;
@@ -67,19 +64,17 @@ struct _VnrPropertiesDialog
     VnrWindow *window;
 };
 
-struct _VnrPropertiesDialogClass
-{
-    GtkDialogClass parent_class;
-};
+GType vnr_propsdlg_get_type(void) G_GNUC_CONST;
 
-GType vnr_properties_dialog_get_type(void) G_GNUC_CONST;
+GtkWidget *vnr_propsdlg_new(VnrWindow *vnr_win);
 
-GtkWidget *vnr_properties_dialog_new(VnrWindow *vnr_win);
-
-void vnr_properties_dialog_update(VnrPropertiesDialog *dialog);
-void vnr_properties_dialog_update_image(VnrPropertiesDialog *dialog);
-void vnr_properties_dialog_clear(VnrPropertiesDialog *dialog);
-void vnr_properties_dialog_show(VnrPropertiesDialog *dialog);
+void vnr_propsdlg_update(VnrPropertiesDialog *dialog);
+void vnr_propsdlg_update_image(VnrPropertiesDialog *dialog);
+void vnr_propsdlg_clear(VnrPropertiesDialog *dialog);
+void vnr_propsdlg_show(VnrPropertiesDialog *dialog);
 
 G_END_DECLS
-#endif /* __VNR_PROPERTIES_DIALOG_H__ */
+
+#endif // __VNR_PROPERTIES_DIALOG_H__
+
+

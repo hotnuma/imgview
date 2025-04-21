@@ -612,7 +612,7 @@ static void window_init(VnrWindow *window)
     window->sl_timeout = window->prefs->sl_timeout;
 
     // Care for Properties dialog
-    window->props_dlg = vnr_properties_dialog_new(window);
+    window->props_dlg = vnr_propsdlg_new(window);
 
     window_preferences_apply(window);
     uni_scroll_win_set_show_scrollbar(UNI_SCROLL_WIN(window->scroll_view),
@@ -1442,7 +1442,7 @@ gboolean window_load_file(VnrWindow *window)
                               TRUE);
 
         if (gtk_widget_get_visible(window->props_dlg))
-            vnr_properties_dialog_clear(
+            vnr_propsdlg_clear(
                         VNR_PROPERTIES_DIALOG(window->props_dlg));
 
         if (pixbuf)
@@ -1516,7 +1516,7 @@ gboolean window_load_pixbuf(VnrWindow *window,
     }
 
     if (gtk_widget_get_visible(window->props_dlg))
-        vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
+        vnr_propsdlg_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     _window_update_openwith_menu(window);
 
@@ -2214,7 +2214,7 @@ static gboolean _window_delete_item(VnrWindow *window)
 
         if (gtk_widget_get_visible(window->props_dlg))
         {
-            vnr_properties_dialog_clear(
+            vnr_propsdlg_clear(
                         VNR_PROPERTIES_DIALOG(window->props_dlg));
         }
 
@@ -2247,7 +2247,7 @@ static void _window_action_properties(VnrWindow *window, GtkWidget *widget)
         || window->mode != WINDOW_MODE_NORMAL)
         return;
 
-    vnr_properties_dialog_show(VNR_PROPERTIES_DIALOG(window->props_dlg));
+    vnr_propsdlg_show(VNR_PROPERTIES_DIALOG(window->props_dlg));
 }
 
 static void _window_action_preferences(VnrWindow *window, GtkWidget *widget)
@@ -2288,7 +2288,7 @@ static void _window_rotate_pixbuf(VnrWindow *window,
 
     if (gtk_widget_get_visible(window->props_dlg))
     {
-        vnr_properties_dialog_update_image(
+        vnr_propsdlg_update_image(
                                 VNR_PROPERTIES_DIALOG(window->props_dlg));
     }
 
@@ -2322,7 +2322,7 @@ static void _window_flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     if (gtk_widget_get_visible(window->props_dlg))
     {
-        vnr_properties_dialog_update_image(
+        vnr_propsdlg_update_image(
                             VNR_PROPERTIES_DIALOG(window->props_dlg));
     }
 
@@ -2555,9 +2555,6 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
     if (!window->cursor_is_hidden)
         vnr_tools_set_cursor(GTK_WIDGET(window), GDK_WATCH, true);
 
-    //if (window->prefs->modify_behavior == VNR_PREFS_MODIFY_ASK)
-    //    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
-
     // Store exiv2 metadata to cache, so we can restore it afterwards
     uni_read_exiv2_to_cache(current->path);
 
@@ -2617,12 +2614,11 @@ static void _window_action_save_image(VnrWindow *window, GtkWidget *widget)
     window->modified = false;
 
     //gtk_action_group_set_sensitive(window->action_save, FALSE);
-    //if (window->prefs->modify_behavior != VNR_PREFS_MODIFY_ASK)
 
     _view_on_zoom_changed(UNI_IMAGE_VIEW(window->view), window);
 
     if (gtk_widget_get_visible(window->props_dlg))
-        vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
+        vnr_propsdlg_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 }
 
 static void _window_action_zoom_normal(VnrWindow *window, GtkWidget *widget)

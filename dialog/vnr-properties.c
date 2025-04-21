@@ -25,9 +25,9 @@
 #include <locale.h>
 #include <time.h>
 
-G_DEFINE_TYPE(VnrPropertiesDialog, vnr_properties_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE(VnrPropertiesDialog, vnr_propsdlg, GTK_TYPE_DIALOG)
 
-static void vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog);
+static void vnr_propsdlg_update_metadata(VnrPropertiesDialog *dialog);
 
 static gboolean key_press_cb(GtkWidget *widget,
                              GdkEventKey *event, gpointer user_data)
@@ -91,12 +91,12 @@ static void set_new_pixbuf(VnrPropertiesDialog *dialog, GdkPixbuf *original)
                                                 GDK_INTERP_NEAREST);
 }
 
-static void vnr_properties_dialog_class_init(VnrPropertiesDialogClass *klass)
+static void vnr_propsdlg_class_init(VnrPropertiesDialogClass *klass)
 {
 
 }
 
-GtkWidget* vnr_properties_dialog_new(VnrWindow *window)
+GtkWidget* vnr_propsdlg_new(VnrWindow *window)
 {
     VnrPropertiesDialog *dialog = g_object_new(VNR_TYPE_PROPERTIES_DIALOG,
                                                NULL);
@@ -126,7 +126,7 @@ GtkWidget* vnr_properties_dialog_new(VnrWindow *window)
     return (GtkWidget*) dialog;
 }
 
-static void vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
+static void vnr_propsdlg_init(VnrPropertiesDialog *dialog)
 {
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
@@ -314,7 +314,7 @@ static void vnr_properties_dialog_init(VnrPropertiesDialog *dialog)
     gtk_widget_show_all(action_area);
 }
 
-void vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
+void vnr_propsdlg_update(VnrPropertiesDialog *dialog)
 {
     VnrFile *current = window_get_current_file(dialog->window);
     if (!current)
@@ -329,12 +329,12 @@ void vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
 
     if (filetype == NULL && filesize == 0)
     {
-        vnr_properties_dialog_clear(dialog);
+        vnr_propsdlg_clear(dialog);
         return;
     }
 
-    vnr_properties_dialog_update_image(dialog);
-    vnr_properties_dialog_update_metadata(dialog);
+    vnr_propsdlg_update_image(dialog);
+    vnr_propsdlg_update_metadata(dialog);
 
     filesize_str = g_format_size(filesize);
 
@@ -354,7 +354,7 @@ void vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
     g_free(filetype_desc);
 }
 
-static void vnr_properties_dialog_clear_metadata(VnrPropertiesDialog *dialog)
+static void vnr_propsdlg_clear_metadata(VnrPropertiesDialog *dialog)
 {
     GList *children = gtk_container_get_children(
                 GTK_CONTAINER(dialog->meta_values_box));
@@ -408,9 +408,9 @@ static void vnr_cb_add_metadata(const char *label,
     gtk_widget_show(temp_label);
 }
 
-static void vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog)
+static void vnr_propsdlg_update_metadata(VnrPropertiesDialog *dialog)
 {
-    vnr_properties_dialog_clear_metadata(dialog);
+    vnr_propsdlg_clear_metadata(dialog);
 
     VnrFile *current = window_get_current_file(dialog->window);
     if (!current)
@@ -419,7 +419,7 @@ static void vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog)
     uni_read_exiv2_map(current->path, vnr_cb_add_metadata, (void*) dialog);
 }
 
-void vnr_properties_dialog_update_image(VnrPropertiesDialog *dialog)
+void vnr_propsdlg_update_image(VnrPropertiesDialog *dialog)
 {
     VnrFile *current = window_get_current_file(dialog->window);
     if (!current)
@@ -453,10 +453,10 @@ void vnr_properties_dialog_update_image(VnrPropertiesDialog *dialog)
     g_free(height_str);
 }
 
-void vnr_properties_dialog_clear(VnrPropertiesDialog *dialog)
+void vnr_propsdlg_clear(VnrPropertiesDialog *dialog)
 {
     set_new_pixbuf(dialog, NULL);
-    vnr_properties_dialog_clear_metadata(dialog);
+    vnr_propsdlg_clear_metadata(dialog);
 
     gtk_label_set_text(GTK_LABEL(dialog->location_label), _("None"));
     gtk_label_set_text(GTK_LABEL(dialog->name_label), _("None"));
@@ -467,9 +467,9 @@ void vnr_properties_dialog_clear(VnrPropertiesDialog *dialog)
     gtk_label_set_text(GTK_LABEL(dialog->modified_label), _("None"));
 }
 
-void vnr_properties_dialog_show(VnrPropertiesDialog *dialog)
+void vnr_propsdlg_show(VnrPropertiesDialog *dialog)
 {
-    vnr_properties_dialog_update(dialog);
+    vnr_propsdlg_update(dialog);
     gtk_window_present(GTK_WINDOW(dialog));
 }
 
