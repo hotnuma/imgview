@@ -21,9 +21,9 @@ Most of the Viewnior's sources handling image viewing are adopted from the GtkIm
 | Crop                    | F3                      |
 | Resize                  | F4                      |
 | Reload                  | F5                      |
-| Select Directory        | F6                      |
-| Copy                    | F7                      |
-| Move                    | F8                      |
+| Reset Directory         | F6                      |
+| Copy To                 | F7                      |
+| Move To                 | F8                      |
 | Delete                  | Del                     |
 | Set Wallpaper           | F10                     |
 | Properties              | Ctrl+Return             |

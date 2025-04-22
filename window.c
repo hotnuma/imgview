@@ -108,6 +108,7 @@ static void _on_openwith(VnrWindow *window, gpointer user_data);
 
 static gboolean _window_on_sl_timeout(VnrWindow *window);
 static void _window_action_reload(VnrWindow *window, GtkWidget *widget);
+static void _window_action_resetdir(VnrWindow *window, GtkWidget *widget);
 static void _window_action_selectdir(VnrWindow *window, GtkWidget *widget);
 static gboolean _window_select_directory(VnrWindow *window);
 static GSList* _window_file_chooser(VnrWindow *window,
@@ -200,6 +201,7 @@ typedef enum
     WINDOW_ACTION_FILTERS,
     WINDOW_ACTION_FILTER_GRAYSCALE,
     WINDOW_ACTION_FILTER_SEPIA,
+    WINDOW_ACTION_RESETDIR,
     WINDOW_ACTION_SELECTDIR,
     WINDOW_ACTION_COPYTO,
     WINDOW_ACTION_MOVETO,
@@ -285,8 +287,15 @@ static EtkActionEntry _window_actions[] =
      NULL,
      G_CALLBACK(_window_filter_sepia)},
 
+    {WINDOW_ACTION_RESETDIR,
+     "<Actions>/AppWindow/ResetDir", "F6",
+     0, NULL,
+     NULL,
+     NULL,
+     G_CALLBACK(_window_action_resetdir)},
+
     {WINDOW_ACTION_SELECTDIR,
-     "<Actions>/AppWindow/SelectDir", "F6",
+     "<Actions>/AppWindow/SelectDir", "",
      ETK_MENU_ITEM, N_("Directory..."),
      N_("Select directory..."),
      NULL,
@@ -1820,6 +1829,20 @@ static void _window_action_reload(VnrWindow *window, GtkWidget *widget)
 
     if (window_load_file(window))
         _window_set_monitor(window, window->filelist);
+}
+
+static void _window_action_resetdir(VnrWindow *window, GtkWidget *widget)
+{
+    g_return_if_fail(window != NULL);
+    (void) widget;
+
+    if (window_get_current_file(window) == NULL
+        || window->mode != WINDOW_MODE_NORMAL)
+        return;
+
+    g_free(window->destdir);
+
+    window->destdir = NULL;
 }
 
 static void _window_action_selectdir(VnrWindow *window, GtkWidget *widget)
