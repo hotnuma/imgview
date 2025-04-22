@@ -123,7 +123,8 @@ gboolean uni_dragger_button_press(UniDragger *dragger, GdkEventButton *event)
     return TRUE;
 }
 
-static void _uni_dragger_grab_pointer(UniDragger *dragger, GdkEventButton *event)
+static void _uni_dragger_grab_pointer(UniDragger *dragger,
+                                      GdkEventButton *event)
 {
     if (event->button != 1)
         return;
@@ -176,6 +177,7 @@ gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
 
     GtkAdjustment *vadj = uni_image_view_get_vadjustment(
                 UNI_IMAGE_VIEW(dragger->view));
+
     GtkAdjustment *hadj = uni_image_view_get_hadjustment(
                 UNI_IMAGE_VIEW(dragger->view));
 
@@ -210,7 +212,8 @@ gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event)
 
     // move image...
     uni_image_view_set_offset(UNI_IMAGE_VIEW(dragger->view),
-                              offset_x, offset_y, uni_is_wayland());
+                              offset_x, offset_y,
+                              uni_is_wayland());
 
     dragger->drag_base_x = dragger->drag_ofs_x;
     dragger->drag_base_y = dragger->drag_ofs_y;
@@ -230,6 +233,9 @@ static void _uni_dragger_get_drag_delta(UniDragger *dragger, int *x, int *y)
 void uni_dragger_pixbuf_changed(UniDragger *dragger, gboolean reset_fit,
                                 GdkRectangle *rect)
 {
+    (void) reset_fit;
+    (void) rect;
+
     uni_cache_invalidate(dragger->cache);
 }
 

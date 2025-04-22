@@ -24,14 +24,14 @@
 #define __UNI_EXIV2__H_
 
 #ifdef __cplusplus
-
 #include <exiv2/exiv2.hpp>
-
 extern "C"
 {
+
 #include <glib/gi18n.h>
 
-    typedef Exiv2::ExifData::const_iterator (*ExifDataFinder)(const Exiv2::ExifData &ed);
+    typedef Exiv2::ExifData::const_iterator
+            (*ExifDataFinder) (const Exiv2::ExifData &ed);
     typedef struct _ExifDataDictionary ExifDataDictionary;
     typedef struct _IptcDataDictionary IptcDataDictionary;
 
@@ -68,19 +68,20 @@ extern "C"
         {"Iptc.Application2.Copyright", _("Copyright")},
         {"Iptc.Application2.Byline", _("Author")}};
 
-#endif /* __cplusplus */
+#endif
 
-    void uni_read_exiv2_map(const char *uri,
-                            void (*callback)(const char *, const char *, void *),
-                            void *user_data);
+    void uni_read_exiv2_map(
+                    const char *uri,
+                    void (*callback) (const char *, const char *, void *),
+                    void *user_data);
 
     int uni_read_exiv2_to_cache(const char *uri);
     int uni_write_exiv2_from_cache(const char *uri);
 
 #ifdef __cplusplus
+}
+#endif
 
-} /* end extern "C" */
+#endif // __UNI_EXIV2__H_
 
-#endif /* __cplusplus */
 
-#endif /* __UNI_EXIV2__H_ */

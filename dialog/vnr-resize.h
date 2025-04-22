@@ -48,7 +48,7 @@ struct _VnrResize
 
 struct _VnrResizeClass
 {
-    GObjectClass __parent_class__;
+    GObjectClass __parent__;
 };
 
 GType vnr_resize_get_type() G_GNUC_CONST;

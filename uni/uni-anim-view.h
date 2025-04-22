@@ -29,6 +29,7 @@
 G_BEGIN_DECLS
 
 #define UNI_TYPE_ANIM_VIEW (uni_anim_view_get_type())
+
 #define UNI_ANIM_VIEW(obj) \
     (G_TYPE_CHECK_INSTANCE_CAST((obj), UNI_TYPE_ANIM_VIEW, UniAnimView))
 #define UNI_ANIM_VIEW_CLASS(klass) \

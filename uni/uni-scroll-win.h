@@ -60,7 +60,7 @@ struct _UniScrollWin
 
 struct _UniScrollWinClass
 {
-    GtkGridClass __parent_class__;
+    GtkGridClass __parent__;
 };
 
 GType uni_scroll_win_get_type() G_GNUC_CONST;

@@ -58,4 +58,6 @@ void uni_rectangle_get_rects_around(GdkRectangle *outer,
 
 VnrPrefsDesktop uni_detect_desktop_environment();
 
-#endif /* __UNI_UTILS_H__ */
+#endif // __UNI_UTILS_H__
+
+

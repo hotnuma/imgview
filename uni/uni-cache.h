@@ -72,7 +72,7 @@ struct _UniDrawOpts
  * fetched.
  *
  * This object is present purely to ensure optimal speed. A
- * #GtkIImageTool that is asked to redraw a part of the image view
+ * #GtkImageTool that is asked to redraw a part of the image view
  * widget could either do it by itself using gdk_pixbuf_scale() and
  * gdk_draw_pixbuf().
  **/

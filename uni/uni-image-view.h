@@ -28,6 +28,7 @@
 G_BEGIN_DECLS
 
 #define UNI_TYPE_IMAGE_VIEW (uni_image_view_get_type())
+
 #define UNI_IMAGE_VIEW(obj) \
     (G_TYPE_CHECK_INSTANCE_CAST((obj), UNI_TYPE_IMAGE_VIEW, UniImageView))
 #define UNI_IMAGE_VIEW_CLASS(klass) \
@@ -74,7 +75,7 @@ struct _UniImageView
 
 struct _UniImageViewClass
 {
-    GtkWidgetClass __parent_class__;
+    GtkWidgetClass __parent__;
 
     // Keybinding signals.
     void (*set_zoom) (UniImageView *view, gdouble zoom);

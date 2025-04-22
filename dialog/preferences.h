@@ -114,10 +114,10 @@ struct _VnrPrefs
 
 struct _VnrPrefsClass
 {
-    GObjectClass parent_class;
+    GObjectClass __parent__;
 };
 
-GType vnr_prefs_get_type(void) G_GNUC_CONST;
+GType vnr_prefs_get_type() G_GNUC_CONST;
 
 GObject *vnr_prefs_new(GtkWidget *window);
 void vnr_prefs_dialog_run(VnrPrefs *prefs);

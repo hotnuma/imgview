@@ -62,7 +62,7 @@ struct _VnrCrop
 
 struct _VnrCropClass
 {
-    GObjectClass parent_class;
+    GObjectClass __parent__;
 };
 
 GType vnr_crop_get_type() G_GNUC_CONST;

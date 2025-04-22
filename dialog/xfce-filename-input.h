@@ -28,6 +28,7 @@ typedef struct _XfceFilenameInputClass XfceFilenameInputClass;
 typedef struct _XfceFilenameInput XfceFilenameInput;
 
 #define XFCE_TYPE_FILENAME_INPUT (xfce_filename_input_get_type())
+
 #define XFCE_FILENAME_INPUT(obj) \
     (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_FILENAME_INPUT, XfceFilenameInput))
 #define XFCE_IS_FILENAME_INPUT(obj) \
