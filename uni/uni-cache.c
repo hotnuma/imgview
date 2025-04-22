@@ -80,7 +80,7 @@ int dst_y)
 }
 
 /**
- * uni_pixbuf_draw_cache_get_method:
+ * uni_cache_get_method:
  * @old: the last draw options used
  * @new_: the current draw options
  * @returns: the best draw method to use to draw
@@ -89,33 +89,35 @@ int dst_y)
  * @last_opts is assumed to be the last #PixbufDrawOpts used and
  * @new_opts is the one to use this time.
  **/
-UniPixbufDrawMethod uni_pixbuf_draw_cache_get_method(UniPixbufDrawOpts *old,
-                                 UniPixbufDrawOpts *new_)
+UniDrawMethod uni_cache_get_method(UniDrawOpts *old_opts,
+                                   UniDrawOpts *new_opts)
 {
-    if (new_->zoom != old->zoom ||
-        new_->interp != old->interp || new_->pixbuf != old->pixbuf)
+    if (new_opts->zoom != old_opts->zoom
+        || new_opts->interp != old_opts->interp
+        || new_opts->pixbuf != old_opts->pixbuf)
     {
-        return UNI_PIXBUF_DRAW_METHOD_SCALE;
+        return UNI_DRAW_METHOD_SCALE;
     }
-    else if (uni_rectangle_contains_rect(old->zoom_rect, new_->zoom_rect))
+    else if (uni_rectangle_contains_rect(old_opts->zoom_rect,
+                                         new_opts->zoom_rect))
     {
-        return UNI_PIXBUF_DRAW_METHOD_CONTAINS;
+        return UNI_DRAW_METHOD_CONTAINS;
     }
     else
     {
-        return UNI_PIXBUF_DRAW_METHOD_SCROLL;
+        return UNI_DRAW_METHOD_SCROLL;
     }
 }
 
 /**
- * uni_pixbuf_draw_cache_new:
- * @returns: a new #UniPixbufDrawCache
+ * uni_cache_new:
+ * @returns: a new #UniDrawCache
  *
  * Creates a new pixbuf draw cache.
  **/
-UniPixbufDrawCache* uni_pixbuf_draw_cache_new()
+UniDrawCache* uni_cache_new()
 {
-    UniPixbufDrawCache *cache = g_new0(UniPixbufDrawCache, 1);
+    UniDrawCache *cache = g_new0(UniDrawCache, 1);
     cache->last_pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, FALSE, 8, 1, 1);
     cache->check_size = 16;
 
@@ -133,24 +135,24 @@ UniPixbufDrawCache* uni_pixbuf_draw_cache_new()
 }
 
 /**
- * uni_pixbuf_draw_cache_free:
- * @cache: a #UniPixbufDrawCache
+ * uni_cache_free:
+ * @cache: a #UniDrawCache
  *
  * Deallocates a pixbuf draw cache and all its data.
  **/
-void uni_pixbuf_draw_cache_free(UniPixbufDrawCache *cache)
+void uni_cache_free(UniDrawCache *cache)
 {
     g_object_unref(cache->last_pixbuf);
     g_free(cache);
 }
 
 /**
- * uni_pixbuf_draw_cache_invalidate:
- * @cache: a #UniPixbufDrawCache
+ * uni_cache_invalidate:
+ * @cache: a #UniDrawCache
  *
  * Force the pixbuf draw cache to scale the pixbuf at the next draw.
  *
- * UniPixbufDrawCache tries to minimize the number of scale operations
+ * UniDrawCache tries to minimize the number of scale operations
  * needed by caching the last drawn pixbuf. It would be inefficient to
  * check the individual pixels inside the pixbuf so it assumes that if
  * the memory address of the pixbuf has not changed, then the cache is
@@ -159,14 +161,14 @@ void uni_pixbuf_draw_cache_free(UniPixbufDrawCache *cache)
  * However, when the image data is modified, this assumtion breaks,
  * which is why this method must be used to tell draw cache about it.
  **/
-void uni_pixbuf_draw_cache_invalidate(UniPixbufDrawCache *cache)
+void uni_cache_invalidate(UniDrawCache *cache)
 {
     // Set the cached zoom to a bogus value, to force a DRAW_FLAGS_SCALE.
 
     cache->old.zoom = -1234.0;
 }
 
-static GdkPixbuf* uni_pixbuf_draw_cache_scroll_intersection(GdkPixbuf *pixbuf,
+static GdkPixbuf* uni_cache_scroll_intersection(GdkPixbuf *pixbuf,
                                                             int new_width,
                                                             int new_height,
                                                             int src_x,
@@ -206,14 +208,14 @@ static GdkPixbuf* uni_pixbuf_draw_cache_scroll_intersection(GdkPixbuf *pixbuf,
 }
 
 /**
- * uni_pixbuf_draw_cache_intersect_draw:
+ * uni_cache_intersect_draw:
  *
  * Updates the cache by first scrolling the still valid area in the
  * cache. Then the newly exposed areas in the cache is sampled from
  * the pixbuf.
  **/
-static void uni_pixbuf_draw_cache_intersect_draw(UniPixbufDrawCache *cache,
-                                     UniPixbufDrawOpts *opts)
+static void uni_cache_intersect_draw(UniDrawCache *cache,
+                                     UniDrawOpts *opts)
 {
     GdkRectangle this = opts->zoom_rect;
     GdkRectangle old_rect = cache->old.zoom_rect;
@@ -231,7 +233,7 @@ static void uni_pixbuf_draw_cache_intersect_draw(UniPixbufDrawCache *cache,
         uni_rectangle_get_rects_around(&this, &inter, around);
 
     cache->last_pixbuf =
-        uni_pixbuf_draw_cache_scroll_intersection(cache->last_pixbuf,
+        uni_cache_scroll_intersection(cache->last_pixbuf,
                                                   this.width,
                                                   this.height,
                                                   inter.x - old_rect.x,
@@ -258,32 +260,32 @@ static void uni_pixbuf_draw_cache_intersect_draw(UniPixbufDrawCache *cache,
 }
 
 /**
- * uni_pixbuf_draw_cache_draw:
- * @cache: a #UniPixbufDrawCache
- * @opts: the #UniPixbufDrawOpts to use in this draw
+ * uni_cache_draw:
+ * @cache: a #UniDrawCache
+ * @opts: the #UniDrawOpts to use in this draw
  * @cr: a #cairo_t to draw with
  *
  * Redraws the area specified in the pixbuf draw options in an
  * efficient way by using caching.
  **/
-void uni_pixbuf_draw_cache_draw(UniPixbufDrawCache *cache,
-                                UniPixbufDrawOpts *opts, cairo_t *cr)
+void uni_cache_draw(UniDrawCache *cache,
+                                UniDrawOpts *opts, cairo_t *cr)
 {
     GdkRectangle this = opts->zoom_rect;
-    UniPixbufDrawMethod method =
-        uni_pixbuf_draw_cache_get_method(&cache->old, opts);
+    UniDrawMethod method =
+        uni_cache_get_method(&cache->old, opts);
     int deltax = 0;
     int deltay = 0;
-    if (method == UNI_PIXBUF_DRAW_METHOD_CONTAINS)
+    if (method == UNI_DRAW_METHOD_CONTAINS)
     {
         deltax = this.x - cache->old.zoom_rect.x;
         deltay = this.y - cache->old.zoom_rect.y;
     }
-    else if (method == UNI_PIXBUF_DRAW_METHOD_SCROLL)
+    else if (method == UNI_DRAW_METHOD_SCROLL)
     {
-        uni_pixbuf_draw_cache_intersect_draw(cache, opts);
+        uni_cache_intersect_draw(cache, opts);
     }
-    else if (method == UNI_PIXBUF_DRAW_METHOD_SCALE)
+    else if (method == UNI_DRAW_METHOD_SCALE)
     {
         int last_width = gdk_pixbuf_get_width(cache->last_pixbuf);
         int last_height = gdk_pixbuf_get_height(cache->last_pixbuf);
@@ -322,7 +324,7 @@ void uni_pixbuf_draw_cache_draw(UniPixbufDrawCache *cache,
     cairo_paint(cr);
     cairo_restore(cr);
     g_object_unref(subpixbuf);
-    if (method != UNI_PIXBUF_DRAW_METHOD_CONTAINS)
+    if (method != UNI_DRAW_METHOD_CONTAINS)
         cache->old = *opts;
 }
 

@@ -23,9 +23,8 @@
 #ifndef __UNI_TOOL_DRAGGER_H__
 #define __UNI_TOOL_DRAGGER_H__
 
-#include <gtk/gtk.h>
-#include <gdk/gdk.h>
 #include "uni-cache.h"
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
@@ -50,7 +49,7 @@ struct _UniDragger
     GObject __parent__;
 
     GtkWidget *view;
-    UniPixbufDrawCache *cache;
+    UniDrawCache *cache;
 
     gboolean pressed;
     gboolean dragging;
@@ -82,7 +81,7 @@ gboolean uni_dragger_motion_notify(UniDragger *dragger, GdkEventMotion *event);
 
 void uni_dragger_pixbuf_changed(UniDragger *dragger, gboolean reset_fit,
                                 GdkRectangle *rect);
-void uni_dragger_paint_image(UniDragger *dragger, UniPixbufDrawOpts *opts,
+void uni_dragger_paint_image(UniDragger *dragger, UniDrawOpts *opts,
                              cairo_t *cr);
 
 G_END_DECLS

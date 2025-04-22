@@ -24,13 +24,15 @@
 #include "uni-image-view.h"
 
 #include "uni-dragger.h"
-#include "uni-dragger.h"
 #include "uni-anim-view.h"
 #include "uni-marshal.h"
-#include "uni-zoom.h"
 #include "uni-utils.h"
 #include "window.h"
 #include <math.h>
+
+#define UNI_ZOOM_MIN    0.02
+#define UNI_ZOOM_MAX    20.0
+#define UNI_ZOOM_STEP   1.1
 
 // clang-format off
 #define g_signal_handlers_disconnect_by_data(instance, data) \
@@ -234,11 +236,14 @@ static void uni_image_view_class_init(UniImageViewClass *klass)
 
     // Set fitting
     gtk_binding_entry_add_signal(binding_set, GDK_KEY_f, 0,
-                                 "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
+                                 "set_fitting", 1,
+                                 G_TYPE_ENUM, UNI_FITTING_FULL);
     gtk_binding_entry_add_signal(binding_set, GDK_KEY_0, 0,
-                                 "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
+                                 "set_fitting", 1,
+                                 G_TYPE_ENUM, UNI_FITTING_FULL);
     gtk_binding_entry_add_signal(binding_set, GDK_KEY_KP_0, 0,
-                                 "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
+                                 "set_fitting", 1,
+                                 G_TYPE_ENUM, UNI_FITTING_FULL);
 
     // Unmodified scrolling
     gtk_binding_entry_add_signal(binding_set, GDK_KEY_Right, 0,
@@ -791,7 +796,7 @@ static int _uni_image_view_repaint_area(UniImageView *view,
                    (gdouble)image_area.y) +
                   0.5);
 
-        UniPixbufDrawOpts opts;
+        UniDrawOpts opts;
 
         opts.zoom = view->zoom;
         opts.zoom_rect.x = src_x;

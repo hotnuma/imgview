@@ -2,7 +2,6 @@
 #define LIST_H
 
 #include "file.h"
-#include <glib.h>
 
 G_BEGIN_DECLS
 

@@ -31,7 +31,6 @@ HEADERS = \
     uni/uni-image-view.h \
     uni/uni-scroll-win.h \
     uni/uni-utils.h \
-    uni/uni-zoom.h \
     config.h.in \
     file.h \
     list.h \

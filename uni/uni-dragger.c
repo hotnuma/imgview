@@ -30,7 +30,8 @@
 static void uni_dragger_finalize(GObject *object);
 static void uni_dragger_set_property(GObject *object, guint prop_id,
                                      const GValue *value, GParamSpec *pspec);
-static void _uni_dragger_grab_pointer(UniDragger *dragger, GdkEventButton *event);
+static void _uni_dragger_grab_pointer(UniDragger *dragger,
+                                      GdkEventButton *event);
 static void _uni_dragger_get_drag_delta(UniDragger *dragger, int *x, int *y);
 
 static GtkTargetEntry target_table[] =
@@ -74,7 +75,7 @@ static void uni_dragger_class_init(UniDraggerClass *klass)
 
 static void uni_dragger_init(UniDragger *dragger)
 {
-    dragger->cache = uni_pixbuf_draw_cache_new();
+    dragger->cache = uni_cache_new();
 
     dragger->grab_cursor = gdk_cursor_new_for_display(
                                 gdk_display_get_default(), GDK_FLEUR);
@@ -94,7 +95,7 @@ static void uni_dragger_set_property(GObject *object, guint prop_id,
 static void uni_dragger_finalize(GObject *object)
 {
     UniDragger *dragger = UNI_DRAGGER(object);
-    uni_pixbuf_draw_cache_free(dragger->cache);
+    uni_cache_free(dragger->cache);
 
     if (dragger->grab_cursor)
     {
@@ -229,13 +230,13 @@ static void _uni_dragger_get_drag_delta(UniDragger *dragger, int *x, int *y)
 void uni_dragger_pixbuf_changed(UniDragger *dragger, gboolean reset_fit,
                                 GdkRectangle *rect)
 {
-    uni_pixbuf_draw_cache_invalidate(dragger->cache);
+    uni_cache_invalidate(dragger->cache);
 }
 
-void uni_dragger_paint_image(UniDragger *dragger, UniPixbufDrawOpts *opts,
+void uni_dragger_paint_image(UniDragger *dragger, UniDrawOpts *opts,
                              cairo_t *cr)
 {
-    uni_pixbuf_draw_cache_draw(dragger->cache, opts, cr);
+    uni_cache_draw(dragger->cache, opts, cr);
 }
 
 

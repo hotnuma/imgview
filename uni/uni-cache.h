@@ -25,25 +25,25 @@
 
 #include <gdk/gdk.h>
 
-typedef struct _UniPixbufDrawOpts UniPixbufDrawOpts;
-typedef struct _UniPixbufDrawCache UniPixbufDrawCache;
+typedef struct _UniDrawCache UniDrawCache;
+typedef struct _UniDrawOpts UniDrawOpts;
 
 typedef enum
 {
-    UNI_PIXBUF_DRAW_METHOD_SCALE = 0,
-    UNI_PIXBUF_DRAW_METHOD_CONTAINS = 1,
-    UNI_PIXBUF_DRAW_METHOD_SCROLL = 2
+    UNI_DRAW_METHOD_SCALE = 0,
+    UNI_DRAW_METHOD_CONTAINS = 1,
+    UNI_DRAW_METHOD_SCROLL = 2
 
-} UniPixbufDrawMethod;
+} UniDrawMethod;
 
 /**
- * UniPixbufDrawOpts:
+ * UniDrawOpts:
  *
  * Struct which holds options for how the pixbuf should be
  * drawn. Options include such things like the source rectangle in the
  * pixbuf to draw, where to draw it, which zoom to use and so on.
  **/
-struct _UniPixbufDrawOpts
+struct _UniDrawOpts
 {
     gdouble zoom;
 
@@ -59,7 +59,7 @@ struct _UniPixbufDrawOpts
 };
 
 /**
- * UniPixbufDrawCache:
+ * UniDrawCache:
  *
  * Cache that ensures fast redraws by storing the last draw
  * operation. For example, when resizing a #UniImageView, the view
@@ -76,23 +76,21 @@ struct _UniPixbufDrawOpts
  * widget could either do it by itself using gdk_pixbuf_scale() and
  * gdk_draw_pixbuf().
  **/
-struct _UniPixbufDrawCache
+struct _UniDrawCache
 {
     GdkPixbuf *last_pixbuf;
-    UniPixbufDrawOpts old;
+    UniDrawOpts old;
     int check_size;
 };
 
-UniPixbufDrawCache *uni_pixbuf_draw_cache_new(void);
-void uni_pixbuf_draw_cache_free(UniPixbufDrawCache *cache);
-void uni_pixbuf_draw_cache_invalidate(UniPixbufDrawCache *cache);
-void uni_pixbuf_draw_cache_draw(UniPixbufDrawCache *cache,
-                                UniPixbufDrawOpts *opts,
-                                cairo_t *cr);
+UniDrawCache *uni_cache_new();
+void uni_cache_free(UniDrawCache *cache);
+void uni_cache_invalidate(UniDrawCache *cache);
+void uni_cache_draw(UniDrawCache *cache, UniDrawOpts *opts, cairo_t *cr);
 
-UniPixbufDrawMethod uni_pixbuf_draw_cache_get_method(UniPixbufDrawOpts *old,
-                                                     UniPixbufDrawOpts *
-                                                         new_);
+UniDrawMethod uni_cache_get_method(UniDrawOpts *old_opts,
+                                   UniDrawOpts *new_opts);
+
 
 #endif // __UNI_CACHE_H__
 
