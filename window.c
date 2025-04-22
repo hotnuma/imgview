@@ -28,7 +28,7 @@
 #include "uni-exiv2.hpp"
 
 #include "message-area.h"
-#include "dialog.h"
+#include "dlg-file-rename.h"
 #include "vnr-crop.h"
 #include "vnr-properties.h"
 #include "vnr-resize.h"
@@ -2078,7 +2078,7 @@ static void _window_action_rename(VnrWindow *window, GtkWidget *widget)
     if (!current || window->mode != WINDOW_MODE_NORMAL)
         return;
 
-    gboolean result = dialog_file_rename(GTK_WINDOW(window), current);
+    gboolean result = dlg_file_rename(GTK_WINDOW(window), current);
 
     if (!result)
         return;

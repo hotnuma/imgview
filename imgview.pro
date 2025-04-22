@@ -14,7 +14,7 @@ PKGCONFIG += exiv2
 PKGCONFIG += tinyui
 
 HEADERS = \
-    dialog/dialog.h \
+    dialog/dlg-file-rename.h \
     dialog/message-area.h \
     dialog/preferences.h \
     dialog/vnr-crop.h \
@@ -38,7 +38,7 @@ HEADERS = \
     window.h \
 
 SOURCES = \
-    dialog/dialog.c \
+    dialog/dlg-file-rename.c \
     dialog/message-area.c \
     dialog/preferences.c \
     dialog/vnr-crop.c \

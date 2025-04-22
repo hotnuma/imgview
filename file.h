@@ -25,7 +25,7 @@
 G_BEGIN_DECLS
 
 
-// Mime types -----------------------------------------------------------------
+// mime types -----------------------------------------------------------------
 
 gboolean mime_type_is_supported(const char *mime_type);
 

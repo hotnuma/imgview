@@ -57,7 +57,7 @@ subdir('po')
 subdir('data')
 
 app_sources = [
-    'dialog/dialog.c',
+    'dialog/dlg-file-rename.c',
     'dialog/message-area.c',
     'dialog/preferences.c',
     'dialog/vnr-crop.c',

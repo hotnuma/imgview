@@ -3,7 +3,7 @@
  */
 
 #include "config.h"
-#include "dialog.h"
+#include "dlg-file-rename.h"
 
 #include "xfce-filename-input.h"
 
@@ -11,7 +11,7 @@ static void _dialog_select_filename(GtkWidget *entry, const gchar *filename);
 static inline gchar *_util_strrchr_offset(const gchar *str,
                                           const gchar *offset, gchar c);
 
-gboolean dialog_file_rename(GtkWindow *window, VnrFile *file)
+gboolean dlg_file_rename(GtkWindow *window, VnrFile *file)
 {
     gchar *filename = g_path_get_basename(file->path);
 

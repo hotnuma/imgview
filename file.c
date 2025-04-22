@@ -26,12 +26,12 @@
 #include <unistd.h>
 #include <errno.h>
 
-// Mime types
+// mime types
 GList *_supported_mime_types;
 static GList* _mime_types_get_supported();
 static gint _compare_quarks(gconstpointer a, gconstpointer b);
 
-// From libtinyc
+// from libtinyc
 static const char* path_sep(const char *path);
 static const char* path_ext(const char *path, bool first);
 static bool file_exists(const char *filepath);
@@ -40,7 +40,7 @@ static gchar* _file_get_copyname(const gchar *filepath);
 static int file_copy(const char *from, const char *to);
 
 
-// Mime types -----------------------------------------------------------------
+// mime types -----------------------------------------------------------------
 
 gboolean mime_type_is_supported(const char *mime_type)
 {
@@ -65,7 +65,7 @@ gboolean mime_type_is_supported(const char *mime_type)
 
 static GList* _mime_types_get_supported()
 {
-    // Modified version of eog's eog_image_get_supported_mime_types
+    // modified version of eog's eog_image_get_supported_mime_types
 
     GSList *format_list;
     GSList *it;
@@ -111,7 +111,7 @@ static gint _compare_quarks(gconstpointer a, gconstpointer b)
 }
 
 
-// From libtinyc --------------------------------------------------------------
+// from libtinyc --------------------------------------------------------------
 
 static const char* path_sep(const char *path)
 {
@@ -305,8 +305,6 @@ static void vnr_file_class_init(VnrFileClass *klass)
 
 static void vnr_file_init(VnrFile *file)
 {
-    //g_assert(file->display_name == NULL);
-    //file->display_name = NULL;
 }
 
 static void vnr_file_finalize(GObject *object)
@@ -334,12 +332,12 @@ VnrFile* vnr_file_new_for_path(const gchar *filepath, gboolean include_hidden)
 
     GFileInfo *fileinfo = g_file_query_info(
                             file,
-                            G_FILE_ATTRIBUTE_STANDARD_TYPE ","
-                            G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME ","
-                            G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
-                            G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE ","
-                            G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN ","
-                            G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                            G_FILE_ATTRIBUTE_STANDARD_TYPE
+                            "," G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME
+                            "," G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE
+                            "," G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE
+                            "," G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN
+                            "," G_FILE_ATTRIBUTE_TIME_MODIFIED,
                             0, NULL, NULL);
 
     if (fileinfo == NULL)
@@ -395,8 +393,7 @@ VnrFile* vnr_file_new_for_path(const gchar *filepath, gboolean include_hidden)
     return vnrfile;
 }
 
-void vnr_file_set_display_name(VnrFile *vnr_file,
-                                       const gchar *display_name)
+void vnr_file_set_display_name(VnrFile *vnr_file, const gchar *display_name)
 {
     g_free(vnr_file->display_name);
     vnr_file->display_name = g_strdup(display_name);
@@ -447,8 +444,8 @@ static gboolean _vnr_file_set_path(VnrFile *file, const gchar *filepath)
 
     GFileInfo *fileinfo = g_file_query_info(
         gfile,
-        G_FILE_ATTRIBUTE_STANDARD_TYPE ","
-        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+        G_FILE_ATTRIBUTE_STANDARD_TYPE
+        "," G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
         0, NULL, NULL);
 
     if (fileinfo == NULL)
