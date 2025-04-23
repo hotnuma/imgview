@@ -147,8 +147,6 @@ static void _uni_dragger_grab_pointer(UniDragger *dragger,
 
 gboolean uni_dragger_button_release(UniDragger *dragger, GdkEventButton *event)
 {
-    //printf("enter ungrab\n");
-
     GdkSeat *seat = gdk_display_get_default_seat(gdk_display_get_default());
     gdk_seat_ungrab(seat);
 
