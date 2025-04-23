@@ -23,29 +23,14 @@
 #ifndef __UNI_SCROLL_WIN_H__
 #define __UNI_SCROLL_WIN_H__
 
-#include <gdk/gdk.h>
-#include <gtk/gtk.h>
-
 #include "uni-image-view.h"
 
 G_BEGIN_DECLS
 
 #define UNI_TYPE_SCROLL_WIN (uni_scroll_win_get_type())
-
-#define UNI_SCROLL_WIN(obj) \
-    (G_TYPE_CHECK_INSTANCE_CAST((obj), UNI_TYPE_SCROLL_WIN, UniScrollWin))
-#define UNI_SCROLL_WIN_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), UNI_TYPE_SCROLL_WIN, UniScrollWinClass))
-#define UNI_IS_SCROLL_WIN(obj) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((obj), UNI_TYPE_SCROLL_WIN))
-#define UNI_IS_SCROLL_WIN_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), UNI_TYPE_SCROLL_WIN))
-#define UNI_SCROLL_WIN_GET_CLASS(obj) \
-    (G_TYPE_CHECK_INSTANCE_GET_CLASS((obj), UNI_TYPE_SCROLL_WIN, \
-                                     UniScrollWinClass))
+G_DECLARE_FINAL_TYPE(UniScrollWin, uni_scroll_win, UNI, SCROLL_WIN, GtkGrid)
 
 typedef struct _UniScrollWin UniScrollWin;
-typedef struct _UniScrollWinClass UniScrollWinClass;
 
 struct _UniScrollWin
 {
@@ -58,10 +43,6 @@ struct _UniScrollWin
     gboolean show_scrollbar;
 };
 
-struct _UniScrollWinClass
-{
-    GtkGridClass __parent__;
-};
 
 GType uni_scroll_win_get_type() G_GNUC_CONST;
 

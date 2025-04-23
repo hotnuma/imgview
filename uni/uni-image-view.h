@@ -96,34 +96,32 @@ struct _UniImageViewClass
 
 GType uni_image_view_get_type() G_GNUC_CONST;
 
-// Constructors
-GtkWidget *uni_image_view_new();
+// constructors
+GtkWidget* uni_image_view_new();
 
-// Read-only properties
+// read-only properties
 gboolean uni_image_view_get_viewport(UniImageView *view, GdkRectangle *rect);
 
 gboolean uni_image_view_get_draw_rect(UniImageView *view, GdkRectangle *rect);
 
-// Write-only properties
+// write-only properties
 void uni_image_view_set_offset(UniImageView *view, gdouble x, gdouble y,
                                gboolean invalidate);
 
-// Read-write properties
+// read-write properties
 void uni_image_view_set_fitting(UniImageView *view, UniFittingMode fitting);
-
-GdkPixbuf *uni_image_view_get_pixbuf(UniImageView *view);
+GdkPixbuf* uni_image_view_get_pixbuf(UniImageView *view);
 void uni_image_view_set_pixbuf(UniImageView *view, GdkPixbuf *pixbuf,
                                gboolean reset_fit);
-
 void uni_image_view_set_zoom(UniImageView *view, gdouble zoom);
 void uni_image_view_set_zoom_mode(UniImageView *view, VnrPrefsZoom mode);
 
-// Actions
+// actions
 void uni_image_view_zoom_in(UniImageView *view);
 void uni_image_view_zoom_out(UniImageView *view);
 void uni_image_view_damage_pixels(UniImageView *view, GdkRectangle *rect);
-GtkAdjustment *uni_image_view_get_vadjustment(UniImageView *view);
-GtkAdjustment *uni_image_view_get_hadjustment(UniImageView *view);
+GtkAdjustment* uni_image_view_get_vadjustment(UniImageView *view);
+GtkAdjustment* uni_image_view_get_hadjustment(UniImageView *view);
 void uni_image_view_set_vadjustment(UniImageView *view, GtkAdjustment *vadj);
 void uni_image_view_set_hadjustment(UniImageView *view, GtkAdjustment *hadj);
 
