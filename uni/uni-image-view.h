@@ -62,7 +62,7 @@ struct _UniImageView
     GdkPixbuf *pixbuf;
     gdouble zoom;
 
-    // Offset in zoom space coordinates of the image area in the widget.
+    // offset in zoom space coordinates of the image area in the widget.
     gdouble offset_x;
     gdouble offset_y;
 
@@ -70,14 +70,14 @@ struct _UniImageView
     GdkCursor *void_cursor;
     UniImageViewPrivate *priv;
 
-    GObject *tool;
+    GObject *dragger;
 };
 
 struct _UniImageViewClass
 {
     GtkWidgetClass __parent__;
 
-    // Keybinding signals.
+    // keybinding signals
     void (*set_zoom) (UniImageView *view, gdouble zoom);
     void (*zoom_in) (UniImageView *view);
     void (*zoom_out) (UniImageView *view);
@@ -86,7 +86,7 @@ struct _UniImageViewClass
     void (*scroll) (UniImageView *view,
                     GtkScrollType xscroll, GtkScrollType yscroll);
 
-    // Non-keybinding signals.
+    // non-keybinding signals
     void (*set_scroll_adjustments) (UniImageView *view,
                                     GtkAdjustment *hadj,
                                     GtkAdjustment *vadj);
@@ -101,7 +101,6 @@ GtkWidget* uni_image_view_new();
 
 // read-only properties
 gboolean uni_image_view_get_viewport(UniImageView *view, GdkRectangle *rect);
-
 gboolean uni_image_view_get_draw_rect(UniImageView *view, GdkRectangle *rect);
 
 // write-only properties

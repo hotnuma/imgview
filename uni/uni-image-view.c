@@ -382,7 +382,7 @@ static void uni_image_view_init(UniImageView *view)
     view->is_rendering = FALSE;
     view->show_cursor = TRUE;
     view->void_cursor = NULL;
-    view->tool = G_OBJECT(uni_dragger_new((GtkWidget *)view));
+    view->dragger = G_OBJECT(uni_dragger_new((GtkWidget*) view));
 
     view->priv =
         (UniImageViewPrivate*) g_type_instance_get_private(
@@ -550,7 +550,7 @@ static void uni_image_view_finalize(GObject *object)
         g_object_unref(view->pixbuf);
         view->pixbuf = NULL;
     }
-    g_object_unref(view->tool);
+    g_object_unref(view->dragger);
     // Chain up.
     G_OBJECT_CLASS(uni_image_view_parent_class)->finalize(object);
 }
@@ -634,12 +634,16 @@ static void _uni_image_view_update_adjustments(UniImageView *view)
                              alloc.height);
 
     // https://docs.gtk.org/gtk3/method.Adjustment.changed.html
-    //g_signal_handlers_block_by_data(G_OBJECT(view->priv->hadjustment), view);
-    //g_signal_handlers_block_by_data(G_OBJECT(view->priv->vadjustment), view);
+    //g_signal_handlers_block_by_data(
+    //      G_OBJECT(view->priv->hadjustment), view);
+    //g_signal_handlers_block_by_data(
+    //      G_OBJECT(view->priv->vadjustment), view);
     //gtk_adjustment_changed(view->priv->hadjustment);
     //gtk_adjustment_changed(view->priv->vadjustment);
-    //g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->hadjustment), view);
-    //g_signal_handlers_unblock_by_data(G_OBJECT(view->priv->vadjustment), view);
+    //g_signal_handlers_unblock_by_data(
+    //      G_OBJECT(view->priv->hadjustment), view);
+    //g_signal_handlers_unblock_by_data(
+    //      G_OBJECT(view->priv->vadjustment), view);
 }
 
 static void _uni_image_view_zoom_to_fit(UniImageView *view,
@@ -692,19 +696,22 @@ static Size _uni_image_view_get_allocated_size(UniImageView *view)
 {
     GtkAllocation allocation;
     gtk_widget_get_allocation(GTK_WIDGET(view), &allocation);
+
     Size size = {
         .width = allocation.width,
         .height = allocation.height};
+
     return size;
 }
 
 static void _uni_image_view_set_zoom_with_center(UniImageView *view,
-                                    gdouble zoom,
-                                    gdouble center_x,
-                                    gdouble center_y, gboolean is_allocating)
+                                                 gdouble zoom,
+                                                 gdouble center_x,
+                                                 gdouble center_y,
+                                                 gboolean is_allocating)
 {
-    // This method must only be used by uni_image_view_zoom_to_fit () and
-    // uni_image_view_set_zoom ().
+    // this method must only be used by uni_image_view_zoom_to_fit()
+    // and uni_image_view_set_zoom()
 
     gdouble zoom_ratio = zoom / view->zoom;
 
@@ -740,8 +747,10 @@ static void _uni_image_view_set_zoom_with_center(UniImageView *view,
 static Size _uni_image_view_get_zoomed_size(UniImageView *view)
 {
     Size size = _uni_image_view_get_pixbuf_size(view);
-    size.width = (int)(size.width * view->zoom + 0.5);
-    size.height = (int)(size.height * view->zoom + 0.5);
+
+    size.width = (int) (size.width * view->zoom + 0.5);
+    size.height = (int) (size.height * view->zoom + 0.5);
+
     return size;
 }
 
@@ -751,6 +760,7 @@ static int widget_draw(GtkWidget *widget, cairo_t *cr)
 
     GtkAllocation allocation;
     gtk_widget_get_allocation(scrollwin, &allocation);
+
     allocation.x = 0;
     allocation.y = 0;
 
@@ -813,7 +823,7 @@ static int _uni_image_view_repaint_area(UniImageView *view,
         opts.interp = view->interp;
         opts.pixbuf = view->pixbuf;
 
-        uni_dragger_paint_image(UNI_DRAGGER(view->tool), &opts, cr);
+        uni_dragger_paint_image(UNI_DRAGGER(view->dragger), &opts, cr);
     }
 
     view->is_rendering = FALSE;
@@ -822,9 +832,9 @@ static int _uni_image_view_repaint_area(UniImageView *view,
 }
 
 static void _uni_image_view_draw_background(UniImageView *view,
-                                           GdkRectangle *image_area,
-                                           Size alloc,
-                                           cairo_t *cr)
+                                            GdkRectangle *image_area,
+                                            Size alloc,
+                                            cairo_t *cr)
 {
     cairo_save(cr);
 
@@ -887,7 +897,7 @@ static int widget_button_press(GtkWidget *widget, GdkEventButton *event)
     }
     else if (event->type == GDK_BUTTON_PRESS && event->button == 1)
     {
-        return uni_dragger_button_press(UNI_DRAGGER(view->tool), event);
+        return uni_dragger_button_press(UNI_DRAGGER(view->dragger), event);
     }
     else if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
     {
@@ -922,7 +932,7 @@ static int widget_button_release(GtkWidget *widget, GdkEventButton *ev)
 {
     UniImageView *view = UNI_IMAGE_VIEW(widget);
 
-    return uni_dragger_button_release(UNI_DRAGGER(view->tool), ev);
+    return uni_dragger_button_release(UNI_DRAGGER(view->dragger), ev);
 }
 
 static int widget_motion_notify(GtkWidget *widget, GdkEventMotion *ev)
@@ -932,7 +942,7 @@ static int widget_motion_notify(GtkWidget *widget, GdkEventMotion *ev)
     if (view->is_rendering)
         return FALSE;
 
-    return uni_dragger_motion_notify(UNI_DRAGGER(view->tool), ev);
+    return uni_dragger_motion_notify(UNI_DRAGGER(view->dragger), ev);
 }
 
 static int widget_scroll_event(GtkWidget *widget, GdkEventScroll *ev)
@@ -1570,7 +1580,7 @@ void uni_image_view_set_pixbuf(UniImageView *view,
     g_signal_emit(G_OBJECT(view),
                   uni_image_view_signals[PIXBUF_CHANGED], 0);
 
-    uni_dragger_pixbuf_changed(UNI_DRAGGER(view->tool), reset_fit, NULL);
+    uni_dragger_pixbuf_changed(UNI_DRAGGER(view->dragger), reset_fit, NULL);
 }
 
 void uni_image_view_set_zoom_mode(UniImageView *view, VnrPrefsZoom mode)
